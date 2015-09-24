@@ -1,2 +1,41 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
+
+$\cK \subset \R^d$: domain, convex, closed, non-emtpy.
+
+Interaction with the oracle + diagrams
+
+Definitions of oracles
+
+\begin{definition}
+Input is $x\in \cK,\delta>0$,
+$f\in \cF$ ($f$ coming from the environment, others from the algorithm).
+Output is $Y\in \cK$,$G\in \R^d$, $G$ is random.
+
+$\norm{x-Y}\le \delta$, 
+$\norm{ \EE{G}  - \nabla f(x)  }_* \le C_1 \delta^p$.
+$\EE{\norm{ G -  \EE{G} }_*^2} \le C_2 \delta^{-q}$,
+
+Meaning of $Y$: the function is evaluated at $Y$. This will matter only for the online case, when we consider the cumulative regret.
+\end{definition}
+
+Next one:
+
+\begin{definition}
+Input is $x\in \cK,\delta>0$,
+$f\in \cF$ ($f$ coming from the environment, others from the algorithm).
+Output is $Y\in \cK$,$G\in \R^d$, $G$ is random.
+
+$\norm{x-Y}\le \delta$, 
+
+Also: there exists $\tilde{f} \in \cF$ such that 
+$\norm{\tilde{f}- f}_\infty \le C_1 \delta^p$ (bias)
+$\EE{G}  = \nabla \tilde{f}(x)$,
+$\EE{\norm{ G -  \EE{G} }_*^2} \le C_2 \delta^{-q}$,
+
+\end{definition}
+
+alternative to bias condition for second definition:
+\begin{align}
+\norm{\nabla \tilde{f}- \nabla f}_\infty \le C_1 \delta^p
+\end{align}
