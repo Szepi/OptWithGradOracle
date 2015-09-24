@@ -1,2 +1,12 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
+
+What is the problem? (New problem: Convex Optimization with Biased Gradient Oracles)
+What are the results? Matching lower and upper bounds (several oracle models and relation between them; cumulative regret and optimization error (aka simple regret) and relation between them -- this is mostly known; we consider both constrained, unconstrained)
+Why should we care? 
+Reason 1: For bandit convex optimization we can construct these oracles and reduce to this problem.
+Reason 2: Previous practical attempts for bandit convex optimization are all centered around such gradient estimates.
+((some issues with whether you can cancel the noise; we assume you cannot))
+
+Main message: Everyone was trying to get better rates with these algorithms (e.g., open question whether in the smooth case you can get better rates for these algorithms -- now we see this is not possible).
+
