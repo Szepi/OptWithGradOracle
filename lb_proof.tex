@@ -4,6 +4,7 @@
 \label{sec:lb-proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
+For brevity, let $\Delta_n^*$ denote $\Delta_n^*(\F, c_1,c_2)$.
 The proof uses only $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK$ to $\R$ (i.e., the oracles do not have memory).
 Fix a  $(c_1,c_2)$ Type-I oracle $\gamma$ and an algorithm $\A$.
 We restrict the class of oracles to those that return a random gradient estimate $G = m(x) + \xi$ with some map $m: \cK \to \R$,
@@ -56,7 +57,7 @@ The minimax error \eqref{eq:minimax-err} is lower bounded by
 %\footnote{$f_{+1} \equiv f_+$ and $f_{-1}\equiv f_-$.}:
 \begin{align}
 \MoveEqLeft 
-\Delta_n(\F, c_1,c_2) %\nonumber\\
+\Delta_n^* %\nonumber\\
   \ge  \inf_{\A} \,  \E[f_V(\hat X_n) - \inf_{x \in X}
   f_V(x)],\label{eq:avg-bd}
   \end{align}
@@ -67,7 +68,7 @@ for brevity this dependence will be also suppressed.}
 %Here $\gamma_v$  is the oracle for $f_v$, for $v=+1,-1$ and is defined by $\gamma_v(x) = \epsilon(x-v) + v C_1 \delta^p$. 
 Using \eqref{eq:fv-lb}, we obtain
 \begin{align}
-\Delta_n(\F, \sigma^2)  \ge & \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \label{eq:strong-convex-bd}\\
+\Delta_n^*  \ge & \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \label{eq:strong-convex-bd}\\
   = & \inf_{\A} \dfrac{\epsilon }{2} \, \left(\P_{+}(\hat X_n < 0) + \P_{-}(\hat X_n > 0)\right), \label{eq:Pplus}\\
   \ge &\inf_{\A} \dfrac{\epsilon }{2} \,\left(1 - \tvnorm{\P_{+}- \P_{-}}\right), \label{eq:lecam}\\
   \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker}
@@ -119,7 +120,7 @@ Note that the above bound holds uniformly over all algorithms $\A$.
 Substituting the above bound into \eqref{eq:pinsker}, we obtain 
 \todoc[inline]{This seems to assume that $\sqrt{ (\epsilon - C_1 \delta^p )^2 } = \epsilon - C_1 \delta^p$, which will only hold if $\epsilon$ is big compared to $C_1 \delta^p$. We will need to do a case analysis.}
 \begin{align}
- \Delta_n(\F, \sigma^2) 
+ \Delta_n^*
   \ge & \dfrac{\epsilon}{2} \left(1 - 2\sqrt{
     n}  \dfrac{|\epsilon-C_1\delta^p|\delta^{q/2}}{C_2}
   \right)\label{eq:final-lower-bd}
@@ -129,14 +130,22 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 \paragraph{Derivations of rates:}
  Optimizing over $\epsilon$ in \eqref{eq:final-lower-bd}, 
 \todoc{As said, this only works for $\epsilon$ large enough.} we get
- $$\epsilon^* = \left(\dfrac{\delta^{-q/2}C_2}{4\sqrt{n}} + \dfrac{C_1\delta^p}{2}\right).$$
+\[
+\epsilon^* = \left(\dfrac{\delta^{-q/2}C_2}{4\sqrt{n}} + \dfrac{C_1\delta^p}{2}\right).
+\]
 
  Plugging in $\epsilon^*$, we obtain
- $$\Delta_n(\F, \sigma^2) 
- \ge \left(\dfrac{\delta^{-q/2}C_2}{8\sqrt{n}} + \dfrac{C_1\delta^p}{4}\right) \left( \dfrac{1}{2} + \dfrac{\sqrt{n}C_1 \delta^{p + q/2}}{C_2} \right).$$
+ \[
+ \Delta_n^*
+ \ge \left(\dfrac{\delta^{-q/2}C_2}{8\sqrt{n}} + \dfrac{C_1\delta^p}{4}\right) \left( \dfrac{1}{2} + \dfrac{\sqrt{n}C_1 \delta^{p + q/2}}{C_2} \right).
+ \]
 
 Substituting $p=1$ and $q=2$  and optimizing over $\delta$, we obtain
-$$\Delta_n(\F, \sigma^2) \ge \dfrac{C_3}{ n^{1/4}} \text{ for some } C_3>0.$$
+\[
+\Delta_n^* \ge \dfrac{C_3}{ n^{1/4}} \text{ for some } C_3>0.
+\]
 
 On the other hand, substituting $p=q=2$, we obtain
-$$\Delta_n(\F, \sigma^2) \ge \dfrac{C_4}{ n^{1/3}} \text{ for some } C_4>0.$$
+\[
+\Delta_n^* \ge \dfrac{C_4}{ n^{1/3}} \text{ for some } C_4>0.
+\]
