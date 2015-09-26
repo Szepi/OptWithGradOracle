@@ -1,3 +1,164 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 \subsection{Proofs for the Lower Bound}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\paragraph{Minimax error:}
+Let $\F:= \{ f_v \mid v \in \V\}$ be a class of functions, $\Gamma(f_v)$ be the set of all oracles that returns biased and noisy gradient estimates for a given  function $f_v$, while satisfying the constraints on the bias and variance outlined earlier and $\A$ be any deterministic algorithm that obtains, from an oracle $\gamma \in \Gamma$, observations $G_1, \ldots, G_n$ at points $x_1, \ldots, x_n$. From the oracle model, we have 
+$G_i = g(x_i) + \xi_i$ for $i=1,\ldots,n$, where $g(\cdot)$ is an estimate of the gradient $f'(\cdot)$ that satisfies the bias and variance constraints outlined earlier and $\xi \sim \normal(0,\sigma^2)$. Also, the points $x_i, i=1,\ldots,n$ are chosen by a deterministic algorithm $\A$, i.e., 
+$x_i = \A_i(x_1, G_1, \ldots, x_{i-1}, G_{i-1})$. 
+\todoc[inline]{Justify deterministic algo}
+
+We define the minimax error $\Delta_n$ as follows:
+\begin{align}
+  \label{eq:minimax-err-lb}
+  \Delta_n(\F, \sigma^2) := \inf_{\A} \sup_{f_v \in \F} \sup_{\gamma \in \Gamma(f_v)} \E[f_v(\hat x_n) - \inf_{x \in X}
+  f_v(x)],
+\end{align}
+where $\hat x_n$ is the point returned by algorithm $\A$ and 
+the expectation is w.r.t. joint distribution  of the observations $(G_1, \ldots,
+G_n) \in \Omega$ and $v \in \V$.
+
+
+\paragraph{Joint distribution of observations:}
+Define the probability space $(\Omega, \B, P_{\A,\gamma,\sigma^2})$, where $\Omega = (\R\times \{-1,1\})^n$, $\B$ is the associated Borel sigma algebra. Further, the probability measure $P_{\A,\gamma,\sigma^2} := p_{\A,\gamma,\sigma^2} d(\lambda \times m)$, where $\gamma$ is the oracle in the family of oracles $\Gamma(f)$ for some given $f$, $\lambda$ is the Lebesgue measure on $\B$, $m$ is the counting measure on $\{-1,1\}$ and $p_{\A,\gamma,\sigma^2}$ is the density function defined as
+\begin{align*}
+&p_{\A,\gamma,\sigma^2}(g_1, \ldots, g_n, v) \\
+=& \dfrac{1}{2} \bigg(p_{\A,\gamma,\sigma^2}(g_n \mid g_1,\ldots,g_{n-1}) \\
+&\times p_{\A,\gamma,\sigma^2}(g_{n-1} \mid g_1,\ldots,g_{n-2}) \ldots p_{\A,\gamma,\sigma^2}(g_1)\bigg)\\
+ = & \dfrac{1}{2} \bigg( p_{\normal(0,\sigma^2)}(g_n - \gamma(\A_n(g_1,\ldots,g_{n-1})))\\
+ &\times p_{\normal(0,\sigma^2)}(g_{n-1} - \gamma(\A_n(g_1,\ldots,g_{n-2}))) \times \ldots \\
+ &\times  p_{\normal(0,\sigma^2)}(g_1 - \gamma(\A_1))\bigg),
+\end{align*}
+where $p_{\normal(0,\sigma^2)}$ is a density of $\normal(0,\sigma^2)$ distributed random variable.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\paragraph{The family $\F$:}
+
+We consider a class of functions $\F = \{f_+, f_-\}$, with 
+\begin{equation*}
+  f_+(x) := \dfrac{\epsilon}{2s} (x - s)^2 \text{ and } f_-(x) := \dfrac{\epsilon}{2s} (x + s)^2,
+\end{equation*}
+for any  $x \in X$, with $s>0$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+It is easy to see that $f_+$ (resp, $f_-$) is minimized at $x^*_+ = s$ (resp. $x^*_- = s$). 
+Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we can lower bound the difference in function values as follows:
+\begin{align}
+  f_+(x) - f_+(x^*_+)
+  \ge &  \dfrac{\epsilon}{2s} (x - s_+)^2 \ge  \dfrac{\epsilon s}{2}  \indic{x  < 0}. \label{eq:fv-lb}
+\end{align}
+Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon s}{2}  \indic{x  >0}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\paragraph{Main proof:}
+Let $\P:= \dfrac{1}{2} \left(P_{\A, \gamma_+, \sigma^2} + P_{\A, \gamma_-, \sigma^2}\right)$, where $\gamma_+$ and $\gamma_-$ are the oracles for $f_+$ and $f_-$, respectively.
+From the definition \eqref{eq:minimax-err} of the minimax error and the lower bound in \eqref{eq:fv-lb}, we obtain
+\begin{align}
+ &\Delta_n(\F, \sigma^2)\\
+  \ge & \inf_{\A} \sup_{f_v \in \F, v=\{+,-\}} \sup_{\gamma \in \Gamma(f_v)} \E[f_V(\hat x_n) - \inf_{x \in X}
+  f_V(x)]\label{eq:avg-bd}\\
+  \ge & \inf_{\A} \epsilon s  \P(\hat x V < 0), \label{eq:strong-convex-bd}\\
+  = & \inf_{\A} \epsilon s \sqrt{\dfrac{2}{d}} \sum_{j=1}^d \left(\P_{+j}(\hat x_j < 0) + \P_{-j}(\hat x_j > 0)\right), \label{eq:Pplus}\\
+  \ge &\inf_{\A} \epsilon s \sqrt{\dfrac{2}{d}} \sum_{j=1}^d \left(1 - \tvnorm{\P_{+j}- \P_{-j}}\right), \label{eq:lecam}\\
+  \ge &\inf_{\A} \epsilon s \sqrt{2d} \left( 1 - \left(\dfrac{1}d \sum_{j=1}^d \tvnorm{\P_{+j}- \P_{-j}}^2\right)^{\frac{1}{2}}\right), \label{eq:cs}\\
+  \ge &\inf_{\A} \epsilon s \sqrt{2d} \left( 1 - \left(\dfrac{2}d \sum_{j=1}^d \dkl{P_{+j}}{P_{-j}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker}
+\end{align}
+where 
+\begin{itemize}
+ \item the inequality in \eqref{eq:avg-bd} follows from the fact that the maximum over any set is greater than the average over the same set; 
+ \item the inequality in \eqref{eq:strong-convex-bd} follows from \eqref{eq:fv-lb};
+ \item the equality in \eqref{eq:Pplus} uses the definitions $\P_{+j}(\cdot) := \P(\cdot\mid V_j=1)$, $\P_{-j}(\cdot) := \P(\cdot\mid V_j=-1)$ and the fact that $\P = \frac{1}{2}\P_{+j} + \frac{1}{2}\P_{-j}$;
+ \item the inequality in \eqref{eq:lecam} follows from LeCam's inequality for total variation distance, which states that $P(S) + Q(S^c) \ge \left( 1 - \tvnorm{P-Q}\right)$ for any set $S$;
+ \item the inequality in \eqref{eq:cs} follows from by an application of Cauchy-Schwarz inequality to infer that$$\sum_{j=1}^d \tvnorm{\P_{+j}- \P_{-j}} \le \sqrt{d} \left(\sum_{j=1}^d \tvnorm{\P_{+j}- \P_{-j}}^2\right)^{\frac{1}{2}}$$
+ \item the inequality in \eqref{eq:pinsker} follows from Pinksker's inequality which states that $\tvnorm{P-Q}^2 \le 2 \dkl{P}{Q}$ for any probability measures $P$ and $Q$.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\paragraph{Upper-bounding the difference in gradient estimates:}
+
+For any $v,w \in \V$, we have
+\begin{align}
+ \norm{g_v(x) - g_w(x)} \le 2 \epsilon \sqrt{\dfrac{8}{d}} \norm{v - w} \le 4\epsilon\sqrt{2},    \label{eq:gdiff-ub}
+\end{align}
+where the last inequality uses the fact that $\norm{v - w} \le \sqrt d$ for any $v,w \in \V$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\paragraph{Calculating the KL-divergences:}
+Let $P_{v,+j}(\cdot) := \P(\cdot \mid V_j=1, V_k=v_k, k \ne j)$. Define $P_{v,-j}$ along similar lines and observe that 
+$P_{+j} = \dfrac1{N} \sum_{v\in\V} P_{v,+j}$ and $P_{-j} = \dfrac1{N} \sum_{v\in\V} P_{v,-j}$.
+
+\begin{align}
+  \dkl{P_{+j}}{P_{-j}} = & \dkl{\dfrac1{N} \sum_{v \in \V} P_{v,+j}}{\dfrac1{N} \sum_{v \in \V} P_{v,-j}} \nonumber\\ 
+  & \le \frac{1}{N}  \sum_{v \in \V}  \dkl{P_{v,+j}}{P_{v,-j}}, \label{eq:jie} 
+\end{align}  
+where the last inequality follows by applying Jensen's inequality as KL-divergence is convex on the domain of probability distributions.  
+
+Let $P_{v,+j}^t(\cdot\mid g_1,\ldots,g_{t-1})$ denote the distribution of the $t$th observation $G_t$ conditional on $V_j=1, V_k=v_k, k\ne j$ and $G_1=g_1,\ldots,G_{t-1}=g_{t-1}$. Define  $P_{v,-j}^t(\cdot\mid g_1,\ldots,g_{t-1})$ in a similar fashion.
+Then, by the chain rule for KL-divergences, we have
+\begin{align}
+&\dkl{P_{v,+j}}{P_{v,-j}}\nonumber\\ 
+&= \sum_{t=1}^n \int_{(\R^d)^{t-1}} \dkl{P_{v,+j}^t(\cdot\mid g_1,\ldots,g_{t-1})}{P_{v,-j}^t(\cdot\mid g_1,\ldots,g_{t-1})} d P_{v,+j}^t(\cdot\mid g_1,\ldots,g_{t-1}).\label{eq:dklchain}
+\end{align}
+Since the noise $\xi \sim \normal(0,\sigma^2)$, it is easy to see that $P_{v,+j}^t(\cdot\mid g_1,\ldots,g_{t-1}) \sim \normal(g_{+}(A(g_1,\ldots,g_{t-1})),\sigma^2)$, where $A(g_1,\ldots,g_{t-1})$ denotes the point chosen by the algorithm given previous gradient values $g_1,\ldots, g_{t-1}$ and $g_{v,+j}(\cdot)$ is the gradient estimate returned by the oracle with the appropriate $f_v$. 
+
+From the foregoing, 
+\begin{align}
+ &\dkl{P_{v,+j}^t(\cdot\mid g_1,\ldots,g_{t-1})}{P_{v,-j}^t(\cdot\mid g_1,\ldots,g_{t-1})} d P_{v,+j}^t(\cdot\mid g_1,\ldots,g_{t-1}) \nonumber\\
+ \le&\dfrac{\norm{g_{+}(A(g_1,\ldots,g_{t-1})) - g_{-}(A(g_1,\ldots,g_{t-1}))}^2}{2 \sigma^2}\label{eq:dkgauss1}\\
+ \le& \dfrac{16(\epsilon-C_1\delta^p)^2}{\dfrac{C_2}{\delta^q}}.\label{eq:dkgauss}
+\end{align}
+The inequality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2\I_d)$ and $\normal(\mu_2,\sigma^2\I_d)$ is upper-bounded by $\dfrac{\norm{\mu_1 - \mu_2}^2}{2 \sigma^2}$, while the inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}.
+
+Plugging \eqref{eq:dkgauss} into \eqref{eq:dklchain}, we obtain
+\begin{align}
+\dkl{P_{v,+j}}{P_{v,-j}} \le \dfrac{16n(\epsilon-C_1\delta^p)^2 \delta^q}{C_2}.\label{eq:dkbd}
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Wrapping up the proof:}
+
+Substituting the KL divergence bound from \eqref{eq:dkbd}  into \eqref{eq:pinsker} , we obtain
+\begin{align}
+ \Delta_n(\F, \sigma^2) 
+  \ge & \epsilon s \sqrt{2d} \left(1 - 4\sqrt{
+    n}  \dfrac{(\epsilon-C_1\delta^p)\delta^{q/2}}{C_2}
+  \right)\label{eq:final-lower-bd}
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Derivations of rates:}
+\begin{description}
+ \item[Case 1 $\bm{(p=q=0)}$:] For this case, we obtain
+ \begin{align*}
+ \Delta_n(\F, \sigma^2) 
+  \ge & \epsilon s \sqrt{2d} \left(1 -   \dfrac{4\sqrt{
+    n}\epsilon}{C_2}
+  \right)
+\end{align*}
+Choosing $\epsilon= C_2/ 8 \sqrt{n}$, we get 
+$$\Delta_n(\F, \sigma^2) \ge \dfrac{C_2 s_{X} \sqrt{d}}{ 8 \sqrt{2n}}.$$
+
+ \item[Case 2 $\bm{(p=q=2)}$:] 
+ Optimizing over $\epsilon$ in \eqref{eq:final-lower-bd}, we get
+ $\epsilon^* = \left(\dfrac{\delta^{-q/2}C_2}{8\sqrt{n}} + \dfrac{C_1\delta^p}{2}\right)$.
+
+ Plugging in $\epsilon^*$, we obtain
+ $$\Delta_n(\F, \sigma^2) 
+ \ge \left(\dfrac{\delta^{-q/2}C_2}{8\sqrt{n}} + \dfrac{C_1\delta^p}{2}\right) s_{X} \sqrt{2d} \left( \dfrac{1}{2} + \dfrac{2\sqrt{n}C_1 \delta^{p + q/2}}{C_2} \right).$$
+ Finally, substituting $p=q=2$, we obtain
+$$\Delta_n(\F, \sigma^2) \ge \dfrac{C_3 \sqrt{d}}{ n^{1/3}} \text{ for some } C_3>0.$$
+
+ \item[Case 3 $\bm{(p=1, q=2)}$:] 
+ Again, choosing the same $\epsilon$ as in the case above, we obtain
+$$\Delta_n(\F, \sigma^2) \ge \dfrac{C_3 \sqrt{d}}{ n^{1/4}}.$$
+
+\end{description}
+
