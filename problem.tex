@@ -12,8 +12,8 @@ Notation: Capital letters will denote random variables.
 \label{fig:oracle}
 \end{figure}
 
-In this paper we consider convex optimization in novel settings. 
-More specifically, we consider both an online learning setting and an optimization setting.
+In this paper we consider convex optimization in a novel setting, both for online learning and optimization. 
+%More specifically, we consider both an online learning setting and an optimization setting.
 In the online setting, the environment chooses a sequence of loss functions $f_1,\dots,f_n$ belonging to a set $\cF$ of convex functions over a common, non-empty convex closed domain $\cK\subset \R^d$. 
 In the optimization setting, a single fixed loss function $f\in \cF$ is chosen.
 As usual, the algorithms choose a sequence of points $X_1,\dots,X_n\in \cK$ in a sequential way. 
@@ -29,7 +29,7 @@ As usual, the goal in the online setting is to keep the expected \emph{regret},
 small.
 In the optimization setting, the algorithm is also required to select a point $\hat{X}_n\in \cK$ once
 the $n$th round is over (in both settings, $n$ is given to the algorithms)
-and the algorithm's performance is quantified using the \emph{optimization error}, $\EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
+and the algorithm's performance is quantified using the \emph{optimization error}, $\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
 
 The main novelty of the model is that the information flow between the algorithm and the environment is controlled by the gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit this framework. 
 
@@ -42,7 +42,7 @@ We define two classes of oracles. The relationship between these oracles will be
 We say that $\gamma$ is a  $(c_1,c_2)$ Type-I oracle, if for any function $f\in \cF$,
 $x\in \cK,\delta>0$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that:
 \begin{enumerate}
-\item $\norm{x-Y}\le \delta$;
+\item $\norm{x-Y}\le \delta$ almost surely (a.s.);
 \item $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $; and
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$.
 \end{enumerate}
@@ -52,20 +52,22 @@ The second type of oracle considered is as follows:
 We say that $\gamma$ is a  $(c_1,c_2)$ Type-II oracle, if for any function $f\in \cF$,
 $x\in \cK,\delta>0$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that:
 \begin{enumerate}
-\item $\norm{x-Y}\le \delta$;
+\item $\norm{x-Y}\le \delta$ a.s.;
 \item There exists $\tilde{f} \in \cF$ such that  
 $\norm{\tilde{f}- f}_\infty \le c_1(\delta)$  and
 $\EE{G}  = \nabla \tilde{f}(x)$ (bias);
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$ (variance).
 \end{enumerate}
 \end{definition}
-An alternative to the bias condition for Type-II oracles, which will also be considered later is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with
+An alternative to the bias condition for Type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with \todoc{This requires $f$ to be differentiable.. Or define using subgradients?}
 \begin{align}
 \norm{\nabla \tilde{f}- \nabla f}_\infty \le c_1(\delta).
 \end{align}
-Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair, though most often the oracles will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a stochastic mapping.
+Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory), 
+though most often the oracles constructed in practice 
+will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a stochastic mapping.
 \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-There are several examples of oracles satisfying these definitions; see \cref{sec:ex} for examples.
+There are several examples of oracles satisfying these definitions; see \cref{sec:ex}.
 We will denote the set of Type-I (Type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$). 
 
 In this paper we will study the minimax regret in the online setting, while we study the minimax error in the optimization setting (sometimes, also called as the ``simple regret'').
@@ -73,25 +75,33 @@ Both are defined with respect to a class of loss functions $\cF$, and the bias/v
 The minimax expected regret for $(\cF,c_1,c_2)$ with Type-I oracles is
 \begin{align*}
 \MoveEqLeft
-R_n^*(\cF,c_1,c_2) \\
-\MoveEqLeft
-= \inf_{\cA} \sup_{f_{1:n}\in \cF} 
-	\sup_{\substack{\gamma_t \in \Gamma_1(f_t,c_1,c_2)\\1\le t \le n}} 
-\EE{ \sum_{t=1}^n f_t(Y_t) }  
-%& \qquad \qquad \qquad \qquad \qquad 
--\inf_{x\in \cK} \sum_{t=1}^n f_t(x)\,,\\
+R_n^*(\cF,c_1,c_2) 
+= \inf_{\cA} \sup_{f_{1:n}\in \cF^n} 
+	\sup_{\substack{\gamma_t \in \Gamma_1(f_t,c_1,c_2)\\1\le t \le n}} R_n^{\cA}(f_{1:n},\gamma_{1:n})
+%\\
+%\MoveEqLeft
+%= \inf_{\cA} \sup_{f_{1:n}\in \cF} 
+%	\sup_{\substack{\gamma_t \in \Gamma_1(f_t,c_1,c_2)\\1\le t \le n}} 
+%\EE{ \sum_{t=1}^n f_t(Y_t) }  
+%%%%%%& \qquad \qquad \qquad \qquad \qquad 
+%-\inf_{x\in \cK} \sum_{t=1}^n f_t(x)\,,\\
 \end{align*}
 where $\cA$ ranges through all algorithms that interact with the $f_{1:n}\doteq (f_1,\dots,f_n)$ loss sequence
 as described earlier
-through $\gamma_1,\dots,\gamma_n$,
-and $Y_t$ is obtained from $\gamma_t$. The minimax regret for Type-II (and other similar) oracles is defined analogously (in what follows we only define these quantities for Type-I oracles, as the extension to other types of oracles is immediate).
+through the oracles $\gamma_{1:n}=(\gamma_1,\dots,\gamma_n)$,
+and we use $R_n^{\cA}(f_{1:n},\gamma_{1:n})$ the expected regret of $\cA$ against $(f_{1:n},\gamma_{1:n})$.
+The minimax regret for Type-II (and other similar) oracles is defined analogously (in what follows we only define these quantities for Type-I oracles, as the extension to other types of oracles is immediate).
 
 In the optimization setting, the minimax error is defined through
 \begin{align*}
 \Delta_n^*(\cF,c_1,c_2)
-= \inf_{\cA} \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \EE{ f(\hat{X}_n) } - \inf_{x\in \cK}  f(x)\,,
+= \inf_{\cA} \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \Delta_n^{\cA}(f,\gamma)\,,
+% \EE{ f(\hat{X}_n) } - \inf_{x\in \cK}  f(x)\,,
 \end{align*}
-where, again, $\cA$ ranges through all algorithms that interact with the loss $f$ through $\gamma$ and $\hat{X}_n$ is the point returned by $\cA$ after $n$ rounds of interaction which work as described earlier.
+where, again, $\cA$ ranges through all algorithms that interact with the loss $f$ through $\gamma$ and 
+$\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers 
+after $n$ rounds of interaction with $f$ through $\gamma$ as described earlier.
+%$\hat{X}_n$ is the point returned by $\cA$ after $n$ rounds of interaction which work as described earlier.
 
 \todoc[inline]{What follows is an old version:}
 
