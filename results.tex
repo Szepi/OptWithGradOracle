@@ -6,6 +6,16 @@ Unconstrained case:
 Upper bound: 
 
 Lower bound:
+\begin{theorem}
+ For any $n$ and any algorithm that observes $n$ random elements from a Type-I oracle for the space of functions $\F:=\{f_v, v=\{+1,-1\}\}$, where $f_v:= \dfrac{\epsilon}{2} (x - v)^2$, with $\epsilon = \left(\frac{\delta^{-q/2}C_2}{4\sqrt{n}} + \frac{C_1\delta^p}{2}\right)$, the minimax error \eqref{eq:minimax-err} satisfies
+$$\Delta_n(\F, \sigma^2) \ge \dfrac{C_3}{ n^{1/4}}, \text{ when } p=1, q=2.$$
+ $$\Delta_n(\F, \sigma^2) \ge \dfrac{C_4}{ n^{1/3}},  \text{ when } p=q=2.$$
+\end{theorem}
+\todop[inline]{work out $C_3$ and $C_4$.}
+\begin{proof}
+ See Section \ref{sec:lb-proof}.
+\end{proof}
+
 
 Constrained case:
 
