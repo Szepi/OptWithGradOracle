@@ -7,10 +7,11 @@ Upper bound:
 
 Lower bound:
 \begin{theorem}
+Let $\cK\subset \R$ be an interval such that contains the interval $[-1,+1]$.
  For any $n$ and any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Type-I oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$,
  for any space of functions $\F$ with $\{f_{+1}, f_{-1} \}\subset \F$, 
- where $f_v:= \dfrac{\epsilon}{2} (x - v)^2$, $x\in \R$, $v\in \{\pm 1\}$,
+ where $f_v:= \dfrac{\epsilon}{2} (x - v)^2$, $x\in \cK$, $v\in \{\pm 1\}$,
 and $\epsilon = \left(\frac{\delta^{-q/2}C_2}{4\sqrt{n}} + \frac{C_1\delta^p}{2}\right)$ \todoc{Cannot depend on $\delta$!}
  the minimax error \eqref{eq:minimaxerrdef} satisfies \todoc{Noise is hidden!! Maybe it is in $C_2$, right?}
 \[
