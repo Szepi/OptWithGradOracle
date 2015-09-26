@@ -13,6 +13,7 @@
 \usepackage{natbib}
 \usepackage[noend]{algpseudocode}
 \usepackage{url}
+\usepackage{bm}
 \usepackage[margin=2.5cm]{geometry}
 \setlength{\marginparwidth}{20mm}
 
@@ -51,3 +52,25 @@
 \DeclareMathOperator{\interior}{int}
 \DeclareMathOperator{\dom}{dom}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+%%% Prashanth: some of my macros..need to remove duplicates
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\G}{\mathcal{G}}
+\renewcommand{\O}{\mathcal{O}}
+
+
+
+\newcommand{\sign}{\mathop{\rm sign}}
+% \newcommand{\norm}[1]{\left\|{#1}\right\|} % A norm with 1 argument
+\newcommand{\tvnorm}[1]{\norm{#1}_{\rm TV}}
+\newcommand{\dkl}[2]{D_{\rm kl}\left({#1} |\!| {#2} \right)}
+\newcommand{\normal}{\mathsf{N}}  % Normal distribution
+\newcommand{\openleft}[2]{\left({#1},{#2}\right]} % Interval open on left
+\def\mbf#1{\mathbf{#1}}
+\def\indic#1{\mbf{1}\left\{#1\right\}} % Indicator function

@@ -39,3 +39,21 @@ alternative to bias condition for second definition:
 \begin{align}
 \norm{\nabla \tilde{f}- \nabla f}_\infty \le C_1 \delta^p
 \end{align}
+
+\todoc[inline]{Please incorporate the minimax error def}
+
+\paragraph{Minimax error:}
+Let $\F:= \{ f_v \mid v \in \V\}$ be a class of functions, $\Gamma(f_v)$ be the set of all oracles that returns biased and noisy gradient estimates for a given  function $f_v$, while satisfying the constraints on the bias and variance outlined earlier and $\A$ be any deterministic algorithm that obtains, from an oracle $\gamma \in \Gamma$, observations $G_1, \ldots, G_n$ at points $x_1, \ldots, x_n$. From the oracle model, we have 
+$G_i = g(x_i) + \xi_i$ for $i=1,\ldots,n$, where $g(\cdot)$ is an estimate of the gradient $f'(\cdot)$ that satisfies the bias and variance constraints outlined earlier and $\xi \sim \normal(0,\sigma^2)$. Also, the points $x_i, i=1,\ldots,n$ are chosen by a deterministic algorithm $\A$, i.e., 
+$x_i = \A_i(x_1, G_1, \ldots, x_{i-1}, G_{i-1})$. 
+\todoc[inline]{Justify deterministic algo}
+
+We define the minimax error $\Delta_n$ as follows:
+\begin{align}
+  \label{eq:minimax-err}
+  \Delta_n(\F, \sigma^2) := \inf_{\A} \sup_{f_v \in \F} \sup_{\gamma \in \Gamma(f_v)} \E[f_v(\hat x_n) - \inf_{x \in X}
+  f_v(x)],
+\end{align}
+where $\hat x_n$ is the point returned by algorithm $\A$ and 
+the expectation is w.r.t. joint distribution  of the observations $(G_1, \ldots,
+G_n) \in \Omega$ and $v \in \V$.
