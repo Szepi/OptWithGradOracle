@@ -23,7 +23,6 @@
 \newcommand{\todox}[2][]{\todo[color=orange!20!white,size=\tiny,#1]{X: #2}}
 \newcommand{\todoa}[2][]{\todo[color=blue!20!white,size=\tiny,#1]{A: #2}}
 \newcommand{\todop}[2][]{\todo[color=green!20!white,size=\tiny,#1]{P: #2}}
-\usepackage{hyperref}
 
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
@@ -35,6 +34,35 @@
 \usepackage[capitalize]{cleveref}
 \usepackage[amsmath,standard,thmmarks]{ntheorem} % ntheorem makes cleveref work properly 
 
+% Hyperlinks make it very easy to navigate an electronic document.
+% In addition, this is where you should specify the thesis title
+% and author as they appear in the properties of the PDF document.
+% Use the "hyperref" package 
+% N.B. HYPERREF MUST BE THE LAST PACKAGE LOADED; ADD ADDITIONAL PKGS ABOVE
+\usepackage[pdftex,letterpaper=true,pagebackref=false]{hyperref} % with basic options
+		% N.B. pagebackref=true provides links back from the References to the body text. This can cause trouble for printing.
+\hypersetup{
+    plainpages=false,       % needed if Roman numbers in frontpages
+    pdfpagelabels=true,     % adds page number as label in Acrobat's page count
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={A Statistical Analysis of the Aggregation of Crowdsourced Labels},    % set
+    pdfauthor={D\'avid Szepesv\'ari},    % set
+%    pdfsubject={Subject},  % subject: CHANGE THIS TEXT! and uncomment this line
+%    pdfkeywords={keyword1} {key2} {key3}, % list of keywords, and uncomment this line if desired
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=blue,         % color of internal links
+    citecolor=blue,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\cE}{\mathcal{E}}
 \newcommand{\cF}{\mathcal{F}}
 \newcommand{\cA}{\mathcal{A}}
