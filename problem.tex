@@ -93,11 +93,12 @@ and we use $R_n^{\cA}(f_{1:n},\gamma_{1:n})$ the expected regret of $\cA$ agains
 The minimax regret for Type-II (and other similar) oracles is defined analogously (in what follows we only define these quantities for Type-I oracles, as the extension to other types of oracles is immediate).
 
 In the optimization setting, the minimax error is defined through
-\begin{align*}
+\begin{align}
+\label{eq:minimaxerrdef}
 \Delta_n^*(\cF,c_1,c_2)
 = \inf_{\cA} \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \Delta_n^{\cA}(f,\gamma)\,,
 % \EE{ f(\hat{X}_n) } - \inf_{x\in \cK}  f(x)\,,
-\end{align*}
+\end{align}
 where, again, $\cA$ ranges through all algorithms that interact with the loss $f$ through $\gamma$ and 
 $\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers 
 after $n$ rounds of interaction with $f$ through $\gamma$ as described earlier.
