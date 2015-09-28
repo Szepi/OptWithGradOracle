@@ -153,6 +153,29 @@ On the other hand, substituting $p=q=2$, we obtain
 \delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^* \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
 \]
 
+\paragraph{Derivation of the rates uniformly for all $\delta$}
+
+Assuming $q \ge 2$, minimizing the right hand side of \eqref{eq:final-lower-bd} in $\delta$ yields
+\[
+\delta*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p}
+\]
+and
+\[
+\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - 2\sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)
+\]
+for any choice of $\delta$. Now, when $q=2$ and $p=1$, this simplifies to
+\[
+\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - \frac{\sqrt{n}}{2C_1 C_2} \epsilon^2\right) = \frac{\sqrt{C_1 C_2}}{4} n^{-1/4}
+\]
+for $\epsilon=\sqrt{C_1C_2} n^{-1/4}$. On the other hand, for $p=q=2$, we get
+\[
+\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1-\frac{4\sqrt{n}}{3\sqrt{3} \sqrt{C_1} C_2} \epsilon^{3/2}\right)
+= \left(\frac{C_1 C_2^2}{144}\right)^{1/3} n^{-1/3}
+\]
+with $\epsilon=\left(\frac{3 C_1 C_2^2}{16 n}\right)^{1/3}$.
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
