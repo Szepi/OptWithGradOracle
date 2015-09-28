@@ -48,9 +48,11 @@ Hence, \todoc{No need for strong convexity..}
 \end{align}
 Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
 We will consider the oracles $\gamma_v$ defined using 
-by $\gamma_v(x) = \epsilon(x-v) + v\, C_1 \delta^p$ (as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
+by $\gamma_v(x) = \epsilon(x-v) + v\, C_1 \delta^p$ 
+ (as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
 to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
 The oracle is indeed a $(c_1,c_2)$ Type-I oracle.
+\todoc{We should use instead $ \gamma_v(x) = \epsilon(x-v) +\min( \epsilon, C_1 \delta^p)$. This will help with the absolute value business.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 The minimax error \eqref{eq:minimax-err} is lower bounded by
@@ -162,40 +164,82 @@ Define $f_v$ for any $v\in \{-1,+1\}^d$ as
   f_v(x) :=& \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \,\, x \in \cK, \text{where}\\
   f^{(i)}_{v_i}(x_i) :=& \dfrac{\epsilon}{2} (x_i - v_i)^2, \,\, \text{ for } i=1,\ldots,d.
 \end{align*}
-It is easy to see that that $f_v$ is additively separable and minimized at $x^*_v=v$ with the minimum value being zero.
+By definition, $f_v$ is additively separable and minimized at $x^*_v=v$ with the minimum value being zero.
 
 The minimax error, for a given oracle $\gamma$, is 
 \begin{align*}
- \Delta_n^* \ge& \inf_\A \sum_{i=1}^d L_i(v), \text{ where, for } i=1,\ldots,d,\\
- L_i(v) := & \int f^{(i)}_v(\hat X_{ni}(g_{1:n}) dP_{\A,\gamma_v,\sigma^2}(g_{1:n}),  
+ \Delta_n^* \ge& \inf_\A  \sup_{v\in \{\pm 1 \}^d}\sum_{i=1}^d L_i(v), \text{ where, for } i=1,\ldots,d,\\
+ L_i(v) := & \int f^{(i)}_{v_i}(\hat X_{ni}(g_{1:n}) )\, dP_{\A,\gamma_v,\sigma^2}(g_{1:n}),  
 \end{align*}
-where $X_{ni}$ denotes the $i$th coordinate of the vector $X_n \in \R^d$, for $i=1,\ldots,d$.
+where $\hat{X}_{ni}$ denotes the $i$th coordinate of the vector $\hat{X}_n \in \R^d$ chosen by $\A$, for $i=1,\ldots,d$
+(again, to simplify the notation the dependence of $\hat{X}_n$ on $\A$ is suppressed).
 
 Fix an $i$ and consider the loss $L_i(v)$.
-We now argue that, since $f_v$ is separable, any algorithm $\A$ that uses information in dimensions other than $i$ in the gradient samples of the oracle, can be replaced by an algorithm $\A^*$ that incurs a loss that is utmost that of $\A$. 
+We now argue that, since $f_v$ is separable, any algorithm $\A$ that uses information in dimensions other than $i$ in the gradient samples of the oracle, can be replaced by $d$ algorithms $\A_1^*$, $\dots$, $\A_d^*$ such that $\A_i^*$ is only using information for dimension $i$ and is only predicting the $i$th coordinate at the end, and the sum of losses they incur is utmost that of $\A$ in the worst-case.
 
 Let $v_{-i}=(v_1,\ldots,v_{i-1},v_{i+1},\ldots,v_d)$ denote a $d-1$ dimensional vector that removes the $i$th coordinate from $v$. By an abuse of notation, we let $v=(v_i, v_{-i})$. 
 We now describe the construction of $\A^*=(\A_1^*, \ldots, \A_d^*)$.
-At any time instant $n$, the algorithm component $\A_1^*$ corresponding to dimension $1$ discards all the sample gradients in dimensions other than $1$, i.e.,  $(g_{1:n})_{-1}$, from the oracle for $f_v$ and instead, solves the following max-min problem:
-$$\max_{v_1} \min_{v_{-1}} L_1(v_1, v_{-1})).$$
-The other algorithm components are formed in a similar manner.
+We describe $\A_1^*$ only, other algorithm components are formed in a similar manner.
 
-From the above construction for $\A^*$, we obtain $v^*=(v_1^*, \ldots, v_d^*)$ with each $v_i^*$ obtained by discarding $v_{-i}$ and solving a minimax problem for $L_i(v_i,v_{-i})$. 
+To define $\A_1^*$, consider the solution of the following max-min problem:
+\[
+\max_{v_1} \min_{v_{-1}} L_1(v_1, v_{-1})).
+\]
+Let the optimal solution of this problem be denoted by $(\hat{v}_1^*,v_{-1}^*)$.
+The algorithm will make use of $v_{-1}^*$ (which it does have access to) in the following manner:
+Recall that $L$ and $L_1$ are defined as a function of $(\gamma_v)_{v\in \{\pm\}^d}$.
+Let $v\in \{\pm 1\}^d$ be fixed, unknown to $\A$ and $\A_1^*$. 
+The algorithm construction will make use of $\gamma_v$ and $\gamma_{(1,v_{-1}^*)}$ in the following manner:
+At time $t=1$, $\A_1^*$ consults $\A$ to get $\delta$ and the point $X_1\in \cK$.
+Next, it asks the oracle $\gamma_v$ for a $d$ dimensional gradient estimate of $f_v$ at $X_1$ with tolerance $\delta$,
+obtaining $G_1'$.
+At the same time, it also asks $\gamma_{(1,v_{-1}^*)}$ for another $d$ dimensional gradient estimate (this has nothing to do with $f_v$), obtaining $G_1''$.
+Then, $G_1 = (G_{1,1}',G_{1,-1}'')$ is fed to $\A$, which returns $X_2\in \cK$. From this point up to the end the process is similar: Both oracles are queried and the gradient to be fed to $\A$ is synthetized by putting together the first component of the gradient estimate from $\gamma_v$ and the last $d-1$ components obtained from $\gamma_{(1,v_{-1}^*)}$.
+Finally, at the end, $\A$ produces $\hat{X}_n$, and $\A_1^*$ returns $\hat{X}_{n,1}$.
+Clearly, by construction and the definition of $L_1$,
+the expected loss $L^*_1(v_1)$ of $\A_1^*$ on $f_{v_1}^{(1)}$ is $L_1(v_1,v_{-1}^*)$, while $\A_1^*$ only uses the first coordinates of the gradients that it gets from the oracle $\gamma_v$.
+With similar definitions, $L^*_i(v_i)$, the expected loss of $\A_i^*$ on $f_{v_i}^{(i)}$ is $L_i(v_i,v_{-i}^*)$, $2\le i \le d$.
+Now, notice that $L_i(\hat{v}_i^*,v_{-i}^*) = \min_{v_{-i} } L_i(\hat{v}_i^*,v_{-i}) \le L_i(\hat{v}_i^*, \hat{v}_{-i}^*)$,
+where $\hat{v}_{-i}^*$ is the vector obtained by discarding the $i$th component of $\hat{v}^* = (\hat{v}_1^*,\dots,\hat{v}_d^*)$.
+Thus,
 \begin{align*}
- L(v*) = & L_1(v_1^*,v_{-1}^*) + \ldots + L_1(v_d^*,v_{-d}^*) \\
-         \le &L_1(v_1^*,v_{-1}) + \ldots + L_1(v_d^*,v_{-d})\\
-         \le & \max_v L(v)
+\MoveEqLeft
+\max_{v\in \{\pm 1 \}^d }
+L^*_1(v_1) + \dots + L^*_d(v_d) \\
+&   = \max_{v\in \{\pm 1 \}^d } L_1(v_1,v_{-1}^*) + \dots + L_d(v_d,v_{-d}^*)\\
+& = \max_{v_1\in \{\pm 1\}} L_1(v_1,v_{-1}^*) + \dots +  \max_{v_d\in \{\pm 1\}} L_d(v_d,v_{-d}^*)\\
+& = L_1(\hat{v}^*_1,v_{-1}^*) + \dots +   L_d(\hat{v}^*_d,v_{-d}^*)\\
+& \le L_1(\hat{v}^*_1,\hat{v}_{-1}^*) + \dots +  L_d(\hat{v}^*_d,\hat{v}_{-d}^*)\\
+& \le L(\hat{v}^*) \le \max_{v\in \{\pm 1\}^d } L(v)\,,
 \end{align*}
-Thus, the loss incurred by using $\A^*$ is upper bounded by that for $\A$. 
-\todoc[inline]{Please check if this proof passage is ok.}
+which was the claim to be proven.
 
-From the foregoing, 
+To summarize, \todoc{Maybe this could have been stated above formally once and referred to here only, saving space.}
+for any algorithm $\A$, one can find $d$ ``$1$-dimensional'' algorithms, $\A_i^*$, $1\le i \le d$,
+the $i$th algorithm interacting with only a one dimensional oracle, supplying gradient estimates about $f_{v_i}^{(i)}$ 
+\todoc{Hmm, do the oracles have the same bias/variance properties?}
+such that if $L^{\A}(v)$ is the loss of $\A$ on environment with index $v$, with the 
+the 
 \begin{align}
- \Delta_n^* \ge & \inf_{\A} L_1(v) + \ldots + \inf_\A L_d(v) \nonumber\\
-             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
-              \ge & \dfrac{d\epsilon}{2} \left(1 - 2\sqrt{n}  \dfrac{(\epsilon-C_1\delta^p)\delta^{q/2}}{C_2}\right) \label{eq:dlb}
+\label{eq:onedimlb}
+\begin{split}
+\MoveEqLeft \max_{v\in \{\pm 1\}^d} L^{\A}(v) 
+\ge \\
+&  \max_{v_1\in \{\pm 1\}} L_1^{\A_1^*}(v_1) + \dots + \max_{v_d\in \{\pm 1 \}} L_d^{\A^*_d}(v_d)\,.
+\end{split}
 \end{align}
-The inequality \eqref{eq:splitA} follows by construction of $\A^*$, while the inequality \eqref{eq:dlb} follows from the fact that each infimum term in \eqref{eq:splitA} is solving a $1$-dimensional problem and hence the bound in \eqref{eq:final-lower-bd} applies.
+Hence,
+\begin{align}
+\MoveEqLeft
+\Delta_n^*  \ge  \inf_{\A} \max_{v\in {\pm 1}^d} L^\A(v) \nonumber\\
+ & \ge \inf_{\A_1} \max_{v_1\in \{\pm 1\}} L_1^{\A_1}(v_1) + \dots + 
+ 			\inf_{A_d} \max_{v_d\in \{\pm 1 \}} L_d^{\A_d}(v_d) \label{eq:splitA}\\
+%             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
+              \ge & \dfrac{d\epsilon}{2} \left(1 - 2\sqrt{n}  \dfrac{(\epsilon-C_1\delta^p)\delta^{q/2}}{C_2}\right)\,, \label{eq:dlb}
+\end{align}
+where in inequality \eqref{eq:splitA}, algorithms $\A_i$ are interacting with the respective one-dimensional oracles $\gamma^{(i)}_{v_i}$ only \todoc{We probably should formally introduce this earlier; this would be better!}
+and the inequality follows by~\eqref{eq:onedimlb},
+while the inequality \eqref{eq:dlb} follows from the fact that each infimum term in \eqref{eq:splitA} is solving a $1$-dimensional problem and hence the bound in \eqref{eq:final-lower-bd} applies. \todoc{However, I would have written just the $1$d final bound there, or $\Delta_n^*( \dots )$ with some notation, because we don't want to redo this whole optimization business..}
 
 The final rates are as follows:
 Case $p=1$ and $q=2$:
