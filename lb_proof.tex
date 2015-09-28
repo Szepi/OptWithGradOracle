@@ -3,7 +3,7 @@
 \subsection{Proofs for the Lower Bound}
 \label{sec:lb-proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
+\subsubsection{Proof in one dimension}
 For brevity, let $\Delta_n^*$ denote $\Delta_n^*(\F, c_1,c_2)$.
 The proof uses only $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK$ to $\R$ (i.e., the oracles do not have memory).
 Fix a  $(c_1,c_2)$ Type-I oracle $\gamma$ and an algorithm $\A$.
@@ -121,7 +121,7 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 \begin{align}
  \Delta_n^*
   \ge & \dfrac{\epsilon}{2} \left(1 - 2\sqrt{
-    n}  \dfrac{|\epsilon-C_1\delta^p|\delta^{q/2}}{C_2}
+    n}  \dfrac{(\epsilon-C_1\delta^p)\delta^{q/2}}{C_2}
   \right)\label{eq:final-lower-bd}
 \end{align}
 
@@ -143,10 +143,68 @@ to guarantee that $\epsilon^*>C_1 \delta^p$.
 Substituting $p=1$ and $q=2$, we obtain
 \[
 \delta^*= \sqrt{\dfrac{C_2}{2C_1}}\dfrac{1}{n^{\frac{1}{4}}} \text{ and } 
-\Delta_n^* \ge \dfrac{\sqrt{2C_1C_2}}{4n^{\frac{1}{4}}}.
+\Delta_n^* \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{1}{n^{\frac{1}{4}}}.
 \]
 
 On the other hand, substituting $p=q=2$, we obtain
 \[
-\delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^* \ge \dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}n^{\frac{1}{3}}}.
+\delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^* \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Generalization to $d$ dimensions}
+
+Let $\cK \subset \R^d$.
+Define $f_v$ for any $v\in \{-1,+1\}^d$ as 
+\begin{align*}
+  f_v(x) :=& \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \,\, x \in \cK, \text{where}\\
+  f^{(i)}_{v_i}(x_i) :=& \dfrac{\epsilon}{2} (x_i - v_i)^2, \,\, \text{ for } i=1,\ldots,d.
+\end{align*}
+It is easy to see that that $f_v$ is additively separable and minimized at $x^*_v=v$ with the minimum value being zero.
+
+The minimax error, for a given oracle $\gamma$, is 
+\begin{align*}
+ \Delta_n^* \ge& \inf_\A \sum_{i=1}^d L_i(v), \text{ where, for } i=1,\ldots,d,\\
+ L_i(v) := & \int f^{(i)}_v(\hat X_{ni}(g_{1:n}) dP_{\A,\gamma_v,\sigma^2}(g_{1:n}),  
+\end{align*}
+where $X_{ni}$ denotes the $i$th coordinate of the vector $X_n \in \R^d$, for $i=1,\ldots,d$.
+
+Fix an $i$ and consider the loss $L_i(v)$.
+We now argue that, since $f_v$ is separable, any algorithm $\A$ that uses information in dimensions other than $i$ in the gradient samples of the oracle, can be replaced by an algorithm $\A^*$ that incurs a loss that is utmost that of $\A$. 
+
+Let $v_{-i}=(v_1,\ldots,v_{i-1},v_{i+1},\ldots,v_d)$ denote a $d-1$ dimensional vector that removes the $i$th coordinate from $v$. By an abuse of notation, we let $v=(v_i, v_{-i})$. 
+We now describe the construction of $\A^*=(\A_1^*, \ldots, \A_d^*)$.
+At any time instant $n$, the algorithm component $\A_1^*$ corresponding to dimension $1$ discards all the sample gradients in dimensions other than $1$, i.e.,  $(g_{1:n})_{-1}$, from the oracle for $f_v$ and instead, solves the following max-min problem:
+$$\max_{v_1} \min_{v_{-1}} L_1(v_1, v_{-1})).$$
+The other algorithm components are formed in a similar manner.
+
+From the above construction for $\A^*$, we obtain $v^*=(v_1^*, \ldots, v_d^*)$ with each $v_i^*$ obtained by discarding $v_{-i}$ and solving a minimax problem for $L_i(v_i,v_{-i})$. 
+\begin{align*}
+ L(v*) = & L_1(v_1^*,v_{-1}^*) + \ldots + L_1(v_d^*,v_{-d}^*) \\
+         \le &L_1(v_1^*,v_{-1}) + \ldots + L_1(v_d^*,v_{-d})\\
+         \le & \max_v L(v)
+\end{align*}
+Thus, the loss incurred by using $\A^*$ is upper bounded by that for $\A$. 
+\todoc[inline]{Please check if this proof passage is ok.}
+
+From the foregoing, 
+\begin{align}
+ \Delta_n^* \ge & \inf_{\A} L_1(v) + \ldots + \inf_\A L_d(v) \nonumber\\
+             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
+              \ge & \dfrac{d\epsilon}{2} \left(1 - 2\sqrt{n}  \dfrac{(\epsilon-C_1\delta^p)\delta^{q/2}}{C_2}\right) \label{eq:dlb}
+\end{align}
+The inequality \eqref{eq:splitA} follows by construction of $\A^*$, while the inequality \eqref{eq:dlb} follows from the fact that each infimum term in \eqref{eq:splitA} is solving a $1$-dimensional problem and hence the bound in \eqref{eq:final-lower-bd} applies.
+
+The final rates are as follows:
+Case $p=1$ and $q=2$:
+\[
+\delta^*= \sqrt{\dfrac{C_2}{2C_1}}\dfrac{1}{n^{\frac{1}{4}}} \text{ and } 
+\Delta_n^* \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{d}{n^{\frac{1}{4}}}.
+\]
+
+Case $p=q=2$:
+\[
+\delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^* \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{d}{n^{\frac{1}{3}}}.
 \]
