@@ -4,7 +4,7 @@
 \label{sec:lb-proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \subsubsection{Proof in one dimension}
-For brevity, let $\Delta_n^*$ denote $\Delta_n^*(\F, c_1,c_2)$.
+For brevity, let $\Delta_n^{(1)*}$ denote the minimax error $\Delta_n^*(\F, c_1,c_2)$ for the case of $1$-dimensional function family $\F$.
 The proof uses only $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK$ to $\R$ (i.e., the oracles do not have memory).
 Fix a  $(c_1,c_2)$ Type-I oracle $\gamma$ and an algorithm $\A$.
 We restrict the class of oracles to those that return a random gradient estimate $G = m(x) + \xi$ with some map $m: \cK \to \R$,
@@ -58,7 +58,7 @@ The minimax error \eqref{eq:minimax-err} is lower bounded by
 %\footnote{$f_{+1} \equiv f_+$ and $f_{-1}\equiv f_-$.}:
 \begin{align}
 \MoveEqLeft 
-\Delta_n^* %\nonumber\\
+\Delta_n^{(1)*} %\nonumber\\
   \ge  \inf_{\A} \,  \E[f_V(\hat X_n) - \inf_{x \in X}
   f_V(x)],\label{eq:avg-bd}
   \end{align}
@@ -69,7 +69,7 @@ for brevity this dependence will also be suppressed.}
 %Here $\gamma_v$  is the oracle for $f_v$, for $v=+1,-1$ and is defined by $\gamma_v(x) = \epsilon(x-v) + v C_1 \delta^p$. 
 Using \eqref{eq:fv-lb}, we obtain
 \begin{align}
-\Delta_n^*  \ge & \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \label{eq:strong-convex-bd}\\
+\Delta_n^{(1)*}  \ge & \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \label{eq:strong-convex-bd}\\
   = & \inf_{\A} \dfrac{\epsilon }{2} \, \left(\P_{+}(\hat X_n < 0) + \P_{-}(\hat X_n > 0)\right), \label{eq:Pplus}\\
   \ge &\inf_{\A} \dfrac{\epsilon }{2} \,\left(1 - \tvnorm{\P_{+}- \P_{-}}\right), \label{eq:lecam}\\
   \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker}
@@ -78,12 +78,6 @@ where
 the equality in \eqref{eq:Pplus} uses the definitions $\P_{+}(\cdot)
 := \P(\cdot\mid V=1)$, $\P_{-}(\cdot) := \P(\cdot\mid
 V=-1)$\todoa{This notation is somewhat confusing given the previous conventions.}. Further, the inequality in \eqref{eq:lecam} follows from the definition of total variation distance, while \eqref{eq:pinsker} follows from Pinsker's inequality. %\todoc{You lost a factor of two here!}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-% \paragraph{Upper-bounding the difference in gradient estimates:}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -122,7 +116,7 @@ Plugging \eqref{eq:dkgauss} into \eqref{eq:dklchain}, we obtain
 Note that the above bound holds uniformly over all algorithms $\A$. 
 Substituting the above bound into \eqref{eq:pinsker}, we obtain 
 \begin{align}
- \Delta_n^*
+ \Delta_n^{(1)*}
   \ge & \dfrac{\epsilon}{2} \left(1 - 2\sqrt{
     n}  \dfrac{(\epsilon-C_1\delta^p)\delta^{q/2}}{C_2}
   \right)\label{eq:final-lower-bd}
@@ -139,19 +133,19 @@ to guarantee that $\epsilon^*>C_1 \delta^p$.
 
  Plugging in $\epsilon^*$, we obtain
  \[
- \Delta_n^*
+ \Delta_n^{(1)*}
  \ge \frac18 \left(\dfrac{\delta^{-q/2}C_2}{2\sqrt{n}} + C_1\delta^p \right).
  \]
 
 Substituting $p=1$ and $q=2$, we obtain
 \[
 \delta^*= \sqrt{\dfrac{C_2}{2C_1}}\dfrac{1}{n^{\frac{1}{4}}} \text{ and } 
-\Delta_n^* \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{1}{n^{\frac{1}{4}}}.
+\Delta_n^{(1)*} \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{1}{n^{\frac{1}{4}}}.
 \]
 
 On the other hand, substituting $p=q=2$, we obtain
 \[
-\delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^* \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
+\delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^{(1)*} \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
 \]
 
 \paragraph{Derivation of the rates uniformly for all $\delta$}
@@ -189,8 +183,11 @@ Define $f_v$ for any $v\in \{-1,+1\}^d$ as
   f^{(i)}_{v_i}(x_i) :=& \dfrac{\epsilon}{2} (x_i - v_i)^2, \,\, \text{ for } i=1,\ldots,d.
 \end{align*}
 By definition, $f_v$ is additively separable and minimized at $x^*_v=v$ with the minimum value being zero.
+We consider oracles $\gamma_v$ defined by
+$\gamma_v(x) = \sum_{i=1}^d \gamma_{v_i}^{(i)}$, where $\gamma_{v_i}^{(i)} = \epsilon(x_i-v_i) + v_i\, C_1 \delta^p$. 
+It is evident that the $\gamma$ is a $(c_1,c_2)$ Type-I oracle.
 
-The minimax error, for a given oracle $\gamma$, is 
+The minimax error  
 \begin{align*}
  \Delta_n^* \ge& \inf_\A  \sup_{v\in \{\pm 1 \}^d}\sum_{i=1}^d L_i(v), \text{ where, for } i=1,\ldots,d,\\
  L_i(v) := & \int f^{(i)}_{v_i}(\hat X_{ni}(g_{1:n}) )\, dP_{\A,\gamma_v,\sigma^2}(g_{1:n}),  
@@ -198,8 +195,23 @@ The minimax error, for a given oracle $\gamma$, is
 where $\hat{X}_{ni}$ denotes the $i$th coordinate of the vector $\hat{X}_n \in \R^d$ chosen by $\A$, for $i=1,\ldots,d$
 (again, to simplify the notation the dependence of $\hat{X}_n$ on $\A$ is suppressed).
 
-Fix an $i$ and consider the loss $L_i(v)$.
-We now argue that, since $f_v$ is separable, any algorithm $\A$ that uses information in dimensions other than $i$ in the gradient samples of the oracle, can be replaced by $d$ algorithms $\A_1^*$, $\dots$, $\A_d^*$ such that $\A_i^*$ is only using information for dimension $i$ and is only predicting the $i$th coordinate at the end, and the sum of losses they incur is utmost that of $\A$ in the worst-case.
+
+% Fix an $i$ and consider the loss $L_i(v)$.
+% We now argue that, since $f_v$ is separable, any algorithm $\A$ that uses information in dimensions other than $i$ in the gradient samples of the oracle, can be replaced by $d$ algorithms $\A_1^*$, $\dots$, $\A_d^*$ such that $\A_i^*$ is only using information for dimension $i$ and is only predicting the $i$th coordinate at the end, and the sum of losses they incur is utmost that of $\A$ in the worst-case.
+
+For any algorithm $\A$, one can find $d$ ``$1$-dimensional'' algorithms, $\A_i^*$, $1\le i \le d$,
+the $i$th algorithm interacting with only a one dimensional oracle, supplying gradient estimates about $f_{v_i}^{(i)}$ 
+such that if $L^{\A}(v)$ is the loss of $\A$ on environment with index $v$, with the 
+the 
+\begin{align}
+\label{eq:onedimlb}
+\begin{split}
+\MoveEqLeft \max_{v\in \{\pm 1\}^d} L^{\A}(v) 
+\ge \\
+&  \max_{v_1\in \{\pm 1\}} L_1^{\A_1^*}(v_1) + \dots + \max_{v_d\in \{\pm 1 \}} L_d^{\A^*_d}(v_d)\,.
+\end{split}
+\end{align}
+
 
 Let $v_{-i}=(v_1,\ldots,v_{i-1},v_{i+1},\ldots,v_d)$ denote a $d-1$ dimensional vector that removes the $i$th coordinate from $v$. By an abuse of notation, we let $v=(v_i, v_{-i})$. 
 We now describe the construction of $\A^*=(\A_1^*, \ldots, \A_d^*)$.
@@ -238,20 +250,6 @@ L^*_1(v_1) + \dots + L^*_d(v_d) \\
 \end{align*}
 which was the claim to be proven.
 
-To summarize, \todoc{Maybe this could have been stated above formally once and referred to here only, saving space.}
-for any algorithm $\A$, one can find $d$ ``$1$-dimensional'' algorithms, $\A_i^*$, $1\le i \le d$,
-the $i$th algorithm interacting with only a one dimensional oracle, supplying gradient estimates about $f_{v_i}^{(i)}$ 
-\todoc{Hmm, do the oracles have the same bias/variance properties?}
-such that if $L^{\A}(v)$ is the loss of $\A$ on environment with index $v$, with the 
-the 
-\begin{align}
-\label{eq:onedimlb}
-\begin{split}
-\MoveEqLeft \max_{v\in \{\pm 1\}^d} L^{\A}(v) 
-\ge \\
-&  \max_{v_1\in \{\pm 1\}} L_1^{\A_1^*}(v_1) + \dots + \max_{v_d\in \{\pm 1 \}} L_d^{\A^*_d}(v_d)\,.
-\end{split}
-\end{align}
 Hence,
 \begin{align}
 \MoveEqLeft
@@ -259,23 +257,26 @@ Hence,
  & \ge \inf_{\A_1} \max_{v_1\in \{\pm 1\}} L_1^{\A_1}(v_1) + \dots + 
  			\inf_{A_d} \max_{v_d\in \{\pm 1 \}} L_d^{\A_d}(v_d) \label{eq:splitA}\\
 %             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
-              \ge & \dfrac{d\epsilon}{2} \left(1 - 2\sqrt{n}  \dfrac{(\epsilon-C_1\delta^p)\delta^{q/2}}{C_2}\right)\,, \label{eq:dlb}
+              \ge & d \Delta_n^{(1)*}\,, \label{eq:dlb}
 \end{align}
 where in inequality \eqref{eq:splitA}, algorithms $\A_i$ are interacting with the respective one-dimensional oracles $\gamma^{(i)}_{v_i}$ only \todoc{We probably should formally introduce this earlier; this would be better!}
 and the inequality follows by~\eqref{eq:onedimlb},
-while the inequality \eqref{eq:dlb} follows from the fact that each infimum term in \eqref{eq:splitA} is solving a $1$-dimensional problem and hence the bound in \eqref{eq:final-lower-bd} applies. \todoc{However, I would have written just the $1$d final bound there, or $\Delta_n^*( \dots )$ with some notation, because we don't want to redo this whole optimization business..}
+while the inequality \eqref{eq:dlb} follows from the fact that each infimum term in \eqref{eq:splitA} is solving a $1$-dimensional problem and hence the one-dimensional minimax error $\Delta_n^{(1)*}$ applies in each dimension. 
+% is the one-dimensional minimax error, which is lower-bounded in \eqref{eq:final-lower-bd}. \todoc{However, I would have written just the $1$d final bound there, or $\Delta_n^*( \dots )$ with some notation, because we don't want to redo this whole optimization business..}
 
-The final rates are as follows:
-Case $p=1$ and $q=2$:
-\[
-\delta^*= \sqrt{\dfrac{C_2}{2C_1}}\dfrac{1}{n^{\frac{1}{4}}} \text{ and } 
-\Delta_n^* \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{d}{n^{\frac{1}{4}}}.
-\]
+% Using the one-dimensional minimax error $\Delta_n^{(1)*}$, we obtain
+% \[\Delta_n^* \ge d \Delta_n^{(1)*}.\]
 
-Case $p=q=2$:
-\[
-\delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^* \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{d}{n^{\frac{1}{3}}}.
-\]
+% Case $p=1$ and $q=2$:
+% \[
+% \delta^*= \sqrt{\dfrac{C_2}{2C_1}}\dfrac{1}{n^{\frac{1}{4}}} \text{ and } 
+% \Delta_n^* \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{d}{n^{\frac{1}{4}}}.
+% \]
+% 
+% Case $p=q=2$:
+% \[
+% \delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^* \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{d}{n^{\frac{1}{3}}}.
+% \]
 
 %%% Local Variables: 
 %%% mode: latex
