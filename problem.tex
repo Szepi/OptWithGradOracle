@@ -76,7 +76,8 @@ We will denote the set of Type-I (Type-II) oracles satisfying the $(c_1,c_2)$-re
 In this paper we will study the minimax regret in the online setting, while we study the minimax error in the optimization setting (sometimes, also called as the ``simple regret'').
 Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
 The minimax expected regret for $(\cF,c_1,c_2)$ with Type-I oracles is
-\begin{align*}
+\begin{align}
+\label{eq:minimaxregdef}
 \MoveEqLeft
 R_n^*(\cF,c_1,c_2) 
 = \inf_{\cA} \sup_{f_{1:n}\in \cF^n} 
@@ -88,7 +89,7 @@ R_n^*(\cF,c_1,c_2)
 %\EE{ \sum_{t=1}^n f_t(Y_t) }  
 %%%%%%& \qquad \qquad \qquad \qquad \qquad 
 %-\inf_{x\in \cK} \sum_{t=1}^n f_t(x)\,,\\
-\end{align*}
+\end{align}
 where $\cA$ ranges through all algorithms that interact with the $f_{1:n}= (f_1,\dots,f_n)$ loss sequence
 as described earlier
 through the oracles $\gamma_{1:n}$,
