@@ -8,7 +8,7 @@ For brevity, let $\Delta_n^{(1)*}$ denote the minimax error $\Delta_n^*(\F, c_1,
 The proof uses only $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK$ to $\R$ (i.e., the oracles do not have memory).
 Fix a  $(c_1,c_2)$ Type-I oracle $\gamma$ and an algorithm $\A$.
 We restrict the class of oracles to those that return a random gradient estimate $G = m(x) + \xi$ with some map $m: \cK \to \R$,
-where $\xi$ is standard normal with variance $\sigma^2 = C_2 \delta^q$, satisfying the variance requirement. 
+where $\xi$ is standard normal with variance $\sigma^2 = C_2 \delta^{-q}$, satisfying the variance requirement. 
 The map $m$, which, by slightly abusing notation, we will also denote by $\gamma$ in what follows, will be chosen based on $f$ to satisfy the requirement on the bias. The $Y$ value returned by the oracles is made equal to $x$.
 
 Let $\delta$ denote the tolerance parameter chosen by $\A$.
@@ -48,9 +48,12 @@ Hence, \todoc{No need for strong convexity..}
 \end{align}
 Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
 We will consider the oracles $\gamma_v$ defined as 
-$\gamma_v(x) = \epsilon(x-v) + v\, C_1 \delta^p$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
+\begin{align}
+ \gamma_v(x) = \epsilon(x-v) + v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
+\end{align}
+where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
 to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
-The oracle is indeed a $(c_1,c_2)$ Type-I oracle.
+The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 \todoc{We should use instead $ \gamma_v(x) = \epsilon(x-v) +\min( \epsilon, C_1 \delta^p)$. This will help with the absolute value business.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
@@ -96,78 +99,79 @@ $P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with the mean $\cA_t(g
 %, where $A(g_{1:t-1})$ denotes the point chosen by the algorithm given observations $g_1,\ldots, g_{t-1}$ and $\gamma_{+}$ is the gradient oracle defined earlier. 
 Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2\epsilon$ and hence
 \begin{align}
- |\gamma_+(x) - \gamma_-(x)| 
-& = | f'_+(x) + C_1 \delta^p - (f'_-(x)-C_1 \delta^p) | \nonumber \\
-& = 2| \epsilon - C_1 \delta^p |\,.
+& |\gamma_+(x) - \gamma_-(x)| \nonumber\\
+& = | f'_+(x) + \min(\epsilon,C_1 \delta^p) - (f'_-(x)-\min(\epsilon,C_1 \delta^p)) | \nonumber \\
+& = 2 (\epsilon - C_1 \delta^p)_+\,,
  \label{eq:gdiff-ub}
 \end{align}
+where $(\epsilon - C_1 \delta^p)_+ = \max(\epsilon - C_1 \delta^p,0)$. 
 From the foregoing, 
 \begin{align}
  \MoveEqLeft \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\nonumber\\
- =&\dfrac{(g_{+}(A(g_{1:t-1})) - g_{-}(A(g_{1:t-1})))^2}{2 \sigma^2}\label{eq:dkgauss1}\\
- =& \dfrac{4(\epsilon-C_1\delta^p)^2\delta^q}{C_2}.\label{eq:dkgauss}
+ \le&\dfrac{(\gamma_{+}(A(g_{1:t-1})) - \gamma_{-}(A(g_{1:t-1})))^2}{2 C_2\delta^{-q}}\label{eq:dkgauss1}\\
+ =& \dfrac{2(\epsilon-C_1\delta^p)_+^2\delta^q}{C_2}.\label{eq:dkgauss}
 \end{align}
-The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while the equality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub} and the choice $\sigma^2 = C_2 \delta^{-q}$.
+The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while the equality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}.
 
 Plugging \eqref{eq:dkgauss} into \eqref{eq:dklchain}, we obtain
 \begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{4n(\epsilon-C_1\delta^p)^2 \delta^q}{C_2}.\label{eq:dkbd}
+\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\epsilon-C_1\delta^p)_+^2 \delta^q}{C_2}.\label{eq:dkbd}
 \end{align}
 Note that the above bound holds uniformly over all algorithms $\A$. 
 Substituting the above bound into \eqref{eq:pinsker}, we obtain 
 \begin{align}
  \Delta_n^{(1)*}
-  \ge & \dfrac{\epsilon}{2} \left(1 - 2\sqrt{
-    n}  \dfrac{(\epsilon-C_1\delta^p)\delta^{q/2}}{C_2}
+  \ge & \dfrac{\epsilon}{2} \left(1 - \sqrt{
+    n}  \dfrac{(\epsilon-C_1\delta^p)_+\delta^{q/2}}{C_2}
   \right)\label{eq:final-lower-bd}
 \end{align}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{Derivations of rates:}
- Optimizing over $\epsilon$ in \eqref{eq:final-lower-bd}, we get
-$ \left(\dfrac{\delta^{-q/2}C_2}{4\sqrt{n}} + \dfrac{C_1\delta^p}{2}\right)$. We choose
-\[
-\epsilon^* = \left(\dfrac{\delta^{-q/2}C_2}{4\sqrt{n}} + C_1\delta^p\right)
-\]
-to guarantee that $\epsilon^*>C_1 \delta^p$.
-
- Plugging in $\epsilon^*$, we obtain
- \[
- \Delta_n^{(1)*}
- \ge \frac18 \left(\dfrac{\delta^{-q/2}C_2}{2\sqrt{n}} + C_1\delta^p \right).
- \]
-
-Substituting $p=1$ and $q=2$, we obtain
-\[
-\delta^*= \sqrt{\dfrac{C_2}{2C_1}}\dfrac{1}{n^{\frac{1}{4}}} \text{ and } 
-\Delta_n^{(1)*} \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{1}{n^{\frac{1}{4}}}.
-\]
-
-On the other hand, substituting $p=q=2$, we obtain
-\[
-\delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^{(1)*} \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
-\]
+% \paragraph{Derivations of rates:}
+%  Optimizing over $\epsilon$ in \eqref{eq:final-lower-bd}, we get
+% $ \left(\dfrac{\delta^{-q/2}C_2}{4\sqrt{n}} + \dfrac{C_1\delta^p}{2}\right)$. We choose
+% \[
+% \epsilon^* = \left(\dfrac{\delta^{-q/2}C_2}{4\sqrt{n}} + C_1\delta^p\right)
+% \]
+% to guarantee that $\epsilon^*>C_1 \delta^p$.
+% 
+%  Plugging in $\epsilon^*$, we obtain
+%  \[
+%  \Delta_n^{(1)*}
+%  \ge \frac18 \left(\dfrac{\delta^{-q/2}C_2}{2\sqrt{n}} + C_1\delta^p \right).
+%  \]
+% 
+% Substituting $p=1$ and $q=2$, we obtain
+% \[
+% \delta^*= \sqrt{\dfrac{C_2}{2C_1}}\dfrac{1}{n^{\frac{1}{4}}} \text{ and } 
+% \Delta_n^{(1)*} \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{1}{n^{\frac{1}{4}}}.
+% \]
+% 
+% On the other hand, substituting $p=q=2$, we obtain
+% \[
+% \delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^{(1)*} \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
+% \]
 
 \paragraph{Derivation of the rates uniformly for all $\delta$}
 
 Assuming $q \ge 2$, minimizing the right hand side of \eqref{eq:final-lower-bd} in $\delta$ yields
 \[
-\delta*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p}
+\delta^*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p}
 \]
 and
 \[
-\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - 2\sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)
+\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)
 \]
 for any choice of $\delta$. Now, when $q=2$ and $p=1$, this simplifies to
 \[
-\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - \frac{\sqrt{n}}{2C_1 C_2} \epsilon^2\right) = \frac{\sqrt{C_1 C_2}}{4} n^{-1/4}
+\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - \frac{\sqrt{n}}{4C_1 C_2} \epsilon^2\right) = \frac{\sqrt{C_1 C_2}}{2} n^{-1/4}
 \]
-for $\epsilon=\sqrt{C_1C_2} n^{-1/4}$. On the other hand, for $p=q=2$, we get
+for $\epsilon=\sqrt{2C_1C_2} n^{-1/4}$. On the other hand, for $p=q=2$, we get
 \[
 \Delta_n^* \ge \dfrac{\epsilon}{2} \left(1-\frac{4\sqrt{n}}{3\sqrt{3} \sqrt{C_1} C_2} \epsilon^{3/2}\right)
-= \left(\frac{C_1 C_2^2}{144}\right)^{1/3} n^{-1/3}
+= \left(\frac{C_1 C_2^2}{36}\right)^{1/3} n^{-1/3}
 \]
-with $\epsilon=\left(\frac{3 C_1 C_2^2}{16 n}\right)^{1/3}$.
+with $\epsilon=\left(\frac{3 C_1 C_2^2}{4 n}\right)^{1/3}$.
 
 
 
@@ -184,8 +188,8 @@ Define $f_v$ for any $v\in \{-1,+1\}^d$ as
 \end{align*}
 By definition, $f_v$ is additively separable and minimized at $x^*_v=v$ with the minimum value being zero.
 We consider oracles $\gamma_v$ defined by
-$\gamma_v(x) = \sum_{i=1}^d \gamma_{v_i}^{(i)}$, where $\gamma_{v_i}^{(i)} = \epsilon(x_i-v_i) + v_i\, C_1 \delta^p$. 
-It is evident that the $\gamma$ is a $(c_1,c_2)$ Type-I oracle.
+$\gamma_v(x) = \sum_{i=1}^d \gamma_{v_i}^{(i)}$, where $\gamma_{v_i}^{(i)} = \epsilon(x_i-v_i) + v_i\, \frac{C_1 \delta^p}{\sqrt{d}} + \xi_i$, where $\xi_i \sim \normal(0,\frac{C_2}{d\delta^q})$. 
+It is evident that the $\gamma$ is a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 
 The minimax error  
 \begin{align*}
@@ -199,9 +203,10 @@ where $\hat{X}_{ni}$ denotes the $i$th coordinate of the vector $\hat{X}_n \in \
 % Fix an $i$ and consider the loss $L_i(v)$.
 % We now argue that, since $f_v$ is separable, any algorithm $\A$ that uses information in dimensions other than $i$ in the gradient samples of the oracle, can be replaced by $d$ algorithms $\A_1^*$, $\dots$, $\A_d^*$ such that $\A_i^*$ is only using information for dimension $i$ and is only predicting the $i$th coordinate at the end, and the sum of losses they incur is utmost that of $\A$ in the worst-case.
 
-For any algorithm $\A$, one can find $d$ ``$1$-dimensional'' algorithms, $\A_i^*$, $1\le i \le d$,
+\begin{lemma}
+For any algorithm $\A$, there exist  $d$ ``$1$-dimensional'' algorithms, $\A_i^*$, $1\le i \le d$,
 the $i$th algorithm interacting with only a one dimensional oracle, supplying gradient estimates about $f_{v_i}^{(i)}$ 
-such that if $L^{\A}(v)$ is the loss of $\A$ on environment with index $v$, with the 
+such that if $L^{\A}(v)$ is the loss of $\A$ on environment with index $v$ and the following holds
 the 
 \begin{align}
 \label{eq:onedimlb}
@@ -211,8 +216,8 @@ the
 &  \max_{v_1\in \{\pm 1\}} L_1^{\A_1^*}(v_1) + \dots + \max_{v_d\in \{\pm 1 \}} L_d^{\A^*_d}(v_d)\,.
 \end{split}
 \end{align}
-
-
+\end{lemma}
+\begin{proof}
 Let $v_{-i}=(v_1,\ldots,v_{i-1},v_{i+1},\ldots,v_d)$ denote a $d-1$ dimensional vector that removes the $i$th coordinate from $v$. By an abuse of notation, we let $v=(v_i, v_{-i})$. 
 We now describe the construction of $\A^*=(\A_1^*, \ldots, \A_d^*)$.
 We describe $\A_1^*$ only, other algorithm components are formed in a similar manner.
@@ -249,34 +254,38 @@ L^*_1(v_1) + \dots + L^*_d(v_d) \\
 & \le L(\hat{v}^*) \le \max_{v\in \{\pm 1\}^d } L(v)\,,
 \end{align*}
 which was the claim to be proven.
+\end{proof}
 
-Hence,
+\paragraph{Main proof:}
+The minimax error $\Delta_n^*$ in $d$ dimensions can be lower bounded as follows:
 \begin{align}
 \MoveEqLeft
 \Delta_n^*  \ge  \inf_{\A} \max_{v\in {\pm 1}^d} L^\A(v) \nonumber\\
  & \ge \inf_{\A_1} \max_{v_1\in \{\pm 1\}} L_1^{\A_1}(v_1) + \dots + 
  			\inf_{A_d} \max_{v_d\in \{\pm 1 \}} L_d^{\A_d}(v_d) \label{eq:splitA}\\
 %             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
-              \ge & d \Delta_n^{(1)*}\,, \label{eq:dlb}
+              \ge & d \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)\,, \label{eq:dlb}
 \end{align}
 where in inequality \eqref{eq:splitA}, algorithms $\A_i$ are interacting with the respective one-dimensional oracles $\gamma^{(i)}_{v_i}$ only \todoc{We probably should formally introduce this earlier; this would be better!}
 and the inequality follows by~\eqref{eq:onedimlb},
-while the inequality \eqref{eq:dlb} follows from the fact that each infimum term in \eqref{eq:splitA} is solving a $1$-dimensional problem and hence the one-dimensional minimax error $\Delta_n^{(1)*}$ applies in each dimension. 
+while the inequality \eqref{eq:dlb} follows from the fact that each infimum term in \eqref{eq:splitA} is solving a $1$-dimensional problem and hence the bound in \eqref{eq:final-lower-bd} applies with $C_1$ replaced by $C_1/\sqrt{d}$ and $C_2$ replaced by $C_2/d$. The resulting bound is denoted by $\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)$. 
 % is the one-dimensional minimax error, which is lower-bounded in \eqref{eq:final-lower-bd}. \todoc{However, I would have written just the $1$d final bound there, or $\Delta_n^*( \dots )$ with some notation, because we don't want to redo this whole optimization business..}
 
 % Using the one-dimensional minimax error $\Delta_n^{(1)*}$, we obtain
 % \[\Delta_n^* \ge d \Delta_n^{(1)*}.\]
+\paragraph{Rates:}
 
-% Case $p=1$ and $q=2$:
-% \[
-% \delta^*= \sqrt{\dfrac{C_2}{2C_1}}\dfrac{1}{n^{\frac{1}{4}}} \text{ and } 
-% \Delta_n^* \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{d}{n^{\frac{1}{4}}}.
-% \]
-% 
-% Case $p=q=2$:
-% \[
-% \delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^* \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{d}{n^{\frac{1}{3}}}.
-% \]
+Case $p=1$ and $q=2$:
+\begin{align*}
+\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
+\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)  \ge& \frac{\sqrt{C_1 C_2}}{2}\left(\frac{d}{n}\right)^{\frac{1}{4}}.
+\end{align*}
+
+Case $p=q=2$:
+\begin{align*}
+\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\left(\frac{C_1 C_2^2}{36 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
+\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)  \ge& \left(\frac{3 \sqrt{d} C_1 C_2^2}{4 n}\right)^{1/3}.
+\end{align*}
 
 %%% Local Variables: 
 %%% mode: latex
