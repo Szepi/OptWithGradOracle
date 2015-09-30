@@ -1,0 +1,101 @@
+%!TEX root =  bgo.tex
+% please do not delete or change the first line (needed by Csaba's editor)
+
+Before the proof, we introduce a well known bound on the instantaneous linearized regret of Mirror Descent. \todox{Should add some citation, but I can not find a proper source.}
+\begin{lemma}
+\label{lem:mdlinregret}
+For any $x \in \cK$ and any $t \ge 1$,
+\begin{align*}
+\MoveEqLeft
+\ip{G_t, X_{t+1}-x} \\
+\le &\dfrac{1}{\eta_t} \left( \DR(x,X_t)-\DR(x,X_{t+1})-\DR(X_{t+1},X_t) \right)\,,
+\end{align*}
+where $X_{t+1}$ is selected as in \cref{alg}.
+\end{lemma}
+\begin{proof}
+The point $X_{t+1}$ is the minimizer of 
+$\Psi_{t+1}(x)=\eta_t \ip{G_t,x}+\DR(x,X_t)$ over $\cK$. The gradient of $\Psi_{t+1}(x)$ is
+\[
+\nabla \Psi_{t+1}(x) = \eta_t G_t + \nabla\mathcal{R}(x)-\nabla\mathcal{R}(X_t)\,.
+\]
+By the optimality condition, for any $x \in \cK$,
+\[
+\ip{\eta_t G_t + \nabla\mathcal{R}(x)-\nabla\mathcal{R}(X_t), x-X_{t+1}}\ge 0 \,,
+\]
+which is equivalent to the result by substituting the definition of Bregman divergence $\DR$.
+\end{proof}
+
+Proof of Lemma \ref{lem:ub}:
+
+Denote $\hat{G}_t = \nabla f(X_t)$. 
+From the smoothness and convexity of $f$ and using that $\mathcal{R}$ is strongly convex, we have
+\begin{align}
+\MoveEqLeft
+f(X_{t+1}) - f(x) \nonumber\\
+ \le& f(X_t) + \ip{ \hat{G}_t, X_{t+1}-X_t } + \frac{L}{2} \norm{X_{t+1}-X_t}^2 \nonumber \\
+&- \left\{ f(X_t) + \ip{ \hat{G}_t, x-X_t} \right\} \nonumber \\
+ =& \ip{\hat{G}_t, X_{t+1} - x } +  \frac{L}{2} \norm{X_{t+1}-X_t}^2 \nonumber\\
+ \le& \ip{\hat{G}_t,X_{t+1}-x} + \frac{L}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t)\,. \label{eq:mdsmoothnoisy1}
+\end{align}
+Now write $\hat{G}_t = (\hat{G}_t-\overline G_t)  + \xi_t + G_t$ where $\xi_t = \overline G_t - G_t$ is the ``noise''.
+Hence, 
+\begin{align*}
+\MoveEqLeft
+\ip{\hat{G}_t,X_{t+1}-x} \\
+\le& \beta_t \norm{X_{t+1}-x} + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x }\\
+\le &\beta_t \sqrt{ \frac{2D}{\alpha} } + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x } \,.
+\end{align*}
+After we plug this into~\eqref{eq:mdsmoothnoisy1},
+the plan is to take the conditional expectation of both sides w.r.t. $\F_{t}$.
+As $X_t$ is $\F_{t}$-measurable, and by the definition of $\xi_t$ and $\overline G_t$, $\EE{ \xi_t|\F_{t}} = 0$, 
+we have 
+\begin{align*}
+\MoveEqLeft
+\EE{\ip{\xi_t, X_{t+1}-x}|\F_{t}} \\
+&= \underbrace{\EE{\ip{\xi_t,X_{t}-x}|\F_{t}}}_{=0} + \EE{\ip{\xi_t,X_{t+1}-X_t}|\F_{t}} \,.
+\end{align*}
+We bound the second term inside the expectation from the Fenchel-Young inequality: 
+\begin{align*}
+\ip{\xi_t,X_{t+1}-X_t} \le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + a_t \norm{X_{t+1}-X_t}^2\right)\,.
+\end{align*}
+Using again that $\mathcal{R}$ is $\alpha$-strongly convex, we get 
+\[
+\ip{\xi_t,X_{t+1}-X_t} \le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + \frac{2a_t}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t) \right)\,.
+\]
+Applying 
+\cref{lem:mdlinregret} 
+to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
+\begin{align*}
+\MoveEqLeft \EE{f(X_{t+1}) - f(x) |\F_{t} }
+\le 
+ \beta_t \sqrt{ \frac{2D}{\alpha} }+
+\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\F_{t}}\\&+
+\frac{1}{\eta_t} \left(D_{\mathcal{R}}(x,X_t)-D_{\mathcal{R}}(x,X_{t+1})\right) \\&+
+\underbrace{\left(\frac{a_t+L}{\alpha}-\frac{1}{\eta_t}\right) D_{\mathcal{R}}(X_{t+1},X_t)}_{=0} \,.
+\end{align*}
+Given $\sigma_t^2 = \EE{ \norm{\xi_t}_*^2}$,
+we will sum up these inequalities for $t=1,\dots,n-1$.
+To bound the right-hand side of the result, we use
+\begin{align*}
+\MoveEqLeft \sum_{t=1}^{n-1} \frac{1}{\eta_t} \left(\DR(x,X_t)-\DR(x,X_{t+1})\right)
+ \\
+&= \DR(x,X_1) \frac{1}{\eta_1} + \DR(x,X_2) \left(\frac{1}{\eta_2}-\frac{1}{\eta_1}\right)
++ \dots  \\
+& \dots+\DR(x,X_{n-1}) \left(\frac{1}{\eta_{n-1}} -\frac{1}{\eta_{n-2}}\right)\\
+&- \frac{1}{\eta_{n-1}} \DR(x,X_n)\\
+& \le D \frac{1}{\eta_1} + D \sum_{t=2}^{n-1} \left(\frac1{\eta_{t}}-\frac1{\eta_{t-1}}\right)\\
+& = \frac{D}{\eta_{n-1}}\,.
+\end{align*}
+The inequality results from the fact that $\{\eta_t\}$ is non-increasing.
+Hence, by the tower rule,
+\begin{align*}
+ &\EE{ \sum_{t=1}^n f(X_t) - f(x) }  \\
+\le& 
+  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
+	   \frac{D}{\eta_{n-1}} +
+	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\\
+=& 	  
+  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
+	   \frac{D(a_{n-1}+L)}{\alpha} +
+	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,.
+\end{align*}

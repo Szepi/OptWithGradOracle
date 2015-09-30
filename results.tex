@@ -5,47 +5,53 @@ Unconstrained case:
 
 Upper bound: 
 
-In this section we prove a upper regret bound with a fixed, smooth objective function. 
-The algorithm $\A$ we choose to interact with Type-I oracle is Mirror Descent (MD).
+\begin{algorithm}
+	\caption{Mirror Descent with Type-I Oracle}\label{alg}
+	\textbf{Input}: Closed convex set $\cK$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$. \\
+	Initialize $X_1\in \cK$ arbitrarily.\\
+	In round $t=1, 2, \cdots, n-1$:
+	\begin{itemize}
+	\item Query the oracle at $X_t$.
+	\item Receive $G_t$, $Y_t$.
+	\item Update
+	\[
+	X_{t+1}=\argmin_{x\in \mathcal{K}}\left[ \eta_{t} \ip{G_t,x}+D_{\mathcal{R}}(x,X_t) \right] \,.
+	\]
+	\end{itemize}
+	\textbf{Output}: the optimizer
+	\[
+	\hat{X}_n = \dfrac{1}{n}\sum_{t=1}^n X_t \,.
+	\]
+	
+\end{algorithm}
 
-Let the regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$ be such that $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$. Fix an $L$-smooth, convex loss function $f: \mathcal{K} \to \mathbb{R}$. 
-Recall the MD algorithm: We let $x_1\in \cK$ be arbitrary,
-and for $t\ge 1$, 
-\begin{align*}
-x_{t+1}=\argmin_{x\in \mathcal{K}}\left[ \eta_{t} \ip{G_t,x}+D_{\mathcal{R}}(x,x_t) \right] \,,
-\end{align*}
-where $D_{\mathcal{R}}$ denotes the Bregman divergence w.r.t. $\mathcal{R}$ and $G_t \in \R^d$.
-We assume that $\mathcal{R}$ is $\alpha$-strongly convex w.r.t. some norm $\norm{\cdot}$. 
-
-When $G_t$ is a noisy, biased estimate of $\nabla f(x_t)$, we have the following lemma.
-\begin{lemma}
-Let $(\cF_t)_{t}$ be a filtration such that $x_t$ is $\cF_t$-measurable.
-Let $g_t = \EE{G_t|\cF_t}$ 
-and assume that the nonnegative real-valued deterministic sequence $(\beta_t)_{1\le t\le n}$ is such that 
-$\norm{g_t - \nabla f(x_t)}_* \le \beta_t$ holds almost surely. 
-Further, assume that $\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y) \le D$ and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing 
-sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, 
-\begin{align*}
-\MoveEqLeft \EE{ \sum_{t=1}^n f(x_t) - f(x) }  \\
-\le& 	 \EE{f(x_1)-f(x)}+ \\
- & \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t 
- +\frac{D(a_{n-1}+L)}{\alpha} +
-	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,,
-\end{align*}
-where $\sigma_t^2 = \EE{ \norm{G_t-g_t}^2}$ is the ``variance'' of $G_t$.
-\end{lemma}
-This is essentially Theorem~C.4 of \cite{MahdaviPhd:2014}, which is identical to Theorem~6.3 of \cite{Bu:Convex14}, who cites \cite{Dekel:minibatch12} as the source. These results assume that $\beta_t=0$ above.
-
-Next, we consider the minimax regret of MD algorithm interacting with Type-I oracle.
 \begin{theorem}
+\label{thm:ub}
 Given a bounded, convex set $\cK \subset \R$,
 let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth.
+Assume further that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t. some norm $\norm{\cdot}$, and $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$.
 For any $(c_1,c_2)$ Type-I oracle 
- with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, the expected minimax regret \eqref{eq:minimaxregdef} can be bounded as
+ with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
+ if \cref{alg} is run with 
+ \[
+ \eta_t = \dfrac{\alpha}{a_t+L} \,,
+ \]
+ \[
+ \delta = \left( \dfrac{C_2}{2aC_1}\sqrt{\dfrac{\alpha}{2D}} \right)^{1/(p+q)}n^{-1/(2p+q)} \,,
+ \]
+ where
+ $a = \left( \sqrt{\dfrac{2^{3q}\alpha}{D}}C_1^q C_2^p \right)^{1/(2p+q)}$,
+ $a_t = a t^{(p+q)/(2p+q)}$, for $t=1, 2, \cdots, n-1$,
+  the minimax error \eqref{eq:minimaxerrdef} can be bounded as
  \begin{align*}
-\dfrac{1}{n} \mathbb{E}\left[ R_n^* \right](\cF,c_1,c_2) \leq O(n^{-p/(2p+q)})\,.
- \end{align*}\todox{The regret is actually w.r.t. a fixed $f$, modify definition of minimax regret or define a new minimax regret here?}
+\Delta_n^*(\cF,c_1,c_2)= O(n^{-p/(2p+q)})\,,
+ \end{align*}
+ where $D=\sup_{x,y\in \cK} \DR(x,y)$. $\DR$ denotes the Bregman divergence w.r.t. $\mathcal{R}$.
 \end{theorem}
+\begin{proof}
+See Section \ref{sec:ub-proof}.
+\end{proof}
+
 
 Lower bound:
 \begin{theorem}
