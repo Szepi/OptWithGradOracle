@@ -151,9 +151,11 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 % \delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^{(1)*} \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
 % \]
 
-\paragraph{Derivation of the rates uniformly for all $\delta$}
+\paragraph{Derivation of the rates uniformly for all $\delta$:}
+Observe that $\max_\delta (\epsilon - C_1 \delta^p)_+ \delta = \max_\delta (\epsilon - C_1 \delta^p) \delta$. 
+In other words, minimizer $\delta^*$ of \eqref{eq:final-lower-bd} can never be in the zero arm of the positive part function, i.e., $(\epsilon - C_1 \delta^p)_+ $, and hence we minimize \eqref{eq:final-lower-bd} by replacing the positive part with $(\epsilon - C_1 \delta^p)$.
 
-Assuming $q \ge 2$, minimizing the right hand side of \eqref{eq:final-lower-bd} in $\delta$ yields
+Assuming $q \ge 2$, we obtain the following 
 \todoc{This calls for a little explanation because of the positive part.
 The expression without the positive part has the minimizer below. This minimizer is always small enough, so that 
 we are not in the $0$ arm of the positive part function. Further, the minimizer can never be in the zero arm
@@ -163,17 +165,17 @@ of this function. Therefore, the minimizer is indeed $\delta^*$.}
 \]
 and
 \[
-\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)
+\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)
 \]
 for any choice of $\delta$. \todoc{Can we calculate the maximizer of this in $\epsilon$ for any $q\ge 2, p>0$?
 We have the upper bound for all these..}
 Now, when $q=2$ and $p=1$, this simplifies to
 \[
-\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - \frac{\sqrt{n}}{4C_1 C_2} \epsilon^2\right) = \frac{\sqrt{C_1 C_2}}{2} n^{-1/4}
+\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \frac{\sqrt{n}}{4C_1 C_2} \epsilon^2\right) = \frac{\sqrt{C_1 C_2}}{2} n^{-1/4}
 \]
 for $\epsilon=\sqrt{2C_1C_2} n^{-1/4}$. On the other hand, for $p=q=2$, we get
 \[
-\Delta_n^* \ge \dfrac{\epsilon}{2} \left(1-\frac{4\sqrt{n}}{3\sqrt{3} \sqrt{C_1} C_2} \epsilon^{3/2}\right)
+\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1-\frac{4\sqrt{n}}{3\sqrt{3} \sqrt{C_1} C_2} \epsilon^{3/2}\right)
 = \left(\frac{C_1 C_2^2}{36}\right)^{1/3} n^{-1/3}
 \]
 with $\epsilon=\left(\frac{3 C_1 C_2^2}{4 n}\right)^{1/3}$.
@@ -196,9 +198,9 @@ We consider oracles $\gamma_v$ defined by
 $\gamma_v(x) = \sum_{i=1}^d \gamma_{v_i}^{(i)}$, where $\gamma_{v_i}^{(i)} = \epsilon(x_i-v_i) + v_i\, \frac{C_1 \delta^p}{\sqrt{d}} + \xi_i$, where $\xi_i \sim \normal(0,\frac{C_2}{d\delta^q})$. 
 It is evident that the $\gamma$ is a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 
-The minimax error  
+Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$, which is composed of $f_v$s, as defined above. We have
 \begin{align*}
- \Delta_n^* \ge& \inf_\A  \sup_{v\in \{\pm 1 \}^d}\sum_{i=1}^d L_i(v), \text{ where, for } i=1,\ldots,d,\\
+ \Delta_n^{(d)*} \ge& \inf_\A  \sup_{v\in \{\pm 1 \}^d}\sum_{i=1}^d L_i(v), \text{ where, for } i=1,\ldots,d,\\
  L_i(v) := & \int f^{(i)}_{v_i}(\hat X_{ni}(g_{1:n}) )\, dP_{\A,\gamma_v,\sigma^2}(g_{1:n}),  
 \end{align*}
 where $\hat{X}_{ni}$ denotes the $i$th coordinate of the vector $\hat{X}_n \in \R^d$ chosen by $\A$, for $i=1,\ldots,d$
@@ -215,11 +217,12 @@ such that if $L^{\A}(v)$ is the loss of $\A$ on environment with index $v$ and t
 the 
 \begin{align}
 \label{eq:onedimlb}
-\begin{split}
-\MoveEqLeft \max_{v\in \{\pm 1\}^d} L^{\A}(v) 
-\ge \\
+% \begin{split}
+% \MoveEqLeft 
+&\hspace{-1em}\max_{v\in \{\pm 1\}^d} L^{\A}(v) 
+\ge \nonumber\\
 &  \max_{v_1\in \{\pm 1\}} L_1^{\A_1^*}(v_1) + \dots + \max_{v_d\in \{\pm 1 \}} L_d^{\A^*_d}(v_d)\,.
-\end{split}
+% \end{split}
 \end{align}
 \end{lemma}
 \begin{proof}
@@ -262,14 +265,14 @@ which was the claim to be proven.
 \end{proof}
 
 \paragraph{Main proof:}
-The minimax error $\Delta_n^*$ in $d$ dimensions can be lower bounded as follows:
+The minimax error $\Delta_n^{(d)*}$ can be lower bounded as follows:
 \begin{align}
-\MoveEqLeft
-\Delta_n^*  \ge  \inf_{\A} \max_{v\in {\pm 1}^d} L^\A(v) \nonumber\\
+&
+\Delta_n^{(d)*}  \ge  \inf_{\A} \max_{v\in {\pm 1}^d} L^\A(v) \nonumber\\
  & \ge \inf_{\A_1} \max_{v_1\in \{\pm 1\}} L_1^{\A_1}(v_1) + \dots + 
  			\inf_{A_d} \max_{v_d\in \{\pm 1 \}} L_d^{\A_d}(v_d) \label{eq:splitA}\\
 %             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
-              \ge & d \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)\,, \label{eq:dlb}
+               & \ge d \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)\,, \label{eq:dlb}
 \end{align}
 where in inequality \eqref{eq:splitA}, algorithms $\A_i$ are interacting with the respective one-dimensional oracles $\gamma^{(i)}_{v_i}$ only \todoc{We probably should formally introduce this earlier; this would be better!}
 and the inequality follows by~\eqref{eq:onedimlb},
