@@ -47,14 +47,13 @@ Hence, \todoc{No need for strong convexity..}
   = &  \dfrac{\epsilon}{2} (x - 1)^2 \ge  \dfrac{\epsilon}{2}  \indic{x  < 0}. \label{eq:fv-lb}
 \end{align}
 Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
-We will consider the oracles $\gamma_v$ defined as 
+We will consider the oracles $\gamma_v$ defined as \todoc{There was a sign mistake; we need $\dots - v \min(\dots)$.}
 \begin{align}
- \gamma_v(x) = \epsilon(x-v) + v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
+ \gamma_v(x) = \epsilon(x-v) - v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
 \end{align}
 where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
 to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
 The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
-\todoc{We should use instead $ \gamma_v(x) = \epsilon(x-v) +\min( \epsilon, C_1 \delta^p)$. This will help with the absolute value business.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 The minimax error \eqref{eq:minimax-err} is lower bounded by
@@ -100,7 +99,7 @@ $P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with the mean $\cA_t(g
 Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2\epsilon$ and hence
 \begin{align}
 & |\gamma_+(x) - \gamma_-(x)| \nonumber\\
-& = | f'_+(x) + \min(\epsilon,C_1 \delta^p) - (f'_-(x)-\min(\epsilon,C_1 \delta^p)) | \nonumber \\
+& = | f'_+(x) - \min(\epsilon,C_1 \delta^p) - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | \nonumber \\
 & = 2 (\epsilon - C_1 \delta^p)_+\,,
  \label{eq:gdiff-ub}
 \end{align}
@@ -155,6 +154,10 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 \paragraph{Derivation of the rates uniformly for all $\delta$}
 
 Assuming $q \ge 2$, minimizing the right hand side of \eqref{eq:final-lower-bd} in $\delta$ yields
+\todoc{This calls for a little explanation because of the positive part.
+The expression without the positive part has the minimizer below. This minimizer is always small enough, so that 
+we are not in the $0$ arm of the positive part function. Further, the minimizer can never be in the zero arm
+of this function. Therefore, the minimizer is indeed $\delta^*$.}
 \[
 \delta^*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p}
 \]
@@ -162,7 +165,9 @@ and
 \[
 \Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)
 \]
-for any choice of $\delta$. Now, when $q=2$ and $p=1$, this simplifies to
+for any choice of $\delta$. \todoc{Can we calculate the maximizer of this in $\epsilon$ for any $q\ge 2, p>0$?
+We have the upper bound for all these..}
+Now, when $q=2$ and $p=1$, this simplifies to
 \[
 \Delta_n^* \ge \dfrac{\epsilon}{2} \left(1 - \frac{\sqrt{n}}{4C_1 C_2} \epsilon^2\right) = \frac{\sqrt{C_1 C_2}}{2} n^{-1/4}
 \]
