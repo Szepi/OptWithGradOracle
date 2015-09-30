@@ -9,6 +9,14 @@ This problem is also called online convex optimization with one-point feedback.
 A slightly different problem is obtained if we allow the learner to choose multiple points in every round, at which points the function $f_t$ is observed. The loss is suffered at $X_t$. The points where the function is observed (``observation points'' for short) may or may not be tied to $X_t$. One possibility is that $X_t$ is one of the observation points.  
 Another possibility is that $X_t$ is the average of the observation points. Yet another possibility is that there is no relationship between them. \todoc{Add refs, explain relationship between these problems.}
 
+\todox[inline]{add the following paragraph about two-point online variant.}
+For example, \cite{AgDeXi10} used an algorithm that queries at two points per round, and defined the incurred loss as the average of losses at two observation points. In our oracle, it can be stated as in round $t$, the same oracle $\gamma_t$ responds to the same inputs $(X_t, \delta_t, f_t)$ with two different pairs $(G_{t,1}, Y_{t,1})$ and $(G_{t,2}, Y_{t,2})$. The accumulated regret can be written as 
+\[
+R_n = \sum_{t=1}^n \dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2}) \right) -\inf_{x \in \cK}\sum_{t=1}^n f_t(x) \,.
+\]
+Recalling that $Y_{t,1}$, $Y_{t,2}$ are in the $\delta$-vicinity of $X_t$, the relationship between $f_t(X_t)$ and $\dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2})\right)$ is then determined by the environment (i.e. the property of $f_t$). It is straightforward to bound $| \dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2})\right)- f_t(X_t)|$ with $\delta$.
+The common assumption for this setting is: The oracle is a stochastic mapping from $(X, \delta, f)$ to $(G, Y)$; The algorithm selects the point $X_t$ depending on $\left( X_1, G_{1,1}, G_{1,2}, \cdots, X_{t-1},G_{t-1,1}, G_{t-1,2}  \right)$. This two-point feedback can be easily extended to multi-point feedback, too.
+
 In the \emph{optimization variant} of bandit (or ``zeroth order'') convex optimization, 
 the algorithm sequentially chooses the points $X_1,\dots,X_n\in \cK$ while observing the loss function at these points in noise.
 In particular, in round $t$, the algorithm chooses $X_t$ based on the earlier observations $Z_1,\dots,Z_{t-1}\in \R$ and $X_1,\dots,X_{t-1}$, after which it observes $Z_t$, where $Z_t$ is the value of $f(X_t)$ corrupted by ``noise''.
@@ -23,6 +31,8 @@ in the hope of increasing accuracy, akin to the method of common random numbers 
 \todoc{mention simulation optimization as the ``field''}
 Again, it is also possible to consider multi-point feedback as in the online case.
 
+\todox[inline]{add multiple-point feedback in optimization setting}
+However, what differs in optimization variant is that we do not care the incurred loss in each round, since we only need a final estimate $\hat{X}_n$, which is a deterministic function of $\left( X_1, G_{1,1}, G_{1,2}, \cdots, X_{n},G_{n,1}, G_{n,2}  \right)$ as defined earlier.
 
 \todoc[inline]{Reduction of one-point feedback to two-point feedback}
 
