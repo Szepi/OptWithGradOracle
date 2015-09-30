@@ -2,3 +2,35 @@
 % please do not delete or change the first line (needed by Csaba's editor)
 \subsection{Reductions and Proofs}
 \label{sec:orrel}
+
+\begin{theorem}
+\cref{def:oracle1} is a sufficient condition of \cref{def:oracle2}, given a bounded $\cK$. That is, for any $(c_1,c_2)$ Type-I oracle $\gamma$, there exist some constant $R$ such that  $\gamma$ is a $(c'_1,c_2)$ Type-II oracle, with $c'_1(\delta)=Rc_1(\delta)$.
+
+Similarly, \cref{def:oracle2} is sufficient for \cref{def:oracle1} if the alternative condition \eqref{eq:oracle2alt} holds.
+\end{theorem}
+\begin{proof}
+Given $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $ in \cref{def:oracle1}, we can always construct a function $\tilde{f}:\cK \to \mathbb{R}$, 
+\[
+\tilde{f}(y) =\EE{ f(y)+ \left( G-\nabla f(x) \right)^\top y} \,, 
+\]
+where the expection is over the randomness of $G$, satisfying
+\begin{align*}
+\MoveEqLeft
+\norm{\tilde{f}(y)-f(y)}_{\infty} \\
+= &
+ \norm{ \EE{\left( G-\nabla f(x) \right)^\top y}}_{\infty}\\
+ \le &\norm{\EE{G}-\nabla f(x)}_* \norm{y}
+ \le  Rc_1(\delta)\,,
+\end{align*} 
+by choosing $R = \sup_{y \in \cK}\norm{y}$.
+
+Also notice that
+\[
+ \nabla \tilde{f}(x) = \EE{\nabla f(x)+ \left( G-\nabla f(x)\right)}
+ =\EE{G}\,.
+\]
+Therefore, $\gamma$ is also a $(c'_1,c_2)$ Type-II oracle.
+
+Next, given \eqref{eq:oracle2alt} and $\EE{G}=\nabla \tilde{f}(x)$ in \cref{def:oracle2}, we can immediately get the bias condition of \cref{def:oracle1}. \todox{should add an inequality $\norm{\cdot}_* \le C \norm{\cdot}_\infty$}
+\end{proof}
+

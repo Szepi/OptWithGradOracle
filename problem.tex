@@ -42,6 +42,7 @@ $\lim_{\delta\to  0} c_1(\delta)=0$ and $\lim_{\delta\to 0} c_2(\delta)=+\infty$
 Typical choices for $c_1,c_2$ are $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2\delta^{-q}$ with $p,q>0$.
 We define two classes of oracles. The relationship between these oracles will be studied in \cref{sec:orrel}.
 \begin{definition}[$(c_1,c_2)$ Type-I  oracle]
+\label{def:oracle1}
 We say that $\gamma$ is a  $(c_1,c_2)$ Type-I oracle, if for any function $f\in \cF$,
 $x\in \cK,\delta>0$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that:
 \begin{enumerate}
@@ -52,6 +53,7 @@ $x\in \cK,\delta>0$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random element
 \end{definition}
 The second type of oracle considered is as follows:
 \begin{definition}[$(c_1,c_2)$ Type-II  oracle]
+\label{def:oracle2}
 We say that $\gamma$ is a  $(c_1,c_2)$ Type-II oracle, if for any function $f\in \cF$,
 $x\in \cK,\delta>0$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that:
 \begin{enumerate}
@@ -64,6 +66,7 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias);
 \end{definition}
 An alternative to the bias condition for Type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with \todoc{This requires $f$ to be differentiable.. Or define using subgradients?}
 \begin{align}
+\label{eq:oracle2alt}
 \norm{\nabla \tilde{f}- \nabla f}_\infty \le c_1(\delta).
 \end{align}
 Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory), 
@@ -119,7 +122,7 @@ $x_i = \A_i(x_1, G_1, \ldots, x_{i-1}, G_{i-1})$.
 We define the minimax error $\Delta_n$ as follows:
 \begin{align}
   \label{eq:minimax-err}
-  \Delta_n(\F, \sigma^2) := \inf_{\A} \sup_{f_v \in \F} \sup_{\gamma \in \Gamma(f_v)} \E[f_v(\hat x_n) - \inf_{x \in X}
+  \Delta_n(\F, \sigma^2) := \inf_{\A} \sup_{f_v \in \F} \sup_{\gamma \in \Gamma(f_v)} \E[f_v(\hat x_n) - \inf_{x \in \cK}
   f_v(x)],
 \end{align}
 where $\hat x_n$ is the point returned by algorithm $\A$ and 

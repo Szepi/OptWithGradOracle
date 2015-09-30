@@ -28,7 +28,7 @@ Proof of Theorem \ref{thm:ub}:
 
 Since $f$ is convex, by Jensen's inequality,
 \[
- \E[f(\hat X_n) - \inf_{x \in X} f(x)] \le  \dfrac{1}{n}\EE{ \sum_{t=1}^n f(X_t) - \inf_{x \in X}f(x) } \,.
+ \E[f(\hat X_n) - \inf_{x \in \cK} f(x)] \le  \dfrac{1}{n}\EE{ \sum_{t=1}^n f(X_t) - \inf_{x \in \cK}f(x) } \,.
 \]
 Then the result immediately follows from Lemma \ref{lem:ub}, by replacing
  $\beta_t = C_1\delta^p$, $\sigma^2_t = C_2 \delta^{-q}$ and $a_t$, respectively.
