@@ -297,3 +297,95 @@ Case $p=q=2$:
 %%% mode: latex
 %%% TeX-master: "bgo"
 %%% End: 
+
+\subsubsection{Bounds for strongly convex functions}
+We follow the notational convention used earlier for convex functions in one dimension. 
+
+We consider functions $f_v$, for any $v \in \{-\nu,+\nu\}$, defined as
+By assumption,  $\{f_+, f_-\}\subset \F$, with 
+\begin{align*}
+  f_v(x) := \dfrac{1}{2} x^2 - v x \,\, x \in \cK\,;
+\end{align*}
+we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+\nu}$ (resp., $f_{-\nu}$).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+Clearly, $f_v$ is minimized at $x^*_v = v$.
+By the definition of $f_v$, we have
+%Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
+\begin{align}
+  f_v(x) - f_v(x^*_v)
+\ge  \dfrac{\nu^2}{2}  \indic{x v  < 0}. \label{eq:fv-lb-sc}
+\end{align}
+We will consider the oracles $\gamma_v$ defined as 
+\begin{align}
+ \gamma_v(x) = \epsilon(x-v) - \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
+\end{align}
+where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
+to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
+The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+Using arguments similar to those in the proof of lower bound for convex functions, we obtain
+\begin{align}
+\MoveEqLeft 
+\Delta_n^{(1)*} %\nonumber\\
+  \ge  &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinskersc}
+\end{align}
+Note that $P_+$ (resp. $P_-$) is $\P$ conditioned on the event $V=+\nu$ (resp. $V=-\nu$), since $v$ takes values in $\{+\nu,-\nu\}$. The conditioning in the earlier proof for convex function was on $V=+1$ for $P_+$ as $v$ there was taking values $\{+1,-1\}$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2v$ and hence
+\begin{align}
+& |\gamma_+(x) - \gamma_-(x)| \nonumber\\
+& = | f'_+(x) - \min(v,C_1 \delta^p) - (f'_-(x)+\min(v,C_1 \delta^p)) | \nonumber \\
+& = 2 (\nu - C_1 \delta^p)_+.
+ \label{eq:gdiff-ub-sc}
+\end{align}
+From the foregoing, 
+\begin{align}
+ \MoveEqLeft \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\nonumber\\
+ \le & \dfrac{2(\nu-C_1\delta^p)_+^2\delta^q}{C_2},\label{eq:dkgausssc}
+\end{align}
+where the inequality \eqref{eq:dkgausssc} follows from \eqref{eq:gdiff-ub-sc}.
+Thus, we obtain
+\begin{align}
+\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\nu-C_1\delta^p)_+^2 \delta^q}{C_2}.\label{eq:dkbd}
+\end{align}
+Substituting the above bound into \eqref{eq:pinskersc}, we obtain 
+\begin{align}
+ \Delta_n^{(1)*}
+  \ge & \dfrac{\nu^2}{2} \left(1 - \sqrt{
+    n}  \dfrac{(\nu-C_1\delta^p)_+\delta^{q/2}}{C_2}
+  \right)\label{eq:final-lower-bd-sc}
+\end{align}
+
+
+\paragraph{Derivation of the rates uniformly for all $\delta$:}
+Replacing the positive part function in \eqref{eq:final-lower-bd-sc} and optimizing $\delta$, we obtain the following for $q \ge 2$:
+\[
+\delta^*=\left(\frac{\nu q}{2C_1(p+q/2)}\right)^{1/p}
+\]
+and
+\[
+\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \nu^{\frac{p+\tfrac{q}{2}}{p}}\right)
+\]
+for any choice of $\delta$. 
+\todoc{Can we calculate the maximizer of this in $\epsilon$ for any $q\ge 2, p>0$?
+We have the upper bound for all these..}
+Now, when $q=2$ and $p=1$, this simplifies to
+\[
+\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \frac{\sqrt{n}}{4C_1 C_2} \nu^2\right) = \frac{\sqrt{C_1 C_2}}{2} n^{-1/2}
+\]
+for $\nu=\sqrt{2C_1C_2} n^{-1/2}$. 
+\todop[inline]{We get $\Omega\left(n^{-1/2}\right)$ rate for strongly convex functions, while the same for convex functions was $\Omega\left(n^{-1/4}\right)$. Got to move these rates and emphasize this fact in the discussion in the results section.}
+On the other hand, for $p=q=2$, we get
+\[
+\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1-\frac{4\sqrt{n}}{3\sqrt{3} \sqrt{C_1} C_2} \nu^{3/2}\right)
+= \left(\frac{C_1 C_2^2}{36}\right)^{1/3} n^{-2/3}
+\]
+with $\epsilon=\left(\frac{3 C_1 C_2^2}{4 n}\right)^{2/3}$.
+\todop[inline]{Will check/update the constants carefully soon}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
