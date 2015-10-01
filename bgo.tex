@@ -74,9 +74,10 @@
 \label{sec:conc}
 \input{conc}
 
-\section{APPENDIX}
-\input{appendix}
-\label{sec:appendix}
+
+\clearpage\newpage
+\bibliographystyle{apalike}
+\bibliography{./main.bib}
 
 \if0
 \subsubsection*{Acknowledgements}
@@ -88,7 +89,11 @@ identifying information in the initial double-blind submission!
 
 %\subsubsection*{References}
 \clearpage\newpage
-\bibliographystyle{apalike}
-\bibliography{./main.bib}
+\onecolumn
+\appendix
+\section{Mirror Descent Proof}
+\input{appendix}
+\label{sec:appendix}
+
 
 \end{document}

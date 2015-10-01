@@ -40,14 +40,14 @@ we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (res
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 Clearly, $f_+$ (resp, $f_-$) is minimized at $x^*_+ = 1$ (resp. $x^*_- = -1$) with the minimum value being zero.
-Hence, \todoc{No need for strong convexity..}
+Hence,
 %Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
 \begin{align}
   f_+(x) - f_+(x^*_+)
   = &  \dfrac{\epsilon}{2} (x - 1)^2 \ge  \dfrac{\epsilon}{2}  \indic{x  < 0}. \label{eq:fv-lb}
 \end{align}
 Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
-We will consider the oracles $\gamma_v$ defined as \todoc{There was a sign mistake; we need $\dots - v \min(\dots)$.}
+We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
  \gamma_v(x) = \epsilon(x-v) - v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
 \end{align}
@@ -152,14 +152,10 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 % \]
 
 \paragraph{Derivation of the rates uniformly for all $\delta$:}
-Observe that $\max_\delta (\epsilon - C_1 \delta^p)_+ \delta = \max_\delta (\epsilon - C_1 \delta^p) \delta$. 
+Observe that $\max_{\delta\ge 0} (\epsilon - C_1 \delta^p)_+ \delta = \max_{\delta\ge 0} (\epsilon - C_1 \delta^p) \delta$. 
 In other words, minimizer $\delta^*$ of \eqref{eq:final-lower-bd} can never be in the zero arm of the positive part function, i.e., $(\epsilon - C_1 \delta^p)_+ $, and hence we minimize \eqref{eq:final-lower-bd} by replacing the positive part with $(\epsilon - C_1 \delta^p)$.
 
 Assuming $q \ge 2$, we obtain the following 
-\todoc{This calls for a little explanation because of the positive part.
-The expression without the positive part has the minimizer below. This minimizer is always small enough, so that 
-we are not in the $0$ arm of the positive part function. Further, the minimizer can never be in the zero arm
-of this function. Therefore, the minimizer is indeed $\delta^*$.}
 \[
 \delta^*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p}
 \]
@@ -195,7 +191,9 @@ Define $f_v$ for any $v\in \{-1,+1\}^d$ as
 \end{align*}
 By definition, $f_v$ is additively separable and minimized at $x^*_v=v$ with the minimum value being zero.
 We consider oracles $\gamma_v$ defined by
-$\gamma_v(x) = \sum_{i=1}^d \gamma_{v_i}^{(i)}$, where $\gamma_{v_i}^{(i)} = \epsilon(x_i-v_i) + v_i\, \frac{C_1 \delta^p}{\sqrt{d}} + \xi_i$, where $\xi_i \sim \normal(0,\frac{C_2}{d\delta^q})$. 
+$\gamma_v(x) = \sum_{i=1}^d \gamma_{v_i}^{(i)}e_i$, where 
+$e_i$ is the $i$th unit vector in the standard Euclidean base,
+$\gamma_{v_i}^{(i)} = \epsilon(x_i-v_i) - v_i\, \frac{C_1 \delta^p}{\sqrt{d}} + \xi_i$, where $\xi_i \sim \normal(0,\frac{C_2}{d\delta^q})$. 
 It is evident that the $\gamma$ is a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 
 Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$, which is composed of $f_v$s, as defined above. We have
@@ -274,7 +272,7 @@ The minimax error $\Delta_n^{(d)*}$ can be lower bounded as follows:
 %             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
                & \ge d \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)\,, \label{eq:dlb}
 \end{align}
-where in inequality \eqref{eq:splitA}, algorithms $\A_i$ are interacting with the respective one-dimensional oracles $\gamma^{(i)}_{v_i}$ only \todoc{We probably should formally introduce this earlier; this would be better!}
+where in inequality \eqref{eq:splitA}, algorithms $\A_i$ are interacting with the respective one-dimensional oracles $\gamma^{(i)}_{v_i}$ only 
 and the inequality follows by~\eqref{eq:onedimlb},
 while the inequality \eqref{eq:dlb} follows from the fact that each infimum term in \eqref{eq:splitA} is solving a $1$-dimensional problem and hence the bound in \eqref{eq:final-lower-bd} applies with $C_1$ replaced by $C_1/\sqrt{d}$ and $C_2$ replaced by $C_2/d$. The resulting bound is denoted by $\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)$. 
 % is the one-dimensional minimax error, which is lower-bounded in \eqref{eq:final-lower-bd}. \todoc{However, I would have written just the $1$d final bound there, or $\Delta_n^*( \dots )$ with some notation, because we don't want to redo this whole optimization business..}
