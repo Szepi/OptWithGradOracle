@@ -42,13 +42,73 @@ Next, we review the most common gradient estimation techniques and show that the
 
 Flaxman (actually going back to 70s in Russia): \todoc{What does it do}
 Proposition:  Flaxman is $(c_1,c_2)$ Type-II oracle when $\dots$. \todoc{Expand}
+\todox[inline]{Flaxman's estimator}
+\cite{flaxman2005online} proposed a one-point estimate to gradient, which is $(c_1,c_2)$ Type-II oracle when $\cF$ is a general class of functions (this does not even require differentiability).
+Given any $f \in \cF$, $x \in \cK$, and $\delta >0$, the oracle returns 
+\[
+ Y = x+\delta u \in \cK', \quad
+ G = \dfrac{d}{\delta}f(x+\delta u)u \in \R^d,
+\]
+where $u\in \R^d$ is a random unit vector, so the first condition of \cref{def:oracle2} immediately follows.
+The variance of $G$ is bounded by $d^2C^2 \delta^{-2}$ for some constant $C = \sup_{y\in \cK'}f(y)$.
+ As to the bias condition, it was proved that $\EE{G} = \nabla \tilde{f}(x)$, where $\tilde{f}$ is a smoothed version of $f$, i.e.,
+$\tilde{f}(x) = \EE{f(x+\delta v)}$,
+$v$ is a random vector in a unit ball. There are different ways to bound the bias depending on the property of $f$.
+If $f$ is $L_{lip}$-Lipschitz over $\cK'$, then we have
+\begin{align*}
+\MoveEqLeft
+\norm{\tilde{f}(x)-f(x)}_\infty \\
+=&\norm{\EE{f(x+\delta v)-f(x)}}_\infty
+\le L_{lip} \delta \,.
+\end{align*}
+If $f$ is convex, and $L_{smo}$-smooth, 
+\begin{align*}
+\MoveEqLeft
+\norm{\tilde{f}(x)-f(x)}_\infty \\
+\le& \norm{\EE{\ip{\nabla f(x), \delta v}+\dfrac{L_{smo}}{2}\delta^2\norm{v}^2}}_\infty\\
+\le &\dfrac{L_{smo}}{2}\delta^2 \,.
+\end{align*}
+Therefore, the Flaxman's estimator can always fit the oracle setting by choosing $c_1(\delta) = C_1 \delta$ (or $C_1\delta^2$), $c_2(\delta) = C_2 \delta^{-2}$, for some constant $C_1$, $C_2$.
+
+\todox[inline]{mention Dikin}
+It may be noticed that the set $\cK'$ can be different from $\cK$. This is not a issue when the oracle can be queried outside $\cK$. However, if it is not the case, the algorithm can project $X$ to a shrinked set $(1-\delta)\cK$ (\cite{flaxman2005online}), or use Dikin ellipsoid (\cite{AbHaRa08}).
+
 
 One point SPSA
 Proposition: One-point SPSA is blah-blah 
+\todox[inline]{one-point SPSA}
+The one-point SPSA given by \cite{spall1997one} is a $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = C_1 \delta^2$, $c_2 = C_2 \delta^{-2}$ for some constant $C_1$, $C_2$.
+For any input triple $(x, \delta, f)$, the oracle responds with
+\begin{align*}
+Y = x+\delta \Delta \,, \quad
+G = \dfrac{f(Y)+\epsilon}{\delta}\begin{pmatrix}\Delta_{\cdot1}^{-1}\\\Delta_{\cdot2}^{-1}\\ \vdots\\ \Delta_{\cdot
+ d}^{-1}\end{pmatrix} \,,
+\end{align*}
+where $\epsilon$ is zero-mean measurement noise, $\Delta=\left(\Delta_{\cdot1}, \Delta_{\cdot2}, \cdots, \Delta_{\cdot
+ d}  \right)^\top$ is a vector of independent random variables. Each $\Delta_{\cdot i}$ is symmetrically distributed around $0$. $\EE{\Delta_{\cdot i}^{-1}}$ exists and is bounded.  The second and third moment of $\Delta$ are also bounded.
+ Since $f$ is $3$-times continuously differentiable, using Taylor's expansion, we get for the the $i^{th}$ component of $G$,
+\begin{align*}
+&\EE{G_{\cdot i}}\\
+=&\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x+\delta \Delta)+\epsilon \right) }\\
+=& \EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x)+\delta f'(x)^\top \Delta+\dfrac{1}{2}\delta^2 \Delta^\top f''(x)\Delta \right) } \numberthis \label{eq:spsaTaylorExp} \\
+&+\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left(O(\delta^3 \Delta\otimes\Delta\otimes\Delta) +\epsilon \right) }\\
+=& [f'(x)]_i +O(\delta^2) \,,
+\end{align*}
+where $[f'(x)]_i$ denotes the $i^{th}$ component of $f'(x)$. The last equality comes from the properties of symmetry, and bounded moment for $\Delta$.
+Hence, $G$ is a estimate of $f'(x)$ with bias $O(\delta^2)$.
 
 Two point SPSA
 
 Proposition: Two-point SPSA is $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = \cdot$, $c_2 = \dots$. \todoc{Make this precise, add proof.}
+\todox[inline]{two-point SPSA}
+The two-point SPSA (\cite{spall1992multivariate}) is quite similar. However, the oracle will respond to $(x,\delta,f)$ with
+\begin{align*}
+Y^+ &= x+\delta \Delta \,,\quad
+Y^- = x-\delta \Delta \,, \\
+G =& \dfrac{\left(f(Y^+)+\epsilon^+\right) - \left(f(Y^-)+\epsilon^-\right)}{2\delta}\begin{pmatrix}\Delta_{\cdot1}^{-1}\\\Delta_{\cdot2}^{-1}\\ \vdots\\ \Delta_{\cdot
+ d}^{-1}\end{pmatrix} \,.
+\end{align*}
+Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled. As a result, we only need $\Delta_{\cdot i}$ to be zero-mean instead of symmetry.
+
 
 \todoc[inline]{Different regularity conditions on $\cF$! Strong convexity, smoothness, etc.}
-
