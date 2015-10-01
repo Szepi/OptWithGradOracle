@@ -394,31 +394,18 @@ with $\epsilon=\left(\frac{3 C_1 C_2^2}{4 n}\right)^{2/3}$.
 \centering
  \caption{Summary of upper and lower bounds for various function classes and different gradient oracles}
 \label{tab:mse-1}
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
 \toprule
 \rowcolor{gray!20}
-% \multicolumn{4}{|c|}{\multirow{2}{*}{\textbf{Upper bounds}}}\\[1.7em]
-% %&&&\\
+% \multicolumn{3}{|c|}{\multirow{2}{*}{\textbf{Lower bounds}}}\\[1.7em]
 % \midrule
-%  \textbf{No. of function} & \multirow{2}{*}{\textbf{1SPSA}} & \multirow{2}{*}{\textbf{1RDSA-Unif}} & \multirow{2}{*}{\textbf{1RDSA-AsymBer}} \\
-%  \textbf{measurements} & & & \\
-%  \midrule
-%  $1000$ & $\bm{4.15 \times 10^{-2} \pm 5.15\times 10^{-4}}$ & $4.53\times 10^{-2} \pm 5.72\times 10^{-4}$ & $4.18\times 10^{-2} \pm 5.41\times 10^{-4}$\\
-% &&&\\
-%  $2000$ & $3.42\times 10^{-2} \pm 4.68\times 10^{-4}$ & $3.67\times 10^{-2} \pm 5.28\times 10^{-4}$ & $\bm{3.38\times 10^{-2} \pm 4.84\times 10^{-4}}$\\
-%  \bottomrule
- %%%%%%%%%%%%2nd ordr
-%  \rowcolor{gray!20}
-\multicolumn{3}{|c|}{\multirow{2}{*}{\textbf{Lower bounds}}}\\[1.7em]
-\midrule
-  \textbf{Oracle type} & \multirow{2}{*}{\textbf{Convex}} & \multirow{2}{*}{\textbf{Strongly Convex}} \\
-  & &  \\
+  \multirow{2}{*}{\textbf{Oracle type}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Convex}}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Strongly Convex}}} \\[1.7em]
  \midrule
- $C_1=0$ and $q=0$ & $\Omega\left(\dfrac{d}{\sqrt{n}}\right)$  & $\Omega\left(\dfrac{d}{\sqrt{n}}\right)$ \\
-&&\\
- $p=1$ and $q=2$ & $\Omega\left(\left(\dfrac{d}{n}\right)^{\frac{1}{4}}\right)$  & $\Omega\left(\dfrac{d^\frac{1}{4}}{\sqrt{n}}\right)$ \\
-&&\\
- $p=2$ and $q=2$ & $\Omega\left(\dfrac{d^{\frac{1}{6}}}{n^{\frac{1}{3}}}\right)$  & $\Omega\left(\dfrac{d^\frac{1}{6}}{\sqrt{n}}\right)$ \\
+\multirow{2}{*}{ $C_1=0$ and $q=0$} & \multirow{2}{*}{$\O\left(\dfrac{d}{\sqrt{n}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{d}{\sqrt{n}}\right)$} & \multirow{2}{*}{$\O\left(\dfrac{d}{\sqrt{n}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{d}{\sqrt{n}}\right)$}  \\[1.5em]\midrule
+%%%%%%%%%%%%%%%%
+\multirow{2}{*}{ $p=1$ and $q=2$} & \multirow{2}{*}{$\O\left(\dfrac{d^{\frac{1}{4}}}{n^{\frac{1}{4}}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{d^\frac{1}{4}}{n^\frac{1}{4}}\right)$}& \multirow{2}{*}{$\O\left(\dfrac{d}{\sqrt{n}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{d^\frac{1}{4}}{\sqrt{n}}\right)$} \\[1.5em]\midrule
+%%%%%%%%%%%%%%%%%%%
+\multirow{2}{*}{ $p=2$ and $q=2$} & \multirow{2}{*}{$\O\left(\dfrac{d^{\frac{1}{6}}}{n^{\frac{1}{3}}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{d^\frac{1}{6}}{n^\frac{1}{3}}\right)$} & \multirow{2}{*}{$\O\left(\dfrac{d}{\sqrt{n}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{d^\frac{1}{6}}{\sqrt{n}}\right)$}\\[1.5em]
  \bottomrule 
 \end{tabular}
 \end{table*}
