@@ -56,7 +56,7 @@ to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
 The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-The minimax error \eqref{eq:minimax-err} is lower bounded by
+The minimax error \eqref{eq:minimaxerrdef} is lower bounded by
 %\footnote{$f_{+1} \equiv f_+$ and $f_{-1}\equiv f_-$.}:
 \begin{align}
 \MoveEqLeft 
@@ -150,32 +150,6 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 % \[
 % \delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^{(1)*} \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
 % \]
-
-\paragraph{Derivation of the rates uniformly for all $\delta$:}
-Observe that $\max_{\delta\ge 0} (\epsilon - C_1 \delta^p)_+ \delta = \max_{\delta\ge 0} (\epsilon - C_1 \delta^p) \delta$. 
-In other words, minimizer $\delta^*$ of \eqref{eq:final-lower-bd} can never be in the zero arm of the positive part function, i.e., $(\epsilon - C_1 \delta^p)_+ $, and hence we minimize \eqref{eq:final-lower-bd} by replacing the positive part with $(\epsilon - C_1 \delta^p)$.
-
-Assuming $q \ge 2$, we obtain the following 
-\[
-\delta^*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p}
-\]
-and
-\[
-\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)
-\]
-for any choice of $\delta$. \todoc{Can we calculate the maximizer of this in $\epsilon$ for any $q\ge 2, p>0$?
-We have the upper bound for all these..}
-Now, when $q=2$ and $p=1$, this simplifies to
-\[
-\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \frac{\sqrt{n}}{4C_1 C_2} \epsilon^2\right) = \frac{\sqrt{C_1 C_2}}{2} n^{-1/4}
-\]
-for $\epsilon=\sqrt{2C_1C_2} n^{-1/4}$. On the other hand, for $p=q=2$, we get
-\[
-\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1-\frac{4\sqrt{n}}{3\sqrt{3} \sqrt{C_1} C_2} \epsilon^{3/2}\right)
-= \left(\frac{C_1 C_2^2}{36}\right)^{1/3} n^{-1/3}
-\]
-with $\epsilon=\left(\frac{3 C_1 C_2^2}{4 n}\right)^{1/3}$.
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -279,19 +253,6 @@ while the inequality \eqref{eq:dlb} follows from the fact that each infimum term
 
 % Using the one-dimensional minimax error $\Delta_n^{(1)*}$, we obtain
 % \[\Delta_n^* \ge d \Delta_n^{(1)*}.\]
-\paragraph{Rates:}
-
-Case $p=1$ and $q=2$:
-\begin{align*}
-\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
-\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)  \ge& \frac{\sqrt{C_1 C_2}}{2}\left(\frac{d}{n}\right)^{\frac{1}{4}}.
-\end{align*}
-
-Case $p=q=2$:
-\begin{align*}
-\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\left(\frac{C_1 C_2^2}{36 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
-\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)  \ge& \left(\frac{3 \sqrt{d} C_1 C_2^2}{4 n}\right)^{1/3}.
-\end{align*}
 
 %%% Local Variables: 
 %%% mode: latex
