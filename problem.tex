@@ -21,18 +21,22 @@ In the online setting, the environment chooses a sequence of loss functions $f_1
 In the optimization setting, a single fixed loss function $f\in \cF$ is chosen.
 As usual, the algorithms choose a sequence of points $X_1,\dots,X_n\in \cK$ in a sequential way. 
 The novelty of our setting is that the algorithm, upon selecting point $X_t$, receives 
-a noisy and potentially biased estimate $G_n\in \R^d$ 
-of the gradient of the loss function $f$ (more generally, an estimate of a subgradient of $f$ in case $f$ is non-differentiable at $X_t$). 
-To control the bias and the variance the algorithm can choose a \emph{tolerance parameter} $\delta>0$. 
-For now, we assume that the algorithm chooses the tolerance parameter at the beginning. \todoc{We do this for simplicity. Not much should change if the algorithm is allowed to select a different tolerance parameter in every round.}
-A smaller $\delta$ results in a smaller ``bias'' (for the precise meaning of bias, we will consider two definitions below), while typically with a smaller $\delta$ the ``variance'' of the gradient estimate increases.
-The algorithm also receives a point $Y_t\in \cK$, which is guaranteed to be in the $\delta$-vicinity of $X_t$. While this point is not relevant in the optimization setting, in the online learning setting, the algorithm suffers a loss at $Y_t$.
+a noisy and potentially biased estimate $G_t\in \R^d$ 
+of the gradient of the loss function $f$ 
+(more generally, an estimate of a subgradient of $f$ in case $f$ is non-differentiable at $X_t$). 
+To control the bias and the variance the algorithm can choose a \emph{tolerance parameter} $\delta_t>0$ 
+(in particular, we allow the algorithms to choose the tolerance parameter sequentially). 
+A smaller $\delta_t$ results in a smaller ``bias'' (for the precise meaning of bias, we will consider two definitions below), while typically with a smaller $\delta_t$ the ``variance'' of the gradient estimate increases.
+The algorithm also receives a point $Y_t\in \cK$, which is guaranteed to be in the $\delta_t$-vicinity of $X_t$. 
+While this point is not relevant in the optimization setting, in the online learning setting, 
+the algorithm suffers a loss at $Y_t$.
 As usual, the goal in the online setting is to keep the expected \emph{regret}, 
 	$R_n =\EE{ \sum_{t=1}^n f_t(Y_t)} - \inf_{x\in \cK} \sum_{t=1}^n f_t(x)$,
 small.
 In the optimization setting, the algorithm is also required to select a point $\hat{X}_n\in \cK$ once
 the $n$th round is over (in both settings, $n$ is given to the algorithms)
-and the algorithm's performance is quantified using the \emph{optimization error}, $\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
+and the algorithm's performance is quantified using the \emph{optimization error}, 
+$\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
 
 The main novelty of the model is that the information flow between the algorithm and the environment is controlled by the gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit this framework. 
 
