@@ -1,0 +1,19 @@
+\subsubsection*{Proof of Proposition \ref{prop:grad-spsa}}
+
+\paragraph{One-point SPSA:}
+
+ Since $f$ is $3$-times continuously differentiable, using Taylor's expansion, we get for the the $i^{th}$ component of $G$,
+\begin{align*}
+&\EE{G_{\cdot i}}\\
+=&\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x+\delta \Delta)+\epsilon \right) }\\
+=& \EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x)+\delta f'(x)^\top \Delta+\dfrac{1}{2}\delta^2 \Delta^\top f''(x)\Delta \right) } \numberthis \label{eq:spsaTaylorExp} \\
+&+\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left(O(\delta^3 \Delta\otimes\Delta\otimes\Delta) +\epsilon \right) }\\
+=& [f'(x)]_i +O(\delta^2) \,,
+\end{align*}
+where $[f'(x)]_i$ denotes the $i^{th}$ component of $f'(x)$. The last equality comes from the properties of symmetry, and bounded moment for $\Delta$.
+Hence, $G$ is a estimate of $f'(x)$ with bias $O(\delta^2)$.
+
+\paragraph{Two-point SPSA:}
+
+Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled and one can conclude that $G$ is only an order $O(\delta^2)$ term away from $f'(x)$. Note that the second-order term in one-point SPSA is zero-mean, while in the two-point SPSA it is zero. 
+% As a result, we only need $\Delta_{\cdot i}$ to be zero-mean instead of symmetry.
