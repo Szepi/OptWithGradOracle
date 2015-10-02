@@ -17,8 +17,7 @@ Further, the probability measure $P_{\A,\gamma} := p_{\A,\gamma} d(\lambda \time
 	$m$ is the counting measure on $\{-1,1\}$ and 
 	$p_{\A,\gamma}$ is the density function defined as
 \begin{align*}
-&p_{\A,\gamma}(g_{1:n}, v) = \dfrac{1}{2} \bigg(p_{\A,\gamma}(g_n \mid g_{1:n-1})\times \dots \\
-&\times p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \ldots p_{\A,\gamma}(g_1)\bigg)\\
+p_{\A,\gamma}(g_{1:n}, v) = &\dfrac{1}{2} \bigg(p_{\A,\gamma}(g_n \mid g_{1:n-1})\times \dots \times p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \ldots p_{\A,\gamma}(g_1)\bigg)\\
  = & \dfrac{1}{2} \bigg( p_{\N}(g_n - \gamma(\A_n(g_{1:n-1}))) \cdot
 %  &\times p_{\normal(0,\sigma^2)}(g_{n-1} - \gamma(\A_n(g_{1:n-2}))) \times \ldots \\
  \ldots \cdot  p_{\N}(g_1 - \gamma(\A_1))\bigg),
@@ -85,18 +84,16 @@ Define $G_t$ to be the $t$th observation of $\A$: $G_t:\Omega \to \R$, with $G_t
 Let $P_+^t(g_1,\dots,g_t)$ denote the joint distribution of $G_1,\dots,G_t$ conditioned on $V=+1$.
 Let $P_{+}^t(\cdot\mid g_1,\ldots,g_{t-1})$ denote the distribution of $G_t$ conditional on $V=+1$ and $G_1=g_1,\ldots,G_{t-1}=g_{t-1}$. Define  $P_{-j}^t(\cdot\mid g_1,\ldots,g_{t-1})$ in a similar fashion.
 Then, by the chain rule for KL-divergences, we have
-\begin{scriptsize}
 \begin{align}
-&\dkl{P_{+}}{P_{-}}\label{eq:dklchain}\\ 
-&= \sum_{t=1}^n \int_{\R^{t-1}} \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})} d P_{+}^t( g_{1:t-1}).\nonumber
+\label{eq:dklchain}
+&\dkl{P_{+}}{P_{-}}= \sum_{t=1}^n \int_{\R^{t-1}} \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})} d P_{+}^t( g_{1:t-1}).\nonumber
 \end{align}
-\end{scriptsize}
 By the oracle's definition, $G_t \sim  \normal(\gamma_{+}(\cA_t(G_{1:t-1})),\sigma^2)$. Hence, 
 $P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with the mean $\cA_t(g_{1:t-1})$ and variance $\sigma^2$.
 %, where $A(g_{1:t-1})$ denotes the point chosen by the algorithm given observations $g_1,\ldots, g_{t-1}$ and $\gamma_{+}$ is the gradient oracle defined earlier. 
 Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2\epsilon$ and hence
 \begin{align}
-& |\gamma_+(x) - \gamma_-(x)| \nonumber\\
+ |\gamma_+(x) - \gamma_-(x)| 
 & = | f'_+(x) - \min(\epsilon,C_1 \delta^p) - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | \nonumber \\
 & = 2 (\epsilon - C_1 \delta^p)_+\,,
  \label{eq:gdiff-ub}
@@ -104,8 +101,7 @@ Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2\epsilon$ and hence
 where $(\epsilon - C_1 \delta^p)_+ = \max(\epsilon - C_1 \delta^p,0)$. 
 From the foregoing, 
 \begin{align}
- \MoveEqLeft \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\nonumber\\
- \le&\dfrac{(\gamma_{+}(A(g_{1:t-1})) - \gamma_{-}(A(g_{1:t-1})))^2}{2 C_2\delta^{-q}}\label{eq:dkgauss1}\\
+\dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\le&\dfrac{(\gamma_{+}(A(g_{1:t-1})) - \gamma_{-}(A(g_{1:t-1})))^2}{2 C_2\delta^{-q}}\label{eq:dkgauss1}\\
  =& \dfrac{2(\epsilon-C_1\delta^p)_+^2\delta^q}{C_2}.\label{eq:dkgauss}
 \end{align}
 The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while the equality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}.
@@ -174,7 +170,7 @@ Now, when $q=2$ and $p=1$, this simplifies to
 \]
 On the other hand, for $p=q=2$, we get
 \[
-\Delta_n^{(1)*} \ge  \frac{3}{8}\left(\frac{C_1 C_2^2}{16}\right)^{1/3} n^{-1/3} \text{ for } \epsilon=\frac{3}{2}\left(\frac{C_1 C_2^2}{16}\right)^{1/3}.
+\Delta_n^{(1)*} \ge  \frac{3}{8}\left(\frac{C_1 C_2^2}{16}\right)^{1/3} n^{-1/3} \text{ for } \epsilon=\frac{3}{2}\left(\frac{C_1 C_2^2}{16}\right)^{1/3}n^{-1/3}.
 \]
 
 
@@ -185,10 +181,10 @@ On the other hand, for $p=q=2$, we get
 \subsubsection{Generalization to $d$ dimensions}
 
 Let $\cK \subset \R^d$.
-Define $f_v$ for any $v\in \{-1,+1\}^d$ as 
+Define $f_v$ for any $v\in \{-1,+1\}^d$ as follows: For any $x \in \cK$, 
 \begin{align*}
-  f_v(x) :=& \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \,\, x \in \cK, \text{where}\\
-  f^{(i)}_{v_i}(x_i) :=& \dfrac{\epsilon}{2} (x_i - v_i)^2, \,\, \text{ for } i=1,\ldots,d.
+  f_v(x) :=& \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \,\,  \text{ where }
+  f^{(i)}_{v_i}(x_i) := \dfrac{\epsilon}{2} (x_i - v_i)^2, \,\, \text{ for } i=1,\ldots,d.
 \end{align*}
 By definition, $f_v$ is additively separable and minimized at $x^*_v=v$ with the minimum value being zero.
 We consider oracles $\gamma_v$ defined by
@@ -218,9 +214,8 @@ the
 \label{eq:onedimlb}
 % \begin{split}
 % \MoveEqLeft 
-&\hspace{-1em}\max_{v\in \{\pm 1\}^d} L^{\A}(v) 
-\ge \nonumber\\
-&  \max_{v_1\in \{\pm 1\}} L_1^{\A_1^*}(v_1) + \dots + \max_{v_d\in \{\pm 1 \}} L_d^{\A^*_d}(v_d)\,.
+&\max_{v\in \{\pm 1\}^d} L^{\A}(v) 
+\ge   \max_{v_1\in \{\pm 1\}} L_1^{\A_1^*}(v_1) + \dots + \max_{v_d\in \{\pm 1 \}} L_d^{\A^*_d}(v_d)\,.
 % \end{split}
 \end{align}
 \end{lemma}
@@ -251,8 +246,7 @@ Now, notice that $L_i(\hat{v}_i^*,v_{-i}^*) = \min_{v_{-i} } L_i(\hat{v}_i^*,v_{
 where $\hat{v}_{-i}^*$ is the vector obtained by discarding the $i$th component of $\hat{v}^* = (\hat{v}_1^*,\dots,\hat{v}_d^*)$.
 Thus,
 \begin{align*}
-\MoveEqLeft
-\max_{v\in \{\pm 1 \}^d }
+&\max_{v\in \{\pm 1 \}^d }
 L^*_1(v_1) + \dots + L^*_d(v_d) \\
 &   = \max_{v\in \{\pm 1 \}^d } L_1(v_1,v_{-1}^*) + \dots + L_d(v_d,v_{-d}^*)\\
 & = \max_{v_1\in \{\pm 1\}} L_1(v_1,v_{-1}^*) + \dots +  \max_{v_d\in \{\pm 1\}} L_d(v_d,v_{-d}^*)\\
@@ -266,8 +260,7 @@ which was the claim to be proven.
 \paragraph{Main proof:}
 The minimax error $\Delta_n^{(d)*}$ can be lower bounded as follows:
 \begin{align}
-&
-\Delta_n^{(d)*}  \ge  \inf_{\A} \max_{v\in {\pm 1}^d} L^\A(v) \nonumber\\
+\Delta_n^{(d)*}  &\ge  \inf_{\A} \max_{v\in {\pm 1}^d} L^\A(v) \nonumber\\
  & \ge \inf_{\A_1} \max_{v_1\in \{\pm 1\}} L_1^{\A_1}(v_1) + \dots + 
  			\inf_{A_d} \max_{v_d\in \{\pm 1 \}} L_d^{\A_d}(v_d) \label{eq:splitA}\\
 %             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
@@ -280,18 +273,24 @@ while the inequality \eqref{eq:dlb} follows from the fact that each infimum term
 
 % Using the one-dimensional minimax error $\Delta_n^{(1)*}$, we obtain
 % \[\Delta_n^* \ge d \Delta_n^{(1)*}.\]
-\paragraph{Rates:}
+\paragraph{Rates:}\ \\
+General $p$ and $q\ge 2$:
+\begin{align}
+\Delta_n^{(d)*} \ge \dfrac{1}{4} d^{\frac{q}{(4p+2q)}} \left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}} \text{ for } 
+\epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
+\label{eq:lb-pq-d}
+\end{align}
 
 Case $p=1$ and $q=2$:
 \begin{align*}
-\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
-\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)  \ge& \frac{\sqrt{C_1 C_2}}{2\sqrt 2}\left(\frac{d}{n}\right)^{\frac{1}{4}}.
+% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
+\Delta_n^{(d)*}  \ge& \frac{\sqrt{C_1 C_2}}{2\sqrt 2}\left(\frac{d}{n}\right)^{\frac{1}{4}}.
 \end{align*}
 
 Case $p=q=2$:
 \begin{align*}
-\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
-\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)  \ge& \dfrac{3}{8}\left(\frac{  C_1 C_2^2}{16 }\right)^{1/3} \left(\frac{ \sqrt{d} }{ n}\right)^{1/3}.
+% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
+\Delta_n^{(d)*}  \ge& \dfrac{3}{8}\left(\frac{  C_1 C_2^2}{16 }\right)^{1/3} \left(\frac{ \sqrt{d} }{ n}\right)^{1/3}.
 \end{align*}
 
 %%% Local Variables: 
@@ -328,7 +327,6 @@ The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$
 
 Using arguments similar to those in the proof of lower bound for convex functions, we obtain
 \begin{align}
-\MoveEqLeft 
 \Delta_n^{(1)*} %\nonumber\\
   \ge  &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinskersc}
 \end{align}
@@ -337,7 +335,7 @@ Note that $P_+$ (resp. $P_-$) is $\P$ conditioned on the event $V=+\nu$ (resp. $
 
 Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2v$ and hence
 \begin{align}
-& |\gamma_+(x) - \gamma_-(x)| \nonumber\\
+ |\gamma_+(x) - \gamma_-(x)| 
 & = | f'_+(x) - \min(v,C_1 \delta^p) - (f'_-(x)+\min(v,C_1 \delta^p)) | \nonumber \\
 & = 2 (\nu - C_1 \delta^p)_+.
  \label{eq:gdiff-ub-sc}
@@ -366,28 +364,46 @@ Replacing the positive part function in \eqref{eq:final-lower-bd-sc} and optimiz
 \[
 \delta^*=\left(\frac{\nu q}{2C_1(p+q/2)}\right)^{1/p}
 \]
-and
+and for any choice of $\delta$, the minimax error $\Delta_n^{(1)*}$ satisfies
 \[
-\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \nu^{\frac{p+\tfrac{q}{2}}{p}}\right)
+\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \sqrt{n}  K_1 \nu^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
 \]
-for any choice of $\delta$. 
-\todoc{Can we calculate the maximizer of this in $\epsilon$ for any $q\ge 2, p>0$?
-We have the upper bound for all these..}
+
+Plugging in $\nu = \left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{2p}{p+\frac{q}{2}}}$, we obtain
+\begin{align}
+\Delta_n^{(1)*} \ge \dfrac{1}{4}\left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}}.
+\label{eq:lb-pq}
+\end{align}
+
 Now, when $q=2$ and $p=1$, this simplifies to
 \[
-\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \frac{\sqrt{n}}{4C_1 C_2} \nu^2\right) = \frac{\sqrt{C_1 C_2}}{2} n^{-1/2}
+\Delta_n^{(1)*} \ge \dfrac{C_1 C_2}{2} n^{-1/2}, \text{ for } \nu = 2C_1C_2 n^{-1/2}.
 \]
-for $\nu=\sqrt{2C_1C_2} n^{-1/2}$. 
-\todop[inline]{We get $\Omega\left(n^{-1/2}\right)$ rate for strongly convex functions, while the same for convex functions was $\Omega\left(n^{-1/4}\right)$. Got to move these rates and emphasize this fact in the discussion in the results section.}
 On the other hand, for $p=q=2$, we get
 \[
-\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1-\frac{4\sqrt{n}}{3\sqrt{3} \sqrt{C_1} C_2} \nu^{3/2}\right)
-= \left(\frac{C_1 C_2^2}{36}\right)^{1/3} n^{-2/3}
+\Delta_n^{(1)*} \ge  \frac{9}{4}\left(\frac{C_1 C_2^2}{16}\right)^{1/3} n^{-2/3} \text{ for } \nu=\frac{9}{2}\left(\frac{C_1 C_2^2}{16}\right)^{1/3}n^{-2/3}.
 \]
-with $\epsilon=\left(\frac{3 C_1 C_2^2}{4 n}\right)^{2/3}$.
-\todop[inline]{Will check/update the constants carefully soon}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\paragraph{Generalization to $d$ dimensions:}
+The proof in $d$ dimensions for strongly convex functions follows in similar fashion as that for the case of convex functions and we obtain the following rates:
+General $p$ and $q\ge 2$:
+\begin{align}
+\Delta_n^{(d)*} \ge \dfrac{1}{4} d^{\frac{-2p}{(2p+q)}} \left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}} \text{ for } 
+\nu = d^{\frac{-(4p+q)}{(2p+q)}}\left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
+\label{eq:lb-pq-d}
+\end{align}
+
+Case $p=1$ and $q=2$:
+\begin{align*}
+% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
+\Delta_n^{(d)*}  \ge& \dfrac{C_1 C_2}{2} n^{-1/2} d^{-1/2}.
+\end{align*}
+
+Case $p=q=2$:
+\begin{align*}
+% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
+\Delta_n^{(d)*}  \ge& \frac{9}{4}\left(\frac{C_1 C_2^2}{16}\right)^{1/3} n^{-2/3} d^{-2s/3}.
+\end{align*}

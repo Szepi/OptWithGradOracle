@@ -77,12 +77,12 @@ Lower bound:
 \begin{theorem}
 For any $v \in \{+1,-1\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where
 $f^{(i)}_{v_i}(x_i) := \dfrac{\epsilon}{2} (x_i - v_i)^2$, for $i=1,\ldots,d$.
-Consider the space of functions $\F:= \{f_v \mid v  \in \{+1,-1\}^d\}$, with $\epsilon = \left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, where $K_1 = \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$. 
+Consider the space of functions $\F:= \{f_v \mid v  \in \{+1,-1\}^d\}$, with $\epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, where \\$K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$. 
 Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Type-I oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$,
  the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
-\Delta_n^{*}(\F, c_1,c_2) \ge \dfrac{1}{4}\left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}}.
+\Delta_n^{*}(\F, c_1,c_2) \ge \dfrac{1}{4}d^{\frac{q}{(4p+2q)}}\left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}}.
 \]
 \end{theorem}
 \begin{proof}
