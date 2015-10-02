@@ -10,11 +10,12 @@ A slightly different problem is obtained if we allow the learner to choose multi
 Another possibility is that $X_t$ is the average of the observation points. Yet another possibility is that there is no relationship between them. \todoc{Add refs, explain relationship between these problems.}
 
 \todox[inline]{add the following paragraph about two-point online variant.}
-For example, \cite{AgDeXi10} used an algorithm that queries at two points per round, and defined the incurred loss as the average of losses at two observation points. In our oracle, it can be stated as in round $t$, the same oracle $\gamma_t$ responds to the same inputs $(X_t, \delta_t, f_t)$ with two different pairs $(G_{t,1}, Y_{t,1})$ and $(G_{t,2}, Y_{t,2})$. The accumulated regret can be written as 
+\todoc{We need mathematical statements: Under such and such conditions, $d$-point feedback is equivalent to $2$-point feedback, which is equivalent to having a $(c_1,c_2)$ Type-I oracle with $c_1,c_2$ such and such.}
+For example, \cite{AgDeXi10} used an algorithm that queries at two points per round, and defined the incurred loss as the average of losses at the two observation points. In our oracle, it can be stated as in round $t$, the same oracle $\gamma_t$ responds to the same inputs $(X_t, \delta_t, f_t)$ with two different pairs $(G_{t,1}, Y_{t,1})$ and $(G_{t,2}, Y_{t,2})$. The accumulated regret can be written as 
 \[
 R_n = \sum_{t=1}^n \dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2}) \right) -\inf_{x \in \cK}\sum_{t=1}^n f_t(x) \,.
 \]
-Recalling that $Y_{t,1}$, $Y_{t,2}$ are in the $\delta$-vicinity of $X_t$, the relationship between $f_t(X_t)$ and $\dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2})\right)$ is then determined by the environment (i.e. the property of $f_t$). It is straightforward to bound $| \dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2})\right)- f_t(X_t)|$ with $\delta$.
+Recalling that $Y_{t,1}$, $Y_{t,2}$ are in the $\delta$-vicinity of $X_t$, the relationship between $f_t(X_t)$ and $\dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2})\right)$ is then determined by the environment (i.e. the property of $f_t$). It is straightforward to bound $| \dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2})\right)- f_t(X_t)|$ as a function of $\delta$. \todoc{How? When $f_t$ is Lipschitz, smooth, etc? So you mean, when $f_t$ is a smooth function?}
 The common assumption for this setting is: The oracle is a stochastic mapping from $(X, \delta, f)$ to $(G, Y)$; The algorithm selects the point $X_t$ depending on $\left( X_1, G_{1,1}, G_{1,2}, \cdots, X_{t-1},G_{t-1,1}, G_{t-1,2}  \right)$. This two-point feedback can be easily extended to multi-point feedback, too.
 
 In the \emph{optimization variant} of bandit (or ``zeroth order'') convex optimization, 
