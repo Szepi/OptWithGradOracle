@@ -43,14 +43,26 @@ Next, we review the most common gradient estimation techniques and show that the
 Flaxman (actually going back to 70s in Russia): \todoc{What does it do}
 Proposition:  Flaxman is $(c_1,c_2)$ Type-II oracle when $\dots$. \todoc{Expand}
 \todox[inline]{Flaxman's estimator}
-\cite{flaxman2005online} proposed a one-point estimate to gradient, which is $(c_1,c_2)$ Type-II oracle when $\cF$ is a general class of functions (this does not even require differentiability).
-Given any $f \in \cF$, $x \in \cK$, and $\delta >0$, the oracle returns 
-\[
+
+A popular idea for estimating gradient using one-point feedback is the smoothed function approach, which was originally proposed in \citep{katkul}. The idea is to convolve the gradient of the objective function with a suitable density function and then, via an integration by parts arguments show that the resulting integral is an estimate of the gradient of the smoothed objective function. 
+% This approach has been adopted in a stochastic convex optimization setup in \cite{duchi2015optimal}. 
+\cite{flaxman2005online} follow this approach in the context of bandit convex optimization.
+Formally,  
+% a $(c_1,c_2)$ Type-II oracle when $\cF$ is a general class of functions (this does not even require differentiability).
+given any $f \in \cF$, $x \in \cK$, and $\delta >0$, the oracle returns\footnote{See also \cite[pp.~58-60]{kushcla} for an old reference that proposed a gradient estimate similar to \eqref{eq:flaxman}.}   
+\begin{align}
  Y = x+\delta u \in \cK', \quad
- G = \dfrac{d}{\delta}f(x+\delta u)u \in \R^d,
-\]
-where $u\in \R^d$ is a random unit vector, so the first condition of \cref{def:oracle2} immediately follows.
-The variance of $G$ is bounded by $d^2C^2 \delta^{-2}$ for some constant $C = \sup_{y\in \cK'}f(y)$.
+ G = \dfrac{d}{\delta}f(x+\delta u)u \in \R^d, \label{eq:flaxman}
+\end{align}
+where $u\in \R^d$ is a random unit vector, so the first condition of \cref{def:oracle2} immediately follows. 
+The variance of $G$ is bounded by $d^2C^2 \delta^{-2}$ for some constant $C = \sup_{y\in \cK'}f(y)$. 
+\begin{proposition}
+Let $\tilde{f}(x) = \EE{f(x+\delta v)}$ denote the smoothed version of $f$. Then, we have
+$\EE{G} = \nabla \tilde{f}(x)$.
+\end{proposition}
+\begin{proof}
+ See Lemma 1 in \citep{flaxman2005online}.
+\end{proof}
  As to the bias condition, it was proved that $\EE{G} = \nabla \tilde{f}(x)$, where $\tilde{f}$ is a smoothed version of $f$, i.e.,
 $\tilde{f}(x) = \EE{f(x+\delta v)}$,
 $v$ is a random vector in a unit ball. There are different ways to bound the bias depending on the property of $f$.
@@ -68,47 +80,68 @@ If $f$ is convex, and $L_{smo}$-smooth,
 \le& \norm{\EE{\ip{\nabla f(x), \delta v}+\dfrac{L_{smo}}{2}\delta^2\norm{v}^2}}_\infty\\
 \le &\dfrac{L_{smo}}{2}\delta^2 \,.
 \end{align*}
-Therefore, the Flaxman's estimator can always fit the oracle setting by choosing $c_1(\delta) = C_1 \delta$ (or $C_1\delta^2$), $c_2(\delta) = C_2 \delta^{-2}$, for some constant $C_1$, $C_2$.
+Therefore, the estimator \eqref{eq:flaxman} can always fit the oracle setting by choosing $c_1(\delta) = C_1 \delta$ (or $C_1\delta^2$), $c_2(\delta) = C_2 \delta^{-2}$, for some constant $C_1$, $C_2$.
+
+\begin{remark}
+ Instead of picking $u$ randomly on the surface of a unit sphere, one can employ an random variable $u$ that satisfies $E[u u\tr] = I_d$, where $I_d$ is the $d$-dimensional identity matrix. A popular choice for $u$ that satisfies the aforementioned constraint is the $d$-dimensional standard Gaussian - a choice that has been explored in the context of zeroth order optimization in \citep{duchi2015optimal}.  
+\end{remark}
 
 \todox[inline]{mention Dikin}
 It may be noticed that the set $\cK'$ can be different from $\cK$. This is not a issue when the oracle can be queried outside $\cK$. However, if it is not the case, the algorithm can project $X$ to a shrinked set $(1-\delta)\cK$ (\cite{flaxman2005online}), or use Dikin ellipsoid (\cite{AbHaRa08}).
 
-
-One point SPSA
-Proposition: One-point SPSA is blah-blah 
-\todox[inline]{one-point SPSA}
-The one-point SPSA given by \cite{spall1997one} is a $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = C_1 \delta^2$, $c_2 = C_2 \delta^{-2}$ for some constant $C_1$, $C_2$.
+An alternative approach, popularly known as SPSA \citep{spall1997one}, employs independent Rademacher random variables $\Delta_i, i=1,\ldots,d$ to estimate the gradient as follows:
+% 
+% One point SPSA
+% Proposition: One-point SPSA is blah-blah 
+% The one-point SPSA given by \cite{spall1997one} is a $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = C_1 \delta^2$, $c_2 = C_2 \delta^{-2}$ for some constant $C_1$, $C_2$.
 For any input triple $(x, \delta, f)$, the oracle responds with
-\begin{align*}
+\begin{align}
 Y = x+\delta \Delta \,, \quad
 G = \dfrac{f(Y)+\epsilon}{\delta}\begin{pmatrix}\Delta_{\cdot1}^{-1}\\\Delta_{\cdot2}^{-1}\\ \vdots\\ \Delta_{\cdot
  d}^{-1}\end{pmatrix} \,,
-\end{align*}
-where $\epsilon$ is zero-mean measurement noise, $\Delta=\left(\Delta_{\cdot1}, \Delta_{\cdot2}, \cdots, \Delta_{\cdot
- d}  \right)^\top$ is a vector of independent random variables. Each $\Delta_{\cdot i}$ is symmetrically distributed around $0$. $\EE{\Delta_{\cdot i}^{-1}}$ exists and is bounded.  The second and third moment of $\Delta$ are also bounded.
- Since $f$ is $3$-times continuously differentiable, using Taylor's expansion, we get for the the $i^{th}$ component of $G$,
-\begin{align*}
-&\EE{G_{\cdot i}}\\
-=&\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x+\delta \Delta)+\epsilon \right) }\\
-=& \EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x)+\delta f'(x)^\top \Delta+\dfrac{1}{2}\delta^2 \Delta^\top f''(x)\Delta \right) } \numberthis \label{eq:spsaTaylorExp} \\
-&+\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left(O(\delta^3 \Delta\otimes\Delta\otimes\Delta) +\epsilon \right) }\\
-=& [f'(x)]_i +O(\delta^2) \,,
-\end{align*}
-where $[f'(x)]_i$ denotes the $i^{th}$ component of $f'(x)$. The last equality comes from the properties of symmetry, and bounded moment for $\Delta$.
-Hence, $G$ is a estimate of $f'(x)$ with bias $O(\delta^2)$.
+ \label{eq:onespsa}
+\end{align}
+where $\epsilon$ is zero-mean measurement noise. More general distributions could be used for the perturbations $\Delta$, as long as they zero mean and satisfy bounded second and inverse second moments.
+% , $\Delta=\left(\Delta_{\cdot1}, \Delta_{\cdot2}, \cdots, \Delta_{\cdot
+%  d}  \right)^\top$ is a vector of independent random variables. Each $\Delta_{\cdot i}$ is symmetrically distributed around $0$. $\EE{\Delta_{\cdot i}^{-1}}$ exists and is bounded.  The second and third moment of $\Delta$ are also bounded.
 
-Two point SPSA
-
-Proposition: Two-point SPSA is $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = \cdot$, $c_2 = \dots$. \todoc{Make this precise, add proof.}
-\todox[inline]{two-point SPSA}
-The two-point SPSA (\cite{spall1992multivariate}) is quite similar. However, the oracle will respond to $(x,\delta,f)$ with
-\begin{align*}
+%  Since $f$ is $3$-times continuously differentiable, using Taylor's expansion, we get for the the $i^{th}$ component of $G$,
+% \begin{align*}
+% &\EE{G_{\cdot i}}\\
+% =&\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x+\delta \Delta)+\epsilon \right) }\\
+% =& \EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x)+\delta f'(x)^\top \Delta+\dfrac{1}{2}\delta^2 \Delta^\top f''(x)\Delta \right) } \numberthis \label{eq:spsaTaylorExp} \\
+% &+\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left(O(\delta^3 \Delta\otimes\Delta\otimes\Delta) +\epsilon \right) }\\
+% =& [f'(x)]_i +O(\delta^2) \,,
+% \end{align*}
+% where $[f'(x)]_i$ denotes the $i^{th}$ component of $f'(x)$. The last equality comes from the properties of symmetry, and bounded moment for $\Delta$.
+% Hence, $G$ is a estimate of $f'(x)$ with bias $O(\delta^2)$.
+% 
+% Proposition: Two-point SPSA is $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = \cdot$, $c_2 = \dots$. \todoc{Make this precise, add proof.}
+% \todox[inline]{two-point SPSA}
+% The two-point SPSA (\cite{spall1992multivariate}) is quite similar. However, the oracle 
+Using two-point feedback, the original SPSA algorithm \citep{spall1992multivariate} based oracle    
+will respond to $(x,\delta,f)$ with
+\begin{align}
 Y^+ &= x+\delta \Delta \,,\quad
 Y^- = x-\delta \Delta \,, \\
 G =& \dfrac{\left(f(Y^+)+\epsilon^+\right) - \left(f(Y^-)+\epsilon^-\right)}{2\delta}\begin{pmatrix}\Delta_{\cdot1}^{-1}\\\Delta_{\cdot2}^{-1}\\ \vdots\\ \Delta_{\cdot
  d}^{-1}\end{pmatrix} \,.
+ \label{eq:twospsa}
+\end{align}
+
+\begin{proposition}
+ Assume $f$ is $3$-times continuously differentiable. Then, for $G$ governed by either \eqref{eq:onespsa} or \eqref{eq:twospsa}, we have
+ \begin{align*}
+&\EE{G_{\cdot i}}= [f'(x)]_i +O(\delta^2) \,, \quad \text{ for } i=1,\ldots,d.
 \end{align*}
-Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled. As a result, we only need $\Delta_{\cdot i}$ to be zero-mean instead of symmetry.
+\end{proposition}
+\begin{proof}
+ See Appendix \ref{sec:grad-estimates}.
+\end{proof}
+
+From the foregoing, it is easy to see that, for $3$-times continuously differentiable functions, one-point and two-point SPSA are $(c_1,c_2)$ Type-I oracles with $c_1 = C_1 \delta^2$, $c_2 = C_2 \delta^{-2}$ for some constant $C_1$, $C_2$.
+
+% Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled. As a result, we only need $\Delta_{\cdot i}$ to be zero-mean instead of symmetry.
 
 
 \todoc[inline]{Different regularity conditions on $\cF$! Strong convexity, smoothness, etc.}
