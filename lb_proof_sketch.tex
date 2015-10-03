@@ -3,60 +3,60 @@
 \subsection{Proofs for the Lower Bound}
 \label{sec:lb-proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\subsubsection{Proof in one dimension}
-For brevity, let $\Delta_n^{(1)*}$ denote the minimax error $\Delta_n^*(\F, c_1,c_2)$ for the case of $1$-dimensional function family $\F$.
-The proof uses only $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK$ to $\R$ (i.e., the oracles do not have memory).
-Fix a  $(c_1,c_2)$ Type-I oracle $\gamma$ and an algorithm $\A$.
-We restrict the class of oracles to those that return a random gradient estimate $G = m(x) + \xi$ with some map $m: \cK \to \R$,
-where $\xi$ is standard normal with variance $\sigma^2 = C_2 \delta^{-q}$, satisfying the variance requirement. 
-The map $m$, which, by slightly abusing notation, we will also denote by $\gamma$ in what follows, will be chosen based on $f$ to satisfy the requirement on the bias. The $Y$ value returned by the oracles is made equal to $x$.
+\paragraph{Proof of Theorem \ref{thm:lb-convex}}
+% For brevity, let $\Delta_n^{(1)*}$ denote the minimax error $\Delta_n^*(\F, c_1,c_2)$ for the case of $1$-dimensional function family $\F$.
+% The proof uses only $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK$ to $\R$ (i.e., the oracles do not have memory).
+% Fix a  $(c_1,c_2)$ Type-I oracle $\gamma$ and an algorithm $\A$.
+% We restrict the class of oracles to those that return a random gradient estimate $G = m(x) + \xi$ with some map $m: \cK \to \R$,
+% where $\xi$ is standard normal with variance $\sigma^2 = C_2 \delta^{-q}$, satisfying the variance requirement. 
+% The map $m$, which, by slightly abusing notation, we will also denote by $\gamma$ in what follows, will be chosen based on $f$ to satisfy the requirement on the bias. The $Y$ value returned by the oracles is made equal to $x$.
 
-Let $\delta$ denote the tolerance parameter chosen by $\A$.
-Define the probability space $(\Omega, \B, P_{\A,\gamma})$, 
-where $\Omega = \R^n\times \{-1,1\}$, $\B$ is the associated Borel sigma algebra. 
-Further, the probability measure $P_{\A,\gamma} := p_{\A,\gamma} d(\lambda \times m)$, 
-	$\lambda$ is the Lebesgue measure on $\R^n$, 
-	$m$ is the counting measure on $\{-1,1\}$ and 
-	$p_{\A,\gamma}$ is the density function defined as
-\begin{align*}
-&p_{\A,\gamma}(g_{1:n}, v) = \dfrac{1}{2} \bigg(p_{\A,\gamma}(g_n \mid g_{1:n-1})\times \dots \\
-&\times p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \ldots p_{\A,\gamma}(g_1)\bigg)\\
- = & \dfrac{1}{2} \bigg( p_{\N}(g_n - \gamma(\A_n(g_{1:n-1}))) \cdot
-%  &\times p_{\normal(0,\sigma^2)}(g_{n-1} - \gamma(\A_n(g_{1:n-2}))) \times \ldots \\
- \ldots \cdot  p_{\N}(g_1 - \gamma(\A_1))\bigg),
-\end{align*}
-where $v\in\{0,1\}$, $p_{\N}$ is the density of a $\normal(0,\sigma^2)$ random variable,
-and $\cA_t$ denotes the map from the algorithm's past observations
-that picks the point that is sent to the oracle in round $t$.
-\todoc{Enough to consider deterministic algorithms}
+% Let $\delta$ denote the tolerance parameter chosen by $\A$.
+% Define the probability space $(\Omega, \B, P_{\A,\gamma})$, 
+% where $\Omega = \R^n\times \{-1,1\}$, $\B$ is the associated Borel sigma algebra. 
+% Further, the probability measure $P_{\A,\gamma} := p_{\A,\gamma} d(\lambda \times m)$, 
+% 	$\lambda$ is the Lebesgue measure on $\R^n$, 
+% 	$m$ is the counting measure on $\{-1,1\}$ and 
+% 	$p_{\A,\gamma}$ is the density function defined as
+% \begin{align*}
+% &p_{\A,\gamma}(g_{1:n}, v) = \dfrac{1}{2} \bigg(p_{\A,\gamma}(g_n \mid g_{1:n-1})\times \dots \\
+% &\times p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \ldots p_{\A,\gamma}(g_1)\bigg)\\
+%  = & \dfrac{1}{2} \bigg( p_{\N}(g_n - \gamma(\A_n(g_{1:n-1}))) \cdot
+% %  &\times p_{\normal(0,\sigma^2)}(g_{n-1} - \gamma(\A_n(g_{1:n-2}))) \times \ldots \\
+%  \ldots \cdot  p_{\N}(g_1 - \gamma(\A_1))\bigg),
+% \end{align*}
+% where $v\in\{0,1\}$, $p_{\N}$ is the density of a $\normal(0,\sigma^2)$ random variable,
+% and $\cA_t$ denotes the map from the algorithm's past observations
+% that picks the point that is sent to the oracle in round $t$.
+% \todoc{Enough to consider deterministic algorithms}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-By assumption,  $\{f_+, f_-\}\subset \F$, with 
+We first prove the theorem in an one-dimensional setting and generalize it later.
+Recall that function class $\F$ is comprised of $f_v$ for $v \in \{-1,+1\}$, defined as
+% By assumption,  $\{f_+, f_-\}\subset \F$, with 
 \begin{align*}
-  f_+(x) := \dfrac{\epsilon}{2} (x - 1)^2 \text{ and } f_-(x) := \dfrac{\epsilon}{2} (x + 1)^2, \,\, x \in \cK\,;
+  f_v(x) := \dfrac{\epsilon}{2} (x - v)^2, \,\, x \in \cK \subset \R\,.
 \end{align*}
-we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
+% we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-Clearly, $f_+$ (resp, $f_-$) is minimized at $x^*_+ = 1$ (resp. $x^*_- = -1$) with the minimum value being zero.
+Clearly, $f_v$is minimized at $x^*_v = v$ with the minimum value being zero.
 Hence,
 %Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
 \begin{align}
-  f_+(x) - f_+(x^*_+)
-  = &  \dfrac{\epsilon}{2} (x - 1)^2 \ge  \dfrac{\epsilon}{2}  \indic{x  < 0}. \label{eq:fv-lb}
+  f_v(x) - f_v(x^*_v)
+  = &  \dfrac{\epsilon}{2} (x - v)^2 \ge  \dfrac{\epsilon}{2}  \indic{x v  < 0}. \label{eq:fv-lb-main}
 \end{align}
-Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
+% Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
 We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
  \gamma_v(x) = \epsilon(x-v) - v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
 \end{align}
-where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
-to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
+where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$.
+% ; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$)  to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
 The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-The minimax error \eqref{eq:minimaxerrdef} is lower bounded by
+Using \eqref{eq:fv-lb-main}, the minimax error \eqref{eq:minimaxerrdef} can be lower bounded as follows
 %\footnote{$f_{+1} \equiv f_+$ and $f_{-1}\equiv f_-$.}:
 \begin{align}
 \MoveEqLeft 
@@ -64,10 +64,7 @@ The minimax error \eqref{eq:minimaxerrdef} is lower bounded by
   \ge  \inf_{\A} \,  \E[f_V(\hat X_n) - \inf_{x \in X}
   f_V(x)],\label{eq:avg-bd}
   \end{align}
-where the expectation is w.r.t. the distribution $\P:= \dfrac{1}{2} \left(P_{\A, \gamma_+} \indic{v=+1} + P_{\A, \gamma_-}\indic{v=-1}\right)$ and $V: \Omega \to \{\pm 1 \}$ is defined by $V(g_{1:n},v) = v$.%
-\footnote{Here, we are slightly abusing the notation as $\P$ depends on $\A$, but the dependence is suppressed.
-In what follows, we will define several other distributions derived from $\P$, which will all depend on $\A$, but
-for brevity this dependence will also be suppressed.}
+where the expectation is w.r.t. $\P:= \dfrac{1}{2} \left(P_{\A, \gamma_+} \indic{v=+1} + P_{\A, \gamma_-}\indic{v=-1}\right)$, with $P_{\A,\gamma_v}$ denoting the joint distribution of the $n$ observations $g_{1:n}$ of the algorithm $\A$, for $v \in \{-1,+1\}$
 %Here $\gamma_v$  is the oracle for $f_v$, for $v=+1,-1$ and is defined by $\gamma_v(x) = \epsilon(x-v) + v C_1 \delta^p$. 
 Using \eqref{eq:fv-lb}, we obtain
 \begin{align}
@@ -76,26 +73,8 @@ Using \eqref{eq:fv-lb}, we obtain
   \ge &\inf_{\A} \dfrac{\epsilon }{2} \,\left(1 - \tvnorm{\P_{+}- \P_{-}}\right), \label{eq:lecam}\\
   \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker}
 \end{align}
-where 
-the equality in \eqref{eq:Pplus} uses the definitions $\P_{+}(\cdot)
-:= \P(\cdot\mid V=1)$, $\P_{-}(\cdot) := \P(\cdot\mid
-V=-1)$\todoa{This notation is somewhat confusing given the previous conventions.}. Further, the inequality in \eqref{eq:lecam} follows from the definition of total variation distance, while \eqref{eq:pinsker} follows from Pinsker's inequality. %\todoc{You lost a factor of two here!}
+where $\P_{+}$ (resp. $P_-$) is the distribution $\P$ conditioned on $v=+1$ (resp. $v=-1$).
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-Define $G_t$ to be the $t$th observation of $\A$: $G_t:\Omega \to \R$, with $G_t( g_{1:n}, v) = g_t$.
-Let $P_+^t(g_1,\dots,g_t)$ denote the joint distribution of $G_1,\dots,G_t$ conditioned on $V=+1$.
-Let $P_{+}^t(\cdot\mid g_1,\ldots,g_{t-1})$ denote the distribution of $G_t$ conditional on $V=+1$ and $G_1=g_1,\ldots,G_{t-1}=g_{t-1}$. Define  $P_{-j}^t(\cdot\mid g_1,\ldots,g_{t-1})$ in a similar fashion.
-Then, by the chain rule for KL-divergences, we have
-\begin{scriptsize}
-\begin{align}
-&\dkl{P_{+}}{P_{-}}\label{eq:dklchain}\\ 
-&= \sum_{t=1}^n \int_{\R^{t-1}} \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})} d P_{+}^t( g_{1:t-1}).\nonumber
-\end{align}
-\end{scriptsize}
-By the oracle's definition, $G_t \sim  \normal(\gamma_{+}(\cA_t(G_{1:t-1})),\sigma^2)$. Hence, 
-$P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with the mean $\cA_t(g_{1:t-1})$ and variance $\sigma^2$.
-%, where $A(g_{1:t-1})$ denotes the point chosen by the algorithm given observations $g_1,\ldots, g_{t-1}$ and $\gamma_{+}$ is the gradient oracle defined earlier. 
 Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2\epsilon$ and hence
 \begin{align}
 & |\gamma_+(x) - \gamma_-(x)| \nonumber\\
@@ -104,20 +83,12 @@ Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2\epsilon$ and hence
  \label{eq:gdiff-ub}
 \end{align}
 where $(\epsilon - C_1 \delta^p)_+ = \max(\epsilon - C_1 \delta^p,0)$. 
-From the foregoing, 
+From the foregoing, it can be shown that 
 \begin{align}
- \MoveEqLeft \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\nonumber\\
- \le&\dfrac{(\gamma_{+}(A(g_{1:t-1})) - \gamma_{-}(A(g_{1:t-1})))^2}{2 C_2\delta^{-q}}\label{eq:dkgauss1}\\
- =& \dfrac{2(\epsilon-C_1\delta^p)_+^2\delta^q}{C_2}.\label{eq:dkgauss}
-\end{align}
-The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while the equality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}.
-
-Plugging \eqref{eq:dkgauss} into \eqref{eq:dklchain}, we obtain
-\begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\epsilon-C_1\delta^p)_+^2 \delta^q}{C_2}.\label{eq:dkbd}
+\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\epsilon-C_1\delta^p)_+^2 \delta^q}{C_2}.\label{eq:dkbd-main}
 \end{align}
 Note that the above bound holds uniformly over all algorithms $\A$. 
-Substituting the above bound into \eqref{eq:pinsker}, we obtain 
+Substituting the above bound into \eqref{eq:pinsker-main}, we obtain 
 \begin{align}
  \Delta_n^{(1)*}
   \ge & \dfrac{\epsilon}{2} \left(1 - \sqrt{
@@ -125,44 +96,16 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
   \right)\label{eq:final-lower-bd}
 \end{align}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \paragraph{Derivations of rates:}
-%  Optimizing over $\epsilon$ in \eqref{eq:final-lower-bd}, we get
-% $ \left(\dfrac{\delta^{-q/2}C_2}{4\sqrt{n}} + \dfrac{C_1\delta^p}{2}\right)$. We choose
-% \[
-% \epsilon^* = \left(\dfrac{\delta^{-q/2}C_2}{4\sqrt{n}} + C_1\delta^p\right)
-% \]
-% to guarantee that $\epsilon^*>C_1 \delta^p$.
-% 
-%  Plugging in $\epsilon^*$, we obtain
-%  \[
-%  \Delta_n^{(1)*}
-%  \ge \frac18 \left(\dfrac{\delta^{-q/2}C_2}{2\sqrt{n}} + C_1\delta^p \right).
-%  \]
-% 
-% Substituting $p=1$ and $q=2$, we obtain
-% \[
-% \delta^*= \sqrt{\dfrac{C_2}{2C_1}}\dfrac{1}{n^{\frac{1}{4}}} \text{ and } 
-% \Delta_n^{(1)*} \ge \left(\dfrac{\sqrt{2C_1C_2}}{4}\right)\dfrac{1}{n^{\frac{1}{4}}}.
-% \]
-% 
-% On the other hand, substituting $p=q=2$, we obtain
-% \[
-% \delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^{(1)*} \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
-% \]
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Generalization to $d$ dimensions}
-
-Let $\cK \subset \R^d$.
-Define $f_v$ for any $v\in \{-1,+1\}^d$ as 
+\paragraph{Generalization to $d$ dimensions:}
+Recall that $\F$ is comprised of $f_v$ defined by: For any $v\in \{-1,+1\}^d$
 \begin{align*}
-  f_v(x) :=& \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \,\, x \in \cK, \text{where}\\
-  f^{(i)}_{v_i}(x_i) :=& \dfrac{\epsilon}{2} (x_i - v_i)^2, \,\, \text{ for } i=1,\ldots,d.
+  f_v(x) :=& \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \text{ where } f^{(i)}_{v_i}(x_i) := \dfrac{\epsilon}{2} (x_i - v_i)^2,
 \end{align*}
+for $i=1,\ldots,d$.
 By definition, $f_v$ is additively separable and minimized at $x^*_v=v$ with the minimum value being zero.
 We consider oracles $\gamma_v$ defined by
 $\gamma_v(x) = \sum_{i=1}^d \gamma_{v_i}^{(i)}e_i$, where 
@@ -197,47 +140,7 @@ the
 % \end{split}
 \end{align}
 \end{lemma}
-\begin{proof}
-Let $v_{-i}=(v_1,\ldots,v_{i-1},v_{i+1},\ldots,v_d)$ denote a $d-1$ dimensional vector that removes the $i$th coordinate from $v$. By an abuse of notation, we let $v=(v_i, v_{-i})$. 
-We now describe the construction of $\A^*=(\A_1^*, \ldots, \A_d^*)$.
-We describe $\A_1^*$ only, other algorithm components are formed in a similar manner.
-
-To define $\A_1^*$, consider the solution of the following max-min problem:
-\[
-\max_{v_1} \min_{v_{-1}} L_1(v_1, v_{-1})).
-\]
-Let the optimal solution of this problem be denoted by $(\hat{v}_1^*,v_{-1}^*)$.
-The algorithm will make use of $v_{-1}^*$ (which it does have access to) in the following manner:
-Recall that $L$ and $L_1$ are defined as a function of $(\gamma_v)_{v\in \{\pm\}^d}$.
-Let $v\in \{\pm 1\}^d$ be fixed, unknown to $\A$ and $\A_1^*$. 
-The algorithm construction will make use of $\gamma_v$ and $\gamma_{(1,v_{-1}^*)}$ in the following manner:
-At time $t=1$, $\A_1^*$ consults $\A$ to get $\delta$ and the point $X_1\in \cK$.
-Next, it asks the oracle $\gamma_v$ for a $d$ dimensional gradient estimate of $f_v$ at $X_1$ with tolerance $\delta$,
-obtaining $G_1'$.
-At the same time, it also asks $\gamma_{(1,v_{-1}^*)}$ for another $d$ dimensional gradient estimate (this has nothing to do with $f_v$), obtaining $G_1''$.
-Then, $G_1 = (G_{1,1}',G_{1,-1}'')$ is fed to $\A$, which returns $X_2\in \cK$. From this point up to the end the process is similar: Both oracles are queried and the gradient to be fed to $\A$ is synthetized by putting together the first component of the gradient estimate from $\gamma_v$ and the last $d-1$ components obtained from $\gamma_{(1,v_{-1}^*)}$.
-Finally, at the end, $\A$ produces $\hat{X}_n$, and $\A_1^*$ returns $\hat{X}_{n,1}$.
-Clearly, by construction and the definition of $L_1$,
-the expected loss $L^*_1(v_1)$ of $\A_1^*$ on $f_{v_1}^{(1)}$ is $L_1(v_1,v_{-1}^*)$, while $\A_1^*$ only uses the first coordinates of the gradients that it gets from the oracle $\gamma_v$.
-With similar definitions, $L^*_i(v_i)$, the expected loss of $\A_i^*$ on $f_{v_i}^{(i)}$ is $L_i(v_i,v_{-i}^*)$, $2\le i \le d$.
-Now, notice that $L_i(\hat{v}_i^*,v_{-i}^*) = \min_{v_{-i} } L_i(\hat{v}_i^*,v_{-i}) \le L_i(\hat{v}_i^*, \hat{v}_{-i}^*)$,
-where $\hat{v}_{-i}^*$ is the vector obtained by discarding the $i$th component of $\hat{v}^* = (\hat{v}_1^*,\dots,\hat{v}_d^*)$.
-Thus,
-\begin{align*}
-\MoveEqLeft
-\max_{v\in \{\pm 1 \}^d }
-L^*_1(v_1) + \dots + L^*_d(v_d) \\
-&   = \max_{v\in \{\pm 1 \}^d } L_1(v_1,v_{-1}^*) + \dots + L_d(v_d,v_{-d}^*)\\
-& = \max_{v_1\in \{\pm 1\}} L_1(v_1,v_{-1}^*) + \dots +  \max_{v_d\in \{\pm 1\}} L_d(v_d,v_{-d}^*)\\
-& = L_1(\hat{v}^*_1,v_{-1}^*) + \dots +   L_d(\hat{v}^*_d,v_{-d}^*)\\
-& \le L_1(\hat{v}^*_1,\hat{v}_{-1}^*) + \dots +  L_d(\hat{v}^*_d,\hat{v}_{-d}^*)\\
-& \le L(\hat{v}^*) \le \max_{v\in \{\pm 1\}^d } L(v)\,,
-\end{align*}
-which was the claim to be proven.
-\end{proof}
-
-\paragraph{Main proof:}
-The minimax error $\Delta_n^{(d)*}$ can be lower bounded as follows:
+Using the above lemma, the minimax error $\Delta_n^{(d)*}$ can be lower bounded as follows:
 \begin{align}
 &
 \Delta_n^{(d)*}  \ge  \inf_{\A} \max_{v\in {\pm 1}^d} L^\A(v) \nonumber\\
@@ -259,93 +162,30 @@ while the inequality \eqref{eq:dlb} follows from the fact that each infimum term
 %%% TeX-master: "bgo"
 %%% End: 
 
-\subsubsection{Bounds for strongly convex functions}
-We follow the notational convention used earlier for convex functions in one dimension. 
+\paragraph{Proof of Theorem \ref{thm:lb-strongly-convex}:}
 
-We consider functions $f_v$, for any $v \in \{-\nu,+\nu\}$, defined as
-By assumption,  $\{f_+, f_-\}\subset \F$, with 
-\begin{align*}
-  f_v(x) := \dfrac{1}{2} x^2 - v x \,\, x \in \cK\,;
-\end{align*}
-we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+\nu}$ (resp., $f_{-\nu}$).
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-Clearly, $f_v$ is minimized at $x^*_v = v$.
-By the definition of $f_v$, we have
-%Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
-\begin{align}
-  f_v(x) - f_v(x^*_v)
-\ge  \dfrac{\nu^2}{2}  \indic{x v  < 0}. \label{eq:fv-lb-sc}
-\end{align}
-We will consider the oracles $\gamma_v$ defined as 
+\todoc{This proof sketch can be removed if we are short of space}
+% This follows in the same manner as the proof of Theorem \ref{thm:lb-convex}.
+First, lower bound \\$f_v:=\dfrac{1}{2} x^2 - v x,$ as follows: \\$f_v(x) - f_v(x^*_v)
+\ge  \dfrac{\nu^2}{2}  \indic{x v  < 0}.$\\
+Next, use the following oracles:
 \begin{align}
  \gamma_v(x) = \epsilon(x-v) - \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
 \end{align}
-where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
-to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
-The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
+where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-Using arguments similar to those in the proof of lower bound for convex functions, we obtain
+The KL-divergence bound (corresponding to \eqref{eq:dkbd-main}) turns out to be 
 \begin{align}
-\MoveEqLeft 
-\Delta_n^{(1)*} %\nonumber\\
-  \ge  &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinskersc}
+\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\nu-C_1\delta^p)_+^2 \delta^q}{C_2},\label{eq:dkbd-sc-main}
 \end{align}
-Note that $P_+$ (resp. $P_-$) is $\P$ conditioned on the event $V=+\nu$ (resp. $V=-\nu$), since $v$ takes values in $\{+\nu,-\nu\}$. The conditioning in the earlier proof for convex function was on $V=+1$ for $P_+$ as $v$ there was taking values $\{+1,-1\}$.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2v$ and hence
-\begin{align}
-& |\gamma_+(x) - \gamma_-(x)| \nonumber\\
-& = | f'_+(x) - \min(v,C_1 \delta^p) - (f'_-(x)+\min(v,C_1 \delta^p)) | \nonumber \\
-& = 2 (\nu - C_1 \delta^p)_+.
- \label{eq:gdiff-ub-sc}
-\end{align}
-From the foregoing, 
-\begin{align}
- \MoveEqLeft \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\nonumber\\
- \le & \dfrac{2(\nu-C_1\delta^p)_+^2\delta^q}{C_2},\label{eq:dkgausssc}
-\end{align}
-where the inequality \eqref{eq:dkgausssc} follows from \eqref{eq:gdiff-ub-sc}.
-Thus, we obtain
-\begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\nu-C_1\delta^p)_+^2 \delta^q}{C_2}.\label{eq:dkbd}
-\end{align}
-Substituting the above bound into \eqref{eq:pinskersc}, we obtain 
+which implies the following bound:
 \begin{align}
  \Delta_n^{(1)*}
   \ge & \dfrac{\nu^2}{2} \left(1 - \sqrt{
     n}  \dfrac{(\nu-C_1\delta^p)_+\delta^{q/2}}{C_2}
   \right)\label{eq:final-lower-bd-sc}
 \end{align}
-
-
-\paragraph{Derivation of the rates uniformly for all $\delta$:}
-Replacing the positive part function in \eqref{eq:final-lower-bd-sc} and optimizing $\delta$, we obtain the following for $q \ge 2$:
-\[
-\delta^*=\left(\frac{\nu q}{2C_1(p+q/2)}\right)^{1/p}
-\]
-and
-\[
-\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \sqrt{n}  \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}} \nu^{\frac{p+\tfrac{q}{2}}{p}}\right)
-\]
-for any choice of $\delta$. 
-\todoc{Can we calculate the maximizer of this in $\epsilon$ for any $q\ge 2, p>0$?
-We have the upper bound for all these..}
-Now, when $q=2$ and $p=1$, this simplifies to
-\[
-\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \frac{\sqrt{n}}{4C_1 C_2} \nu^2\right) = \frac{\sqrt{C_1 C_2}}{2} n^{-1/2}
-\]
-for $\nu=\sqrt{2C_1C_2} n^{-1/2}$. 
-\todop[inline]{We get $\Omega\left(n^{-1/2}\right)$ rate for strongly convex functions, while the same for convex functions was $\Omega\left(n^{-1/4}\right)$. Got to move these rates and emphasize this fact in the discussion in the results section.}
-On the other hand, for $p=q=2$, we get
-\[
-\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1-\frac{4\sqrt{n}}{3\sqrt{3} \sqrt{C_1} C_2} \nu^{3/2}\right)
-= \left(\frac{C_1 C_2^2}{36}\right)^{1/3} n^{-2/3}
-\]
-with $\epsilon=\left(\frac{3 C_1 C_2^2}{4 n}\right)^{2/3}$.
-\todop[inline]{Will check/update the constants carefully soon}
+The generalization to $d$-dimensions follows using a separability argument as before.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
