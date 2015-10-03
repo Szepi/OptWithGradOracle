@@ -11,7 +11,7 @@ Let $\overline G_t = \EE{G_t|\cF_t}$
 and assume that the nonnegative real-valued deterministic sequence $(\beta_t)_{1\le t\le n}$ is such that 
 $\norm{\overline G_t - \nabla f(X_t)}_* \le \beta_t$ holds almost surely. 
 Further, assume that $D=\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y)$ and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing 
-sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, 
+sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, if $f$ is $L$-smooth,
 \begin{align*}
 \MoveEqLeft \EE{ \sum_{t=1}^n f(X_t) - f(x) }  \\
 \le& 	 \EE{f(X_1)-f(x)}+ \\
@@ -20,6 +20,14 @@ sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then,
 	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,,
 \end{align*}
 where $\sigma_t^2 = \EE{ \norm{G_t-\overline G_t}_*^2}$ is the ``variance'' of $G_t$.
+
+If $f$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L$,
+\begin{align*}
+\MoveEqLeft \EE{ \sum_{t=1}^n f(X_t) - f(x) }  \\
+\le& 	 \EE{f(X_1)-f(x)}+ 
+ \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t 
+ +\sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,.
+\end{align*}
 \end{lemma}
 This is also identical to Theorem~6.3 of \cite{Bu:Convex14}, who cites \cite{Dekel:minibatch12} as the source. These results assume that $\beta_t=0$ above.
 The proof of this lemma can be found in \cref{sec:appendix-md}.
@@ -30,5 +38,30 @@ Since $f$ is convex, by Jensen's inequality,
 \[
  \E[f(\hat X_n) - \inf_{x \in \cK} f(x)] \le  \dfrac{1}{n}\EE{ \sum_{t=1}^n f(X_t) - \inf_{x \in \cK}f(x) } \,.
 \]
-Then the result immediately follows from Lemma \ref{lem:ub}, by replacing
- $\beta_t = C_1\delta^p$, $\sigma^2_t = C_2 \delta^{-q}$ and $a_t$, respectively.
+Then the result immediately follows from Lemma \ref{lem:ub}. 
+When $f$ is only smooth,
+by replacing
+ $\beta_t = C_1\delta^p$, $\sigma^2_t = C_2 \delta^{-q}$, $a_t=a t^r$ respectively, we obtain
+ \begin{align}
+ \MoveEqLeft
+ \E[f(\hat X_n) - \inf_{x \in \cK} f(x)]  \nonumber\\
+&\le \dfrac{1}{n}\left(\EE{f(X_1)-f(x)}+\dfrac{DL}{\alpha}  \right)\nonumber\\
+&+ \sqrt{\tfrac{2D}{\alpha}}C_1\delta^p+\dfrac{D}{\alpha}a n^r+\dfrac{C_2 \delta^{-q}}{2a}n^{1-r}
+\label{eq:ubToBeOpt}
+ \end{align}
+ Choosing $r = \dfrac{p+q}{2p+q}$, and $a$, $\delta$ as stated in \cref{thm:ub}, the last $3$ terms in \eqref{eq:ubToBeOpt} are optimized to
+ \[
+ K_1 C_1^{q/(2p+q)} C_2^{p/(2p+q)} n ^{-p/(2p+q)} \,,
+ \]
+ where $K_1 = 2^{\dfrac{3q}{2(p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{\dfrac{p+q^2+2pq}{(p+q)(2p+q)}}+2^{\dfrac{3q}{2(2p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{2-\dfrac{1}{2p+q}}$.
+ 
+ When $f$ is also $\mu$-strongly convex,
+ \begin{align*}
+ \MoveEqLeft
+ \E[f(\hat X_n) - \inf_{x \in \cK} f(x)] -\dfrac{1}{n}\left(\EE{f(X_1)-f(x)}\right)\\
+&\le \sqrt{\tfrac{2D}{\alpha}}C_1\delta^p+\dfrac{C_2 \delta^{-q}}{\alpha \mu n} \sum_{t=1}^{n-1}\dfrac{1}{t-\dfrac{2L}{\alpha \mu}}\\
+&\le \sqrt{\tfrac{2D}{\alpha}}C_1\delta^p+\dfrac{C_2 }{\alpha \mu}\delta^{-q} \dfrac{\log n}{n}\\
+&= K_2C_1^{\dfrac{q}{p+q}}C_2^{\dfrac{p}{p+q}} \left( \dfrac{\log n}{n} \right)^{\dfrac{p}{p+q}}
+ \end{align*}
+The last step optimizes the bound via letting $\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n}$, where
+$K_2^{p+q}=\sqrt{2}^{2p+3q}D^{q/2}\alpha^{-p-q/2}\mu^{-p}$.

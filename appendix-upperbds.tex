@@ -69,7 +69,7 @@ to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
  \beta_t \sqrt{ \frac{2D}{\alpha} }+
 \frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\F_{t}}+
 \frac{1}{\eta_t} \left(D_{\mathcal{R}}(x,X_t)-D_{\mathcal{R}}(x,X_{t+1})\right) \\&+
-\underbrace{\left(\frac{a_t+L}{\alpha}-\frac{1}{\eta_t}\right) D_{\mathcal{R}}(X_{t+1},X_t)}_{=0} \,.
+\underbrace{\left(\frac{a_t+L}{\alpha}-\frac{1}{\eta_t}\right) D_{\mathcal{R}}(X_{t+1},X_t)}_{=0}\numberthis \label{eq:ubProofWithNoise} \,.
 \end{align*}
 Given $\sigma_t^2 = \EE{ \norm{\xi_t}_*^2}$,
 we will sum up these inequalities for $t=1,\dots,n-1$.
@@ -95,3 +95,32 @@ Hence, by the tower rule,
 	   \frac{D(a_{n-1}+L)}{\alpha} +
 	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,.
 \end{align*}
+
+When $f$ is $L$-smooth and $\mu$-strongly convex,  we can rewrite \eqref{eq:mdsmoothnoisy1} as
+\begin{align*}
+\MoveEqLeft
+f(X_{t+1}) - f(x) \nonumber\\
+ \le& f(X_t) + \ip{ \hat{G}_t, X_{t+1}-X_t } + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \left\{ f(X_t) + \ip{ \hat{G}_t, x-X_t}+\dfrac{\mu}{2}\DR(x, X_t) \right\} \nonumber \\
+ =& \ip{\hat{G}_t, X_{t+1} - x } +  \frac{L}{2} \norm{X_{t+1}-X_t}^2-\dfrac{\mu}{2}\DR(x, X_t) \nonumber\\
+ \le& \ip{\hat{G}_t,X_{t+1}-x} + \frac{L}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t)-\dfrac{\mu}{2}\DR(x, X_t)\,.
+\end{align*}
+Again, \eqref{eq:ubProofWithNoise} can be written as
+\begin{align*}
+ \EE{f(X_{t+1}) - f(x) |\F_{t} }
+\le & \quad
+ \beta_t \sqrt{ \frac{2D}{\alpha} }+
+\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\F_{t}}\\
+&+\left(\dfrac{1}{\eta_t}-\dfrac{\mu}{2}  \right)\DR(x,X_t)-\dfrac{1}{\eta_t}\DR(x,X_{t+1})
++\left( \dfrac{L+a_t}{\alpha}-\dfrac{1}{\eta_t} \right)\DR(X_{t+1},X_t) \,.
+\end{align*}
+Given $\dfrac{1}{\eta_t}=\dfrac{\mu t}{2}=\dfrac{L+a_t}{\alpha}$, summing up theses inequalities for $t=1,2,\cdots, n-1$, we get
+\begin{align*}
+ \EE{ \sum_{t=1}^n f(X_t) - f(x) }  
+\le& 
+  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
+	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}-\dfrac{1}{\eta_{n-1}}\DR(x,X_{n})\\
+\le& 	  
+  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
+	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,.
+\end{align*}
+Proof is done.

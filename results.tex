@@ -58,7 +58,8 @@ For any $(c_1,c_2)$ Type-I oracle
  \]
  \[
  \delta = \left( \dfrac{C_2}{2aC_1}\sqrt{\dfrac{\alpha}{2D}} \right)^{1/(p+q)}n^{-1/(2p+q)} \,,
- \]
+ \] 
+ \todox{the $n$ should actually be $(n-1)$, the expression will be more natural if we start from $0$.}
  where
  $a = \left( \sqrt{\dfrac{2^{3q}\alpha}{D}}C_1^q C_2^p \right)^{1/(2p+q)}$,
  $a_t = a t^{(p+q)/(2p+q)}$, for $t=1, 2, \cdots, n-1$,
@@ -67,6 +68,18 @@ For any $(c_1,c_2)$ Type-I oracle
 \Delta_n^*(\cF,c_1,c_2)= O(n^{-p/(2p+q)})\,,
  \end{align*}
  where $D=\sup_{x,y\in \cK} \DR(x,y)$. $\DR$ denotes the Bregman divergence w.r.t. $\mathcal{R}$.
+ 
+If the class of functions is also $\mu$-strongly convex w.r.t. $\mathcal{R}$. Choose
+\[
+ \eta_t = \dfrac{2}{\mu t} \,,
+\]
+\[
+\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
+\]
+the upper bound of minimax error is then
+ \begin{align*}
+\Delta_n^*(\cF,c_1,c_2)= O(n^{-p/(p+q)})\,.
+ \end{align*}
 \end{theorem}
 \begin{proof}
 See Section \ref{sec:ub-proof}.
