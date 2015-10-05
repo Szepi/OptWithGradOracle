@@ -42,17 +42,20 @@ For simplicity, we present the result for the case when the point feedbacks are 
 Note that the proposition does not require the function to be convex. \todoc{Any advantage of adding convexity, smoothness? Can we then maybe drop the condition that $f$ is $C^3$ when some of these conditions are met?}
 \begin{proposition}
 \label{prop:grad-spsa}
-Given any $f:\R^d \to \R$ 
-that is three times continuously differentiable with bounded third derivative. \todoc{What is the domain?} 
-For any $x \in \cK$, and $\delta >0$, let oracle $\gamma$ return 
+Consider a function $f:\D \to \R$, with $\K \subset \D \subset \R^d$,  
+that is three times continuously differentiable with bounded third derivative and also satisfies  
+$\E \left|f(x)\right|^{2+\zeta} < \infty$, for any $x\in \D$.
+For any $x \in \cK$, and $\delta >0$ such that $\B(x,\delta) \in \D$\footnote{$\B(x,\delta)$ denotes the ball of radius $\delta$ centered at $x$.}, let the oracle $\gamma$ return 
 \begin{align}
 % Y = x+\delta U \,, \quad
 G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
  \label{eq:twosp}
 \end{align}
-where $V, U \in \R^d$ are jointly distributed random vectors 
-that satisfy $\E[V U\tr] = I_d$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
-Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2/\delta^2$.
+where $\xi^+, \xi^-$ are  i.i.d. noise terms that are zero-mean and satisfy 
+$\E \left|\xi^{\pm}\right|^{2+\zeta} < \infty$, for some $\zeta>0$. 
+Further, $V, U \in \R^d$ are jointly distributed random vectors 
+that satisfy $\E[V U\tr] = I$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
+Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2 d/\delta^2$.
 \end{proposition}
 \begin{proof}
 See Appendix \ref{sec:appendix-grad}.
@@ -70,6 +73,24 @@ See Appendix \ref{sec:appendix-grad}.
  Letting $G =  V \dfrac{f(x+\delta U) + \xi}{\delta}$, one obtains a gradient estimate using only one function evaluation. However, in order to obtain the same order for the bias as in the case of two-point feedback, we require $\E[ V U^2] = 0$ and $\E[V_i]=0, i=1,\ldots,d$, in addition to the conditions in Proposition \ref{prop:grad-spsa}. 
  As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants by using appropriate choices for $V$ and $U$ See Appendix \ref{sec:appendix-grad} for a formal proof.
 \end{remark}
+
+If the function $f$ is assumed to be convex and smooth, then gradient estimates similar to \eqref{eq:twosp} can be constructed and this does not require higher order smoothness conditions as in Proposition \ref{prop:grad-spsa}. 
+\begin{proposition}
+\label{prop:grad-spsa}
+Consider a function $f:\D \to \R$, with $\K \subset \D \subset \R^d$,  
+that is convex and has a $L$-Lipschitz continuous gradient. .
+For any $x \in \cK$, and $\delta >0$ such that $\B(x,\delta) \in \D$, let the oracle $\gamma$ return 
+\begin{align}
+% Y = x+\delta U \,, \quad
+G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
+ \label{eq:twosp}
+\end{align}
+where $\xi^+, \xi^-$, $V$, $U$ are as in Proposition \ref{prop:grad-spsa}. 
+Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta$ and $c_2(\delta) = C_2 d/\delta^2$.
+\end{proposition}
+\begin{proof}
+See Appendix \ref{sec:appendix-grad}.
+\end{proof}
 
 
 % A popular idea for estimating gradient using one-point feedback is the smoothed function approach, which was originally proposed in \citep{katkul}. The idea is to convolve the gradient of the objective function with a suitable density function and then, via an integration by parts arguments show that the resulting integral is an estimate of the gradient of the smoothed objective function. 

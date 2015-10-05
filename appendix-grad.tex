@@ -1,9 +1,10 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 \subsubsection*{Proof of Proposition \ref{prop:grad-spsa}}
+\begin{proof}
 We use the proof technique of \cite{spall1992multivariate} (in particular, Lemma 1 there) in order to prove the main claim here.
   
-Notice that
+Since $\xi_n^+, \xi_n^-$ are i.i.d. and zero mean by assumption, we have
 \begin{align*}
 &\E\left[  V\left(\dfrac{\xi_n^+ - \xi_n^-}{2\delta}\right) \right]= 0 \quad \Rightarrow \quad
 \E[G] =  \E\left[ V \left(\dfrac{f(x+\delta U)  - f(x-\delta U) }{2\delta}\right)\right],
@@ -18,9 +19,27 @@ Hence,
 \begin{align}
 &\E\left[V\left(\dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta}\right) \right] \nonumber\\
 = &\E\left[V U\tr \left.\nabla f(x)\right| \F_n\right]  +   \E\left[\frac{\delta^2}{12} V (\nabla^3 f(\tilde  x^+)+\nabla^3 f(\tilde  x^-))(U \otimes U \otimes U)\right]. \label{eq:l1}\\
-\le & \nabla f(x) + \O\left( \delta^2\right).\label{eq:l2}
+\le & \nabla f(x) +  C_1 \delta^2.\label{eq:l2} \text{ for some } C_1>0.
 \end{align}
 The last inequality follows from the facts that $E[V U\tr] = I$ and that $|U_i|$ and $\E|V_i|$, $i=1,\ldots,d$, have finite upper bounds.
+
+Bound on the variance of $G$:
+Using the identity $\E\left\|X -  E[X]\right\|^2 \le \E \left\|X\right\|^2$ for any random variable $X$, we bound $\E\left\| G - \E G\right\|^2$ as follows:
+\begin{align}
+\E\left\| G - \E G\right\|^2 \le& d \E \left(G_i\right)^2 \label{eq:mi} \text{ for some } i\in \{1,\ldots,d\}\\
+= & \dfrac{d}{4\delta^2} \E\left(V_i(f(x+\delta U) -f(x-\delta U))\right)^2 \nonumber\\
+\le & \dfrac{d}{4\delta^2} \left(\left(\E\left(V_i f(x+\delta U) \right)^2\right)^{1/2}
++ \left(\E\left(V_i f(x-\delta U)\right)^2\right)^{1/2}\right)^2 \label{eq:minko}\\
+\le &\frac{d}{4\delta^2} \left[ \E\left((V_i)^{2+2\rho_1}\right) \right]^{\frac{1}{1+\rho1}} 
+\left(\left[\E\left[ (f(x+\delta U))\right]^{2+2\rho_2}\right]^{\frac{1}{1+\rho_2}} +
+\left[\E\left[ (f(x-\delta U))\right]^{2+2\rho_2}\right]^{\frac{1}{1+\rho_2}}\right)\label{eq:holder}\\
+\le & \frac{C_2 d}{\delta^2}, \text{ for some } C_2< \infty. \label{eq:h3}
+\end{align}
+The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
+The inequality in \eqref{eq:holder} uses Holder's inequality, with $\rho_1, \rho_2>0$ satisfying $\frac{1}{1+\rho_1} + \frac{1}{1+\rho_2}=1$. 
+The inequality in \eqref{eq:h3} follows from the fact that the function $f$ satisfies a higher moment condition and also that $V,U$ have finite moments. 
+\end{proof}
+
 
 \subsubsection*{One-point feedback}
 \begin{proposition}
