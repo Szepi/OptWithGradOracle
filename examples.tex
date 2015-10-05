@@ -41,9 +41,6 @@ Our oracle-based framework is relevant for bandit convex optimization problems a
 optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
 Next, we review the most common gradient estimation techniques and show that they are all either Type-I, or Type-II oracles.
 
-Flaxman (actually going back to 70s in Russia): \todoc{What does it do}
-Proposition:  Flaxman is $(c_1,c_2)$ Type-II oracle when $\dots$. \todoc{Expand}
-\todox[inline]{Flaxman's estimator}
 
 A popular idea for estimating gradient using one-point feedback is the smoothed function approach, which was originally proposed in \citep{katkul}. The idea is to convolve the gradient of the objective function with a suitable density function and then, via an integration by parts arguments show that the resulting integral is an estimate of the gradient of the smoothed objective function. 
 % This approach has been adopted in a stochastic convex optimization setup in \cite{duchi2015optimal}. 
