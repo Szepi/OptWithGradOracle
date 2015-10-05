@@ -17,10 +17,44 @@ where $\otimes$ denotes the Kronecker product and $\tilde x^+$ (resp. $\tilde x^
 Hence,
 \begin{align}
 &\E\left[V\left(\dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta}\right) \right] \nonumber\\
-= &\E\left[U U\tr \left.\nabla f(x)\right| \F_n\right]  +   \E\left[\frac{\delta^2}{12} V (\nabla^3 f(\tilde  x^+)+\nabla^3 f(\tilde  x^-))(U \otimes U \otimes U)\right]. \label{eq:l1}\\
+= &\E\left[V U\tr \left.\nabla f(x)\right| \F_n\right]  +   \E\left[\frac{\delta^2}{12} V (\nabla^3 f(\tilde  x^+)+\nabla^3 f(\tilde  x^-))(U \otimes U \otimes U)\right]. \label{eq:l1}\\
 \le & \nabla f(x) + \O\left( \delta^2\right).\label{eq:l2}
 \end{align}
 The last inequality follows from the facts that $E[V U\tr] = I$ and that $|U_i|$ and $\E|V_i|$, $i=1,\ldots,d$, have finite upper bounds.
+
+\subsubsection*{One-point feedback}
+\begin{proposition}
+\label{prop:grad-1spsa}
+Given any $f$ that is three times continuously differentiable with bounded third derivative. 
+For any $x \in \cK$, and $\delta >0$, let oracle $\gamma$ return 
+\begin{align}
+% Y = x+\delta U \,, \quad
+G =  V \left(\dfrac{f(x+\delta U) + \xi}{\delta}\right),
+ \label{eq:onesp}
+\end{align}
+where $V, U$ are random variables that satisfy $\E[V U\tr] = I_d$, $U_i, i=1,\ldots,d$ are i.i.d., $\E[ V U^2] = 0$, $\E[V_i]=0$, $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
+Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2/\delta^2$.
+\end{proposition}
+\begin{proof}
+As in the case of two-point feedback, we can ignore the noise element in $G$, i.e.,
+\begin{align*}
+&\E\left[  V\dfrac{\xi}{\delta} \right]= 0 \quad \Rightarrow \quad
+\E[G] =  \E\left[ V \left(\dfrac{f(x+\delta U) }{\delta}\right)\right],
+\end{align*}
+
+% By Taylor's series expansions, we obtain, a.s.,
+% \begin{align*}
+% f(x + \delta U) = f(x) \pm \delta U\tr \nabla f(x) + \frac{\delta^2}{2} U\tr \nabla^2 f(x) U +  \frac{\delta^3}{6} \nabla^3 f(\tilde x^{+})(U \otimes U \otimes U),
+% \end{align*}
+% where $\otimes$ and $\tilde x^+$ are as in the proof of Proposition \ref{prop:grad-spsa}.
+Using suitable Taylor's series expansions, we have %the following for any $i=1,\ldots,d$:
+\begin{align}
+&\E\left[V\left(\dfrac{f(x+\delta U)}{\delta}\right) \right] \nonumber\\
+= & \E\left[V \dfrac{f(x)}{\delta} \right] + \E\left[V U\tr \left.\nabla f(x)\right| \F_n\right]  +   \E\left[\frac{\delta}{2}  \nabla^2 f(\tilde  x^+)(V \otimes U \otimes U)\right] + \O\left( \delta^2\right). \label{eq:l1}\\
+\le & \nabla f(x) + \O\left( \delta^2\right).\label{eq:l2}
+\end{align}
+The last inequality follows from the facts that $E[V U\tr] = I$, and for any $i=1,\ldots,d$, $E[V_i U_j^2] = 0$, $|U_i|$ and $\E|V_i|$ have finite upper bounds.
+\end{proof}
 
 % 
 % \paragraph{One-point SPSA:}

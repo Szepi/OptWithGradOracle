@@ -67,6 +67,11 @@ Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$
 %  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).   
 \end{inparaenum}
 
+\begin{remark}\textbf{\textit{(One-point feedback)}}
+ Letting $G =  V \dfrac{f(x+\delta U) + \xi}{\delta}$, one obtains a gradient estimate using only one function evaluation. However, in order to obtain the same order for the bias as in the case of two-point feedback, we require $\E[ V U^2] = 0$ and $\E[V_i]=0, i=1,\ldots,d$, in addition to the conditions in Proposition \ref{prop:grad-spsa}. 
+ As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants by using appropriate choices for $V$ and $U$ See Appendix \ref{sec:appendix-grad} for a formal proof.
+\end{remark}
+
 
 % A popular idea for estimating gradient using one-point feedback is the smoothed function approach, which was originally proposed in \citep{katkul}. The idea is to convolve the gradient of the objective function with a suitable density function and then, via an integration by parts arguments show that the resulting integral is an estimate of the gradient of the smoothed objective function. 
 % This approach has been adopted in a stochastic convex optimization setup in \cite{duchi2015optimal}. 
