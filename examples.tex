@@ -41,10 +41,39 @@ Our oracle-based framework is relevant for bandit convex optimization problems a
 optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
 Next, we review the most common gradient estimation techniques and show that they are all either Type-I, or Type-II oracles.
 
+% \paragraph{Simultaneous perturbation methods:}
+The following proposition presents an oracle that encompasses several simultaneous perturbation methods, which are popular for estimating the gradient of a function using two-point feedback. 
+\begin{proposition}
+\label{prop:grad-spsa}
+Given any $f$ that is three times continuously differentiable with bounded third derivative. 
+For any $x \in \cK$, and $\delta >0$, let oracle $\gamma$ return 
+\begin{align}
+% Y = x+\delta U \,, \quad
+G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
+ \label{eq:twosp}
+\end{align}
+where $V, U$ are random variables that satisfy $\E[V U\tr] = I_d$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
+Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2/\delta^2$.
+\end{proposition}
+\begin{proof}
+ See Appendix \ref{sec:appendix-grad}.
+\end{proof}
 
-A popular idea for estimating gradient using one-point feedback is the smoothed function approach, which was originally proposed in \citep{katkul}. The idea is to convolve the gradient of the objective function with a suitable density function and then, via an integration by parts arguments show that the resulting integral is an estimate of the gradient of the smoothed objective function. 
+\paragraph{Popular choices for $V$ and $U$:}\ \\
+\begin{inparaenum}[$\bullet$]
+ \item If we set $U_i$ to be symmetric Bernoulli distributed r.v.s and $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed in \cite{spall1992multivariate}.\\ 
+ \item If we set $V=U$, with $U_i$ chosen either random on the surface of a unit sphere, then we recover the RDSA scheme proposed in \cite[pp.~58-60]{kushcla}. \\
+ \item If we set $V=U$, with $U_i$ to be the standard Gaussian, we recover the smoothed functional (SF) scheme proposed in \cite{katkul}. This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
+%  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).   
+\end{inparaenum}
+
+
+% A popular idea for estimating gradient using one-point feedback is the smoothed function approach, which was originally proposed in \citep{katkul}. The idea is to convolve the gradient of the objective function with a suitable density function and then, via an integration by parts arguments show that the resulting integral is an estimate of the gradient of the smoothed objective function. 
 % This approach has been adopted in a stochastic convex optimization setup in \cite{duchi2015optimal}. 
-\cite{flaxman2005online} follow this approach in the context of bandit convex optimization.
+
+% \paragraph{Simultaneous perturbation methods:}
+The idea of simultaneous perturbation can work even for functions that are not differentiable, as shown in \cite{flaxman2005online}. 
+% follow this approach in the context of bandit convex optimization.
 Formally,  
 % a $(c_1,c_2)$ Type-II oracle when $\cF$ is a general class of functions (this does not even require differentiability).
 given any $f \in \cF$, $x \in \cK$, and $\delta >0$, the oracle returns\footnote{See also \cite[pp.~58-60]{kushcla} for an old reference that proposed a gradient estimate similar to \eqref{eq:flaxman}.}   
@@ -54,6 +83,7 @@ given any $f \in \cF$, $x \in \cK$, and $\delta >0$, the oracle returns\footnote
 \end{align}
 where $u\in \R^d$ is a random unit vector, so the first condition of \cref{def:oracle2} immediately follows. 
 The variance of $G$ is bounded by $d^2C^2 \delta^{-2}$ for some constant $C = \sup_{y\in \cK'}f(y)$. 
+\todox[inline]{Fix this proposition statement to say Flaxman scheme is a type II oracle}
 \begin{proposition}
 Let $\tilde{f}(x) = \EE{f(x+\delta v)}$ denote the smoothed version of $f$. Then, we have
 $\EE{G} = \nabla \tilde{f}(x)$.
@@ -80,56 +110,56 @@ If $f$ is convex, and $L_{smo}$-smooth,
 \end{align*}
 Therefore, the estimator \eqref{eq:flaxman} can always fit the oracle setting by choosing $c_1(\delta) = C_1 \delta$ (or $C_1\delta^2$), $c_2(\delta) = C_2 \delta^{-2}$, for some constant $C_1$, $C_2$.
 
-\begin{remark}
- Instead of picking $u$ randomly on the surface of a unit sphere, one can employ an random variable $u$ that satisfies $E[u u\tr] = I_d$, where $I_d$ is the $d$-dimensional identity matrix. A popular choice for $u$ that satisfies the aforementioned constraint is the $d$-dimensional standard Gaussian - a choice that has been explored in the context of zeroth order optimization in \citep{duchi2015optimal}. See \citep{bhatnagar-book} for an overview of gradient and Hessian estimation techniques using random perturbations.   
-\end{remark}
+% \begin{remark}
+%  Instead of picking $u$ randomly on the surface of a unit sphere, one can employ an random variable $u$ that satisfies $E[u u\tr] = I_d$, where $I_d$ is the $d$-dimensional identity matrix. A popular choice for $u$ that satisfies the aforementioned constraint is the $d$-dimensional standard Gaussian - a choice that has been explored in the context of zeroth order optimization in \citep{duchi2015optimal}. See \citep{bhatnagar-book} for an overview of gradient and Hessian estimation techniques using random perturbations.   
+% \end{remark}
 
 \todox[inline]{mention Dikin}
 It may be noticed that the set $\cK'$ can be different from $\cK$. This is not a issue when the oracle can be queried outside $\cK$. However, if it is not the case, the algorithm can project $X$ to a shrinked set $(1-\delta)\cK$ (\cite{flaxman2005online}), or use Dikin ellipsoid (\cite{AbHaRa08}).
 
-An alternative approach, popularly known as SPSA \citep{spall1997one}, employs independent Rademacher random variables $\Delta_i, i=1,\ldots,d$ to estimate the gradient as follows:
+% An alternative approach, popularly known as SPSA \citep{spall1997one}, employs independent Rademacher random variables $\Delta_i, i=1,\ldots,d$ to estimate the gradient as follows:
+% % 
+% % One point SPSA
+% % Proposition: One-point SPSA is blah-blah 
+% % The one-point SPSA given by \cite{spall1997one} is a $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = C_1 \delta^2$, $c_2 = C_2 \delta^{-2}$ for some constant $C_1$, $C_2$.
+% For any input triple $(x, \delta, f)$, the oracle responds with
+% \begin{align}
+% Y = x+\delta \Delta \,, \quad
+% G = \dfrac{f(Y)+\epsilon}{\delta}\begin{pmatrix}\Delta_{\cdot1}^{-1}\\\Delta_{\cdot2}^{-1}\\ \vdots\\ \Delta_{\cdot
+%  d}^{-1}\end{pmatrix} \,,
+%  \label{eq:onespsa}
+% \end{align}
+% where $\epsilon$ is zero-mean measurement noise. More general distributions could be used for the perturbations $\Delta$, as long as they zero mean and satisfy bounded second and inverse second moments.
+% \todox{For one-point SPSA, $\Delta$ has to be symmetric around origin to eliminate the $f(x)$, $f'(x)$ terms}
+% % , $\Delta=\left(\Delta_{\cdot1}, \Delta_{\cdot2}, \cdots, \Delta_{\cdot
+% %  d}  \right)^\top$ is a vector of independent random variables. Each $\Delta_{\cdot i}$ is symmetrically distributed around $0$. $\EE{\Delta_{\cdot i}^{-1}}$ exists and is bounded.  The second and third moment of $\Delta$ are also bounded.
 % 
-% One point SPSA
-% Proposition: One-point SPSA is blah-blah 
-% The one-point SPSA given by \cite{spall1997one} is a $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = C_1 \delta^2$, $c_2 = C_2 \delta^{-2}$ for some constant $C_1$, $C_2$.
-For any input triple $(x, \delta, f)$, the oracle responds with
-\begin{align}
-Y = x+\delta \Delta \,, \quad
-G = \dfrac{f(Y)+\epsilon}{\delta}\begin{pmatrix}\Delta_{\cdot1}^{-1}\\\Delta_{\cdot2}^{-1}\\ \vdots\\ \Delta_{\cdot
- d}^{-1}\end{pmatrix} \,,
- \label{eq:onespsa}
-\end{align}
-where $\epsilon$ is zero-mean measurement noise. More general distributions could be used for the perturbations $\Delta$, as long as they zero mean and satisfy bounded second and inverse second moments.
-\todox{For one-point SPSA, $\Delta$ has to be symmetric around origin to eliminate the $f(x)$, $f'(x)$ terms}
-% , $\Delta=\left(\Delta_{\cdot1}, \Delta_{\cdot2}, \cdots, \Delta_{\cdot
-%  d}  \right)^\top$ is a vector of independent random variables. Each $\Delta_{\cdot i}$ is symmetrically distributed around $0$. $\EE{\Delta_{\cdot i}^{-1}}$ exists and is bounded.  The second and third moment of $\Delta$ are also bounded.
-
+% % 
+% % Proposition: Two-point SPSA is $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = \cdot$, $c_2 = \dots$. \todoc{Make this precise, add proof.}
+% % \todox[inline]{two-point SPSA}
+% % The two-point SPSA (\cite{spall1992multivariate}) is quite similar. However, the oracle 
+% Using two-point feedback, the original SPSA algorithm \citep{spall1992multivariate} based oracle    
+% will respond to $(x,\delta,f)$ with
+% \begin{align}
+% Y^+ &= x+\delta \Delta \,,\quad
+% Y^- = x-\delta \Delta \,, \\
+% G =& \dfrac{\left(f(Y^+)+\epsilon^+\right) - \left(f(Y^-)+\epsilon^-\right)}{2\delta}\begin{pmatrix}\Delta_{\cdot1}^{-1}\\\Delta_{\cdot2}^{-1}\\ \vdots\\ \Delta_{\cdot
+%  d}^{-1}\end{pmatrix} \,.
+%  \label{eq:twospsa}
+% \end{align}
 % 
-% Proposition: Two-point SPSA is $(c_1,c_2)$ Type-I oracle when $\cF$ contains only $3$-times continuously differentiable functions where  $c_1 = \cdot$, $c_2 = \dots$. \todoc{Make this precise, add proof.}
-% \todox[inline]{two-point SPSA}
-% The two-point SPSA (\cite{spall1992multivariate}) is quite similar. However, the oracle 
-Using two-point feedback, the original SPSA algorithm \citep{spall1992multivariate} based oracle    
-will respond to $(x,\delta,f)$ with
-\begin{align}
-Y^+ &= x+\delta \Delta \,,\quad
-Y^- = x-\delta \Delta \,, \\
-G =& \dfrac{\left(f(Y^+)+\epsilon^+\right) - \left(f(Y^-)+\epsilon^-\right)}{2\delta}\begin{pmatrix}\Delta_{\cdot1}^{-1}\\\Delta_{\cdot2}^{-1}\\ \vdots\\ \Delta_{\cdot
- d}^{-1}\end{pmatrix} \,.
- \label{eq:twospsa}
-\end{align}
-
-\begin{proposition}
-\label{prop:grad-spsa}
- Assume $f$ is $3$-times continuously differentiable. Then, for $G$ governed by either \eqref{eq:onespsa} or \eqref{eq:twospsa}, we have
- \begin{align*}
-&\EE{G_{\cdot i}}= [f'(x)]_i +O(\delta^2) \,, \quad \text{ for } i=1,\ldots,d.
-\end{align*}
-\end{proposition}
-\begin{proof}
- See Appendix \ref{sec:appendix-grad}.
-\end{proof}
-
-From the foregoing, it is easy to see that, for $3$-times continuously differentiable functions, one-point and two-point SPSA are $(c_1,c_2)$ Type-I oracles with $c_1 = C_1 \delta^2$, $c_2 = C_2 \delta^{-2}$ for some constant $C_1$, $C_2$.
+% \begin{proposition}
+% \label{prop:grad-spsa}
+%  Assume $f$ is $3$-times continuously differentiable. Then, for $G$ governed by either \eqref{eq:onespsa} or \eqref{eq:twospsa}, we have
+%  \begin{align*}
+% &\EE{G_{\cdot i}}= [f'(x)]_i +O(\delta^2) \,, \quad \text{ for } i=1,\ldots,d.
+% \end{align*}
+% \end{proposition}
+% \begin{proof}
+%  See Appendix \ref{sec:appendix-grad}.
+% \end{proof}
+% 
+% From the foregoing, it is easy to see that, for $3$-times continuously differentiable functions, one-point and two-point SPSA are $(c_1,c_2)$ Type-I oracles with $c_1 = C_1 \delta^2$, $c_2 = C_2 \delta^{-2}$ for some constant $C_1$, $C_2$.
 
 % Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled. As a result, we only need $\Delta_{\cdot i}$ to be zero-mean instead of symmetry.
 

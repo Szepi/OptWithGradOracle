@@ -1,21 +1,42 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 \subsubsection*{Proof of Proposition \ref{prop:grad-spsa}}
-
-\paragraph{One-point SPSA:}
-
- Since $f$ is $3$-times continuously differentiable, using Taylor's expansion, we get for the the $i^{th}$ component of $G$,
+We use the proof technique of \cite{spall1992multivariate} (in particular, Lemma 1 there) in order to prove the main claim here.
+  
+Notice that
 \begin{align*}
-&\EE{G_{\cdot i}}\\
-=&\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x+\delta \Delta)+\epsilon \right) }\\
-=& \EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x)+\delta f'(x)^\top \Delta+\dfrac{1}{2}\delta^2 \Delta^\top f''(x)\Delta \right) } \numberthis \label{eq:spsaTaylorExp} \\
-&+\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left(O(\delta^3 \Delta\otimes\Delta\otimes\Delta) +\epsilon \right) }\\
-=& [f'(x)]_i +O(\delta^2) \,,
+&\E\left[  V\left(\dfrac{\xi_n^+ - \xi_n^-}{2\delta}\right) \right]= 0 \quad \Rightarrow \quad
+\E[G] =  \E\left[ V \left(\dfrac{f(x+\delta U)  - f(x-\delta U) }{2\delta}\right)\right],
 \end{align*}
-where $[f'(x)]_i$ denotes the $i^{th}$ component of $f'(x)$. The last equality comes from the properties of symmetry, and bounded moment for $\Delta$.
-Hence, $G$ is a estimate of $f'(x)$ with bias $O(\delta^2)$.
 
-\paragraph{Two-point SPSA:}
+By Taylor's series expansions, we obtain, a.s.,
+\begin{align*}
+f(x \pm \delta U) = f(x) \pm \delta U\tr \nabla f(x) + \frac{\delta^2}{2} U\tr \nabla^2 f(x) U \pm  \frac{\delta^3}{6} \nabla^3 f(\tilde x^{\pm})(U \otimes U \otimes U),
+\end{align*}
+where $\otimes$ denotes the Kronecker product and $\tilde x^+$ (resp. $\tilde x^-)$ is on the line segment between $x$ and $(x + \delta U)$ (resp. $(x - \delta U)$).
+Hence,
+\begin{align}
+&\E\left[V\left(\dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta}\right) \right] \nonumber\\
+= &\E\left[U U\tr \left.\nabla f(x)\right| \F_n\right]  +   \E\left[\frac{\delta^2}{12} V (\nabla^3 f(\tilde  x^+)+\nabla^3 f(\tilde  x^-))(U \otimes U \otimes U)\right]. \label{eq:l1}\\
+\le & \nabla f(x) + \O\left( \delta^2\right).\label{eq:l2}
+\end{align}
+The last inequality follows from the facts that $E[V U\tr] = I$ and that $|U_i|$ and $\E|V_i|$, $i=1,\ldots,d$, have finite upper bounds.
 
-Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled and one can conclude that $G$ is only an order $O(\delta^2)$ term away from $f'(x)$. Note that the second-order term in one-point SPSA is zero-mean, while in the two-point SPSA it is zero. 
+% 
+% \paragraph{One-point SPSA:}
+% 
+%  Since $f$ is $3$-times continuously differentiable, using Taylor's expansion, we get for the the $i^{th}$ component of $G$,
+% \begin{align*}
+% &\EE{G_{\cdot i}}\\
+% =&\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x+\delta \Delta)+\epsilon \right) }\\
+% =& \EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left( f(x)+\delta f'(x)^\top \Delta+\dfrac{1}{2}\delta^2 \Delta^\top f''(x)\Delta \right) } \numberthis \label{eq:spsaTaylorExp} \\
+% &+\EE{\dfrac{1}{\delta \Delta_{\cdot i}} \left(O(\delta^3 \Delta\otimes\Delta\otimes\Delta) +\epsilon \right) }\\
+% =& [f'(x)]_i +O(\delta^2) \,,
+% \end{align*}
+% where $[f'(x)]_i$ denotes the $i^{th}$ component of $f'(x)$. The last equality comes from the properties of symmetry, and bounded moment for $\Delta$.
+% Hence, $G$ is a estimate of $f'(x)$ with bias $O(\delta^2)$.
+% 
+% \paragraph{Two-point SPSA:}
+% 
+% Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled and one can conclude that $G$ is only an order $O(\delta^2)$ term away from $f'(x)$. Note that the second-order term in one-point SPSA is zero-mean, while in the two-point SPSA it is zero. 
 % As a result, we only need $\Delta_{\cdot i}$ to be zero-mean instead of symmetry.
