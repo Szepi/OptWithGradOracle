@@ -7,16 +7,16 @@ and come back to it only to clarify our notation and terminology in case some co
 In the \emph{online variant} of bandit convex optimization a learner sequentially chooses the points $X_1,\dots,X_n\in \cK$ while observing the losses $f_1(X_1),\dots,f_n(X_n)$. More specifically, in round $t$, having observed $f_1(X_1),\dots,f_{t-1}(X_{t-1})$ of the previous rounds, the learner chooses $X_t\in \cK$, after which it observed $f_t(X_t)$. The learner's goal is to minimize its expected regret $\EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x\in \cK} \sum_{t=1}^n f_t(x) }$. 
 This problem is also called online convex optimization with one-point feedback.
 A slightly different problem is obtained if we allow the learner to choose multiple points in every round, at which points the function $f_t$ is observed. The loss is suffered at $X_t$. The points where the function is observed (``observation points'' for short) may or may not be tied to $X_t$. One possibility is that $X_t$ is one of the observation points.  
-Another possibility is that $X_t$ is the average of the observation points. Yet another possibility is that there is no relationship between them. \todoc{Add refs, explain relationship between these problems.}
+Another possibility is that $X_t$ is the average of the observation points (e.g., \citealt{AgDeXi10}). Yet another possibility is that there is no relationship between them. \todoc{I commented out the specifics of  \cite{AgDeXi10} because it is better to discuss the oracles at one place later.}
 
-\todox[inline]{add the following paragraph about two-point online variant.}
-\todoc{We need mathematical statements: Under such and such conditions, $d$-point feedback is equivalent to $2$-point feedback, which is equivalent to having a $(c_1,c_2)$ Type-I oracle with $c_1,c_2$ such and such.}
+\if0
 For example, \cite{AgDeXi10} used an algorithm that queries at two points per round, and defined the incurred loss as the average of losses at the two observation points. In our oracle, it can be stated as in round $t$, the same oracle $\gamma_t$ responds to the same inputs $(X_t, \delta_t, f_t)$ with two different pairs $(G_{t,1}, Y_{t,1})$ and $(G_{t,2}, Y_{t,2})$. The accumulated regret can be written as 
-\[
+$% \[
 R_n = \sum_{t=1}^n \dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2}) \right) -\inf_{x \in \cK}\sum_{t=1}^n f_t(x) \,.
-\]
+$ %\]
 Recalling that $Y_{t,1}$, $Y_{t,2}$ are in the $\delta$-vicinity of $X_t$, the relationship between $f_t(X_t)$ and $\dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2})\right)$ is then determined by the environment (i.e. the property of $f_t$). It is straightforward to bound $| \dfrac{1}{2}\left( f_t(Y_{t,1})+f_t(Y_{t,2})\right)- f_t(X_t)|$ as a function of $\delta$. \todoc{How? When $f_t$ is Lipschitz, smooth, etc? So you mean, when $f_t$ is a smooth function?}
 The common assumption for this setting is: The oracle is a stochastic mapping from $(X, \delta, f)$ to $(G, Y)$; The algorithm selects the point $X_t$ depending on $\left( X_1, G_{1,1}, G_{1,2}, \cdots, X_{t-1},G_{t-1,1}, G_{t-1,2}  \right)$. This two-point feedback can be easily extended to multi-point feedback, too.
+\fi
 
 In the \emph{optimization variant} of bandit (or ``zeroth order'') convex optimization, 
 the algorithm sequentially chooses the points $X_1,\dots,X_n\in \cK$ while observing the loss function at these points in noise.
@@ -25,38 +25,37 @@ Previous research considered several possible constraints connecting $Z_t$ and $
 One simple assumption is that $Z_t-f(X_t)$ is an $\cF_t = \sigma(X_{1:t},Z_{1:t-1})$-adapted martingale difference sequence (with favourable tail properties). \todoc{Some readers might be put off by martingales..}
 A specific case is when $Z_t - f(X_t) = \xi_t$, where $(\xi_t)$ is an i.i.d. sequence.
 A stronger assumption, which is most appropriate in stochastic programming, 
-is that $Z_t = F(X_t,U_t)$, where $U_t\in \R$, $\int F(X_t,u) dF(u) = f(X_t)$ with some distribution function $F$ over the reals and the algorithm has access to an oracle that can produce independent samples from $F$ (in which case, $(U_t)$ may be an i.i.d. sequence sampled from $F$).
+is that $Z_t = F(X_t,U_t)$, where $U_t\in \R$, $\int F(X_t,u) dP_U(u) = f(X_t)$ with some distribution function $P_U$ over the reals and the algorithm has access to an oracle that can produce independent samples from $F$ (in which case, $(U_t)$ may be an i.i.d. sequence sampled from $P_U$).
 This assumption is stronger because the algorithm controls the ``noise''. 
 In particular, the algorithm may decide to reuse the same random sample from $F$ multiple times, 
 in the hope of increasing accuracy, akin to the method of common random numbers from Monte Carlo algorithms.
 \todoc{mention simulation optimization as the ``field''}
 Again, it is also possible to consider multi-point feedback as in the online case.
 
-\todox[inline]{add multiple-point feedback in optimization setting}
-However, what differs in optimization variant is that we do not care the incurred loss in each round, since we only need a final estimate $\hat{X}_n$, which is a deterministic function of $\left( X_1, G_{1,1}, G_{1,2}, \cdots, X_{n},G_{n,1}, G_{n,2}  \right)$ as defined earlier.
+However, what differs in optimization variant is that we do not care the incurred loss in each round, since we only need a final estimate $\hat{X}_n$, which is a deterministic function of the previous observations.
+Note that in this setting the distinction between one-point and two-point feedback (or $K$ point feedback with a fixed $K$) is minor: If one is given the opportunity for $n$ one-point feedback observations, this is obviously equivalent to having given the opportunity for $n/2$ two-point feedback observations (or $n/K$ $K$-point observations), which is a (negligible) constant-factor reduction of the number of observations.
 
-\todoc[inline]{Reduction of one-point feedback to two-point feedback}
-
-Our oracle-based framework is relevant for bandit convex optimization problems as a major technique in bandit convex
-optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
-Next, we review the most common gradient estimation techniques and show that they are all either Type-I, or Type-II oracles.
-
-% \paragraph{Simultaneous perturbation methods:}
+%A major tool in bandit convex optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
+A common popular idea is to bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimated of the gradient \cite{XXXXX}.
 The following proposition presents an oracle that encompasses several simultaneous perturbation methods, which are popular for estimating the gradient of a function using two-point feedback. 
+For simplicity, we present the result for the case when the point feedbacks are corrupted by i.i.d. noise. \todoc{What is really that we need to assume about the noise?}
+Note that the proposition does not require the function to be convex. \todoc{Any advantage of adding convexity, smoothness? Can we then maybe drop the condition that $f$ is $C^3$ when some of these conditions are met?}
 \begin{proposition}
 \label{prop:grad-spsa}
-Given any $f$ that is three times continuously differentiable with bounded third derivative. 
+Given any $f:\R^d \to \R$ 
+that is three times continuously differentiable with bounded third derivative. \todoc{What is the domain?} 
 For any $x \in \cK$, and $\delta >0$, let oracle $\gamma$ return 
 \begin{align}
 % Y = x+\delta U \,, \quad
 G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
  \label{eq:twosp}
 \end{align}
-where $V, U$ are random variables that satisfy $\E[V U\tr] = I_d$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
+where $V, U \in \R^d$ are jointly distributed random vectors 
+that satisfy $\E[V U\tr] = I_d$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
 Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2/\delta^2$.
 \end{proposition}
 \begin{proof}
- See Appendix \ref{sec:appendix-grad}.
+See Appendix \ref{sec:appendix-grad}.
 \end{proof}
 
 \paragraph{Popular choices for $V$ and $U$:}\ \\
