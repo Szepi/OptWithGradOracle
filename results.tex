@@ -1,25 +1,32 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-
 \begin{table*}
 \centering
- \caption{Summary of upper and lower bounds for various smooth function classes and different gradient oracles}
+ \caption{Summary of upper and lower bounds for different smooth function classes and  gradient oracles}
 \label{tab:mse-1}
-\begin{tabular}{|c|c|c|c|c|}
+ \begin{tabular}{|c|c|c|c|c|}
+% \begin{tabular}{||*5{>{\columncolor[gray]{.9}}c}||}
 \toprule
-\rowcolor{gray!20}
+% \rowcolor{gray!20}
 % \multicolumn{3}{|c|}{\multirow{2}{*}{\textbf{Lower bounds}}}\\[1.7em]
 % \midrule
-  \multirow{2}{*}{\textbf{Oracle type}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Convex + Smooth}}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Strongly Convex + Smooth}}} \\[1.7em]
+  \multirow{2}{*}{\textbf{Oracle type}} & \multicolumn{2}{c}{\multirow{2}{*}{\textbf{Convex + Smooth}}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Strongly Convex + Smooth}}} \\[1em]
  \midrule
-\multirow{2}{*}{ $C_1=0$ and $q=0$} & \multirow{2}{*}{$\O\left(\dfrac{d}{\sqrt{n}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{d}{\sqrt{n}}\right)$} & \multirow{2}{*}{$\O\left(\dfrac{d}{\sqrt{n}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{d}{\sqrt{n}}\right)$}  \\[1.5em]\midrule
+% \rowcolor{gray!20}
+ & \textbf{Upper bound} & \textbf{Lower bound} & \textbf{Upper bound} & \textbf{Lower bound}\\
+ \midrule
+ \textbf{Zero bias} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\left(\dfrac{d^2}{n}\right)^{1/2}$}  \\[0.5ex]
+ ($C_1=0$, $q=0$) & & & &\\\midrule
 %%%%%%%%%%%%%%%%
-\multirow{2}{*}{ $p=1$ and $q=2$} & \multirow{2}{*}{$\O\left(\dfrac{d^{\frac{1}{4}}}{n^{\frac{1}{4}}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{\sqrt{C_1 C_2} d^\frac{1}{4}}{n^\frac{1}{4}}\right)$}& \multirow{2}{*}{$\O\left(\dfrac{d}{\sqrt{n}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{C_1 C_2}{\sqrt{d n}}\right)$} \\[1.5em]\midrule
+\textbf{ One-point estimates} & \multirow{2}{*}{$\dfrac{1}{n^{{1/4}}}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2 d}{n}\right)^{1/4}$}& \multirow{2}{*}{$\dfrac{1}{n^{1/3}}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2}{d n}\right)^{1/2}$} \\[0.5ex]
+ ($p=1$, $q=2$) & & & &\\\midrule
 %%%%%%%%%%%%%%%%%%%
-\multirow{2}{*}{ $p=2$ and $q=2$} & \multirow{2}{*}{$\O\left(\dfrac{d^{\frac{1}{6}}}{n^{\frac{1}{3}}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{(C_1 C_2^2)^\frac{1}{3} d^\frac{1}{6}}{n^\frac{1}{3}}\right)$} & \multirow{2}{*}{$\O\left(\dfrac{d}{\sqrt{n}}\right)$}  & \multirow{2}{*}{$\Omega\left(\dfrac{(C_1^2 C_2^4)^\frac{1}{3}}{d^\frac{2}{3} n^\frac{2}{3}}\right)$}\\[1.5em]
+\textbf{ Two-point estimates} & \multirow{2}{*}{$\dfrac{1}{n^{{1/3}}}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 \sqrt d}{n}\right)^{1/3}$} & \multirow{2}{*}{$\dfrac{1}{n^{1/2}}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 }{d n}\right)^{2/3}$}\\[1.4ex]
+ ($p=2$, $q=2$) & & & &\\
  \bottomrule 
 \end{tabular}
 \end{table*}
+\todox{Update upper bounds in the table}
 
 Unconstrained case:
 
