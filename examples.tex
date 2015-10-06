@@ -35,6 +35,23 @@ Again, it is also possible to consider multi-point feedback as in the online cas
 However, what differs in optimization variant is that we do not care the incurred loss in each round, since we only need a final estimate $\hat{X}_n$, which is a deterministic function of the previous observations.
 Note that in this setting the distinction between one-point and two-point feedback (or $K$ point feedback with a fixed $K$) is minor: If one is given the opportunity for $n$ one-point feedback observations, this is obviously equivalent to having given the opportunity for $n/2$ two-point feedback observations (or $n/K$ $K$-point observations), which is a (negligible) constant-factor reduction of the number of observations.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table*}
+\centering
+\begin{tabular}{|c|c|c|}
+\toprule
+\textbf{Noise }$\bm{ \rightarrow}$ & \multirow{2}{*}{Controlled ($\xi^+ = \xi^-$)} & \multirow{2}{*}{Uncontrolled ($\xi^+ \ne \xi^-$)} \\ 
+\textbf{Function } &&\\
+$\bm{\downarrow}$ &&\\\midrule
+\multirow{2}{*}{\textbf{Convex + Smooth}} & \multirow{2}{*}{$(C_1 \delta, C_2)$} & \multirow{2}{*}{$(C_1\delta, C_2/\delta^2)$}\\ 
+ &&\\\midrule
+\multirow{2}{*}{$\bm{f \in \C^3}$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} \\ 
+ &&\\\bottomrule
+\end{tabular}
+\caption{Gradient oracles for different function classes and noise categories.}
+\label{tab:oracles}
+\end{table*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %A major tool in bandit convex optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
 A common popular idea is to bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimated of the gradient \cite{XXXXX}.
 The following proposition presents an oracle that encompasses several simultaneous perturbation methods, which are popular for estimating the gradient of a function using two-point feedback. 
@@ -55,7 +72,7 @@ where $\xi^+, \xi^-$ are  i.i.d. noise terms that are zero-mean and satisfy
 $\E \left|\xi^{\pm}\right|^{2+\zeta} < \infty$, for some $\zeta>0$. 
 Further, $V, U \in \R^d$ are jointly distributed random vectors 
 that satisfy $\E[V U\tr] = I$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
-Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2 d/\delta^2$.
+Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2/\delta^2$.
 \end{proposition}
 \begin{proof}
 See Appendix \ref{sec:appendix-grad}.
@@ -76,7 +93,7 @@ See Appendix \ref{sec:appendix-grad}.
 
 If the function $f$ is assumed to be convex and smooth, then gradient estimates similar to \eqref{eq:twosp} can be constructed and this does not require higher order smoothness conditions as in Proposition \ref{prop:grad-spsa}. 
 \begin{proposition}
-\label{prop:grad-spsa}
+\label{prop:grad-convex}
 Consider a function $f:\D \to \R$, with $\K \subset \D \subset \R^d$,  
 that is convex and has a $L$-Lipschitz continuous gradient. .
 For any $x \in \cK$, and $\delta >0$ such that $\B(x,\delta) \in \D$, let the oracle $\gamma$ return 
