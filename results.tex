@@ -52,7 +52,7 @@ Upper bound:
 	
 \end{algorithm}
 
-\begin{theorem}
+\begin{theorem}[\textit{Upper bound}]
 \label{thm:ub}
 Given a bounded, convex set $\cK \subset \R$,
 let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth.
@@ -93,8 +93,7 @@ See Section \ref{sec:ub-proof}.
 \end{proof}
 
 
-Lower bound:
-\begin{theorem}
+\begin{theorem}[\textit{Lower bound: Convex}]
 \label{thm:lb-convex}
 For any $v \in \{+1,-1\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where
 $f^{(i)}_{v_i}(x_i) := \dfrac{\epsilon}{2} (x_i - v_i)^2$, for $i=1,\ldots,d$.
@@ -110,8 +109,7 @@ Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Typ
  See Section \ref{sec:lb-proof} for a proof sketch and Appendix \ref{sec:appendix-lbconvex} for a detailed proof.
 \end{proof}
 
-Lower bound: Strongly convex case
-\begin{theorem}
+\begin{theorem}[\textit{Lower bound: Strongly convex}]
 \label{thm:lb-strongly-convex}
 For any $v \in \{+\nu,-\nu\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where
 $f^{(i)}_{v_i}(x_i) := \dfrac{1}{2} x^2 - v x$, for $i=1,\ldots,d$.

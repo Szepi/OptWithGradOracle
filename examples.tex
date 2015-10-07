@@ -40,7 +40,7 @@ Note that in this setting the distinction between one-point and two-point feedba
 \centering
 \begin{tabular}{|c|c|c|}
 \toprule
-\textbf{Noise }$\bm{ \rightarrow}$ & \multirow{2}{*}{Controlled ($\xi^+ = \xi^-$)} & \multirow{2}{*}{Uncontrolled ($\xi^+ \ne \xi^-$)} \\ 
+\textbf{Noise }$\bm{ \rightarrow}$ & \multirow{2}{*}{\textbf{Controlled }($\bm{\xi^+ = \xi^-}$)} & \multirow{2}{*}{\textbf{Uncontrolled }($\bm{\xi^+ \ne \xi^-}$)} \\ 
 \textbf{Function } &&\\
 $\bm{\downarrow}$ &&\\\midrule
 \multirow{2}{*}{\textbf{Convex + Smooth}} & \multirow{2}{*}{$(C_1 \delta, C_2)$} & \multirow{2}{*}{$(C_1\delta, C_2/\delta^2)$}\\ 
@@ -48,7 +48,7 @@ $\bm{\downarrow}$ &&\\\midrule
 \multirow{2}{*}{$\bm{f \in \C^3}$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} \\ 
  &&\\\bottomrule
 \end{tabular}
-\caption{Gradient oracles for different function classes and noise categories.}
+\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.}
 \label{tab:oracles}
 \end{table*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -59,20 +59,25 @@ For simplicity, we present the result for the case when the point feedbacks are 
 Note that the proposition does not require the function to be convex. \todoc{Any advantage of adding convexity, smoothness? Can we then maybe drop the condition that $f$ is $C^3$ when some of these conditions are met?}
 \begin{proposition}
 \label{prop:grad-spsa}
-Consider a function $f:\D \to \R$, with $\K \subset \D \subset \R^d$,  
-that is three times continuously differentiable with bounded third derivative and also satisfies  
-$\E \left|f(x)\right|^{2+\zeta} < \infty$, for any $x\in \D$.
+Consider a function $f:\D \to \R$, with $\K \subset \D \subset \R^d$:\\
 For any $x \in \cK$, and $\delta >0$ such that $\B(x,\delta) \in \D$\footnote{$\B(x,\delta)$ denotes the ball of radius $\delta$ centered at $x$.}, let the oracle $\gamma$ return 
 \begin{align}
 % Y = x+\delta U \,, \quad
-G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
+\hspace{-1.5ex}G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
  \label{eq:twosp}
 \end{align}
-where $\xi^+, \xi^-$ are  i.i.d. noise terms that are zero-mean and satisfy 
-$\E \left|\xi^{\pm}\right|^{2+\zeta} < \infty$, for some $\zeta>0$. 
-Further, $V, U \in \R^d$ are jointly distributed random vectors 
+where $V, U \in \R^d$ are jointly distributed random vectors 
 that satisfy $\E[V U\tr] = I$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
-Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2/\delta^2$.
+
+Consider the following function classes:\\ 
+\textbf{1:} $f$ is convex, with a $L$-Lipschitz gradient.\\
+\textbf{2:} $f \in \C^3$, i.e., $f$ is three times continuously differentiable and has bounded third derivative.
+
+Let $\xi^+, \xi^-$ be  i.i.d. and are either \\
+\textbf{Controlled:} $\xi^+= \xi^-$ (or)  \\
+\textbf{Uncontrolled:} $\E[\xi^+ \mid V] = \E[\xi^+ \mid V] =0$ and $\E \left( (\xi^{+} - \xi^-)^{2} \mid V\right) < \infty$.
+
+Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by Table \ref{tab:oracles}.
 \end{proposition}
 \begin{proof}
 See Appendix \ref{sec:appendix-grad}.
@@ -91,23 +96,23 @@ See Appendix \ref{sec:appendix-grad}.
  As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants by using appropriate choices for $V$ and $U$ See Appendix \ref{sec:appendix-grad} for a formal proof.
 \end{remark}
 
-If the function $f$ is assumed to be convex and smooth, then gradient estimates similar to \eqref{eq:twosp} can be constructed and this does not require higher order smoothness conditions as in Proposition \ref{prop:grad-spsa}. 
-\begin{proposition}
-\label{prop:grad-convex}
-Consider a function $f:\D \to \R$, with $\K \subset \D \subset \R^d$,  
-that is convex and has a $L$-Lipschitz continuous gradient. .
-For any $x \in \cK$, and $\delta >0$ such that $\B(x,\delta) \in \D$, let the oracle $\gamma$ return 
-\begin{align}
-% Y = x+\delta U \,, \quad
-G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
- \label{eq:twosp}
-\end{align}
-where $\xi^+, \xi^-$, $V$, $U$ are as in Proposition \ref{prop:grad-spsa}. 
-Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta$ and $c_2(\delta) = C_2 d/\delta^2$.
-\end{proposition}
-\begin{proof}
-See Appendix \ref{sec:appendix-grad}.
-\end{proof}
+% If the function $f$ is assumed to be convex and smooth, then gradient estimates similar to \eqref{eq:twosp} can be constructed and this does not require higher order smoothness conditions as in Proposition \ref{prop:grad-spsa}. 
+% \begin{proposition}
+% \label{prop:grad-convex}
+% Consider a function $f:\D \to \R$, with $\K \subset \D \subset \R^d$,  
+% that is convex and has a $L$-Lipschitz continuous gradient. .
+% For any $x \in \cK$, and $\delta >0$ such that $\B(x,\delta) \in \D$, let the oracle $\gamma$ return 
+% \begin{align}
+% % Y = x+\delta U \,, \quad
+% G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
+%  \label{eq:twosp}
+% \end{align}
+% where $\xi^+, \xi^-$, $V$, $U$ are as in Proposition \ref{prop:grad-spsa}. 
+% Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta$ and $c_2(\delta) = C_2 d/\delta^2$.
+% \end{proposition}
+% \begin{proof}
+% See Appendix \ref{sec:appendix-grad}.
+% \end{proof}
 
 
 % A popular idea for estimating gradient using one-point feedback is the smoothed function approach, which was originally proposed in \citep{katkul}. The idea is to convolve the gradient of the objective function with a suitable density function and then, via an integration by parts arguments show that the resulting integral is an estimate of the gradient of the smoothed objective function. 
