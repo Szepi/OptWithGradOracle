@@ -24,7 +24,7 @@ Hence,
 The last inequality follows from the facts that $E[V U\tr] = I$ and that $|U_i|$ and $\E|V_i|$, $i=1,\ldots,d$, have finite upper bounds.
 
 Bound on the variance of $G$:
-Using the identity $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$ for any random variable $X$, we bound $\E\left\| G - \E G\right\|^2$ as follows:
+Using the inequality $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$ for any random variable $X$, we bound $\E\left\| G - \E G\right\|^2$ as follows:
 \begin{align}
 &\E\left\| G - \E G\right\|^2 \\
 \le& 4 \E \left\|G\right\|^2 \label{eq:mi}\\
@@ -35,6 +35,22 @@ Using the identity $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$ fo
 \le & \frac{C_2}{\delta^2}, \text{ for some } C_2< \infty. \label{eq:h4}
 \end{align}
 The inequality in \eqref{eq:h3} follows from $\E\left( \xi^+ \mid V \right) = \E\left( \xi^- \mid V \right) = 0$, while that in \eqref{eq:h3} follows from the facts that  the span of the function $f$ is bounded and $V$ has finite second moment. 
+\end{proof}
+
+
+\subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for convex and smooth $f$}
+\begin{proof}
+Since $f$ is convex with a  $L$-Lipschitz gradient, we have the following for any $\delta>0$:
+\begin{align*}
+\frac{\<\nabla f(x), \delta u\>}{\delta} \le \frac{f(x + \delta u) -  f(x)}{\delta} \le& \frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
+% \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
+\end{align*}
+Hence,
+\begin{align*}
+\left|\frac{f(x + \delta u) -  f(x)}{\delta} - \<\nabla f(x),  u\> \right| \le&  \dfrac{L}{2} \norm{u}^2
+% \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
+\end{align*}
+
 \end{proof}
 
 
@@ -75,21 +91,6 @@ The last inequality follows from the facts that $E[V U\tr] = I$, and for any $i=
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for convex and smooth $f$}
-\begin{proof}
-Since $f$ is convex with a  $L$-Lipschitz gradient, we have the following for any $\delta>0$:
-\begin{align*}
-\frac{\<\nabla f(x), \delta u\>}{\delta} \le \frac{f(x + \delta u) -  f(x)}{\delta} \le& \frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
-% \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
-\end{align*}
-Hence,
-\begin{align*}
-\left|\frac{f(x + \delta u) -  f(x)}{\delta} - \<\nabla f(x),  u\> \right| \le&  \dfrac{L}{2} \norm{u}^2
-% \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
-\end{align*}
-
-\end{proof}
 
 
 
