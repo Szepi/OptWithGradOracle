@@ -40,7 +40,7 @@ Note that in this setting the distinction between one-point and two-point feedba
 \centering
 \begin{tabular}{|c|c|c|}
 \toprule
-\textbf{Noise }$\bm{ \rightarrow}$ & \multirow{2}{*}{\textbf{Controlled }($\bm{\xi^+ = \xi^-}$)} & \multirow{2}{*}{\textbf{Uncontrolled }($\bm{\xi^+ \ne \xi^-}$)} \\ 
+\textbf{Noise }$\bm{ \rightarrow}$ & \multirow{2}{*}{\textbf{Controlled }($\bm{\xi^+ = \xi^-}$)} & \multirow{2}{*}{\textbf{Uncontrolled }(see~\eqref{eq:noiseass})} \\ 
 \textbf{Function } &&\\
 $\bm{\downarrow}$ &&\\\midrule
 \multirow{2}{*}{\textbf{Convex + Smooth}} & \multirow{2}{*}{$(C_1 \delta, C_2)$} & \multirow{2}{*}{$(C_1\delta, C_2/\delta^2)$}\\ 
@@ -48,12 +48,14 @@ $\bm{\downarrow}$ &&\\\midrule
 \multirow{2}{*}{$\bm{f \in \C^3}$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} \\ 
  &&\\\bottomrule
 \end{tabular}
-\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.}
+\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.
+}
 \label{tab:oracles}
 \end{table*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %A major tool in bandit convex optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
 A common popular idea is to bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimated of the gradient \cite{XXXXX}.
+<<<<<<< HEAD
 The following proposition presents an oracle that encompasses several simultaneous perturbation methods, which are popular for estimating the gradient of a function using two-point feedback. 
 For simplicity, we present the result for the case when the point feedbacks are corrupted by noise with zero mean and bounded variance. \todoc{What is really that we need to assume about the noise?}
 Note that the proposition does not always require the function to be convex or differentiable. \todoc{Any advantage of adding convexity, smoothness? Can we then maybe drop the condition that $f$ is $C^3$ when some of these conditions are met?}
@@ -61,23 +63,56 @@ Note that the proposition does not always require the function to be convex or d
 \label{prop:grad-spsa}
 Consider a function $f:\D \to \R$, with $\K \subseteq \D \subset \R^d$:\\
 For any $x \in \cK$, and $\delta >0$ such that $\B(x,\delta) \in \D$\footnote{$\B(x,\delta)$ denotes the ball of radius $\delta$ centered at $x$.}, let the oracle $\gamma$ return 
+=======
+In particular, consider the following oracle (which, as will be discussed later 
+ encompasses several simultaneous perturbation methods):
+Given the inputs $x\in \K$,  $0<\delta\le 1$,  \todoc{We need an upper bound I believe. Add it earlier.}
+the gradient estimate is
+>>>>>>> origin/master
 \begin{align}
-% Y = x+\delta U \,, \quad
-\hspace{-1.5ex}G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
+%\hspace{-1.5ex}
+\begin{split}
+G &=  \dfrac{Z^+ - Z^-}{2\delta}\, V \,, \\
+&  Z^{\pm} = f(X^{\pm}) + \xi^{\pm}, X^{\pm} = x \pm \delta U\,,
+ \end{split}
+%V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right).
  \label{eq:twosp}
 \end{align}
-where $V, U \in \R^d$ are jointly distributed random vectors 
-that satisfy $\E[V U\tr] = I$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
+where $U,V\in \R^d$, $\xi^{\pm}\in \R$ are random, jointly distributed random variables, $U,V$ chosen by the oracle
+from some fixed distribution characterizing the oracle and $\xi^{\pm}$ being the noise of the returned feedback $Z^{\pm}$ at points $X^{\pm}$.
+For the following proposition we consider $4=2\times 2$ cases.
+First, the function is either assumed to be $L$-smooth and convex (i.e., the derivative of $f$ is $L$-Lipschitz w.r.t. $\norm{\cdot}_*$), or it is assumed to be three times continuously differentiable (in notation: $f\in C^3$).
+The other two options are that either $\xi^+=\xi^-$, which we call the \emph{controlled noise} setting (see above for the motivation), or we make the alternate assumptions 
+\begin{align}
+\begin{split}
+\E[\xi^+ |\, V] = \E[\xi^+ |\, V] =0 \text{ and }\\
+\E [ (\xi^{+} - \xi^-)^{2} \mid V] \le \sigma^2 <\infty\,.
+\end{split}
+\label{eq:noiseass}
+\end{align}
 
+The following proposition quantifies the bias-variance parameters $(c_1,c_2)$ under two different (but not mutually exclusive) setings.
+\begin{proposition}
+\label{prop:grad-spsa}
+Consider a function $f:\D \to \R$, with $\K \subset \D^\circ \subset \R^d$.%
+\footnote{Here, $\D^\circ$ denotes the interior of $\D$.}
+For any $x \in \cK$, and $0< \delta \le 1$ let the oracle $\gamma$ return $G$ as specified in~\eqref{eq:twosp},
+where $(U,V)$ are such that $x+\delta U \in \D$ a.s.,
+$\E[V U\tr] = I$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
+\if0
 Consider the following function classes:\\ 
 \textbf{1:} $f$ is convex, with a $L$-Lipschitz gradient.\\
 \textbf{2:} $f \in \C^3$, i.e., $f$ is three times continuously differentiable and has bounded third derivative.
 
-Let $\xi^+, \xi^-$ be  i.i.d. and are either \\
+Let $\xi^+, \xi^-$ be  random and are either \\
 \textbf{Controlled:} $\xi^+= \xi^-$ (or)  \\
 \textbf{Uncontrolled:} $\E[\xi^+ \mid V] = \E[\xi^+ \mid V] =0$ and $\E \left( (\xi^{+} - \xi^-)^{2} \mid V\right) < \infty$.
+<<<<<<< HEAD
 \todox{I don't think we need the controlled noise, assuming zero-mean noise is enough.}
 
+=======
+\fi
+>>>>>>> origin/master
 Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by Table \ref{tab:oracles}.
 \end{proposition}
 \begin{proof}
