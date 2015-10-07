@@ -3,25 +3,47 @@
 \subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for $f \in \C^3$}
 \begin{proof}
 We use the proof technique of \cite{spall1992multivariate} (in particular, Lemma 1 there) in order to prove the main claim here.
-  
-Since $\xi_n^+, \xi_n^-$ are i.i.d. and zero mean by assumption, we have
+By our assumptions on $\xi^{\pm}$ and $V$,  we have
 \begin{align*}
-&\E\left[  V\left(\dfrac{\xi_n^+ - \xi_n^-}{2\delta}\right) \right]= 0 \quad \Rightarrow \quad
-\E[G] =  \E\left[ V \left(\dfrac{f(x+\delta U)  - f(x-\delta U) }{2\delta}\right)\right],
+&\E\left[  V\left(\dfrac{\xi_n^+ - \xi_n^-}{2\delta}\right) \right]= 0 
+\end{align*}
+implying that
+\begin{align*}
+\E[G] =  \E\left[V\,  \dfrac{f(X^+)  -f(X^-)}{2\delta} \right]\,.
 \end{align*}
 
-By Taylor's series expansions, we obtain, a.s.,
+By Taylor's theorem, using that $f\in C^3$, we obtain, a.s., \todoc{I am using the integral form, because otherwise you would need to argue that the point picked on the line segment between $x$ and $x\pm \delta U$ is measurable.}
 \begin{align*}
-f(x \pm \delta U) = f(x) \pm \delta U\tr \nabla f(x) + \frac{\delta^2}{2} U\tr \nabla^2 f(x) U \pm  \frac{\delta^3}{6} \nabla^3 f(\tilde x^{\pm})(U \otimes U \otimes U),
+f(x \pm \delta U) =
+ f(x) 
+ \pm\delta\,  U\tr\,\nabla f(x)   
+  + \frac{\delta^2}{2}\, U\tr \nabla^2 f(x) U 
+  \pm  \frac{\delta^3}{2} \, R^{\pm}(x,\delta,U) \,(U \otimes U \otimes U),
 \end{align*}
-where $\otimes$ denotes the Kronecker product and $\tilde x^+$ (resp. $\tilde x^-)$ is on the line segment between $x$ and $(x + \delta U)$ (resp. $(x - \delta U)$).
-Hence,
+where
+$R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s * \delta U ) (1-s)^3 ds $ and
+ $\otimes$ denotes the Kronecker product.
+Letting $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }$, \todoc{What is the norm here?}
+we have $\norm{ R^{\pm}(x,\delta,U)} \le B_3/4$ a.s.
+Now,
 \begin{align}
-&\E\left[V\left(\dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta}\right) \right] \nonumber\\
-= &\E\left[V U\tr \left.\nabla f(x)\right| \F_n\right]  +   \E\left[\frac{\delta^2}{12} V (\nabla^3 f(\tilde  x^+)+\nabla^3 f(\tilde  x^-))(U \otimes U \otimes U)\right]. \label{eq:l1}\\
-\le & \nabla f(x) +  C_1 \delta^2.\label{eq:l2} \text{ for some } C_1>0.
+\begin{split}
+\MoveEqLeft       V\, \dfrac{f(X^+)-f(X^-)}{2\delta}
+  = V\, \dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta} \\
+&= VU^{\tr}
+\, \nabla f(x)   +   \frac{\delta^2}{2}  V \,(R^{+}(x,\delta,U)+R^{-}(x,\delta,U))(U \otimes U \otimes U)\,. 
+\end{split}
+\label{eq:l1}
 \end{align}
-The last inequality follows from the facts that $E[V U\tr] = I$ and that $|U_i|$ and $\E|V_i|$, $i=1,\ldots,d$, have finite upper bounds.
+and therefore, 
+by taking the expectations of both sides, 
+using that $\EE{V U\tr} = I$ and then using $|R^{\pm}(x,\delta,U) (U \otimes U \otimes U)| \le 
+\norm{R^{\pm}(x,\delta,U)} \norm{U}_*^3$, \todoc{Why does this hold?}
+we get that
+\begin{align*}
+\norm{ \EE{ G } - \nabla f(x) }_* 
+\le \frac{B_3 \EE{ \norm{V}_* \norm{U}_*^3 }}{8}\,\, \delta^2 \,.
+\end{align*}
 
 Bound on the variance of $G$:
 Using the identity $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$ for any random variable $X$, we bound $\E\left\| G - \E G\right\|^2$ as follows:
