@@ -216,6 +216,27 @@ When the functions are defined over $\K$ only and $\K$ is bounded, the above con
 In this case, the best approach perhaps is to use Dikin ellipsoids to construct the oracles, as done by \citet{HaLe14:SOC}.
 \todoc[inline]{I cut the text shorter, as I don't really want to go into this.}
 
+
+The above constructions suggest that one should consider type-I (and II) oracles with $c_1(\delta) = C_1 \delta^p$ and $c_2(\delta) = C_2\delta^{-q}$ with $p=q=2$.
+For this type of oracles, the results of the previous section give the following result: 
+\begin{theorem}
+Let $\cF$ be the space of convex, $L$-smooth functions over a convex non-empty domain $\K$.
+Then no algorithm that obtains information about the unknown function using a 
+$(\delta^2,\delta^{-2})$ type-I oracle\todoc{Can we show that no better oracles exist? Can we show that $p=q=2$ is the best the oracle defined above can get? Then this statement could be much strengthened.}
+ can achieve better error than $\Omega(n^{-1/3})$.
+Similarly, no such algorithm can achieve better regret than $\Omega(n^{2/3})$.
+\end{theorem}
+\begin{remark}
+Note that this result implies that \textbf{
+the currently used gradient estimators cannot be used by any algorithm to achieve the optimal
+regret $O(n^{1/2})$}.  \todoc{Add citation for optimal regret.}
+\end{remark}
+For the noisy optimization setting, the $O(n^{-1/3})$ rate is known to be optimal for the smooth, convex case.
+\todoc{Add citation.}
+\begin{theorem}
+For zeroth order noisy optimization with smooth convex functions, the gradient estimators together with the algorithm of \cref{thm:mirrordescent} achieves the optimal rate. \todoc{Is this a new result?}
+\end{theorem}
+
 %When the function is defined outside $\cK$, let $\mathcal{D} \supseteq \left\lbrace y \vert \norm{y-x} \le \delta, \forall x \in \cK \right\rbrace$, where $\delta=\sup_{t}\delta_t$. When the function is not defined outside $\cK$, the algorithm must project $X$ to a shrinked set $(1-\delta)\cK$ (\cite{flaxman2005online}), or use Dikin ellipsoid 
 %\citep{HaLe14:SOC}.
 
