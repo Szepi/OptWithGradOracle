@@ -130,6 +130,14 @@ It is also possible to obtain a gradient oracle based on a single noisy observat
 However, as discussed, in the optimization setting one can also always group two consecutive observations
 at the price of reducing the number of rounds by a factor of two only, which has a negligible effect on the rate of convergence.
 \todoc{For now, I comment out the one-point feedback. I don't think the one-point feedback is essential and I rather work on something else than discuss the pros and cons of one-point feedback.}
+
+Type-II oracles can be obtained using the same construction as above, but with a different analysis:
+\begin{proposition}
+Blah blah
+\end{proposition}
+\begin{proof}
+this will go elsewhere.
+\end{proof}
 \if0
 \begin{proposition}\textbf{\textit{(One-point feedback)}}
  Letting 
@@ -210,7 +218,6 @@ As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants
 %  Instead of picking $u$ randomly on the surface of a unit sphere, one can employ an random variable $u$ that satisfies $E[u u\tr] = I_d$, where $I_d$ is the $d$-dimensional identity matrix. A popular choice for $u$ that satisfies the aforementioned constraint is the $d$-dimensional standard Gaussian - a choice that has been explored in the context of zeroth order optimization in \citep{duchi2015optimal}. See \citep{bhatnagar-book} for an overview of gradient and Hessian estimation techniques using random perturbations.   
 % \end{remark}
 
-\todox[inline]{mention Dikin}
 It may be noticed that the function domain $\D$ can be larger than or equal to the set $\K$, where the algorithm chooses $x$. This is to ensure that the oracle will not receive invalid inputs, i.e., queries where $f$ is not defined.
 When the functions are defined over $\K$ only and $\K$ is bounded, the above constructions only work for $\delta$ small enough.
 In this case, the best approach perhaps is to use Dikin ellipsoids to construct the oracles, as done by \citet{HaLe14:SOC}.
