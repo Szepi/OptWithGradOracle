@@ -12,18 +12,22 @@ implying that
 \E[G] =  \E\left[V\,  \dfrac{f(X^+)  -f(X^-)}{2\delta} \right]\,.
 \end{align*}
 
-By Taylor's theorem, using that $f\in C^3$, we obtain, a.s., \todoc{I am using the integral form, because otherwise you would need to argue that the point picked on the line segment between $x$ and $x\pm \delta U$ is measurable.}
+By Taylor's theorem, using that $f\in C^3$, we obtain, a.s., \todoc{I am using the integral form, because otherwise you would need to argue that the point picked on the line segment between $x$ and $x\pm \delta U$ is measurable.
+For the notation etc see \url{http://www.gold-saucer.org/math/taylor/taylor.pdf}
+}
 \begin{align*}
 f(x \pm \delta U) =
  f(x) 
  \pm\delta\,  U\tr\,\nabla f(x)   
   + \frac{\delta^2}{2}\, U\tr \nabla^2 f(x) U 
-  \pm  \frac{\delta^3}{2} \, R^{\pm}(x,\delta,U) \,(U \otimes U \otimes U),
+  \pm  \frac{\delta^3}{2} \, R^{\pm}(x,\delta,U) \,(U, U, U),
 \end{align*}
 where
-$R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s * \delta U ) (1-s)^3 ds $ and
- $\otimes$ denotes the Kronecker product.
-Letting $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }$, \todoc{What is the norm here?}
+$R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s * \delta U ) (1-s)^3 ds $ and $\nabla^3 f(\cdot)$ is considered as a rank-3 tensor.
+Letting $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }$,%
+\footnote{Here, $\norm{\cdot}$ is the implied norm: For a rank-3 tensor $T$, $\norm{T} = \sup_{x,y,z\ne 0}
+\frac{|T (x,y,z)|}{\norm{x}\norm{y}\norm{z}}$.
+}
 we have $\norm{ R^{\pm}(x,\delta,U)} \le B_3/4$ a.s.
 Now,
 \begin{align}
@@ -38,25 +42,30 @@ Now,
 and therefore, 
 by taking the expectations of both sides, 
 using that $\EE{V U\tr} = I$ and then using $|R^{\pm}(x,\delta,U) (U \otimes U \otimes U)| \le 
-\norm{R^{\pm}(x,\delta,U)} \norm{U}_*^3$, \todoc{Why does this hold?}
+\norm{R^{\pm}(x,\delta,U)} \norm{U}^3$, 
 we get that
 \begin{align*}
 \norm{ \EE{ G } - \nabla f(x) }_* 
-\le \frac{B_3 \EE{ \norm{V}_* \norm{U}_*^3 }}{8}\,\, \delta^2 \,.
+\le \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{8}\,\, \delta^2 \,.
 \end{align*}
 
-Bound on the variance of $G$:
-Using the identity $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$ for any random variable $X$, we bound $\E\left\| G - \E G\right\|^2$ as follows:
+Let us now bound the variance of $G$:
+Using the identity $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$, which holds for any random variable $X$,%
+\footnote{When $\norm{\cdot}$ is defined from an inner product, 
+$\E\left\|X -  E[X]\right\|^2 = \EE{\norm{X}^2} - \norm{\EE{X}}^2 \le \EE{\norm{X}^2}$ also holds, shaving off a factor of four from the inequality below.}
+we bound $\E\left\| G - \E G\right\|^2$ as follows:
 \begin{align}
-&\E\left\| G - \E G\right\|^2 \\
-\le& 4 \E \left\|G\right\|^2 \label{eq:mi}\\
-= & 4\E\left( \left\| V \right\|^2 \left(\left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2  + 2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right) \left(\dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta}\right) 
-+ \left( \dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta} \right)^2 \right)\right) \\
-= & 4\E\left( \left\| V \right\|^2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2\right)   
-+ 4 \E \left(\left\| V \right\|^2 \right)\left( \dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta} \right)^2  \label{eq:h3} \\
-\le & \frac{C_2}{\delta^2}, \text{ for some } C_2< \infty. \label{eq:h4}
+\MoveEqLeft \E\left\| G - \E G\right\|^2 
+ \le 4 \E \left\|G\right\|^2 \nonumber \\
+& =  4\E\left( \left\| V \right\|_*^2 \left(\left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2  + 2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right) \left(\dfrac{f(X^+) - f(X^-)}{2\delta}\right) 
++ \left( \dfrac{f(X^+) - f(X^-)}{2\delta} \right)^2 \right)\right) \nonumber \\
+&=  4\E\left( \left\| V \right\|_*^2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2\right)   
++ 4 \E \left(\left\| V \right\|_*^2 \right)\left( \dfrac{f(X^+) - f(X^-)}{2\delta} \right)^2  \label{eq:h3} \\
+& \le  \frac{C_2}{\delta^2}\,, \nonumber \label{eq:h4}
 \end{align}
-The inequality in \eqref{eq:h3} follows from $\E\left( \xi^+ \mid V \right) = \E\left( \xi^- \mid V \right) = 0$, while that in \eqref{eq:h3} follows from the facts that  the span of the function $f$ is bounded and $V$ has finite second moment. 
+where $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$ 
+and $\fspan(f) = \sup_{x\in \D} f(x) - \inf_{x\in \D} f(x)$.
+The equality in \eqref{eq:h3} follows from $\EE{ \xi^+ \,|\, V } = \EE{ \xi^- \,|\, V } = 0$.
 \end{proof}
 
 

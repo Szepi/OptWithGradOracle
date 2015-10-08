@@ -31,7 +31,7 @@
 % \todoc{Enough to consider deterministic algorithms}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-We first prove the theorem in an one-dimensional setting and generalize it later.
+We first prove the theorem in a one-dimensional setting and generalize it later.
 Recall that function class $\F$ is comprised of $f_v$ for $v \in \{-1,+1\}$, defined as
 % By assumption,  $\{f_+, f_-\}\subset \F$, with 
 \begin{align*}
@@ -39,39 +39,39 @@ Recall that function class $\F$ is comprised of $f_v$ for $v \in \{-1,+1\}$, def
 \end{align*}
 % we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-Clearly, $f_v$is minimized at $x^*_v = v$ with the minimum value being zero.
+Clearly, $f_v$ is minimized at $x^*_v = v$ with the minimum value being zero.
 Hence,
 %Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
 \begin{align}
   f_v(x) - f_v(x^*_v)
-  = &  \dfrac{\epsilon}{2} (x - v)^2 \ge  \dfrac{\epsilon}{2}  \indic{x v  < 0}. \label{eq:fv-lb-main}
+  = &  \dfrac{\epsilon}{2} (x - v)^2 \ge  \dfrac{\epsilon}{2}  \indic{x v  < 0}. \label{eq:main:fv-lb-main}
 \end{align}
 % Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
 We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
- \gamma_v(x) = \epsilon(x-v) - v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
+ \gamma_v(x) = \epsilon(x-v) - v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:main:oracle-1d}
 \end{align}
 where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$.
 % ; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$)  to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
 The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-Using \eqref{eq:fv-lb-main}, the minimax error \eqref{eq:minimaxerrdef} can be lower bounded as follows
+Using \eqref{eq:main:fv-lb-main}, the minimax error \eqref{eq:minimaxerrdef} can be lower bounded as follows
 %\footnote{$f_{+1} \equiv f_+$ and $f_{-1}\equiv f_-$.}:
 \begin{align}
 \MoveEqLeft 
 \Delta_n^{(1)*} %\nonumber\\
   \ge  \inf_{\A} \,  \E[f_V(\hat X_n) - \inf_{x \in X}
-  f_V(x)],\label{eq:avg-bd}
+  f_V(x)],\label{eq:main:avg-bd}
   \end{align}
 where the expectation is w.r.t. $\P:= \dfrac{1}{2} \left(P_{\A, \gamma_+} \indic{v=+1} + P_{\A, \gamma_-}\indic{v=-1}\right)$, with $P_{\A,\gamma_v}$ denoting the joint distribution of the $n$ observations $g_{1:n}$ of the algorithm $\A$, for $v \in \{-1,+1\}$
 %Here $\gamma_v$  is the oracle for $f_v$, for $v=+1,-1$ and is defined by $\gamma_v(x) = \epsilon(x-v) + v C_1 \delta^p$. 
-Using \eqref{eq:fv-lb}, we obtain
+Using \eqref{eq:main:fv-lb-main}, we obtain
 \begin{align}
-\Delta_n^{(1)*}  \ge & \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \label{eq:strong-convex-bd}\\
-  = & \inf_{\A} \dfrac{\epsilon }{2} \, \left(\P_{+}(\hat X_n < 0) + \P_{-}(\hat X_n > 0)\right), \label{eq:Pplus}\\
-  \ge &\inf_{\A} \dfrac{\epsilon }{2} \,\left(1 - \tvnorm{\P_{+}- \P_{-}}\right), \label{eq:lecam}\\
-  \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker}
+\Delta_n^{(1)*}  \ge & \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \label{eq:main:strong-convex-bd}\\
+  = & \inf_{\A} \dfrac{\epsilon }{2} \, \left(\P_{+}(\hat X_n < 0) + \P_{-}(\hat X_n > 0)\right), \label{eq:main:Pplus}\\
+  \ge &\inf_{\A} \dfrac{\epsilon }{2} \,\left(1 - \tvnorm{\P_{+}- \P_{-}}\right), \label{eq:main:lecam}\\
+  \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:main:pinsker-main}
 \end{align}
 where $\P_{+}$ (resp. $P_-$) is the distribution $\P$ conditioned on $v=+1$ (resp. $v=-1$).
 
@@ -80,20 +80,20 @@ Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2\epsilon$ and hence
 & |\gamma_+(x) - \gamma_-(x)| \nonumber\\
 & = | f'_+(x) - \min(\epsilon,C_1 \delta^p) - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | \nonumber \\
 & = 2 (\epsilon - C_1 \delta^p)_+\,,
- \label{eq:gdiff-ub}
+ \label{eq:main:gdiff-ub}
 \end{align}
 where $(\epsilon - C_1 \delta^p)_+ = \max(\epsilon - C_1 \delta^p,0)$. 
 From the foregoing, it can be shown that 
 \begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\epsilon-C_1\delta^p)_+^2 \delta^q}{C_2}.\label{eq:dkbd-main}
+\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\epsilon-C_1\delta^p)_+^2 \delta^q}{C_2}.\label{eq:main:dkbd-main}
 \end{align}
 Note that the above bound holds uniformly over all algorithms $\A$. 
-Substituting the above bound into \eqref{eq:pinsker-main}, we obtain 
+Substituting the above bound into \eqref{eq:main:pinsker-main}, we obtain 
 \begin{align}
  \Delta_n^{(1)*}
   \ge & \dfrac{\epsilon}{2} \left(1 - \sqrt{
     n}  \dfrac{(\epsilon-C_1\delta^p)_+\delta^{q/2}}{C_2}
-  \right)\label{eq:final-lower-bd}
+  \right)\label{eq:main:final-lower-bd}
 \end{align}
 
 
@@ -131,7 +131,7 @@ the $i$th algorithm interacting with only a one dimensional oracle, supplying gr
 such that if $L^{\A}(v)$ is the loss of $\A$ on environment with index $v$ and the following holds
 the 
 \begin{align}
-\label{eq:onedimlb}
+\label{eq:main:onedimlb}
 % \begin{split}
 % \MoveEqLeft 
 &\hspace{-1em}\max_{v\in \{\pm 1\}^d} L^{\A}(v) 
@@ -145,14 +145,14 @@ Using the above lemma, the minimax error $\Delta_n^{(d)*}$ can be lower bounded 
 &
 \Delta_n^{(d)*}  \ge  \inf_{\A} \max_{v\in {\pm 1}^d} L^\A(v) \nonumber\\
  & \ge \inf_{\A_1} \max_{v_1\in \{\pm 1\}} L_1^{\A_1}(v_1) + \dots + 
- 			\inf_{A_d} \max_{v_d\in \{\pm 1 \}} L_d^{\A_d}(v_d) \label{eq:splitA}\\
-%             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
-               & \ge d \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)\,, \label{eq:dlb}
+ 			\inf_{A_d} \max_{v_d\in \{\pm 1 \}} L_d^{\A_d}(v_d) \label{eq:main:splitA}\\
+%             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:main:splitA}\\
+               & \ge d \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)\,, \label{eq:main:dlb}
 \end{align}
-where in inequality \eqref{eq:splitA}, algorithms $\A_i$ are interacting with the respective one-dimensional oracles $\gamma^{(i)}_{v_i}$ only 
-and the inequality follows by~\eqref{eq:onedimlb},
-while the inequality \eqref{eq:dlb} follows from the fact that each infimum term in \eqref{eq:splitA} is solving a $1$-dimensional problem and hence the bound in \eqref{eq:final-lower-bd} applies with $C_1$ replaced by $C_1/\sqrt{d}$ and $C_2$ replaced by $C_2/d$. The resulting bound is denoted by $\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)$. 
-% is the one-dimensional minimax error, which is lower-bounded in \eqref{eq:final-lower-bd}. \todoc{However, I would have written just the $1$d final bound there, or $\Delta_n^*( \dots )$ with some notation, because we don't want to redo this whole optimization business..}
+where in inequality \eqref{eq:main:splitA}, algorithms $\A_i$ are interacting with the respective one-dimensional oracles $\gamma^{(i)}_{v_i}$ only 
+and the inequality follows by~\eqref{eq:main:onedimlb},
+while the inequality \eqref{eq:main:dlb} follows from the fact that each infimum term in \eqref{eq:main:splitA} is solving a $1$-dimensional problem and hence the bound in \eqref{eq:main:final-lower-bd} applies with $C_1$ replaced by $C_1/\sqrt{d}$ and $C_2$ replaced by $C_2/d$. The resulting bound is denoted by $\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)$. 
+% is the one-dimensional minimax error, which is lower-bounded in \eqref{eq:main:final-lower-bd}. \todoc{However, I would have written just the $1$d final bound there, or $\Delta_n^*( \dots )$ with some notation, because we don't want to redo this whole optimization business..}
 
 % Using the one-dimensional minimax error $\Delta_n^{(1)*}$, we obtain
 % \[\Delta_n^* \ge d \Delta_n^{(1)*}.\]
@@ -170,20 +170,20 @@ First, lower bound \\$f_v:=\dfrac{1}{2} x^2 - v x,$ as follows: \\$f_v(x) - f_v(
 \ge  \dfrac{\nu^2}{2}  \indic{x v  < 0}.$\\
 Next, use the following oracles:
 \begin{align}
- \gamma_v(x) = \epsilon(x-v) - \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
+ \gamma_v(x) = \epsilon(x-v) - \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:main:oracle-1d}
 \end{align}
 where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-The KL-divergence bound (corresponding to \eqref{eq:dkbd-main}) turns out to be 
+The KL-divergence bound (corresponding to \eqref{eq:main:dkbd-main}) turns out to be 
 \begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\nu-C_1\delta^p)_+^2 \delta^q}{C_2},\label{eq:dkbd-sc-main}
+\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\nu-C_1\delta^p)_+^2 \delta^q}{C_2},\label{eq:main:dkbd-sc-main}
 \end{align}
 which implies the following bound:
 \begin{align}
  \Delta_n^{(1)*}
   \ge & \dfrac{\nu^2}{2} \left(1 - \sqrt{
     n}  \dfrac{(\nu-C_1\delta^p)_+\delta^{q/2}}{C_2}
-  \right)\label{eq:final-lower-bd-sc}
+  \right)\label{eq:main:final-lower-bd-sc}
 \end{align}
 The generalization to $d$-dimensions follows using a separability argument as before.
 

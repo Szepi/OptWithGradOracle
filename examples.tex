@@ -49,6 +49,7 @@ $\bm{\downarrow}$ &&\\\midrule
  &&\\\bottomrule
 \end{tabular}
 \caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.
+For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{8}$ and $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$.
 }
 \label{tab:oracles}
 \end{table*}
@@ -76,19 +77,20 @@ The other two options are that either $\xi^+=\xi^-$, which we call the \emph{con
 \begin{align}
 \begin{split}
 \E[\xi^+ |\, V] = \E[\xi^+ |\, V] =0 \text{ and }\\
-\E [ (\xi^{+} - \xi^-)^{2} \mid V] \le \sigma^2 <\infty\,.
+\E [ (\xi^{+} - \xi^-)^{2} \mid V] \le \sigma_\xi^2 <\infty\,.
 \end{split}
 \label{eq:noiseass}
 \end{align}
 
-The following proposition quantifies the bias-variance parameters $(c_1,c_2)$ under two different (but not mutually exclusive) setings.
+The following proposition provides conditions under which the bias-variance parameters $(c_1,c_2)$ can be bounded as shown in \cref{tab:oracles}:
 \begin{proposition}
 \label{prop:grad-spsa}
 Consider a function $f:\D \to \R$, with $\K \subset \D^\circ \subset \R^d$.%
 \footnote{Here, $\D^\circ$ denotes the interior of $\D$.}
 For any $x \in \cK$, and $0< \delta \le 1$ let the oracle $\gamma$ return $G$ as specified in~\eqref{eq:twosp},
 where $(U,V)$ are such that $x+\delta U \in \D$ a.s.,
-$\E[V U\tr] = I$, $U_i, i=1,\ldots,d$ are i.i.d., $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
+$\E[V U\tr] = I$, while 
+$\EE{\norm{V}_*^2}, \EE{ \norm{U}^3 }<+\infty$.
 \if0
 Consider the following function classes:\\ 
 \textbf{1:} $f$ is convex, with a $L$-Lipschitz gradient.\\
@@ -98,7 +100,7 @@ Let $\xi^+, \xi^-$ be  random and are either \\
 \textbf{Controlled:} $\xi^+= \xi^-$ (or)  \\
 \textbf{Uncontrolled:} $\E[\xi^+ \mid V] = \E[\xi^+ \mid V] =0$ and $\E \left( (\xi^{+} - \xi^-)^{2} \mid V\right) < \infty$.
 \fi
-Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by Table \ref{tab:oracles}.
+Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by \cref{tab:oracles}.
 \end{proposition}
 \begin{proof}
 See Appendix \ref{sec:appendix-grad}.
@@ -106,9 +108,20 @@ See Appendix \ref{sec:appendix-grad}.
 
 \paragraph{Popular choices for $V$ and $U$:}\ \\
 \begin{inparaenum}[$\bullet$]
- \item If we set $U_i$ to be symmetric Bernoulli distributed r.v.s and $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed in \cite{spall1992multivariate}.\\ 
- \item If we set $V=U$, with $U_i$ chosen either random on the surface of a unit sphere, then we recover the RDSA scheme proposed in \cite[pp.~58-60]{kushcla}. \\
- \item If we set $V=U$, with $U_i$ to be the standard Gaussian, we recover the smoothed functional (SF) scheme proposed in \cite{katkul}. This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
+ \item If we set $U_i$ to be independent, symmetric $\pm 1$-valued r.v.s and $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed in \cite{spall1992multivariate}.
+It is easy to see that $\EE{  V U\tr } = I$ holds in this case.
+ When the norm $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$ and $C_2 = O(d)$. If we set $\norm{\cdot}$ to be the max-norm, $C_1 = O(\sqrt{d})$ and $C_2 = O(d)$.\\
+ \item If we set $V=U$, with $U$ chosen uniform at random on the surface of a sphere with radius $\sqrt{d}$, 
+ then we recover the RDSA scheme proposed in \cite[pp.~58-60]{kushcla}. 
+ In particular, $(U_i)_i$ are identically distributed with $\EE{ U_i U_j } = 0$ if $i\ne j$ and $\EE{ U\tr U } = d$, hence $\EE{U_i^2} = 1$. Thus, if we choose $\norm{\cdot}$ to be the $2$-norm, $C_1 = O( d^2 )$ and $C_2 = O(d)$.
+ \\
+ \item If we set $V=U$, with $U$ the standard $d$-dimensional Gaussian with unit covariance matrix, we recover the smoothed functional (SF) scheme proposed in \cite{katkul}. 
+Indeed, in this case, by definition, $\EE{VU\tr} = \EE{U U\tr } = I$.
+When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
+%$\norm{U}^4 = (\sum_{i=1}^d U_i^2)^{2} = \sum_i U_i^4 + 2 \sum_{i<j} U_i^2 U_j^2$,
+%hence $\EE{ \norm{U}^4} = O(d^2)$
+ and $C_2 = O( d)$.
+ This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
 %  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).   
 \end{inparaenum}
 
