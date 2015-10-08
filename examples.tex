@@ -40,7 +40,7 @@ Note that in this setting the distinction between one-point and two-point feedba
 \centering
 \begin{tabular}{|c|c|c|}
 \toprule
-\textbf{Noise }$\bm{ \rightarrow}$ & \multirow{2}{*}{\textbf{Controlled }($\bm{\xi^+ = \xi^-}$)} & \multirow{2}{*}{\textbf{Uncontrolled }($\bm{\xi^+ \ne \xi^-}$)} \\ 
+\textbf{Noise }$\bm{ \rightarrow}$ & \multirow{2}{*}{\textbf{Controlled }($\bm{\xi^+ = \xi^-}$)} & \multirow{2}{*}{\textbf{Uncontrolled }(see~\eqref{eq:noiseass})} \\ 
 \textbf{Function } &&\\
 $\bm{\downarrow}$ &&\\\midrule
 \multirow{2}{*}{\textbf{Convex + Smooth}} & \multirow{2}{*}{$(C_1 \delta, C_2)$} & \multirow{2}{*}{$(C_1\delta, C_2/\delta^2)$}\\ 
@@ -48,37 +48,58 @@ $\bm{\downarrow}$ &&\\\midrule
 \multirow{2}{*}{$\bm{f \in \C^3}$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} \\ 
  &&\\\bottomrule
 \end{tabular}
-\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.}
+\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.
+For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{8}$ and $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$.}
 \label{tab:oracles}
 \end{table*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %A major tool in bandit convex optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
 A common popular idea is to bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimated of the gradient \cite{XXXXX}.
-The following proposition presents an oracle that encompasses several simultaneous perturbation methods, which are popular for estimating the gradient of a function using two-point feedback. 
-For simplicity, we present the result for the case when the point feedbacks are corrupted by noise with zero mean and bounded variance. \todoc{What is really that we need to assume about the noise?}
-Note that the proposition does not always require the function to be convex or differentiable. \todoc{Any advantage of adding convexity, smoothness? Can we then maybe drop the condition that $f$ is $C^3$ when some of these conditions are met?}
-\begin{proposition}\textbf{\textit{(Two-point feedback)}}
-\label{prop:grad-spsa}
-Consider a function $f:\D \to \R$, with $\K \subseteq \D \subset \R^d$:\\
-For any $x \in \cK$, and $\delta >0$ such that $\B(x,\delta) \in \D$\footnote{$\B(x,\delta)$ denotes the ball of radius $\delta$ centered at $x$.}, let the oracle $\gamma$ return 
+In particular, consider the following oracle (which, as will be discussed later 
+ encompasses several simultaneous perturbation methods):
+Given the inputs $x\in \K$,  $0<\delta\le 1$,  \todoc{We need an upper bound I believe. Add it earlier.}
+the gradient estimate is
 \begin{align}
-% Y = x+\delta U \,, \quad
-\hspace{-1.5ex}G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
+%\hspace{-1.5ex}
+\begin{split}
+G &=  \dfrac{Z^+ - Z^-}{2\delta}\, V \,, \\
+&  Z^{\pm} = f(X^{\pm}) + \xi^{\pm}, X^{\pm} = x \pm \delta U\,,
+ \end{split}
+%V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right).
  \label{eq:twosp}
 \end{align}
-where $V, U \in \R^d$ are random vectors 
-that satisfy $\E[V U\tr] = I$, $U$ is unit vector and has finite third moment, $\norm{V}$ is bounded. 
+where $U,V\in \R^d$, $\xi^{\pm}\in \R$ are random, jointly distributed random variables, $U,V$ chosen by the oracle
+from some fixed distribution characterizing the oracle and $\xi^{\pm}$ being the noise of the returned feedback $Z^{\pm}$ at points $X^{\pm}$.
+For the following proposition we consider $4=2\times 2$ cases.
+First, the function is either assumed to be $L$-smooth and convex (i.e., the derivative of $f$ is $L$-Lipschitz w.r.t. $\norm{\cdot}_*$), or it is assumed to be three times continuously differentiable (in notation: $f\in C^3$).
+The other two options are that either $\xi^+=\xi^-$, which we call the \emph{controlled noise} setting (see above for the motivation), or we make the alternate assumptions 
+\begin{align}
+\begin{split}
+\E[\xi^+ |\, V] = \E[\xi^+ |\, V] =0 \text{ and }\\
+\E [ (\xi^{+} - \xi^-)^{2} \mid V] \le \sigma_\xi^2 <\infty\,.
+\end{split}
+\label{eq:noiseass}
+\end{align}
 
+The following proposition provides conditions under which the bias-variance parameters $(c_1,c_2)$ can be bounded as shown in \cref{tab:oracles}:
+\begin{proposition}
+\label{prop:grad-spsa}
+Consider a function $f:\D \to \R$, with $\K \subset \D^\circ \subset \R^d$.%
+\footnote{Here, $\D^\circ$ denotes the interior of $\D$.}
+For any $x \in \cK$, and $0< \delta \le 1$ let the oracle $\gamma$ return $G$ as specified in~\eqref{eq:twosp},
+where $(U,V)$ are such that $x+\delta U \in \D$ a.s.,
+$\E[V U\tr] = I$, while 
+$\EE{\norm{V}_*^2}, \EE{ \norm{U}^3 }<+\infty$.
+\if0
 Consider the following function classes:\\ 
 \textbf{1:} $f$ is convex, with a $L$-Lipschitz gradient.\\
 \textbf{2:} $f \in \C^3$, i.e., $f$ is three times continuously differentiable and has bounded third derivative.
 
-Let $\xi^+, \xi^-$ be  i.i.d. and are either \\
+Let $\xi^+, \xi^-$ be  random and are either \\
 \textbf{Controlled:} $\xi^+= \xi^-$ (or)  \\
 \textbf{Uncontrolled:} $\E[\xi^+ \mid V] = \E[\xi^+ \mid V] =0$ and $\E \left( (\xi^{+} - \xi^-)^{2} \mid V\right) < \infty$.
-\todox{I don't think we need the controlled noise, assuming zero-mean noise is enough.}
-
-Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by Table \ref{tab:oracles}.
+\fi
+Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by \cref{tab:oracles}.
 \end{proposition}
 \begin{proof}
 See Appendix \ref{sec:appendix-grad}.
@@ -86,25 +107,27 @@ See Appendix \ref{sec:appendix-grad}.
 
 \paragraph{Popular choices for $V$ and $U$:}\ \\
 \begin{inparaenum}[$\bullet$]
- \item If we set $U_i$ to be i.i.d and zero mean, $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed in \cite{spall1992multivariate}.\\ 
- \item If we set $V=U$, with $U_i$ chosen either random on the surface of a unit sphere, then we recover the RDSA scheme proposed in \cite[pp.~58-60]{kushcla}. \\
- \item If we set $V=U$, with $U_i$ to be the standard Gaussian, we recover the smoothed functional (SF) scheme proposed in \cite{katkul}. This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
+ \item If we set $U_i$ to be independent, symmetric $\pm 1$-valued r.v.s and $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed in \cite{spall1992multivariate}.
+It is easy to see that $\EE{  V U\tr } = I$ holds in this case.
+ When the norm $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$ and $C_2 = O(d)$. If we set $\norm{\cdot}$ to be the max-norm, $C_1 = O(\sqrt{d})$ and $C_2 = O(d)$.\\
+ \item If we set $V=U$, with $U$ chosen uniform at random on the surface of a sphere with radius $\sqrt{d}$, 
+ then we recover the RDSA scheme proposed in \cite[pp.~58-60]{kushcla}. 
+ In particular, $(U_i)_i$ are identically distributed with $\EE{ U_i U_j } = 0$ if $i\ne j$ and $\EE{ U\tr U } = d$, hence $\EE{U_i^2} = 1$. Thus, if we choose $\norm{\cdot}$ to be the $2$-norm, $C_1 = O( d^2 )$ and $C_2 = O(d)$.
+ \\
+ \item If we set $V=U$, with $U$ the standard $d$-dimensional Gaussian with unit covariance matrix, we recover the smoothed functional (SF) scheme proposed in \cite{katkul}. 
+Indeed, in this case, by definition, $\EE{VU\tr} = \EE{U U\tr } = I$.
+When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
+%$\norm{U}^4 = (\sum_{i=1}^d U_i^2)^{2} = \sum_i U_i^4 + 2 \sum_{i<j} U_i^2 U_j^2$,
+%hence $\EE{ \norm{U}^4} = O(d^2)$
+ and $C_2 = O( d)$.
+ This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
 %  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).   
 \end{inparaenum}
 
-\begin{proposition}\textbf{\textit{(One-point feedback)}}
- Letting 
- \[
- G =  V \dfrac{f(x+\delta U) + \xi}{\delta}\,,
- \]
- one obtains a gradient estimate using only one function evaluation.
- 
-For function class \textbf{1},  let $U$ be drawn from the surface of a unit ball centered at origin w.r.t. some norm $\norm{\cdot}$, $V=dU$, then $\gamma$ is a $(C_1\delta^2, C_2/\delta^2)$ Type-II oracle.
- 
- For function class \textbf{2}, in addition to the conditions in Proposition \ref{prop:grad-spsa}, we further assume $V$ is symmetrically distributed, then $\gamma$ is also a $(C_1\delta^2, C_2/\delta^2)$ Type-I oracle.
- 
-\end{proposition}
-As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants by using appropriate choices for $V$ and $U$ See Appendix \ref{sec:appendix-grad} for a formal proof.
+\begin{remark}\textbf{\textit{(One-point feedback)}}
+ Letting $G =  V \dfrac{f(x+\delta U) + \xi}{\delta}$, one obtains a gradient estimate using only one function evaluation. However, in order to obtain the same order for the bias as in the case of two-point feedback, we require $\E[ V U^2] = 0$ and $\E[V_i]=0, i=1,\ldots,d$, in addition to the conditions in Proposition \ref{prop:grad-spsa}. 
+ As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants by using appropriate choices for $V$ and $U$ See Appendix \ref{sec:appendix-grad} for a formal proof.
+\end{remark}
 
 % If the function $f$ is assumed to be convex and smooth, then gradient estimates similar to \eqref{eq:twosp} can be constructed and this does not require higher order smoothness conditions as in Proposition \ref{prop:grad-spsa}. 
 % \begin{proposition}
@@ -128,53 +151,51 @@ As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants
 % A popular idea for estimating gradient using one-point feedback is the smoothed function approach, which was originally proposed in \citep{katkul}. The idea is to convolve the gradient of the objective function with a suitable density function and then, via an integration by parts arguments show that the resulting integral is an estimate of the gradient of the smoothed objective function. 
 % This approach has been adopted in a stochastic convex optimization setup in \cite{duchi2015optimal}. 
 
-%% \paragraph{Simultaneous perturbation methods:}
-%The idea of simultaneous perturbation can work even for functions that are not differentiable, as shown in \cite{flaxman2005online}. 
-%% follow this approach in the context of bandit convex optimization.
-%Formally,  
-%% a $(c_1,c_2)$ Type-II oracle when $\cF$ is a general class of functions (this does not even require differentiability).
-%given any $f \in \cF$, $x \in \cK$, and $\delta >0$, the oracle returns\footnote{See also \cite[pp.~58-60]{kushcla} for an old reference that proposed a gradient estimate similar to \eqref{eq:flaxman}.}   
-%\begin{align}
-% Y = x+\delta u \in \cK', \quad
-% G = \dfrac{d}{\delta}f(x+\delta u)u \in \R^d, \label{eq:flaxman}
-%\end{align}
-%where $u\in \R^d$ is a random unit vector, so the first condition of \cref{def:oracle2} immediately follows. 
-%The variance of $G$ is bounded by $d^2C^2 \delta^{-2}$ for some constant $C = \sup_{y\in \cK'}f(y)$. 
-%\todox[inline]{Fix this proposition statement to say Flaxman scheme is a type II oracle}
-%\begin{proposition}
-%Let $\tilde{f}(x) = \EE{f(x+\delta v)}$ denote the smoothed version of $f$. Then, we have
-%$\EE{G} = \nabla \tilde{f}(x)$.
-%\end{proposition}
-%\begin{proof}
-% See Lemma 1 in \citep{flaxman2005online}.
-%\end{proof}
-% As to the bias condition, it was proved that $\EE{G} = \nabla \tilde{f}(x)$, where $\tilde{f}$ is a smoothed version of $f$, i.e.,
-%$\tilde{f}(x) = \EE{f(x+\delta v)}$,
-%$v$ is a random vector in a unit ball. There are different ways to bound the bias depending on the property of $f$.
-%If $f$ is $L_{lip}$-Lipschitz over $\cK'$, then we have
-%\begin{align*}
-%\MoveEqLeft
-%\norm{\tilde{f}(x)-f(x)}_\infty \\
-%=&\norm{\EE{f(x+\delta v)-f(x)}}_\infty
-%\le L_{lip} \delta \,.
-%\end{align*}
-%If $f$ is convex, and $L_{smo}$-smooth, 
-%\begin{align*}
-%\MoveEqLeft
-%\norm{\tilde{f}(x)-f(x)}_\infty \\
-%\le& \norm{\EE{\ip{\nabla f(x), \delta v}+\dfrac{L_{smo}}{2}\delta^2\norm{v}^2}}_\infty\\
-%\le &\dfrac{L_{smo}}{2}\delta^2 \,.
-%\end{align*}
-%Therefore, the estimator \eqref{eq:flaxman} can always fit the oracle setting by choosing $c_1(\delta) = C_1 \delta$ (or $C_1\delta^2$), $c_2(\delta) = C_2 \delta^{-2}$, for some constant $C_1$, $C_2$.
+% \paragraph{Simultaneous perturbation methods:}
+The idea of simultaneous perturbation can work even for functions that are not differentiable, as shown in \cite{flaxman2005online}. 
+% follow this approach in the context of bandit convex optimization.
+Formally,  
+% a $(c_1,c_2)$ Type-II oracle when $\cF$ is a general class of functions (this does not even require differentiability).
+given any $f \in \cF$, $x \in \cK$, and $\delta >0$, the oracle returns\footnote{See also \cite[pp.~58-60]{kushcla} for an old reference that proposed a gradient estimate similar to \eqref{eq:flaxman}.}   
+\begin{align}
+ Y = x+\delta u \in \cK', \quad
+ G = \dfrac{d}{\delta}f(x+\delta u)u \in \R^d, \label{eq:flaxman}
+\end{align}
+where $u\in \R^d$ is a random unit vector, so the first condition of \cref{def:oracle2} immediately follows. 
+The variance of $G$ is bounded by $d^2C^2 \delta^{-2}$ for some constant $C = \sup_{y\in \cK'}f(y)$. 
+\todox[inline]{Fix this proposition statement to say Flaxman scheme is a type II oracle}
+\begin{proposition}
+Let $\tilde{f}(x) = \EE{f(x+\delta v)}$ denote the smoothed version of $f$. Then, we have
+$\EE{G} = \nabla \tilde{f}(x)$.
+\end{proposition}
+\begin{proof}
+ See Lemma 1 in \citep{flaxman2005online}.
+\end{proof}
+ As to the bias condition, it was proved that $\EE{G} = \nabla \tilde{f}(x)$, where $\tilde{f}$ is a smoothed version of $f$, i.e.,
+$\tilde{f}(x) = \EE{f(x+\delta v)}$,
+$v$ is a random vector in a unit ball. There are different ways to bound the bias depending on the property of $f$.
+If $f$ is $L_{lip}$-Lipschitz over $\cK'$, then we have
+\begin{align*}
+\MoveEqLeft
+\norm{\tilde{f}(x)-f(x)}_\infty \\
+=&\norm{\EE{f(x+\delta v)-f(x)}}_\infty
+\le L_{lip} \delta \,.
+\end{align*}
+If $f$ is convex, and $L_{smo}$-smooth, 
+\begin{align*}
+\MoveEqLeft
+\norm{\tilde{f}(x)-f(x)}_\infty \\
+\le& \norm{\EE{\ip{\nabla f(x), \delta v}+\dfrac{L_{smo}}{2}\delta^2\norm{v}^2}}_\infty\\
+\le &\dfrac{L_{smo}}{2}\delta^2 \,.
+\end{align*}
+Therefore, the estimator \eqref{eq:flaxman} can always fit the oracle setting by choosing $c_1(\delta) = C_1 \delta$ (or $C_1\delta^2$), $c_2(\delta) = C_2 \delta^{-2}$, for some constant $C_1$, $C_2$.
 
 % \begin{remark}
 %  Instead of picking $u$ randomly on the surface of a unit sphere, one can employ an random variable $u$ that satisfies $E[u u\tr] = I_d$, where $I_d$ is the $d$-dimensional identity matrix. A popular choice for $u$ that satisfies the aforementioned constraint is the $d$-dimensional standard Gaussian - a choice that has been explored in the context of zeroth order optimization in \citep{duchi2015optimal}. See \citep{bhatnagar-book} for an overview of gradient and Hessian estimation techniques using random perturbations.   
 % \end{remark}
 
 \todox[inline]{mention Dikin}
-It may be noticed that the function domain $\mathcal{D}$ can be larger than or equal to the set $\cK$, where the algorithm chooses $x$. This is to ensure that the oracle will not receive invalid inputs, i.e., queries where $f$ is not defined.
-
-When the function is defined outside $\cK$, let $\mathcal{D} \supseteq \left\lbrace y \vert \norm{y-x} \le \delta, \forall x \in \cK \right\rbrace$, where $\delta=\sup_{t}\delta_t$. When the function is not defined outside $\cK$, the algorithm must project $X$ to a shrinked set $(1-\delta)\cK$ (\cite{flaxman2005online}), or use Dikin ellipsoid (\cite{AbHaRa08}).
+It may be noticed that the set $\cK'$ can be different from $\cK$. This is not a issue when the oracle can be queried outside $\cK$. However, if it is not the case, the algorithm can project $X$ to a shrinked set $(1-\delta)\cK$ (\cite{flaxman2005online}), or use Dikin ellipsoid (\cite{AbHaRa08}).
 
 % An alternative approach, popularly known as SPSA \citep{spall1997one}, employs independent Rademacher random variables $\Delta_i, i=1,\ldots,d$ to estimate the gradient as follows:
 % % 
