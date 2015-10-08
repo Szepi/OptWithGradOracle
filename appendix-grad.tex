@@ -4,7 +4,7 @@
 \begin{proof}
 We use the proof technique of \cite{spall1992multivariate} (in particular, Lemma 1 there) in order to prove the main claim here.
   
-Since $\xi_n^+, \xi_n^-$ are i.i.d. and zero mean by assumption, we have
+Since $\xi_n^+, \xi_n^-$ are zero mean by assumption, we have
 \begin{align*}
 &\E\left[  V\left(\dfrac{\xi_n^+ - \xi_n^-}{2\delta}\right) \right]= 0 \quad \Rightarrow \quad
 \E[G] =  \E\left[ V \left(\dfrac{f(x+\delta U)  - f(x-\delta U) }{2\delta}\right)\right],
@@ -21,20 +21,20 @@ Hence,
 = &\E\left[V U\tr \left.\nabla f(x)\right| \F_n\right]  +   \E\left[\frac{\delta^2}{12} V (\nabla^3 f(\tilde  x^+)+\nabla^3 f(\tilde  x^-))(U \otimes U \otimes U)\right]. \label{eq:l1}\\
 \le & \nabla f(x) +  C_1 \delta^2.\label{eq:l2} \text{ for some } C_1>0.
 \end{align}
-The last inequality follows from the facts that $E[V U\tr] = I$ and that $|U_i|$ and $\E|V_i|$, $i=1,\ldots,d$, have finite upper bounds.
+The last inequality follows from the facts that $E[V U\tr] = I$, and that $\EE{\norm{V}}$ and $\EE{\norm{U \otimes U \otimes U}}$ have finite upper bounds.
 
 Bound on the variance of $G$:
 Using the inequality $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$ for any random variable $X$, we bound $\E\left\| G - \E G\right\|^2$ as follows:
 \begin{align}
-&\E\left\| G - \E G\right\|^2 \\
+&\E\left\| G - \E G\right\|^2 \nonumber\\
 \le& 4 \E \left\|G\right\|^2 \label{eq:mi}\\
 = & 4\E\left( \left\| V \right\|^2 \left(\left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2  + 2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right) \left(\dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta}\right) 
-+ \left( \dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta} \right)^2 \right)\right) \\
++ \left( \dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta} \right)^2 \right)\right)\nonumber \\
 = & 4\E\left( \left\| V \right\|^2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2\right)   
 + 4 \E \left(\left\| V \right\|^2 \right)\left( \dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta} \right)^2  \label{eq:h3} \\
 \le & \frac{C_2}{\delta^2}, \text{ for some } C_2< \infty. \label{eq:h4}
 \end{align}
-The inequality in \eqref{eq:h3} follows from $\E\left( \xi^+ \mid V \right) = \E\left( \xi^- \mid V \right) = 0$, while that in \eqref{eq:h3} follows from the facts that  the span of the function $f$ is bounded and $V$ has finite second moment. 
+The inequality in \eqref{eq:h3} follows from $\E\left( \xi^+ \mid V \right) = \E\left( \xi^- \mid V \right) = 0$, while that in \eqref{eq:h4} follows from the facts that  the span of the function $f$ is bounded and $\E\norm{V}$ is finite. 
 \end{proof}
 
 
