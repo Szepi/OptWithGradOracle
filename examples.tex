@@ -30,8 +30,8 @@ This assumption is stronger because the algorithm controls the ``noise''.
 In particular, the algorithm may decide to reuse the same random sample from $F$ multiple times, 
 in the hope of increasing accuracy, akin to the method of common random numbers from Monte Carlo algorithms.
 \todoc{mention simulation optimization as the ``field''}
-
 Again, it is also possible to consider multi-point feedback as in the online case.
+
 However, what differs in optimization variant is that we do not care the incurred loss in each round, since we only need a final estimate $\hat{X}_n$, which is a deterministic function of the previous observations.
 Note that in this setting the distinction between one-point and multi-point feedback (as long as the number observations is fixed, independently of the dimension) is minor: 
 By grouping $K$ multiple consecutive observations, one can turn an $n$ rounds one-point feedback setup into an $n/K$-round $K$-point feedback setup. The reduction in the number of rounds, being a fixed constant factor, is negligible, as far as the convergence rates are considered.
