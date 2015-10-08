@@ -30,10 +30,11 @@ This assumption is stronger because the algorithm controls the ``noise''.
 In particular, the algorithm may decide to reuse the same random sample from $F$ multiple times, 
 in the hope of increasing accuracy, akin to the method of common random numbers from Monte Carlo algorithms.
 \todoc{mention simulation optimization as the ``field''}
-Again, it is also possible to consider multi-point feedback as in the online case.
 
+Again, it is also possible to consider multi-point feedback as in the online case.
 However, what differs in optimization variant is that we do not care the incurred loss in each round, since we only need a final estimate $\hat{X}_n$, which is a deterministic function of the previous observations.
-Note that in this setting the distinction between one-point and two-point feedback (or $K$ point feedback with a fixed $K$) is minor: If one is given the opportunity for $n$ one-point feedback observations, this is obviously equivalent to having given the opportunity for $n/2$ two-point feedback observations (or $n/K$ $K$-point observations), which is a (negligible) constant-factor reduction of the number of observations.
+Note that in this setting the distinction between one-point and multi-point feedback (as long as the number observations is fixed, independently of the dimension) is minor: 
+By grouping $K$ multiple consecutive observations, one can turn an $n$ rounds one-point feedback setup into an $n/K$-round $K$-point feedback setup. The reduction in the number of rounds, being a fixed constant factor, is negligible, as far as the convergence rates are considered.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table*}
@@ -125,7 +126,11 @@ When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
  This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
 %  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).   
 \end{inparaenum}
-
+It is also possible to obtain a gradient oracle based on a single noisy observation. \todoc{Add citations.}
+However, as discussed, in the optimization setting one can also always group two consecutive observations
+at the price of reducing the number of rounds by a factor of two only, which has a negligible effect on the rate of convergence.
+\todoc{For now, I comment out the one-point feedback. I don't think the one-point feedback is essential and I rather work on something else than discuss the pros and cons of one-point feedback.}
+\if0
 \begin{proposition}\textbf{\textit{(One-point feedback)}}
  Letting 
  \[
@@ -139,7 +144,7 @@ For function class \textbf{1},  let $U$ be drawn from the surface of a unit ball
  
 \end{proposition}
 As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants by using appropriate choices for $V$ and $U$ See Appendix \ref{sec:appendix-grad} for a formal proof.
-
+\fi
 % If the function $f$ is assumed to be convex and smooth, then gradient estimates similar to \eqref{eq:twosp} can be constructed and this does not require higher order smoothness conditions as in Proposition \ref{prop:grad-spsa}. 
 % \begin{proposition}
 % \label{prop:grad-convex}
