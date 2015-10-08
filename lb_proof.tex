@@ -96,28 +96,29 @@ $P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with the mean $\cA_t(g
 Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2\epsilon$ and hence
 \begin{align}
  |\gamma_+(x) - \gamma_-(x)| 
-& = | f'_+(x) - \min(\epsilon,C_1 \delta^p) - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | \nonumber \\
-& = 2 (\epsilon - C_1 \delta^p)_+\,,
+& = | f'_+(x) - \min(\epsilon,C_1 \delta(g_{1:t-1})^p - (f'_-(x)+\min(\epsilon,C_1 \delta(g_{1:t-1})^p)) | \nonumber \\
+& = 2 (\epsilon - C_1 \delta(g_{1:t-1})^p)_+\,,
  \label{eq:gdiff-ub}
 \end{align}
-where $(\epsilon - C_1 \delta^p)_+ = \max(\epsilon - C_1 \delta^p,0)$. 
+where $\delta(g_{1:t-1})$ is the tolerance parameter chosen by $\A$, based on the observations $g_{1:t-1}$. Further, $(\epsilon - C_1 \delta(g_{1:t-1})^p)_+ = \max(\epsilon - C_1 \delta(g_{1:t-1})^p,0)$. 
 From the foregoing, 
 \begin{align}
 \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\le&\dfrac{(\gamma_{+}(A(g_{1:t-1})) - \gamma_{-}(A(g_{1:t-1})))^2}{2 C_2\delta^{-q}}\label{eq:dkgauss1}\\
- =& \dfrac{2(\epsilon-C_1\delta^p)_+^2\delta^q}{C_2}.\label{eq:dkgauss}
+ =& \dfrac{2(\epsilon-C_1\delta(g_{1:t-1})^p)_+^2\delta(g_{1:t-1})^q}{C_2}\label{eq:dkgauss}\\
+ \le & \max_{\delta>0} \dfrac{2(\epsilon-C_1\delta^p)_+^2\delta^q}{C_2}
 \end{align}
 The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while the equality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}.
 
 Plugging \eqref{eq:dkgauss} into \eqref{eq:dklchain}, we obtain
 \begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\epsilon-C_1\delta^p)_+^2 \delta^q}{C_2}.\label{eq:dkbd}
+\dkl{P_{+}}{P_{-}} \le \dfrac{2n}{C_2} \max_{\delta>0} (\epsilon-C_1\delta^p)_+^2 \delta^q.\label{eq:dkbd}
 \end{align}
 Note that the above bound holds uniformly over all algorithms $\A$. 
 Substituting the above bound into \eqref{eq:pinsker}, we obtain 
 \begin{align}
  \Delta_n^{(1)*}
   \ge & \dfrac{\epsilon}{2} \left(1 - \sqrt{
-    n}  \dfrac{(\epsilon-C_1\delta^p)_+\delta^{q/2}}{C_2}
+    n}  \dfrac{\max_{\delta>0} (\epsilon-C_1\delta^p)_+\delta^{q/2}}{C_2}
   \right)\label{eq:final-lower-bd}
 \end{align}
 
@@ -148,7 +149,7 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 % \]
 
 \paragraph{Derivation of the rates uniformly for all $\delta$:}
-Observe that $\max_{\delta\ge 0} (\epsilon - C_1 \delta^p)_+ \delta = \max_{\delta\ge 0} (\epsilon - C_1 \delta^p) \delta$. 
+Observe that $\max_{\delta> 0} (\epsilon - C_1 \delta^p)_+ \delta = \max_{\delta> 0} (\epsilon - C_1 \delta^p) \delta$. 
 In other words, minimizer $\delta^*$ of \eqref{eq:final-lower-bd} can never be in the zero arm of the positive part function, i.e., $(\epsilon - C_1 \delta^p)_+ $, and hence we minimize \eqref{eq:final-lower-bd} by replacing the positive part with $(\epsilon - C_1 \delta^p)$.
 
 Assuming $q \ge 2$, we obtain the following 
