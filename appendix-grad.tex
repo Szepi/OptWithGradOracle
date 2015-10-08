@@ -70,17 +70,37 @@ The equality in \eqref{eq:h3} follows from $\EE{ \xi^+ \,|\, V } = \EE{ \xi^- \,
 
 \subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for convex and smooth $f$}
 \begin{proof}
+\todop{Got to read this proof carefully to see if all the constants are right and if the dual norm is applied right.}
 Since $f$ is convex with a  $L$-Lipschitz gradient, we have the following for any $\delta>0$:
 \begin{align*}
-\frac{\<\nabla f(x), \delta u\>}{\delta} \le \frac{f(x + \delta u) -  f(x)}{\delta} \le& \frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
-% \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
+\frac{\<\nabla f(x), \delta u\>}{2\delta} \le \frac{f(x + \delta u) -  f(x)}{2\delta} \le& \frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{2\delta}.
 \end{align*}
-Hence,
+Using similar inequalities for $f(x-\delta u)$, we obtain
 \begin{align*}
-\left|\frac{f(x + \delta u) -  f(x)}{\delta} - \<\nabla f(x),  u\> \right| \le&  \dfrac{L}{2} \norm{u}^2
+\<\nabla f(x), u\> \le \frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} \le& \<\nabla f(x), u\> + \frac{L \delta \norm{ u}^2}{2}.
+\end{align*}
+Letting $\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} - \<\nabla f(x),  u\>\right)$, we have
+\begin{align*}
+\left|\phi(x,\delta,u) \right| \le&  \dfrac{L}{2} \norm{u}^2
 % \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
 \end{align*}
 
+Recall, from the proof of Proposition \ref{prop:grad-spsa}, that for the gradient estimate $G:= V\, \left( \frac{f(X^+) + \xi^+  - (f(X^-) + \xi^-)}{2\delta}\right)$, we have
+$\E[G] =  \E\left[V\,  \left(\frac{f(X^+)  -f(X^-)}{2\delta}\right) \right]$. Hence,
+\begin{align*}
+ \norm{\E[G] - \nabla f(x)} \le& \delta \norm{\E[ V \phi(x,\delta, u)]}\\
+ \le& \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
+\end{align*}
+and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2]$.
+
+In the case of controlled noise, i.e., $\xi^+ = \xi^-$, 
+\begin{align*}
+ \E \norm{G}^2 \le & \E\left[ \left( \dnorm{ V U \tr \nabla f(x)} + \frac{\delta L}{2} \dnorm{V} \norm{U}^2 \right)^2\right]\\
+\le & 2 \E\left[  \dnorm{ V U \tr \nabla f(x)}^2\right]  + \frac{\delta^2 L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right],
+\end{align*}
+and the claim for the variance follows by setting $c_2(\delta) = C_2$, where $C_2 = \max_{\delta >0} 2 \E\left[  \dnorm{ \nabla f(x)}^2\right]  + \frac{\delta^2 L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$.
+
+For the case of uncontrolled noise, the claim for the variance, i.e., $c_2(\delta) = (C_2/\delta^2)$ follows in a similar manner as that in the proof of Proposition \ref{prop:grad-spsa}.
 \end{proof}
 
 
