@@ -48,18 +48,20 @@ We define two classes of oracles. The relationship between these oracles will be
 \begin{definition}[$(c_1,c_2)$ Type-I  oracle]
 \label{def:oracle1}
 We say that $\gamma$ is a  $(c_1,c_2)$ Type-I oracle, if for any function $f\in \cF$,
-$x\in \cK,\delta>0$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that:
+$x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that:
 \begin{enumerate}
 \item $\norm{x-Y}\le \delta$ almost surely (a.s.);
 \item $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $; and
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$.
 \end{enumerate}
 \end{definition}
+The upper bound on $\delta$ is arbitrary: By changing the norm, any other value can also be accommodated. Also, the upper bound only matters when $\K$ is bounded and the functions in $\cF$ are defined only a small vicinity of $\K$.
+
 The second type of oracle considered is as follows:
 \begin{definition}[$(c_1,c_2)$ Type-II  oracle]
 \label{def:oracle2}
 We say that $\gamma$ is a  $(c_1,c_2)$ Type-II oracle, if for any function $f\in \cF$,
-$x\in \cK,\delta>0$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that:
+$x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that:
 \begin{enumerate}
 \item $\norm{x-Y}\le \delta$ a.s.;
 \item There exists $\tilde{f} \in \cF$ such that  
@@ -68,11 +70,16 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias);
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$ (variance).
 \end{enumerate}
 \end{definition}
-An alternative to the bias condition for Type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with \todoc{This requires $f$ to be differentiable.. Or define using subgradients?}
+An alternative to the bias condition for Type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with%
+\footnote{
+This definition requires the function $f$ to be differentiable. When the functions in $f$ are not differentiable, it is possible
+to modify the definitions to use subgradients. For simplicity, we will not consider this here.
+}
 \begin{align}
 \label{eq:oracle2alt}
-\norm{\nabla \tilde{f}- \nabla f}_\infty \le c_1(\delta).
+\norm{\nabla \tilde{f}- \nabla f}_\infty \le c_1(\delta)
 \end{align}
+
 Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory), 
 though most often the oracles constructed in practice 
 will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a stochastic mapping.
@@ -113,5 +120,17 @@ In the optimization setting, the minimax error is defined through
 where, again, $\cA$ ranges through all algorithms that interact with the loss $f$ through $\gamma$ and 
 $\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers 
 after $n$ rounds of interaction with $f$ through $\gamma$ as described earlier.
+
+When the set $\K$ is bounded, every $(c_1,c_2)$ type-I oracle is also a $(R c_1,c_2)$ type-II oracle,
+where $R = \sup_{x\in \K} \norm{x}$: Simply consider $\tilde{f}(y) =  f(y) + (\EE{G}-\nabla f(x))\tr y $, 
+where $G$ is the gradient estimate returned by the oracle (cf. \cref{thm:typered}). \todoc{tell the reader where this is.}
+As a result, if for some set $\Delta_{n}^{\mathrm{Type-I}}$, $\Delta_{n}^{\mathrm{Type-II}}$ 
+denote the appropriate minimax errors and $R=1$
+then $\Delta_{n}^{\mathrm{Type-I}}(\cF,c_1,c_2) \le \Delta_{n}^{\mathrm{Type-II}}(\cF, c_1,c_2)  $.
+As a result, when proving lower bounds, we shall consider Type-I, while when proving upper bounds we will consider Type-II oracles.
+Further note that for either type of oracles, $\Delta_n^*(\cF,c_1,c_2) \le R_n^*/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing as $\hat{X}_n$ the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
+Indeed then $f(\hat{X}_n) \le \frac1n \sum_{t=1}^n f(X_t)$ by Jensen's inequality, hence the average regret of $\A$ will upper bound the error of choosing $\hat{X}_n$ at the end.
+A consequence of this is that a lower bound for $\Delta_n^*(\cF,c_1,c_2) $ will also be a lower bound for $R_n^*/n$.
+ \todoc{Add reference.}
 %$\hat{X}_n$ is the point returned by $\cA$ after $n$ rounds of interaction which work as described earlier.
 
