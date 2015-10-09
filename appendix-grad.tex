@@ -23,7 +23,7 @@ f(x \pm \delta U) =
   \pm  \frac{\delta^3}{2} \, R^{\pm}(x,\delta,U) \,(U, U, U),
 \end{align*}
 where
-$R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s * \delta U ) (1-s)^2 ds $ and $\nabla^3 f(\cdot)$ is considered as a rank-3 tensor.
+$R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s \, \delta U ) (1-s)^2 ds $ and $\nabla^3 f(\cdot)$ is considered as a rank-3 tensor.
 Letting $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }$,%
 \footnote{Here, $\norm{\cdot}$ is the implied norm: For a rank-3 tensor $T$, $\norm{T} = \sup_{x,y,z\ne 0}
 \frac{|T (x,y,z)|}{\norm{x}\norm{y}\norm{z}}$.
@@ -79,36 +79,51 @@ Using similar inequalities for $f(x-\delta u)$, we obtain
 \begin{align*}
 \<\nabla f(x), u\> - \frac{L \delta \norm{ u}^2}{2} \le \frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} \le& \<\nabla f(x), u\> + \frac{L \delta \norm{ u}^2}{2}.
 \end{align*}
-Letting $\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} - \<\nabla f(x),  u\>\right)$, we have
+Letting 
+$\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} - \<\nabla f(x),  u\>\right)$, we have
 \begin{align*}
-\left|\phi(x,\delta,u) \right| \le&  \dfrac{L}{2} \norm{u}^2
+\left|\phi(x,\delta,u) \right| \le&  \dfrac{L}{2} \norm{u}^2\,.
 % \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
 \end{align*}
 
-Recall, from the proof of Proposition \ref{prop:grad-spsa}, that for the gradient estimate $G:= V\, \left( \frac{f(X^+) + \xi^+  - (f(X^-) + \xi^-)}{2\delta}\right)$, we have
-$\E[G] =  \E\left[V\,  \left(\frac{f(X^+)  -f(X^-)}{2\delta}\right) \right]$. Besides, given $\EE{V U^\top}=I$,  we get
+Recall, from the proof of Proposition \ref{prop:grad-spsa} for $f\in \C^3$, that 
+%for the gradient estimate $G:= V\, \left( \frac{f(X^+) + \xi^+  - (f(X^-) + \xi^-)}{2\delta}\right)$, 
+we have
+$\E[G] =  \E\left[V\,  \left(\tfrac{f(X^+)  -f(X^-)}{2\delta}\right) \right]$. Besides, given $\EE{V U^\top}=I$,  we get
 \begin{align*}
  \norm{\E[G] - \nabla f(x)} 
- =& \norm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}\\
- \le& \delta \norm{\E[ V \phi(x,\delta, U)]}\\
- \le& \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
+ = \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}
+ \le \delta \norm{\E[ V \phi(x,\delta, U)]}
+ \le \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
 \end{align*}
 and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2]$.
 
 In the case of controlled noise, i.e., $\xi^+ = \xi^-$, 
 \begin{align*}
  \E \norm{G}^2 
- =& \mathbb{E}\norm{V\left(\delta \phi(x,\delta, U)+ U^\top\nabla f(x) \right)}^2\\
- \le & \E\left[ \left( \dnorm{ V U \tr \nabla f(x)} + \frac{\delta L}{2} \dnorm{V} \norm{U}^2 \right)^2\right]\\
-\le & 2 \E\left[  \dnorm{ V U \tr \nabla f(x)}^2\right]  + \frac{\delta^2 L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right],
+& = \mathbb{E}\norm{V\left(\delta \phi(x,\delta, U)+ U^\top\nabla f(x) \right)}^2
+ \le  \E\left[ \left( \dnorm{ V U \tr \nabla f(x)} + \frac{\delta L}{2} \dnorm{V} \norm{U}^2 \right)^2\right]\\
+& \le  2 \E\left[  \dnorm{ V U \tr \nabla f(x)}^2\right]  + \frac{\delta^2 L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right],
 \end{align*}
-and the claim for the variance follows by setting $c_2(\delta) = C_2$, where $C_2 = \sup_{x \in \cK} 2 \E\left[  \dnorm{ \nabla f(x)}^2\right]  + \frac{ L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$.
+and the claim for the variance follows by setting $c_2(\delta) = C_2$, 
+where $C_2 =  2 L^2  + \frac{ L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$.
 
-For the case of uncontrolled noise, the claim for the variance, i.e., $c_2(\delta) = (C_2/\delta^2)$ follows in the same manner as that in the proof of Proposition \ref{prop:grad-spsa}.
+For the case of uncontrolled noise, the claim for the variance, i.e., $c_2(\delta) = C_2/\delta^2$ follows in the same manner as that in the proof of Proposition \ref{prop:grad-spsa}.
 \end{proof}
 
 
-\subsubsection*{Proof of \cref{prop:grad-onepoint}}
+\subsubsection*{One-point estimates}
+\begin{proposition}
+\label{prop:grad-onepoint}
+For one-point feedback oracle, i.e.,
+\begin{align*}
+G = \dfrac{Z}{\delta}V, \quad Z=f(x+\delta U)+\xi\,,
+\end{align*}
+in addition to the conditions in Proposition \ref{prop:grad-spsa}, we further assume $\EE{V}=0$, and for $f \in \C^3$, more specifically, $V$ is a deterministic odd function of $U$ and $U$ symmetrically distributed. Then, $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ same as the uncontrolled noise case in \cref{tab:oracles}.
+\todoc{Add the convex+smooth case}
+\end{proposition}
+
+
 \if0
 \begin{proposition}
 \label{prop:grad-1spsa}
@@ -124,6 +139,7 @@ Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$
 \end{proposition}
 \fi
 \begin{proof}
+\todoc[inline]{This proof must be updated to follow the proof of Prop 1. Don't write $\le O(\cdot)$,for example.}
 As in the case of two-point feedback, we can ignore the noise element in $G$, i.e.,
 \begin{align*}
 &\E\left[  V \vert \xi \right]= 0 \quad \Rightarrow \quad
