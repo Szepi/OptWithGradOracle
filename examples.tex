@@ -139,7 +139,9 @@ For uncontrolled noise, this can be shown to be a $(c_1,c_2)$ Type-I oracle with
 with $(c_1,c_2)$ essentially the same as before, except that now instead of the span of $f$, the magnitude of $f$ appears in the bound. For the controlled noise case, the oracle has the same variance as in the case of uncontrolled noise, because this oracle does not ``cancel out'' the noise.%
 \footnote{See \cref{prop:grad-onepoint} in the appendix for the exact formulation and proof.} 
 This is exactly the property that is exploited by \cite{duchi2015optimal}.
-However, as discussed, in the optimization setting one can also always group two consecutive observations
+Another possibility is to use the so-called smoothing technique \todoc{Add citations, including Flaxman, Nesterov, Polyak Tsybakov, Hazan and Levy} to obtain type-II oracles. \todoc{Actually, smoothing: This could be done with one or two observations. Again, differences may happen.}
+While the one-point estimators are intriguing, as discussed beforehand, 
+in the optimization setting one can also always group two consecutive observations
 at the price of reducing the number of rounds by a factor of two only, which has a negligible effect on the rate of convergence.
 
 Type-II oracles can be obtained using the same construction as above, but with a different analysis:
