@@ -1,7 +1,33 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
+\begin{lemma}
+\label{lem:ub}
+Let $({\tilde{\cF}})_{t}$ be a filtration such that $X_t$ is ${\tilde{\cF}}_t$-measurable.
+Let $\overline G_t = \EE{G_t|{\tilde{\cF}}_t}$ 
+and assume that the nonnegative real-valued deterministic sequence $(\beta_t)_{1\le t\le n}$ is such that 
+$\norm{\overline G_t - \nabla \tilde{f}(X_t)}_* \le \beta_t$ holds almost surely. 
+Further, assume that $D=\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y)$ and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing 
+sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, if $\tilde{f}$ is $L$-smooth,
+\begin{align*}
+\EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) } 
+\le 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+ 
+  \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t 
+ +\frac{D(a_{n-1}+L)}{\alpha} +
+	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,,
+\end{align*}
+where $\sigma_t^2 = \EE{ \norm{G_t-\overline G_t}_*^2}$ is the ``variance'' of $G_t$.
 
-To simplify notation, here we call the loss function $f$, not $\tilde{f}$ as stated in \cref{lem:ub}. Before the proof, we introduce a well known bound on the instantaneous linearized regret of Mirror Descent. 
+If ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$,
+\begin{align*}
+ \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }  
+\le 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+ 
+ \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t 
+ +\sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,.
+\end{align*}
+\end{lemma}
+
+
+To simplify notation, in the following we call the loss function $f$, not $\tilde{f}$ as stated in \cref{lem:ub}. Before the proof, we introduce a well known bound on the instantaneous linearized regret of Mirror Descent. 
 \begin{lemma}
 \label{lem:mdlinregret}
 For any $x \in \cK$ and any $t \ge 1$,
