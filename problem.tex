@@ -100,11 +100,11 @@ In this paper we will study the minimax regret in the online setting, while we s
 Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
 The minimax expected regret for $(\cF,c_1,c_2)$ with Type-I oracles is
 \begin{align}
-\label{eq:minimaxregdef}
-\MoveEqLeft
-R_n^*(\cF,c_1,c_2) 
-= \inf_{\cA} \sup_{f_{1:n}\in \cF^n} 
+%\MoveEqLeft
+\lefteqn{R_n^*(\cF,c_1,c_2) } \nonumber \\
+&= \inf_{\cA} \sup_{f_{1:n}\in \cF^n} 
 	\sup_{\substack{\gamma_t \in \Gamma_1(f_t,c_1,c_2)\\1\le t \le n}} R_n^{\cA}(f_{1:n},\gamma_{1:n})
+\label{eq:minimaxregdef}
 %\\
 %\MoveEqLeft
 %= \inf_{\cA} \sup_{f_{1:n}\in \cF} 
