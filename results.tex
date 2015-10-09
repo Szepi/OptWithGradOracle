@@ -155,7 +155,10 @@ The condition connecting the problem parameters is that $n$ should be large enou
 \begin{proof}
  See Section \ref{sec:lb-proof}.
 \end{proof}
-
+While it appears that for the strongly convex case the error becomes smaller with a larger dimension, 
+in most applications $C_1, C_2$ will hide dimension dependent constants 
+and as the lower bound actually increases with the dimension increasing.
+Some specific examples will be discussed in the next section.
 % \begin{theorem}[\textit{Lower bound: Strongly convex}]
 % \label{thm:lb-strongly-convex}
 % For any $v \in \{+\nu,-\nu\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where
@@ -176,22 +179,5 @@ The condition connecting the problem parameters is that $n$ should be large enou
 % \todop{Extend the result to the case when the algorithm can choose $\delta$ in every step - will update the proof for adaptive $\delta$ soon}
 
 
-
-Todo: Online learning is at least as hard as optimization. Hence, we get a regret lower bound from this, too.
-
-Discussion: The functions are smooth and strongly convex.
-However, their strong convexity constant converges to zero as $n\to\infty$.
-
-Todo: What can we show for strongly convex functions?
-
-Of course, the same result holds in $d$ dimensions (add details: why?). However, one expects the lower bound to scale linearly with the dimension and we were not able to derive this so far.
-
-Constrained case:
-
-Upper bound: 
-
-Reductions:
-Between oracles;
-Optimization and cumulative regret minimization;
 
 
