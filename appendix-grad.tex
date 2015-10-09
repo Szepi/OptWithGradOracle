@@ -156,9 +156,9 @@ f(x + \delta U) =
   + \frac{\delta^2}{2}\, U\tr \nabla^2 f(x) U 
   +  \frac{\delta^3}{2} \, R^{+}(x,\delta,U) \,(U, U, U),
 \end{align*}
-where $R^{+}(x,\delta,U)$ is as defined in the proof of Proposition \ref{prop:grad-spsa} (see \eqref{eq:taylor-r}.
+where $R^{+}(x,\delta,U)$ is as defined in the proof of Proposition \ref{prop:grad-spsa} (see \eqref{eq:taylor-r}).
 Letting $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }$,%
-we have $\norm{ R^{\pm}(x,\delta,U)} \le B_3/3$ a.s.
+we have $\norm{ R^{+}(x,\delta,U)} \le B_3/3$ a.s.
 Now,
 \begin{align*}
 \EE{V\, \dfrac{f(x+\delta U)}{\delta}} 
@@ -168,8 +168,8 @@ Now,
 &= \, \nabla f(x)  + \EE{\frac{\delta^2}{2}  V \,R^{+}(x,\delta,U)(U \otimes U \otimes U)}\,. 
 \end{align*}
 The final equality above follows from the facts that $\EE{V} = 0$, $\EE{V U\tr} = I$ and for any $i=1,\ldots,d$, $E[V_i U_j^2] = 0$ since $V$ is a deterministic odd function of $U$, with $U$ having a symmetric distribution. 
-Using the fact that $|R^{\pm}(x,\delta,U) (U \otimes U \otimes U)| \le 
-\norm{R^{\pm}(x,\delta,U)} \norm{U}^3$, 
+Using the fact that $|R^{+}(x,\delta,U) (U \otimes U \otimes U)| \le 
+\norm{R^{+}(x,\delta,U)} \norm{U}^3$, 
 we obtain
 \begin{align*}
 \norm{ \EE{ G } - \nabla f(x) }_* 
