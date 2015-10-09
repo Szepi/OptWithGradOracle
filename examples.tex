@@ -65,7 +65,7 @@ with $B_3 = \sup_{x\in \K} \norm{\nabla^3 f(x)}$, where $\norm{\cdot}$ is the im
 \end{table*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %A major tool in bandit convex optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
-A common popular idea in bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimates of the gradient \cite{XXXXX}.
+A common popular idea in bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimates of the gradient.
 In particular, consider the following oracle (which, as will be discussed later, 
  encompasses several simultaneous perturbation methods):
 Given the inputs $x\in \K$,  $0<\delta\le 1$,  
@@ -266,7 +266,7 @@ regret $O(n^{1/2})$}.  \todoc{Add citation for optimal regret.}
 For the noisy optimization setting, the $O(n^{-1/3})$ rate is known to be optimal for the smooth, convex case.
 \todoc{Add citation.}
 \begin{theorem}
-For zeroth order noisy optimization with smooth convex functions, the gradient estimators together with the algorithm of \cref{thm:mirrordescent} achieves the optimal rate. \todoc{Is this a new result?}
+For zeroth order noisy optimization with smooth convex functions, the gradient estimators together with mirror descent (see Algorithm \ref{alg}) achieves the optimal rate. \todoc{Is this a new result?}
 \end{theorem}
 
 %When the function is defined outside $\cK$, let $\mathcal{D} \supseteq \left\lbrace y \vert \norm{y-x} \le \delta, \forall x \in \cK \right\rbrace$, where $\delta=\sup_{t}\delta_t$. When the function is not defined outside $\cK$, the algorithm must project $X$ to a shrinked set $(1-\delta)\cK$ (\cite{flaxman2005online}), or use Dikin ellipsoid 
