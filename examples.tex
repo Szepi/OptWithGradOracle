@@ -50,7 +50,7 @@ $\bm{\downarrow}$ &&\\\midrule
  &&\\\bottomrule
 \end{tabular}
 \caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.
-For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{8}$ and $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$.
+For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}$ and $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$.
 }
 \label{tab:oracles}
 \end{table*}
@@ -125,14 +125,28 @@ When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
  This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
 %  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).   
 \end{inparaenum}
-It is also possible to obtain a gradient oracle based on a single noisy observation (see \cite{flaxman2005online}, \cite{spall1997one}). \todoc{Add citations.}
+
+It is also possible to obtain a gradient oracle based on a single noisy observation (see \cref{prop:grad-onepoint}). \todoc{Add citations.}
 However, as discussed, in the optimization setting one can also always group two consecutive observations
 at the price of reducing the number of rounds by a factor of two only, which has a negligible effect on the rate of convergence.
 \todoc{For now, I comment out the one-point feedback. I don't think the one-point feedback is essential and I rather work on something else than discuss the pros and cons of one-point feedback.}
+\begin{proposition}
+\label{prop:grad-onepoint}
+For one-point feedback oracle, i.e.,
+\begin{align*}
+G = \dfrac{Z+\xi}{\delta}V, \quad Z=f(x+\delta U)\,,
+\end{align*}
+in addition to the conditions in Proposition \ref{prop:grad-spsa}, we further assume $\EE{V}=0$, and for $f \in \C^3$, more specifically, $V$ is a deterministic odd function of $U$ and $U$ symmetrically distributed. Then, $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ same as the uncontrolled noise case in \cref{tab:oracles}.
+\end{proposition}
 
 Type-II oracles can be obtained using the same construction as above, but with a different analysis:
 \begin{proposition}
-Blah blah
+In the one-point feedback, let
+\begin{align*}
+V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,
+\end{align*}
+where $W$ is a convex body with surface $\partial W$, $U \in \partial W$ is uniformly distributed. $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume. Then, $\gamma$ is a type-II oracle with $c_2(\delta) = C_2/\delta^2$.
+\todox{$c_1$ depends on property of $f$.}
 \end{proposition}
 \begin{proof}
 this will go elsewhere.
