@@ -1,10 +1,9 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-\subsection{Proof of Theorem \ref{thm:ub}}
+\subsection{Proofs for Upper Bounds}
 \label{sec:ub-proof}
 
 Before giving the proof, we introduce a useful lemma, which is essentially Theorem~C.4 of \cite{MahdaviPhd:2014}.
-\todox[inline]{Considering that we want to prove upper bound for type-II oracle, the loss function in the lemma is actually $\tilde{f}$...It must confuse most readers...}
 \begin{lemma}
 \label{lem:ub}
 Let $({\tilde{\cF}})_{t}$ be a filtration such that $X_t$ is ${\tilde{\cF}}_t$-measurable.
@@ -14,14 +13,15 @@ $\norm{\overline G_t - \nabla \tilde{f}(X_t)}_* \le \beta_t$ holds almost surely
 Further, assume that $D=\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y)$ and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing 
 sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, if $\tilde{f}$ is $L$-smooth,
 \begin{align*}
-& \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }  \le 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)} \\
- &\quad\qquad +\sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t 
+\MoveEqLeft \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }  \\
+\le& 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+ \\
+ & \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t 
  +\frac{D(a_{n-1}+L)}{\alpha} +
 	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,,
 \end{align*}
 where $\sigma_t^2 = \EE{ \norm{G_t-\overline G_t}_*^2}$ is the ``variance'' of $G_t$.
 
-Suppose ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Letting $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$, we have 
+If ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$,
 \begin{align*}
 \MoveEqLeft \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }  \\
 \le& 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+ 
@@ -32,7 +32,7 @@ Suppose ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, which 
 This is also identical to Theorem~6.3 of \cite{Bu:Convex14}, who cites \cite{Dekel:minibatch12} as the source. These results assume that $\beta_t=0$ above.
 The proof of this lemma can be found in \cref{sec:appendix-md}.
 
-Proof of Theorem \ref{thm:ub}:\footnote{See Appendix \ref{sec:appendix-md} for a detailed proof.}
+Proof of Theorem \ref{thm:ub}:
 
 Since $f$ is convex, by Jensen's inequality and the bias condition in \cref{def:oracle2}, we get
 \begin{align*}
@@ -46,9 +46,8 @@ Since $f$ is convex, by Jensen's inequality and the bias condition in \cref{def:
 Given $\overline{G}_t=\EE{G_t} = \nabla \tilde{f}(X_t)$,
 the result immediately follows from Lemma \ref{lem:ub}. 
 When $f$ is smooth,
-\todox{$\tilde{f}$ should also be smooth, but this cannot be ensured with current oracle assumption...}
 substituting
-\todox{This may be confusing... since we are using type-II oracle, $\beta_t$ is actually 0.}
+%\todox{This may be confusing... since we are using type-II oracle, $\beta_t$ is actually 0.}
  $\beta_t = 0$, $\sigma^2_t = C_2 \delta^{-q}$, $a_t=a t^r$ for some $0<r<1$, respectively, we obtain
  \begin{align}
  \MoveEqLeft
