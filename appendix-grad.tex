@@ -237,7 +237,6 @@ Therefore, for $f \in \C^3$, $\gamma$ is a $(C_1\delta^2, C_2/\delta^2)$ type-I 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection*{One point estimates with smoothing}
-\todoc[inline]{Someone should finish this. And ideally add a remark if not a proposition that this is not the only way, e.g., Gaussian smoothing and friends.}
 \begin{proposition}
 \label{prop:flaxman}
 For the one-point feedback oracle in \cref{prop:grad-onepoint}, let
@@ -245,7 +244,6 @@ For the one-point feedback oracle in \cref{prop:grad-onepoint}, let
 V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,
 \end{align*}
 where $W$ is a convex body with surface $\partial W$, $U \in \partial W$ is uniformly distributed. $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume. Then, if $f$ is Lipschitz, $\gamma$ is a type-II oracle with $c_1(\delta)=C_1 \delta$, $c_2(\delta) = C_2/\delta^2$.
-\todox{can have different $c_1$, $c_2$ for $f$ convex, smooth, etc.}
 \end{proposition}
 \begin{proof}
 Since $U$ is uniformly distributed over $\partial W$, for any $x \in \cK$, the expectation of $G$ can be written as
@@ -264,7 +262,8 @@ The variance of $G$ is the same as stated in \cref{prop:grad-onepoint}.
 \end{proof}
 \begin{remark}
 Note that $f$ do not need to be differentiable here. 
-$U$ and $V$ can be selected under other distributions, like Gaussian, with similar results.
+$U$ and $V$ can be selected under other distributions, like Gaussian. 
+For more examples about smoothing technique, see \cite{flaxman2005online}, \cite{nesterov2004introductory}, \cite{PoTsy90}, \cite{HaLe14:SOC}.
 \end{remark}
 
 
