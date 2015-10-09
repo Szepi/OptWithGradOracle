@@ -1,6 +1,6 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-\subsection{Proofs for Upper Bounds}
+\subsection{Proof of Theorem \ref{thm:ub}}
 \label{sec:ub-proof}
 
 Before giving the proof, we introduce a useful lemma, which is essentially Theorem~C.4 of \cite{MahdaviPhd:2014}.
@@ -13,15 +13,14 @@ $\norm{\overline G_t - \nabla \tilde{f}(X_t)}_* \le \beta_t$ holds almost surely
 Further, assume that $D=\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y)$ and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing 
 sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, if $\tilde{f}$ is $L$-smooth,
 \begin{align*}
-\MoveEqLeft \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }  \\
-\le& 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+ \\
- & \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t 
+& \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }  \le 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)} \\
+ &\quad\qquad +\sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t 
  +\frac{D(a_{n-1}+L)}{\alpha} +
 	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,,
 \end{align*}
 where $\sigma_t^2 = \EE{ \norm{G_t-\overline G_t}_*^2}$ is the ``variance'' of $G_t$.
 
-If ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$,
+Suppose ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Letting $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$, we have 
 \begin{align*}
 \MoveEqLeft \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }  \\
 \le& 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+ 
@@ -32,7 +31,7 @@ If ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, which is $\
 This is also identical to Theorem~6.3 of \cite{Bu:Convex14}, who cites \cite{Dekel:minibatch12} as the source. These results assume that $\beta_t=0$ above.
 The proof of this lemma can be found in \cref{sec:appendix-md}.
 
-Proof of Theorem \ref{thm:ub}:
+Proof of Theorem \ref{thm:ub}:\footnote{See Appendix \ref{sec:appendix-md} for a detailed proof.}
 
 Since $f$ is convex, by Jensen's inequality and the bias condition in \cref{def:oracle2}, we get
 \begin{align*}
