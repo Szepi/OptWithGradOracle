@@ -1,7 +1,8 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 The main application of the biased noisy gradient oracle based convex optimization of the previous section 
-is to bandit convex optimization, which we briefly introduce now. Readers familiar with these problems may skip this description
+is to bandit convex optimization, which we briefly introduce now. Readers familiar with these problems and the associated
+gradient estimation techniques, may skip this description to jump directly to \cref{thm:aaa},
 and come back to it only to clarify our notation and terminology in case some confusion arises later.
 
 In the \emph{online variant} of bandit convex optimization a learner sequentially chooses the points $X_1,\dots,X_n\in \cK$ while observing the losses $f_1(X_1),\dots,f_n(X_n)$. More specifically, in round $t$, having observed $f_1(X_1),\dots,f_{t-1}(X_{t-1})$ of the previous rounds, the learner chooses $X_t\in \cK$, after which it observed $f_t(X_t)$. The learner's goal is to minimize its expected regret $\EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x\in \cK} \sum_{t=1}^n f_t(x) }$. 
@@ -251,26 +252,26 @@ In this case, the best approach perhaps is to use Dikin ellipsoids to construct 
 
 The above constructions suggest that one should consider type-I (and II) oracles with $c_1(\delta) = C_1 \delta^p$ and $c_2(\delta) = C_2\delta^{-q}$ with $p=q=2$.
 For this type of oracles, the results of the previous section give the following result: 
-\begin{theorem}
+\begin{theorem}\label{thm:aaa}
 Let $\cF$ be the space of convex, $L$-smooth functions over a convex non-empty domain $\K$.
 Then no algorithm that obtains information about the unknown function using a 
 $(\delta^2,\delta^{-2})$ type-I oracle\todoc{Can we show that no better oracles exist? Can we show that $p=q=2$ is the best the oracle defined above can get? Then this statement could be much strengthened.}
  can achieve better error than $\Omega(n^{-1/3})$.
 Similarly, no such algorithm can achieve better regret than $\Omega(n^{2/3})$.
 \end{theorem}
-\begin{remark}
-Note that this result implies that \textbf{
-the currently used gradient estimators cannot be used by any algorithm to achieve the optimal
-regret $O(n^{1/2})$}.  \todoc{Add citation for optimal regret.}
-\end{remark}
 For the noisy optimization setting, the $O(n^{-1/3})$ rate is known to be optimal for the smooth, convex case
 by a result due to \citet{Chen88:LB-AoS}.%
 \footnote{Chen states his result under a condition that requires the smoothness order $p$ of the functions to be odd and greater than one. 
 However, a careful reading of his paper shows that this is actually never used in the proof and the proof 
 works with no change with $p=2$, giving the lower bound $\Omega(n^{-1/3})$.}
+From this follows the next result (which perhaps appeared first in an asymptotic form in the paper by \citet{PoTsy90}):
 \begin{theorem}
 For zeroth order noisy optimization with smooth convex functions, the gradient estimators together with mirror descent (see Algorithm \ref{alg}) achieves the optimal rate. \todoc{Is this a new result?}
 \end{theorem}
+This optimality also implies that there is little hope to design gradient estimators with fundamentally better bias-variance tradeoff for this setting. Hence, by our earlier remark connecting regret and optimization error, we conclude that
+ \textbf{
+the currently used gradient estimators are not likely to lead to an algorithm that could  achieve the optimal
+regret $O(n^{1/2})$} for online bandit convex optimization, established by \citet{BubeckDKP15,BuEl15}.
 
 %When the function is defined outside $\cK$, let $\mathcal{D} \supseteq \left\lbrace y \vert \norm{y-x} \le \delta, \forall x \in \cK \right\rbrace$, where $\delta=\sup_{t}\delta_t$. When the function is not defined outside $\cK$, the algorithm must project $X$ to a shrinked set $(1-\delta)\cK$ (\cite{flaxman2005online}), or use Dikin ellipsoid 
 %\citep{HaLe14:SOC}.

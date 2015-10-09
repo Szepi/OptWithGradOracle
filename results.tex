@@ -3,7 +3,7 @@
 \begin{table*}
 \small
 \centering
- \caption{Summary of upper and lower bounds for different smooth function classes and  gradient oracles. Note that when $\cR$ is the squared norm and $\K$ is the hypercube (as in the lower bounds), $D=\theta(d)$ in the upper bounds.}
+ \caption{Summary of upper and lower bounds for different smooth function classes and  gradient oracles.}
 \label{tab:mse-1}
  \begin{tabular}{|c|c|c|c|c|}
 % \begin{tabular}{||*5{>{\columncolor[gray]{.9}}c}||}
@@ -119,7 +119,8 @@ the minimax error satisfies
 See \cref{sec:appendix-md}.
 \end{proof}
 
-We next state lower bounds for both convex as well as strongly convex function classes. In particular, we observe that for convex and smooth functions the upper bound for the mirror descent scheme matches the lower bound, upto constants, whereas there is a gap for strongly convex+smooth functions. 
+We next state lower bounds for both convex as well as strongly convex function classes. In particular, we observe that for convex and smooth functions the upper bound for the mirror descent scheme matches the lower bound, up to constants, whereas there is a gap for strongly convex+smooth functions. 
+Filling the gap is left for future work.
 \begin{theorem}[\textit{Lower bound}]
 \label{thm:lb-convex}
 Let $n>0$ be an integer, $p>0, q\ge 2$, $C_1,C_2>0$, 
@@ -154,7 +155,7 @@ The condition connecting the problem parameters is that $n$ should be large enou
 \begin{proof}
  See Section \ref{sec:lb-proof}.
 \end{proof}
-Table \ref{tab:oracles} presents the upper and lower bounds for two specific choices of $p$ and $q$ and these can be inferred from the results in Theorems \ref{thm:ub}--\ref{thm:lb-convex}.
+Table \ref{tab:oracles} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems \ref{thm:ub}--\ref{thm:lb-convex}.
 While it appears that for the strongly convex case the error becomes smaller with a larger dimension, 
 in most applications $C_1, C_2$ will hide dimension dependent constants 
 and as the lower bound actually increases with the dimension increasing.

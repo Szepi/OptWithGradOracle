@@ -8,7 +8,9 @@ For $p\le q$ integers, \todoc{natural numbers?}
 
  We let $\| \cdot \|$ denote some norm on $\R^d$ and we denote its dual norm by $\dnorm{\cdot}$.
  A function $f$ is $\mu$-strongly convex w.r.t. $\| \cdot \|$  if 
- $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x,y$ in a non-empty convex closed set $\K \in \R^d$. A function $f$ is $\mu$-strongly conwex w.r.t. a function $\cR$ if $\tfrac{\mu}{2}\DR(x,y)\le\mathcal{D}_f(x,y)$ for all $x,y \in \K$.
+ $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x,y$ in a non-empty convex closed set $\K \in \R^d$. 
+A function $f$ is $\mu$-strongly convex w.r.t. a \emph{function} $\cR$ 
+	if $\tfrac{\mu}{2}\DR(x,y)\le\mathcal{D}_f(x,y)$ for all $x,y \in \K$.
  A function $f$ is $L$-smooth w.r.t. $\| \cdot \|$ for some $L>0$ if 
  %$f(x) \le f(y) + \ip{\nabla f(y), y-x} +
 $ D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
@@ -79,6 +81,8 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias);
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$ (variance).
 \end{enumerate}
 \end{definition}
+This definition is most useful when $\tilde{f}$ is known to belong to $\cF$, too. 
+However, we prefer to state these conditions separately. 
 An alternative to the bias condition for Type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with%
 \footnote{
 This definition requires the function $f$ to be differentiable. When the functions in $f$ are not differentiable, it is possible
