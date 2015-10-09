@@ -99,10 +99,11 @@ Substituting the above bound into \eqref{eq:main:pinsker-main}, we obtain
   \right).\label{eq:main:final-lower-bd}
 \end{align*}
 
-
+The generalization to $d$ dimensions works by exploiting separability.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\if0
 \paragraph{Generalization to $d$ dimensions:}
 Let $\F_{L,0}$ be comprised of $f_v$ defined by: For any $v\in \{-1,+1\}^d$
 \begin{align*}
@@ -149,7 +150,7 @@ Since $f_v$ is additively separable, we bound the $d$-dimensional minimax error 
 \end{align*}
 See Lemma \ref{lemma:sep} in Appendix \ref{sec:appendix-lb-proof} for a rigorous justification of the above inequality. 
 The final claim follows by plugging the minimax error bounds in one dimension and the reader is referred to Appendix \ref{sec:appendix-lb-proof} for details.
-
+\fi
 % where in inequality \eqref{eq:main:splitA}, algorithms $\A_i$ are interacting with the respective one-dimensional oracles $\gamma^{(i)}_{v_i}$ only 
 % and the inequality follows by~\eqref{eq:main:onedimlb},
 % while the inequality \eqref{eq:main:dlb} follows from the fact that each infimum term in \eqref{eq:main:splitA} is solving a $1$-dimensional problem and hence the bound in \eqref{eq:main:final-lower-bd} applies with $C_1$ replaced by $C_1/\sqrt{d}$ and $C_2$ replaced by $C_2/d$. The resulting bound is denoted by $\Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)$. 
