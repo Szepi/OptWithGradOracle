@@ -28,13 +28,16 @@
 \end{table*}
 \todox{Update upper bounds in the table}
 
+In this section we provide our main results in forms of upper and lower bounds on the minimax error.
+We will use 
+
 Unconstrained case:
 
 Upper bound: 
 
 \begin{algorithm}
 	\caption{Mirror Descent with Type-I Oracle}\label{alg}
-	\textbf{Input}: Closed convex set $\cK$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$. \\
+	\textbf{Input}: Closed convex set $\cK \subset \R^d$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$. \\
 	Initialize $X_1\in \cK$ arbitrarily.\\
 	In round $t=1, 2, \cdots, n-1$:
 	\begin{itemize}
@@ -54,7 +57,7 @@ Upper bound:
 
 \begin{theorem}[\textit{Upper bound}]
 \label{thm:ub}
-Given a bounded, convex set $\cK \subset \R$,
+Given a bounded, convex set $\cK \subset \R^d$,
 let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth.
 Assume further that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t. some norm $\norm{\cdot}$, and $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$.
 For any $(c_1,c_2)$ Type-II oracle 

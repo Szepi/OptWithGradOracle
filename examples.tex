@@ -26,13 +26,14 @@ One simple assumption is that $Z_t-f(X_t)$ is an $\cF_t = \sigma(X_{1:t},Z_{1:t-
 A specific case is when $Z_t - f(X_t) = \xi_t$, where $(\xi_t)$ is an i.i.d. sequence.
 A stronger assumption, which is most appropriate in stochastic programming, 
 is that $Z_t = F(X_t,U_t)$, where $U_t\in \R$, $\int F(X_t,u) dP_U(u) = f(X_t)$ with some distribution function $P_U$ over the reals and the algorithm has access to an oracle that can produce independent samples from $F$ (in which case, $(U_t)$ may be an i.i.d. sequence sampled from $P_U$).
-This assumption is stronger because the algorithm controls the ``noise''. 
+This assumption is stronger because the algorithm controls the
+``noise''. \todoa{This is not clear at all: can the algorithm control $U_t$? Otherwise I can't see the difference.}
 In particular, the algorithm may decide to reuse the same random sample from $F$ multiple times, 
 in the hope of increasing accuracy, akin to the method of common random numbers from Monte Carlo algorithms.
 \todoc{mention simulation optimization as the ``field''}
 Again, it is also possible to consider multi-point feedback as in the online case.
 
-However, what differs in optimization variant is that the value of the loss at the points sent to the oracle does not matter.
+However, what differs in the optimization variant is that the value of the loss at the points sent to the oracle does not matter.
 Hence, in this setting the distinction between one-point and multi-point feedback (as long as the number observations is fixed, independently of the dimension) is irrelevant: 
 By grouping $K$ multiple consecutive observations, one can turn an $n$ rounds one-point feedback setup into an $n/K$-round $K$-point feedback setup. The reduction in the number of rounds, being a fixed constant factor, is negligible, as far as the convergence rates are considered.
 
@@ -56,8 +57,8 @@ For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{8}$ and $C_2 
 \end{table*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %A major tool in bandit convex optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
-A common popular idea is to bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimated of the gradient \cite{XXXXX}.
-In particular, consider the following oracle (which, as will be discussed later 
+A common popular idea in bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimates of the gradient \cite{XXXXX}.
+In particular, consider the following oracle (which, as will be discussed later, 
  encompasses several simultaneous perturbation methods):
 Given the inputs $x\in \K$,  $0<\delta\le 1$,  \todoc{We need an upper bound I believe. Add it earlier.}
 the gradient estimate is
@@ -294,3 +295,8 @@ For zeroth order noisy optimization with smooth convex functions, the gradient e
 % Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled. As a result, we only need $\Delta_{\cdot i}$ to be zero-mean instead of symmetry.
 
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "bgo"
+%%% End:
