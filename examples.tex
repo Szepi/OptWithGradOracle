@@ -7,7 +7,8 @@ and come back to it only to clarify our notation and terminology in case some co
 In the \emph{online variant} of bandit convex optimization a learner sequentially chooses the points $X_1,\dots,X_n\in \cK$ while observing the losses $f_1(X_1),\dots,f_n(X_n)$. More specifically, in round $t$, having observed $f_1(X_1),\dots,f_{t-1}(X_{t-1})$ of the previous rounds, the learner chooses $X_t\in \cK$, after which it observed $f_t(X_t)$. The learner's goal is to minimize its expected regret $\EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x\in \cK} \sum_{t=1}^n f_t(x) }$. 
 This problem is also called online convex optimization with one-point feedback.
 A slightly different problem is obtained if we allow the learner to choose multiple points in every round, at which points the function $f_t$ is observed. The loss is suffered at $X_t$. The points where the function is observed (``observation points'' for short) may or may not be tied to $X_t$. One possibility is that $X_t$ is one of the observation points.  
-Another possibility is that $X_t$ is the average of the observation points (e.g., \citealt{AgDeXi10}). Yet another possibility is that there is no relationship between them. \todoc{I commented out the specifics of  \cite{AgDeXi10} because it is better to discuss the oracles at one place later.}
+Another possibility is that $X_t$ is the average of the observation points (e.g., \citealt{AgDeXi10}). Yet another possibility is that there is no relationship between them. 
+% \todoc{I commented out the specifics of  \cite{AgDeXi10} because it is better to discuss the oracles at one place later.}
 
 \if0
 For example, \cite{AgDeXi10} used an algorithm that queries at two points per round, and defined the incurred loss as the average of losses at the two observation points. In our oracle, it can be stated as in round $t$, the same oracle $\gamma_t$ responds to the same inputs $(X_t, \delta_t, f_t)$ with two different pairs $(G_{t,1}, Y_{t,1})$ and $(G_{t,2}, Y_{t,2})$. The accumulated regret can be written as 
@@ -22,15 +23,15 @@ In the \emph{optimization variant} of bandit (or ``zeroth order'') convex optimi
 the algorithm sequentially chooses the points $X_1,\dots,X_n\in \cK$ while observing the loss function at these points in noise.
 In particular, in round $t$, the algorithm chooses $X_t$ based on the earlier observations $Z_1,\dots,Z_{t-1}\in \R$ and $X_1,\dots,X_{t-1}$, after which it observes $Z_t$, where $Z_t$ is the value of $f(X_t)$ corrupted by ``noise''.
 Previous research considered several possible constraints connecting $Z_t$ and $f(X_t)$.
-One simple assumption is that $Z_t-f(X_t)$ is an $\cF_t = \sigma(X_{1:t},Z_{1:t-1})$-adapted martingale difference sequence (with favourable tail properties). \todoc{Some readers might be put off by martingales..}
+One simple assumption is that $Z_t-f(X_t)$ is an $\cF_t = \sigma(X_{1:t},Z_{1:t-1})$-adapted martingale difference sequence (with favourable tail properties). 
+% \todoc{Some readers might be put off by martingales..}
 A specific case is when $Z_t - f(X_t) = \xi_t$, where $(\xi_t)$ is an i.i.d. sequence.
 A stronger assumption, which is most appropriate in stochastic programming, 
 is that $Z_t = F(X_t,U_t)$, where $U_t\in \R$, $\int F(X_t,u) dP_U(u) = f(X_t)$ with some distribution function $P_U$ over the reals and the algorithm has access to an oracle that can produce independent samples from $F$ (in which case, $(U_t)$ may be an i.i.d. sequence sampled from $P_U$).
 This assumption is stronger because the algorithm controls the
-``noise''. \todoa{This is not clear at all: can the algorithm control $U_t$? Otherwise I can't see the difference.}
-In particular, the algorithm may decide to reuse the same random sample from $F$ multiple times, 
-in the hope of increasing accuracy, akin to the method of common random numbers from Monte Carlo algorithms.
-\todoc{mention simulation optimization as the ``field''}
+``noise''. 
+For instance, the algorithm may obtain samples of $F$ at $X^+$ and $X^-$, with the same noise levels, i.e., $\xi^+=\xi^-$. 
+Controlling the noise this way helps in improving the accuracy of the estimates and is common in the field of \textit{simulation optimization},. 
 Again, it is also possible to consider multi-point feedback as in the online case.
 
 However, what differs in the optimization variant is that the value of the loss at the points sent to the oracle does not matter.
@@ -67,7 +68,8 @@ with $B_3 = \sup_{x\in \K} \norm{\nabla^3 f(x)}$, where $\norm{\cdot}$ is the im
 A common popular idea in bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimates of the gradient \cite{XXXXX}.
 In particular, consider the following oracle (which, as will be discussed later, 
  encompasses several simultaneous perturbation methods):
-Given the inputs $x\in \K$,  $0<\delta\le 1$,  \todoc{We need an upper bound I believe. Add it earlier.}
+Given the inputs $x\in \K$,  $0<\delta\le 1$,  
+% \todoc{We need an upper bound I believe. Add it earlier.}
 the gradient estimate is
 \begin{align}
 %\hspace{-1.5ex}
