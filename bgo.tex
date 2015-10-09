@@ -41,7 +41,12 @@
 
 
 \begin{abstract}
-We present a general noisy gradient oracle model for convex optimization. The model allows to explicitly address the bias-variance tradeoff of such oracles (derived in several papers in the literature), as well as to prove upper and lower bounds for the minimax error. One consequence of our results is that the currently used gradient estimates cannot achieve square-root error rate for bounded domains when the function cannot be queried outside the domain.
+We present a general noisy gradient oracle model for convex optimization. The model allows to explicitly address the bias-variance tradeoff of gradient estimation method typical in the literature, as well as to prove upper and lower bounds for the minimax error. As such the oracle model allows a clean way of addressing the limits of achievable performance
+when biased, noisy gradient estimators can be used with controllable bias-variance tradeoffs.
+When considering the model for online convex optimization,
+one consequence of our results is that the currently used gradient estimates cannot be used to construct
+algorithms that would achieve the optimal square-root regret rate for bounded domains.
+% when the function cannot be queried outside the domain.
 \end{abstract}
 
 \section{INTRODUCTION}
