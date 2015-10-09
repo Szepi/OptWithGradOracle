@@ -26,7 +26,6 @@
 %%%%%%%%%%%%%%%%
 \end{tabular}
 \end{table*}
-\todox{Update upper bounds in the table}
 
 
 In this section we provide our main results in forms of upper and lower bounds on the minimax error.
@@ -38,13 +37,8 @@ $f(x) \ge f(y) + \ip{\nabla f(y),y-x} +\tfrac{\mu}{2} \DR(x,y)$ for all $x,y \in
 %Upper bound: 
 
 \begin{algorithm}
-<<<<<<< Updated upstream
-	\caption{Mirror Descent with Type-I Oracle}\label{alg}
-	\textbf{Input}: Closed convex set $\cK \subset \R^d$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$. \\
-=======
 	\caption{Mirror Descent with Type-I/II Oracle}\label{alg}
 	\textbf{Input}: Closed convex set $\cK$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$. \\
->>>>>>> Stashed changes
 	Initialize $X_1\in \cK$ arbitrarily.\\
 	In round $t=1, 2, \cdots, n-1$:
 	\begin{itemize}
