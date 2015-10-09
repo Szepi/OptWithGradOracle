@@ -1,11 +1,16 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 
-Notation: Capital letters will denote random variables.
+\textit{Notation:} Capital letters will denote random variables.
 For $p\le q$ integers, \todoc{natural numbers?}
  we use the notation $a_{p:q}$ to denote
  the sequence $(a_p,a_{p+1}, \dots, a_{q})$.
-
+ We let $\| \cdot \|$ denote some norm on $\R^d$ and we denote its dual norm by $\dnorm{\cdot}$.
+ A function $f$ is $\mu$-strongly convex w.r.t. $\| \cdot \|$  if 
+ $\tfrac{\mu}{2} \|x-y\|^2 \le \DR(x,y)=f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x,y$ in a non-empty convex closed set $\K \in \R^d$. 
+ A function $f$ is $L$-smooth w.r.t. $\| \cdot \|$ for some $L>0$ if $f(x) \le f(y) + \ip{\nabla f(y), y-x} + \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
+ We let $\F_{L,\mu}$ denote the class of functions that are $\mu$-strongly convex and $L$-smooth on the set $\K$. 
+ We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions.  
 
 \begin{figure}
 \begin{center}
@@ -17,7 +22,8 @@ For $p\le q$ integers, \todoc{natural numbers?}
 
 In this paper we consider convex optimization in a novel setting, both for online learning and optimization. 
 %More specifically, we consider both an online learning setting and an optimization setting.
-In the online setting, the environment chooses a sequence of loss functions $f_1,\dots,f_n$ belonging to a set $\cF$ of convex functions over a common, non-empty convex closed domain $\cK\subset \R^d$. 
+In the online setting, the environment chooses a sequence of loss functions $f_1,\dots,f_n$ belonging to a set $\cF$ of convex functions over a common, non-empty convex closed domain $\cK\subset \R^d$.
+\todoc{Should we say just $\cK$ here?}
 In the optimization setting, a single fixed loss function $f\in \cF$ is chosen.
 As usual, the algorithms choose a sequence of points $X_1,\dots,X_n\in \cK$ in a sequential way. 
 The novelty of our setting is that the algorithm, upon selecting point $X_t$, receives 

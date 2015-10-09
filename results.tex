@@ -29,37 +29,59 @@
 
 
 In this section we provide our main results in forms of upper and lower bounds on the minimax error.
-First we provide an upper bound by analyzing a mirror-descent algorithm given in \cref{alg}. In the algorithm, we will assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t. some norm $\|\cdot\|$ on $\R^d$, that is $\tfrac{\alpha}{2} \|x-y\|^2 \le \DR(x,y)=f(x)-f(y)-\ip{\nabla f(y),x-y}$ for all $x,y \in \K$. Moreover, we will consider the cases when the target function $f$ is $L$-smooth w.r.t. the norm $\| \cdot \|$ for some $L>0$, that is, $f(x) \le f(y) + \ip{\nabla f(y), y-x} + \tfrac{L}{2} \|x-y\|^2$, and when $f$ is $\mu$-strongly convex w.r.t. $\cR$, that is, 
-$f(x) \ge f(y) + \ip{\nabla f(y),y-x} +\tfrac{\mu}{2} \DR(x,y)$ for all $x,y \in \K$.
+First we provide an upper bound by analyzing a mirror-descent algorithm given in \cref{alg}. 
+In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex and the target function $f$ is $L$-smooth and $\mu$-strongly convex.
+% In the algorithm, we will assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t. some norm $\|\cdot\|$ on $\R^d$, that is $\tfrac{\alpha}{2} \|x-y\|^2 \le \DR(x,y)=f(x)-f(y)-\ip{\nabla f(y),x-y}$ for all $x,y \in \K$. Moreover, we will consider the cases when the target function $f$ is $L$-smooth w.r.t. the norm $\| \cdot \|$ for some $L>0$, that is, $f(x) \le f(y) + \ip{\nabla f(y), y-x} + \tfrac{L}{2} \|x-y\|^2$, and when $f$ is $\mu$-strongly convex w.r.t. $\cR$, that is, 
+% $f(x) \ge f(y) + \ip{\nabla f(y),y-x} +\tfrac{\mu}{2} \DR(x,y)$ for all $x,y \in \K$.
 
 %Unconstrained case:
 %
 %Upper bound: 
 
-\begin{algorithm}
-	\caption{Mirror Descent with Type-I/II Oracle}\label{alg}
-	\textbf{Input}: Closed convex set $\cK$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$. \\
-	Initialize $X_1\in \cK$ arbitrarily.\\
-	In round $t=1, 2, \cdots, n-1$:
-	\begin{itemize}
-	\item Query the oracle at $X_t$.
-	\item Receive $G_t$, $Y_t$.
-	\item Update
-	\[
+\begin{algorithm}[t]
+\begin{algorithmic}
+    \State {\bf Input:}  Closed convex set $\cK$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$.
+%     In round $t=1, 2, \cdots, n-1$:
+\State Initialize $X_1\in \cK$ arbitrarily.
+\For{$t=1, 2, \cdots, n-1$}	
+	\State Query the oracle at $X_t$.
+	\State Receive $G_t$, $Y_t$.
+	\State Update
+	$$
 	X_{t+1}=\argmin_{x\in \mathcal{K}}\left[ \eta_{t} \ip{G_t,x}+D_{\mathcal{R}}(x,X_t) \right] \,.
-	\]
-	\end{itemize}
-	\textbf{Output}: the optimizer
-	\[
-	\hat{X}_n = \dfrac{1}{n}\sum_{t=1}^n X_t \,.
-	\]
-	
+	$$
+\EndFor
+\State {\bf Return:} $\hat{X}_n = \frac{1}{n}\sum_{t=1}^n X_t \,.$
+\end{algorithmic}
+\caption{Mirror Descent with Type-I/II Oracle.}
+\label{alg}
 \end{algorithm}
+
+
+% \begin{algorithm}
+% 	\caption{Mirror Descent with Type-I/II Oracle}\label{alg}
+% 	\textbf{Input}: Closed convex set $\cK$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$. \\
+% 	Initialize $X_1\in \cK$ arbitrarily.\\
+% 	In round $t=1, 2, \cdots, n-1$:
+% 	\begin{itemize}
+% 	\item Query the oracle at $X_t$.
+% 	\item Receive $G_t$, $Y_t$.
+% 	\item Update
+% 	\[
+% 	X_{t+1}=\argmin_{x\in \mathcal{K}}\left[ \eta_{t} \ip{G_t,x}+D_{\mathcal{R}}(x,X_t) \right] \,.
+% 	\]
+% 	\end{itemize}
+% 	\textbf{Output}: the optimizer
+% 	\[
+% 	\hat{X}_n = \dfrac{1}{n}\sum_{t=1}^n X_t \,.
+% 	\]
+% 	
+% \end{algorithm}
 
 \begin{theorem}[\textit{Upper bound}]
 \label{thm:ub}
-Given a bounded, convex set $\cK \subset \R^d$,
-let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
+Consider the class $\F_{L,0}$ of convex, $L$-smooth functions on the bounded, convex domain $\cK \subset \R^d$.
+% let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
 Assume further that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t. some norm $\norm{\cdot}$, and $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$.
 For any $(c_1,c_2)$ Type-II oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
@@ -83,17 +105,17 @@ where
  \end{align*}
  where $D=\sup_{x,y\in \cK} \DR(x,y)$.
  
-If the class of functions is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, and $\mu > \dfrac{2L}{\alpha}$. Choose
-\[
+For the class $\F_{L,\mu}$ of $\mu$-strongly convex and $L$-smooth functions, with $\mu > \dfrac{2L}{\alpha}$, 
+$
  \eta_t = \dfrac{2}{\mu t} \,,
-\]
+$ and
 %\[
 %\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
 %\]
 \[
 \delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
 \]
-the upper bound of minimax error is then
+the minimax error satisfies 
  \begin{align*}
 \Delta_n^*(\cF,c_1,c_2)= O(n^{-p/(p+q)})\,.
  \end{align*}
