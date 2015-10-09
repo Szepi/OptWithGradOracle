@@ -216,6 +216,7 @@ where $\hat{X}_{ni}$ denotes the $i$th coordinate of the vector $\hat{X}_n \in \
 % We now argue that, since $f_v$ is separable, any algorithm $\A$ that uses information in dimensions other than $i$ in the gradient samples of the oracle, can be replaced by $d$ algorithms $\A_1^*$, $\dots$, $\A_d^*$ such that $\A_i^*$ is only using information for dimension $i$ and is only predicting the $i$th coordinate at the end, and the sum of losses they incur is utmost that of $\A$ in the worst-case.
 
 \begin{lemma}
+\label{lemma:sep}
 For any algorithm $\A$, there exist  $d$ ``$1$-dimensional'' algorithms, $\A_i^*$, $1\le i \le d$,
 the $i$th algorithm interacting with only a one dimensional oracle, supplying gradient estimates about $f_{v_i}^{(i)}$ 
 such that if $L^{\A}(v)$ is the loss of $\A$ on environment with index $v$ and the following holds
