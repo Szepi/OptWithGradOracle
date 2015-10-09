@@ -71,12 +71,11 @@ For any $(c_1,c_2)$ Type-II oracle
 % \delta = \left( \dfrac{C_2}{2aC_1}\sqrt{\dfrac{\alpha}{2D}} \right)^{1/(p+q)}n^{-1/(2p+q)} \,,
 % \] 
   \[
- \delta = \left( \dfrac{C_2}{8aC_1}\right)^{1/(p+q)}n^{-1/(2p+q)} \,,
+ \delta = \left( \dfrac{C_2}{4aC_1}\dfrac{2p+q}{p}\dfrac{n}{n+1}\right)^{1/(p+q)}n^{-1/(2p+q)} \,,
  \] 
- \todox{the $n$ should actually be $(n-1)$, the expression will be more natural if we start from $0$.}
- where
+where
 % $a = \left( \sqrt{\dfrac{2^{3q}\alpha}{D}}C_1^q C_2^p \right)^{1/(2p+q)}$,
- $a = \left( 8^q \left(\sqrt{\dfrac{\alpha}{D}}\right)^{q+1}C_1^q C_2^p \right)^{1/(2p+q)}$,
+ $a^{2p+q} =2^{q-p}\left( 2+\dfrac{q}{p} \right)^p\left(1+ \dfrac{1}{n} \right)^q \left( \dfrac{\alpha}{D} \right)^{p+q}C_1^q C_2^p $,
  $a_t = a t^{(p+q)/(2p+q)}$, for $t=1, 2, \cdots, n-1$,
   the minimax error \eqref{eq:minimaxerrdef} can be bounded as
  \begin{align*}
@@ -84,7 +83,7 @@ For any $(c_1,c_2)$ Type-II oracle
  \end{align*}
  where $D=\sup_{x,y\in \cK} \DR(x,y)$. $\DR$ denotes the Bregman divergence w.r.t. $\mathcal{R}$.
  
-If the class of functions is also $\mu$-strongly convex w.r.t. $\mathcal{R}$. Choose
+If the class of functions is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, and $\mu > \dfrac{2L}{\alpha}$. Choose
 \[
  \eta_t = \dfrac{2}{\mu t} \,,
 \]
@@ -92,7 +91,7 @@ If the class of functions is also $\mu$-strongly convex w.r.t. $\mathcal{R}$. Ch
 %\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
 %\]
 \[
-\delta^{p+q} =  \dfrac{C_2 \log n}{4\alpha \mu C_1 n} \,,
+\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
 \]
 the upper bound of minimax error is then
  \begin{align*}

@@ -22,7 +22,7 @@ sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, if $\tilde{f}$ is $L$-smooth,
 \end{align*}
 where $\sigma_t^2 = \EE{ \norm{G_t-\overline G_t}_*^2}$ is the ``variance'' of $G_t$.
 
-If ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L$,
+If ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$,
 \begin{align*}
 \MoveEqLeft \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }  \\
 \le& 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+ 
@@ -65,22 +65,21 @@ substituting
  \]
  where 
 % $K_1 = 2^{\dfrac{3q}{2(p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{\dfrac{p+q^2+2pq}{(p+q)(2p+q)}}+2^{\dfrac{3q}{2(2p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{2-\dfrac{1}{2p+q}}$.
- $K_1 = 2^{\dfrac{3q(3p+2q)}{2(p+q)(2p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{\dfrac{p+pq}{(p+q)(2p+q)}}+2^{\dfrac{3q}{2p+q}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{2-\dfrac{1+q}{2p+q}}$.
+ $(K_1/3)^{2p+q} \le 2^{2q-p}\left(2+q/p \right)^p \left(D/\alpha\right)^{p}$.
  
  When $f$ is also $\mu$-strongly convex,
  \begin{align*}
- \MoveEqLeft
- \E[f(\hat X_n) - \inf_{x \in \cK} f(x)] -\dfrac{1}{n}\left(\EE{f(X_1)-f(x)}\right)\\
-&\le 4C_1\delta^p+\dfrac{C_2 \delta^{-q}}{\alpha \mu n} \sum_{t=1}^{n-1}\dfrac{1}{t-\dfrac{2L}{\alpha \mu}}\\
-&\le 4C_1\delta^p+\dfrac{C_2 }{\alpha \mu}\delta^{-q} \dfrac{\log n}{n}\\
-&= K_2C_1^{\dfrac{q}{p+q}}C_2^{\dfrac{p}{p+q}} \left( \dfrac{\log n}{n} \right)^{\dfrac{p}{p+q}}
+& \E[f(\hat X_n) - \inf_{x \in \cK} f(x)] -\dfrac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}\right)\\
+&\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 \delta^{-q}}{\alpha \mu n} \sum_{t=1}^{n-1}\dfrac{1}{t-\dfrac{2L}{\alpha \mu}}\\
+&\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 }{\alpha \mu}\delta^{-q} \dfrac{\log n+1+\alpha \mu/(\alpha \mu-2L)}{n}\\
+&\le K_2C_1^{\dfrac{q}{p+q}}C_2^{\dfrac{p}{p+q}} \left( \dfrac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\dfrac{p}{p+q}}
  \end{align*}
 The last step optimizes the bound via letting 
 %$\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n}$, 
-$\delta^{p+q} =  \dfrac{C_2 \log n}{4\alpha \mu C_1 n}$, 
+$\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)}$, 
 where
 %$K_2^{p+q}=\sqrt{2}^{2p+3q}D^{q/2}\alpha^{-p-q/2}\mu^{-p}$.
-$K_2^{p+q}=2^{p+3q}\alpha^{-p}\mu^{-p}$.
+$K_2^{p+q}=2^{q}\alpha^{-p}\mu^{-p}$.
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "bgo"
