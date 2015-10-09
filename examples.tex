@@ -85,7 +85,6 @@ The other two options are that either $\xi^+=\xi^-$, which we call the \emph{con
 \end{align}
 
 The following proposition provides conditions under which the bias-variance parameters $(c_1,c_2)$ can be bounded as shown in \cref{tab:oracles}:
-\todox{I don't think we need the controlled noise, assuming zero-mean noise is enough.}
 \begin{proposition}
 \label{prop:grad-spsa}
 Consider a function $f:\D \to \R$, with $\K \subset \D^\circ \subset \R^d$.%
@@ -127,7 +126,7 @@ When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
  This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
 %  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).   
 \end{inparaenum}
-It is also possible to obtain a gradient oracle based on a single noisy observation. \todoc{Add citations.}
+It is also possible to obtain a gradient oracle based on a single noisy observation (see \cite{flaxman2005online}, \cite{spall1997one}). \todoc{Add citations.}
 However, as discussed, in the optimization setting one can also always group two consecutive observations
 at the price of reducing the number of rounds by a factor of two only, which has a negligible effect on the rate of convergence.
 \todoc{For now, I comment out the one-point feedback. I don't think the one-point feedback is essential and I rather work on something else than discuss the pros and cons of one-point feedback.}
