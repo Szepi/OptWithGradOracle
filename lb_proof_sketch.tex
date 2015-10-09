@@ -1,10 +1,10 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-\subsection{Proofs for the Lower Bound}
+\subsection{Proof of Theorem  \ref{thm:lb-convex}}
 \label{sec:lb-proof}
-We provide a sketch of the proof below. The detailed proof is available in Appendix \ref{sec:appendix-lb-proof}.
+We provide a sketch of the proof below for the case of convex and smooth function class $\F_{L,0}(\K)$. The detailed proof for $\F_{L,0}(\K)$ as well as $\F_{L,1}(\K)$ is available in Appendix \ref{sec:appendix-lb-proof}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\paragraph{Proof of Theorem \ref{thm:lb-convex}}
+\paragraph{Proof in one dimension}
 % For brevity, let $\Delta_n^{(1)*}$ denote the minimax error $\Delta_n^*(\F, c_1,c_2)$ for the case of $1$-dimensional function family $\F$.
 % The proof uses only $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK$ to $\R$ (i.e., the oracles do not have memory).
 % Fix a  $(c_1,c_2)$ Type-I oracle $\gamma$ and an algorithm $\A$.
@@ -32,8 +32,8 @@ We provide a sketch of the proof below. The detailed proof is available in Appen
 % \todoc{Enough to consider deterministic algorithms}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-We first prove the theorem in a one-dimensional setting and generalize it later.
-Recall that function class $\F$ is comprised of $f_v$ for $v \in \{-1,+1\}$, defined as
+% We first prove the theorem in a one-dimensional setting and generalize it later.
+Define the function class $\F_{L,0}$ to be comprised of $f_v$ for $v \in \{-1,+1\}$, where
 % By assumption,  $\{f_+, f_-\}\subset \F$, with 
 \begin{align*}
   f_v(x) := \dfrac{\epsilon}{2} (x - v)^2, \,\, x \in \cK \subset \R\,.
@@ -163,30 +163,30 @@ while the inequality \eqref{eq:main:dlb} follows from the fact that each infimum
 %%% TeX-master: "bgo"
 %%% End: 
 
-\paragraph{Proof of Theorem \ref{thm:lb-strongly-convex}:}
-
-\todoc{This proof sketch can be removed if we are short of space}
-% This follows in the same manner as the proof of Theorem \ref{thm:lb-convex}.
-First, lower bound \\$f_v:=\dfrac{1}{2} x^2 - v x,$ as follows: \\$f_v(x) - f_v(x^*_v)
-\ge  \dfrac{\nu^2}{2}  \indic{x v  < 0}.$\\
-Next, use the following oracles:
-\begin{align}
- \gamma_v(x) = \epsilon(x-v) - \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:main:oracle-1d}
-\end{align}
-where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-The KL-divergence bound (corresponding to \eqref{eq:main:dkbd-main}) turns out to be 
-\begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\nu-C_1\delta^p)_+^2 \delta^q}{C_2},\label{eq:main:dkbd-sc-main}
-\end{align}
-which implies the following bound:
-\begin{align}
- \Delta_n^{(1)*}
-  \ge & \dfrac{\nu^2}{2} \left(1 - \sqrt{
-    n}  \dfrac{(\nu-C_1\delta^p)_+\delta^{q/2}}{C_2}
-  \right)\label{eq:main:final-lower-bd-sc}
-\end{align}
-The generalization to $d$-dimensions follows using a separability argument as before.
+% \paragraph{Proof of Theorem \ref{thm:lb-strongly-convex}:}
+% 
+% \todoc{This proof sketch can be removed if we are short of space}
+% % This follows in the same manner as the proof of Theorem \ref{thm:lb-convex}.
+% First, lower bound \\$f_v:=\dfrac{1}{2} x^2 - v x,$ as follows: \\$f_v(x) - f_v(x^*_v)
+% \ge  \dfrac{\nu^2}{2}  \indic{x v  < 0}.$\\
+% Next, use the following oracles:
+% \begin{align}
+%  \gamma_v(x) = \epsilon(x-v) - \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:main:oracle-1d}
+% \end{align}
+% where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% The KL-divergence bound (corresponding to \eqref{eq:main:dkbd-main}) turns out to be 
+% \begin{align}
+% \dkl{P_{+}}{P_{-}} \le \dfrac{2n(\nu-C_1\delta^p)_+^2 \delta^q}{C_2},\label{eq:main:dkbd-sc-main}
+% \end{align}
+% which implies the following bound:
+% \begin{align}
+%  \Delta_n^{(1)*}
+%   \ge & \dfrac{\nu^2}{2} \left(1 - \sqrt{
+%     n}  \dfrac{(\nu-C_1\delta^p)_+\delta^{q/2}}{C_2}
+%   \right)\label{eq:main:final-lower-bd-sc}
+% \end{align}
+% The generalization to $d$-dimensions follows using a separability argument as before.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
