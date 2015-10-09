@@ -31,6 +31,12 @@ $O(1/n^2 ( \norm{x_1-x^*}^2 + A_n^2 )$ where $A_n = O( \sum_{t=1}^n t \norm{e_t}
 assuming that errors' noise level is a positive constant (in all our result, this holds).
 This clearly shows the differences between the analysis and that the noisy case requires (somewhat) special treatment.
 
+Nevertheless, we do not claim to invent methods for proving upper bounds for the stochastic case
+as these methods have been developed for special cases for a long time by now. \todoc{Add references.}
+Our main contribution here lies in abstracting away the properties of gradient estimation procedures 
+to create our new oracle model, in which we are able to study not only upper rates, but also lower rates of convergence.
+A similar, but simpler oracle model building on the inexact oracle model of  \cite{DeGliNe14}, 
+but one which lacks the bias-variance tradeoff central to this paper (i.e., they assume the variance and bias can be controlled independently of each other) appeared recently in a conference program \citet{DvoGa15}. The results in this paper are upper bounds on the error of certain gradient methods and they correspond to the bounds we obtained with $q=0$.
 \todoc[inline]{The paper of \citet{SchRoBa11} has 100 citations on google scholar.
 The paper of \cite{DeGliNe14} has similarly many.
 There are probably more relevant works. Someone could take a quick look and perhaps add a few more relevant ones.
