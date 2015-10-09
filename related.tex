@@ -1,6 +1,43 @@
 %!TEX root =  bgo.tex
 % please do not delete or change the first line (needed by Csaba's editor)
+Gradient oracle models have been studied in a number of previous papers 
+\citep{dAsp08,Baes09,SchRoBa11,DeGliNe14}.
+%assume that set $\K$ is bounded and that the oracle provides at each point $x\in \K$ an approximate gradient $g$ satisfying condition
+%$|\ip{g-\nabla f(x), v-w}| \le \delta$ for all $v,w,x\in \K$.
+A full comparison between these oracle models is given by \cite{DeGliNe14}.
+For illustration, here we only review the model of this latter paper as a typical example of these previous works.
+The model of \cite{DeGliNe14} assumes a first-order approximation to the function
+with parameters $(\delta,L)$. In particular, 
+given $(x,\delta,L)$ and the convex function $f$, 
+the oracle gives a pair $(t,g)\in \R \times \R^d$
+such that $t + \ip{g,\cdot-x}$ is a linear lower approximation to $f(\cdot)$ in the sense that 
+$0\le f(y) - \left\{ t+ \ip{g,y-x}\right\} \le \frac{L}{2} \norm{y-x}^2 + \delta$.
+\cite{DeGliNe14} argue that this notion appears naturally in several optimization problems and study whether the so-called accelerated gradient techniques are still superior to their non-accelerated counterparts (and find a negative answer).
+The authors study both lower and upper rates of convergence, similarly to our paper.
 
+%, except that in the lower bounds the algorithm is not allowed to control the oracle parameters.
+
+A major difference between the previous and our settings is that we allow stochastic noise (and bias), which the algorithms can control, while the oracle in these previous paper must guarantee that the accuracy requirements hold in each time step
+with probability one.
+This is a much stronger requirement, which may be impossible to satisfy in some problems, such as when 
+the only information available about the functions is noise contaminated.
+Some works, such as \citet{SchRoBa11} allow arbitrary sequences of errors and show error bounds as a function
+of the accumulated errors. 
+Our proof technique is actually essentially the same (as can be expected).
+However, the noisy case requires special care. For example, Proposition~3 of
+\citet{SchRoBa11}  bounds the optimization error for the smooth, convex case by 
+$O(1/n^2 ( \norm{x_1-x^*}^2 + A_n^2 )$ where $A_n = O( \sum_{t=1}^n t \norm{e_t})$, $e_t$ being the error of the approximate gradient. This expression is upper and lower bounded, up to a constant factor by
+ $\frac{1}{n^2} \sum_{t=1}^n t^2 \approx n$,
+assuming that errors' noise level is a positive constant (in all our result, this holds).
+This clearly shows the differences between the analysis and that the noisy case requires (somewhat) special treatment.
+
+\todoc[inline]{The paper of \citet{SchRoBa11} has 100 citations on google scholar.
+The paper of \cite{DeGliNe14} has similarly many.
+There are probably more relevant works. Someone could take a quick look and perhaps add a few more relevant ones.
+}
+
+
+\todoc[inline]{The stuff below is junk, mostly just listing references.}
 Bandit convex optimization:
 
 Online adversarial setting. Optimal rate is $\Theta(\sqrt{T})$.
@@ -21,3 +58,4 @@ Two-point: \cite{AgDeXi10}
 Lower bds: \cite{raginsky2011information} \cite{Chen88:LB-AoS}
 
 Ellipsoid: \cite{AgFoHsuKaRa13:SIAM}
+

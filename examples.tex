@@ -51,7 +51,13 @@ $\bm{\downarrow}$ &&\\\midrule
  &&\\\bottomrule
 \end{tabular}
 \caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.
-For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}$ and $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$.
+For the first row, $C_1 =
+\frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$ and
+$C_2 =   L^2 (2 + \frac{1}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right])$
+for the controlled noise and 
+ $C_2 =  C_{2}^{(u)} \doteq 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$ for the uncontrolled noise.
+For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}$ and $C_2 =  C_{2}^{(u)}$,
+with $B_3 = \sup_{x\in \K} \norm{\nabla^3 f(x)}$, where $\norm{\cdot}$ is the implied norm for rank-3 tensors.
 }
 \label{tab:oracles}
 \end{table*}
@@ -127,21 +133,20 @@ When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
 %  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).   
 \end{inparaenum}
 
-It is also possible to obtain a gradient oracle based on a single noisy observation (see \cref{prop:grad-onepoint}). \todoc{Add citations.}
-However, as discussed, in the optimization setting one can also always group two consecutive observations
+It is also possible to obtain a gradient oracle based on a single noisy observation
+of the form $G = \frac{Z}{\delta}V$, where $Z = f(x+\delta U) + \xi$. 
+For uncontrolled noise, this can be shown to be a $(c_1,c_2)$ Type-I oracle with slightly stronger assumptions on $(U,V)$ (e.g., $U$ symmetrically distributed, $V = h(U)$, with $h$ odd in addition to the previous assumptions)
+with $(c_1,c_2)$ essentially the same as before, except that now instead of the span of $f$, the magnitude of $f$ appears in the bound. For the controlled noise case, the oracle has the same variance as in the case of uncontrolled noise, because this oracle does not ``cancel out'' the noise.%
+\footnote{See \cref{prop:grad-onepoint} in the appendix for the exact formulation and proof.} 
+This is exactly the property that is exploited by \cite{duchi2015optimal}.
+Another possibility is to use the so-called smoothing technique \todoc{Add citations, including Flaxman, Nesterov, Polyak Tsybakov, Hazan and Levy} to obtain type-II oracles. \todoc{Actually, smoothing: This could be done with one or two observations. Again, differences may happen.}
+While the one-point estimators are intriguing, as discussed beforehand, 
+in the optimization setting one can also always group two consecutive observations
 at the price of reducing the number of rounds by a factor of two only, which has a negligible effect on the rate of convergence.
-\todoc{For now, I comment out the one-point feedback. I don't think the one-point feedback is essential and I rather work on something else than discuss the pros and cons of one-point feedback.}
-\begin{proposition}
-\label{prop:grad-onepoint}
-For one-point feedback oracle, i.e.,
-\begin{align*}
-G = \dfrac{Z+\xi}{\delta}V, \quad Z=f(x+\delta U)\,,
-\end{align*}
-in addition to the conditions in Proposition \ref{prop:grad-spsa}, we further assume $\EE{V}=0$, and for $f \in \C^3$, more specifically, $V$ is a deterministic odd function of $U$ and $U$ symmetrically distributed. Then, $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ same as the uncontrolled noise case in \cref{tab:oracles}.
-\end{proposition}
 
 Type-II oracles can be obtained using the same construction as above, but with a different analysis:
 \begin{proposition}
+\label{prop:flaxman}
 In the one-point feedback, let
 \begin{align*}
 V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,

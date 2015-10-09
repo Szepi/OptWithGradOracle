@@ -15,10 +15,10 @@
 % \rowcolor{gray!20}
  & \textbf{Upper bound} & \textbf{Lower bound} & \textbf{Upper bound} & \textbf{Lower bound}\\
  \midrule
-\textbf{ One-point estimates} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D^{5/2}}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2 d}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2}{d n}\right)^{1/2}$} \\[0.5ex]
+\textbf{ One-point estimates} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2 d}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2}{d n}\right)^{1/2}$} \\[0.5ex]
  ($p=1$, $q=2$) & & & &\\\midrule
 %%%%%%%%%%%%%%%%%%%
-\textbf{ Two-point estimates} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D^{1/4}}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 \sqrt d}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 }{d n}\right)^{2/3}$}\\[1.4ex]
+\textbf{ Two-point estimates} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 \sqrt d}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 }{d n}\right)^{2/3}$}\\[1.4ex]
  ($p=2$, $q=2$) & & & &\\
   \midrule
  \textbf{Zero bias} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\left(\dfrac{d^2}{n}\right)^{1/2}$}  \\[0.5ex]
@@ -26,7 +26,6 @@
 %%%%%%%%%%%%%%%%
 \end{tabular}
 \end{table*}
-\todox{Update upper bounds in the table}
 
 
 In this section we provide our main results in forms of upper and lower bounds on the minimax error.
@@ -38,8 +37,8 @@ $f(x) \ge f(y) + \ip{\nabla f(y),y-x} +\tfrac{\mu}{2} \DR(x,y)$ for all $x,y \in
 %Upper bound: 
 
 \begin{algorithm}
-	\caption{Mirror Descent with Type-I Oracle}\label{alg}
-	\textbf{Input}: Closed convex set $\cK \subset \R^d$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$. \\
+	\caption{Mirror Descent with Type-I/II Oracle}\label{alg}
+	\textbf{Input}: Closed convex set $\cK$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$. \\
 	Initialize $X_1\in \cK$ arbitrarily.\\
 	In round $t=1, 2, \cdots, n-1$:
 	\begin{itemize}
@@ -72,12 +71,11 @@ For any $(c_1,c_2)$ Type-II oracle
 % \delta = \left( \dfrac{C_2}{2aC_1}\sqrt{\dfrac{\alpha}{2D}} \right)^{1/(p+q)}n^{-1/(2p+q)} \,,
 % \] 
   \[
- \delta = \left( \dfrac{C_2}{8aC_1}\right)^{1/(p+q)}n^{-1/(2p+q)} \,,
+ \delta = \left( \dfrac{C_2}{4aC_1}\dfrac{2p+q}{p}\dfrac{n}{n+1}\right)^{1/(p+q)}n^{-1/(2p+q)} \,,
  \] 
- \todox{the $n$ should actually be $(n-1)$, the expression will be more natural if we start from $0$.}
- where
+where
 % $a = \left( \sqrt{\dfrac{2^{3q}\alpha}{D}}C_1^q C_2^p \right)^{1/(2p+q)}$,
- $a = \left( 8^q \left(\sqrt{\dfrac{\alpha}{D}}\right)^{q+1}C_1^q C_2^p \right)^{1/(2p+q)}$,
+ $a^{2p+q} =2^{q-p}\left( 2+\dfrac{q}{p} \right)^p\left(1+ \dfrac{1}{n} \right)^q \left( \dfrac{\alpha}{D} \right)^{p+q}C_1^q C_2^p $,
  $a_t = a t^{(p+q)/(2p+q)}$, for $t=1, 2, \cdots, n-1$,
   the minimax error \eqref{eq:minimaxerrdef} can be bounded as
  \begin{align*}
@@ -85,7 +83,7 @@ For any $(c_1,c_2)$ Type-II oracle
  \end{align*}
  where $D=\sup_{x,y\in \cK} \DR(x,y)$.
  
-If the class of functions is also $\mu$-strongly convex w.r.t. $\mathcal{R}$. Choose
+If the class of functions is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, and $\mu > \dfrac{2L}{\alpha}$. Choose
 \[
  \eta_t = \dfrac{2}{\mu t} \,,
 \]
@@ -93,7 +91,7 @@ If the class of functions is also $\mu$-strongly convex w.r.t. $\mathcal{R}$. Ch
 %\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
 %\]
 \[
-\delta^{p+q} =  \dfrac{C_2 \log n}{4\alpha \mu C_1 n} \,,
+\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
 \]
 the upper bound of minimax error is then
  \begin{align*}

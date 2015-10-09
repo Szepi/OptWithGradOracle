@@ -23,7 +23,10 @@ f(x \pm \delta U) =
   \pm  \frac{\delta^3}{2} \, R^{\pm}(x,\delta,U) \,(U, U, U),
 \end{align*}
 where
-$R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s * \delta U ) (1-s)^2 ds $ and $\nabla^3 f(\cdot)$ is considered as a rank-3 tensor.
+\begin{align}
+ R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s \, \delta U ) (1-s)^2 ds. \label{eq:taylor-r}
+\end{align}
+In the above, $\nabla^3 f(\cdot)$ is considered as a rank-3 tensor.
 Letting $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }$,%
 \footnote{Here, $\norm{\cdot}$ is the implied norm: For a rank-3 tensor $T$, $\norm{T} = \sup_{x,y,z\ne 0}
 \frac{|T (x,y,z)|}{\norm{x}\norm{y}\norm{z}}$.
@@ -70,7 +73,6 @@ The equality in \eqref{eq:h3} follows from $\EE{ \xi^+ \,|\, V } = \EE{ \xi^- \,
 
 \subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for convex and smooth $f$}
 \begin{proof}
-\todop{Got to read this proof carefully to see if all the constants are right and if the dual norm is applied right.}
 Since $f$ is convex with a  $L$-Lipschitz gradient, we have the following for any $\delta>0$:
 \begin{align*}
 \frac{\<\nabla f(x), \delta u\>}{2\delta} \le \frac{f(x + \delta u) -  f(x)}{2\delta} \le& \frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{2\delta}.
@@ -79,36 +81,53 @@ Using similar inequalities for $f(x-\delta u)$, we obtain
 \begin{align*}
 \<\nabla f(x), u\> - \frac{L \delta \norm{ u}^2}{2} \le \frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} \le& \<\nabla f(x), u\> + \frac{L \delta \norm{ u}^2}{2}.
 \end{align*}
-Letting $\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} - \<\nabla f(x),  u\>\right)$, we have
+Letting 
+$\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} - \<\nabla f(x),  u\>\right)$, we have
 \begin{align*}
-\left|\phi(x,\delta,u) \right| \le&  \dfrac{L}{2} \norm{u}^2
+\left|\phi(x,\delta,u) \right| \le&  \dfrac{L}{2} \norm{u}^2\,.
 % \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
 \end{align*}
 
-Recall, from the proof of Proposition \ref{prop:grad-spsa}, that for the gradient estimate $G:= V\, \left( \frac{f(X^+) + \xi^+  - (f(X^-) + \xi^-)}{2\delta}\right)$, we have
-$\E[G] =  \E\left[V\,  \left(\frac{f(X^+)  -f(X^-)}{2\delta}\right) \right]$. Besides, given $\EE{V U^\top}=I$,  we get
+Recall, from the proof of Proposition \ref{prop:grad-spsa} for $f\in \C^3$, that 
+%for the gradient estimate $G:= V\, \left( \frac{f(X^+) + \xi^+  - (f(X^-) + \xi^-)}{2\delta}\right)$, 
+we have
+$\E[G] =  \E\left[V\,  \left(\tfrac{f(X^+)  -f(X^-)}{2\delta}\right) \right]$. Besides, given $\EE{V U^\top}=I$,  we get
 \begin{align*}
  \norm{\E[G] - \nabla f(x)} 
- =& \norm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}\\
- \le& \delta \norm{\E[ V \phi(x,\delta, U)]}\\
- \le& \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
+ = \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}
+ \le \delta \norm{\E[ V \phi(x,\delta, U)]}
+ \le \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
 \end{align*}
 and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2]$.
 
 In the case of controlled noise, i.e., $\xi^+ = \xi^-$, 
 \begin{align*}
  \E \norm{G}^2 
- =& \mathbb{E}\norm{V\left(\delta \phi(x,\delta, U)+ U^\top\nabla f(x) \right)}^2\\
- \le & \E\left[ \left( \dnorm{ V U \tr \nabla f(x)} + \frac{\delta L}{2} \dnorm{V} \norm{U}^2 \right)^2\right]\\
-\le & 2 \E\left[  \dnorm{ V U \tr \nabla f(x)}^2\right]  + \frac{\delta^2 L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right],
+& = \mathbb{E}\norm{V\left(\delta \phi(x,\delta, U)+ U^\top\nabla f(x) \right)}^2
+ \le  \E\left[ \left( \dnorm{ V U \tr \nabla f(x)} + \frac{\delta L}{2} \dnorm{V} \norm{U}^2 \right)^2\right]\\
+& \le  2 \E\left[  \dnorm{ V U \tr \nabla f(x)}^2\right]  + \frac{\delta^2 L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right],
 \end{align*}
-and the claim for the variance follows by setting $c_2(\delta) = C_2$, where $C_2 = \sup_{x \in \cK} 2 \E\left[  \dnorm{ \nabla f(x)}^2\right]  + \frac{ L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$.
+and the claim for the variance follows by setting $c_2(\delta) = C_2$, 
+where $C_2 =  2 L^2  + \frac{ L^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$.
 
-For the case of uncontrolled noise, the claim for the variance, i.e., $c_2(\delta) = (C_2/\delta^2)$ follows in the same manner as that in the proof of Proposition \ref{prop:grad-spsa}.
+For the case of uncontrolled noise, the claim for the variance, i.e., $c_2(\delta) = C_2/\delta^2$ follows in the same manner as that in the proof of Proposition \ref{prop:grad-spsa}.
 \end{proof}
 
 
-\subsubsection*{One-point feedback}
+\subsubsection*{One-point estimates}
+\begin{proposition}
+\label{prop:grad-onepoint}
+For one-point feedback oracle, i.e.,
+\begin{align*}
+G = \dfrac{Z}{\delta}V, \quad Z=f(x+\delta U)+\xi\,,
+\end{align*}
+in addition to the conditions in Proposition \ref{prop:grad-spsa}, we further assume $\EE{V}=0$,
+and for $f \in \C^3$, more specifically, $V=h(U)$ is a deterministic odd function of $U$ and $U$ symmetrically distributed. Then, $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ same as the uncontrolled noise case in \cref{tab:oracles}.
+\todoc{Add the convex+smooth case}
+\end{proposition}
+
+
+\if0
 \begin{proposition}
 \label{prop:grad-1spsa}
 Given any $f$ that is three times continuously differentiable with bounded third derivative. 
@@ -121,31 +140,132 @@ G =  V \left(\dfrac{f(x+\delta U) + \xi}{\delta}\right),
 where $V, U$ are random variables that satisfy $\E[V U\tr] = I_d$, $U_i, i=1,\ldots,d$ are i.i.d., $\E[ V U^2] = 0$, $\E[V_i]=0$, $|U_i|$ and $\E|V_i|$ have finite upper bounds. 
 Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2/\delta^2$.
 \end{proposition}
+\fi
 \begin{proof}
-As in the case of two-point feedback, we can ignore the noise element in $G$, i.e.,
+% \todoc[inline]{This proof must be updated to follow the proof of Prop 1. Don't write $\le O(\cdot)$,for example.}
+As in the case of two-point feedback, we can ignore the noise element in $G$ to infer the following:
 \begin{align*}
-&\E\left[  V\dfrac{\xi}{\delta} \right]= 0 \quad \Rightarrow \quad
-\E[G] =  \E\left[ V \left(\dfrac{f(x+\delta U) }{\delta}\right)\right],
+\E[G] =  \E\left[ V \left(\dfrac{f(x+\delta U) }{\delta}\right)\right] \,.
 \end{align*}
+
+\paragraph{Case 1: $f \in \C^3$:}\ \\
+By Taylor's theorem, we obtain, a.s., 
+\begin{align*}
+f(x + \delta U) =
+ f(x) 
+ +\delta\,  U\tr\,\nabla f(x)   
+  + \frac{\delta^2}{2}\, U\tr \nabla^2 f(x) U 
+  +  \frac{\delta^3}{2} \, R^{+}(x,\delta,U) \,(U, U, U),
+\end{align*}
+where $R^{+}(x,\delta,U)$ is as defined in the proof of Proposition \ref{prop:grad-spsa} (see \eqref{eq:taylor-r}).
+Letting $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }$,%
+we have $\norm{ R^{+}(x,\delta,U)} \le B_3/3$ a.s.
+Now,
+\begin{align*}
+\EE{V\, \dfrac{f(x+\delta U)}{\delta}} 
+&= \EE{V \frac{f(x)}{\delta}} +  \EE{VU^{\tr}  
+\, \nabla f(x)}  + \EE{\frac{\delta^2}{2}\, V U\tr \nabla^2 f(x) U} +   \EE{\frac{\delta^2}{2}  V \,R^{+}(x,\delta,U)(U \otimes U \otimes U)} 
+\\
+&= \, \nabla f(x)  + \EE{\frac{\delta^2}{2}  V \,R^{+}(x,\delta,U)(U \otimes U \otimes U)}\,. 
+\end{align*}
+The final equality above follows from the facts that $\EE{V} = 0$, $\EE{V U\tr} = I$ and for any $i,j=1,\ldots,d$, $E[V_i U_j^2] = 0$ since $V$ is a deterministic odd function of $U$, with $U$ having a symmetric distribution. 
+Using the fact that $|R^{+}(x,\delta,U) (U \otimes U \otimes U)| \le 
+\norm{R^{+}(x,\delta,U)} \norm{U}^3$, 
+we obtain
+\begin{align*}
+\norm{ \EE{ G } - \nabla f(x) }_* 
+\le \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}\,\, \delta^2 \,.
+\end{align*}
+
+\paragraph{Case 2: $f$ is convex and $L$-smooth:}\ \\
+Since $f$ is convex and $L$-smooth, for any $0<\delta <1$,
+\begin{align*}
+ 0 \le \frac{f(x + \delta u)-f(x)}{\delta}-\<\nabla f(x), u\> \le&   \frac{L \delta \norm{ u}^2}{2}.
+\end{align*}
+Denote
+$\phi(x,\delta,u):=\frac{f(x + \delta u)-f(x)}{\delta}-\<\nabla f(x), u\>$, we have
+$\left|\phi(x,\delta,u) \right| \le  \dfrac{L\delta}{2} \norm{u}^2$.
+Then,  given $\EE{VU^\top}=I$, $\EE{V}=0$, we obtain
+\begin{align*}
+\norm{ \EE{ G } - \nabla f(x) }_* 
+&= \norm{ \EE{\frac{f(x + \delta U)}{\delta}V}-\EE{VU^\top \nabla f(X)}  }_*
+=\norm{ \EE{V\left( \frac{f(x + \delta U)}{\delta}- -U^\top \nabla f(X)\right)}  }_*\\
+&= \norm{ \EE{V\left( \phi(x,\delta,U)+\dfrac{f(x)}{\delta} \right)}  }_*
+=\norm{ \EE{V\phi(x,\delta,U)} }_*
+\le \dfrac{L\delta}{2}\EE{\norm{V}_*\norm{U}^2}\,.
+\end{align*}
+
+In both cases, the claim regarding the variance of $G$ follows in a similar manner as in the proof of Proposition \ref{prop:grad-spsa}.
+Therefore, for $f \in \C^3$, $\gamma$ is a $(C_1\delta^2, C_2/\delta^2)$ type-I oracle, for $f$ convex and $L$-smooth, $\gamma$ is a $(C'_1\delta, C'_2/\delta^2)$ type-I oracle, where the constants can be found in \cref{tab:oracles}.
 
 % By Taylor's series expansions, we obtain, a.s.,
 % \begin{align*}
 % f(x + \delta U) = f(x) \pm \delta U\tr \nabla f(x) + \frac{\delta^2}{2} U\tr \nabla^2 f(x) U +  \frac{\delta^3}{6} \nabla^3 f(\tilde x^{+})(U \otimes U \otimes U),
 % \end{align*}
 % where $\otimes$ and $\tilde x^+$ are as in the proof of Proposition \ref{prop:grad-spsa}.
-Using suitable Taylor's series expansions, we have %the following for any $i=1,\ldots,d$:
-\begin{align}
-&\E\left[V\left(\dfrac{f(x+\delta U)}{\delta}\right) \right] \nonumber\\
-= & \E\left[V \dfrac{f(x)}{\delta} \right] + \E\left[V U\tr \left.\nabla f(x)\right| \F_n\right]  +   \E\left[\frac{\delta}{2}  \nabla^2 f(\tilde  x^+)(V \otimes U \otimes U)\right] + \O\left( \delta^2\right). \label{eq:l1}\\
-\le & \nabla f(x) + \O\left( \delta^2\right).\label{eq:l2}
-\end{align}
-The last inequality follows from the facts that $E[V U\tr] = I$, and for any $i=1,\ldots,d$, $E[V_i U_j^2] = 0$, $|U_i|$ and $\E|V_i|$ have finite upper bounds.
+% Using suitable Taylor's series expansions, we have %the following for any $i=1,\ldots,d$:
+% \begin{align}
+% &\E\left[V\left(\dfrac{f(x+\delta U)}{\delta}\right) \right] \nonumber\\
+% = & \E\left[V \dfrac{f(x)}{\delta} \right] + \E\left[V U\tr \left.\nabla f(x)\right| \F_n\right]  +   \E\left[\frac{\delta}{2}  \nabla^2 f(\tilde  x^+)(V \otimes U \otimes U)\right] + \O\left( \delta^2\right). \label{eq:l1}\\
+% \le & \nabla f(x) + \O\left( \delta^2\right).\label{eq:l2}
+% \end{align}
+% The last inequality follows from the facts that $E[V U\tr] = I$, and for any $i=1,\ldots,d$, $E[V_i U_j^2] = 0$, $|U_i|$ and $\E|V_i|$ have finite upper bounds.
+% \paragraph{Case 2: $f$ is convex with a $L$-Lipschitz gradient:}\ \\
+% Using the tangent bound for convex functions and $L$-Lipschitz property of the gradient of $f$, we obtain the following for any $\delta>0$:
+% \begin{align*}
+% \frac{f(x)}{\delta} + \frac{\<\nabla f(x), \delta u\>}{\delta} \le \frac{f(x + \delta u)}{\delta} \le& \frac{f(x) + \<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}.
+% \end{align*}
+% Letting 
+% $\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u)}{\delta} - \<\nabla f(x),  u\>\right)$, we have
+% \begin{align*}
+% \left|\phi(x,\delta,u) \right| \le&  \frac{B_4}{\delta^2} + \dfrac{L}{2} \norm{u}^2\,,
+% % \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
+% \end{align*}
+% where $B_4 = \sup_{x\in\D} \norm{f(x)}$. 
+% From the foregoing, 
+% \begin{align*}
+%  \norm{\E[G] - \nabla f(x)} 
+%  = \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}
+%  \le \delta \norm{\E[ V \phi(x,\delta, U)]}
+%  \le \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
+% \end{align*}
+% and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2]$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsubsection*{One point estimates with smoothing}
+\todoc[inline]{Someone should finish this. And ideally add a remark if not a proposition that this is not the only way, e.g., Gaussian smoothing and friends.}
+\begin{proposition}
+\label{prop:flaxman}
+For the one-point feedback oracle in \cref{prop:grad-onepoint}, let
+\begin{align*}
+V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,
+\end{align*}
+where $W$ is a convex body with surface $\partial W$, $U \in \partial W$ is uniformly distributed. $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume. Then, if $f$ is Lipschitz, $\gamma$ is a type-II oracle with $c_1(\delta)=C_1 \delta$, $c_2(\delta) = C_2/\delta^2$.
+\todox{can have different $c_1$, $c_2$ for $f$ convex, smooth, etc.}
+\end{proposition}
+\begin{proof}
+Since $U$ is uniformly distributed over $\partial W$, for any $x \in \cK$, the expectation of $G$ can be written as
+\begin{align*}
+\EE{G} =\dfrac{\lvert \partial W\rvert}{\lvert W \rvert} \int_{\partial W} \dfrac{1}{\delta} f(x+\delta U)n_W(U)\dfrac{\,d U}{\lvert \partial W\rvert}
+=  \int_W \nabla f(x+\delta U)\dfrac{\,d U}{\lvert W\rvert}\,,
+\end{align*}
+where the second equality follows from Gradient's theorem, with the fact that the gradient of $\hat{f} =\dfrac{1}{\delta} f(x+\delta U) $ w.r.t. $U$ is $\nabla f(x+\delta U)$. Then, exchange the order of gradient and integral, we can see $\EE{G}$ is the gradient of some function
+$\tilde{f}(x) =\int_{w \in W} f(x+\delta w)\dfrac{\,d w}{\lvert W\rvert} $, and 
+\[
+\norm{\tilde{f}(x)-f(x)}_\infty =\int_{w \in W} f(x+\delta w)-f(x)\dfrac{\,d w}{\lvert W\rvert} \,.
+\]
+
+When $f$ is $L_0$-Lipschitz, $f(x+\delta w)-f(x) \le L_0\delta \norm{w}$, so $\gamma$ is a type-II oracle with $c_1(\delta) = C_1 \delta$, where $C_1 = L_0 \sup_{w\in W}\norm{w}$.
+The variance of $G$ is the same as stated in \cref{prop:grad-onepoint}.
+\end{proof}
+\begin{remark}
+Note that $f$ do not need to be differentiable here. 
+$U$ and $V$ can be selected under other distributions, like Gaussian, with similar results.
+\end{remark}
 
 
 % 
