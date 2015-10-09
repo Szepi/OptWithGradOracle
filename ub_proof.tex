@@ -4,6 +4,7 @@
 \label{sec:ub-proof}
 
 Before giving the proof, we introduce a useful lemma, which is essentially Theorem~C.4 of \cite{MahdaviPhd:2014}.
+\todox[inline]{Considering that we want to prove upper bound for type-II oracle, the loss function in the lemma is actually $\tilde{f}$...It must confuse most readers...}
 \begin{lemma}
 \label{lem:ub}
 Let $({\tilde{\cF}})_{t}$ be a filtration such that $X_t$ is ${\tilde{\cF}}_t$-measurable.
@@ -48,7 +49,7 @@ the result immediately follows from Lemma \ref{lem:ub}.
 When $f$ is smooth,
 \todox{$\tilde{f}$ should also be smooth, but this cannot be ensured with current oracle assumption...}
 substituting
-%\todox{This may be confusing... since we are using type-II oracle, $\beta_t$ is actually 0.}
+\todox{This may be confusing... since we are using type-II oracle, $\beta_t$ is actually 0.}
  $\beta_t = 0$, $\sigma^2_t = C_2 \delta^{-q}$, $a_t=a t^r$ for some $0<r<1$, respectively, we obtain
  \begin{align}
  \MoveEqLeft
