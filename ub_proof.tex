@@ -45,15 +45,16 @@ Since $f$ is convex, by Jensen's inequality and the bias condition in \cref{def:
 \end{align*}
 Given $\overline{G}_t=\EE{G_t} = \nabla \tilde{f}(X_t)$,
 the result immediately follows from Lemma \ref{lem:ub}. 
-When $f$ is only smooth,
+When $f$ is smooth,
 \todox{$\tilde{f}$ should also be smooth, but this cannot be ensured with current oracle assumption...}
-by replacing
- $\beta_t = 0$, $\sigma^2_t = C_2 \delta^{-q}$, $a_t=a t^r$ respectively, we obtain
+substituting
+ $\beta_t = C_1 \delta^p$, $\sigma^2_t = C_2 \delta^{-q}$, $a_t=a t^r$ for some $0<r<1$, respectively, we obtain
  \begin{align}
  \MoveEqLeft
  \E[f(\hat X_n) - \inf_{x \in \cK} f(x)]  \nonumber\\
 &\le \dfrac{1}{n}\left(\EE{f(X_1)-f(x)}+\dfrac{DL}{\alpha}  \right)\nonumber\\
-&+\dfrac{D}{\alpha}a n^r+\dfrac{C_2 \delta^{-q}}{2a}n^{1-r}+ 4C_1\delta^p \,.
+& + \sqrt{\frac{2D}{\alpha}} C_1 \delta^p + \frac{D a}{\alpha} n^{r-1} + \frac{C_2 \delta^{-q}}{a(1-r)} n^{-r}
+%&+\dfrac{D}{\alpha}a n^r+\dfrac{C_2 \delta^{-q}}{2a}n^{1-r}+ 4C_1\delta^p \,.
 \label{eq:ubToBeOpt}
  \end{align}
  Choosing $r = \dfrac{p+q}{2p+q}$, and $a$, $\delta$ as stated in \cref{thm:ub}, the last $3$ terms in \eqref{eq:ubToBeOpt} are optimized to
