@@ -8,12 +8,12 @@ For $p\le q$ integers, \todoc{natural numbers?}
 
  We let $\| \cdot \|$ denote some norm on $\R^d$ and we denote its dual norm by $\dnorm{\cdot}$.
  A function $f$ is $\mu$-strongly convex w.r.t. $\| \cdot \|$  if 
- $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x,y$ in a non-empty convex closed set $\K \in \R^d$. 
+ $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x,y$ in a non-empty convex closed set $\K \in \R^d$. A function $f$ is $\mu$-strongly conwex w.r.t. a function $\cR$ if $\tfrac{\mu}{2}\DR(x,y)\le\mathcal{D}_f(x,y)$ for all $x,y \in \K$.
  A function $f$ is $L$-smooth w.r.t. $\| \cdot \|$ for some $L>0$ if 
  %$f(x) \le f(y) + \ip{\nabla f(y), y-x} +
 $ D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
  We let $\F_{L,\mu}$ denote the class of functions that are $\mu$-strongly convex and $L$-smooth on the set $\K$. 
- The set of $L$-smooth functions is thus $\F_{L,0}$.
+ The set of $L$-smooth functions is thus $\F_{L,0}$. Furthermore, let $\F_{L,\mu,\cR}$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t. $\cR$.
  We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions.
 
 \begin{figure}
@@ -130,8 +130,8 @@ where, again, $\cA$ ranges through all algorithms that interact with the loss $f
 $\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers 
 after $n$ rounds of interaction with $f$ through $\gamma$ as described earlier.
 
-When the set $\K$ is bounded, every $(c_1,c_2)$ type-I oracle is also a $(R c_1,c_2)$ type-II oracle,
-where $R = \sup_{x\in \K} \norm{x}$: Simply consider $\tilde{f}(y) =  f(y) + (\EE{G}-\nabla f(x))\tr y $,  \todoc{The function set $\F$ should be invariant to linear shifts.}
+When the set $\K$ is bounded and the function set $\F$ is invariant to linear shifts, every $(c_1,c_2)$ type-I oracle is also a $(R c_1,c_2)$ type-II oracle,
+where $R = \sup_{x\in \K} \norm{x}$: Simply consider $\tilde{f}(y) =  f(y) + (\EE{G}-\nabla f(x))\tr y $, 
 where $G$ is the gradient estimate returned by the oracle (cf. \cref{thm:typered}). \todoc{tell the reader where this is.}
 As a result, if for some set $\Delta_{n}^{\mathrm{Type-I}}$, $\Delta_{n}^{\mathrm{Type-II}}$ 
 denote the appropriate minimax errors and $R=1$
