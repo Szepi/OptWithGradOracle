@@ -101,7 +101,7 @@ where
  $a_t = a t^{(p+q)/(2p+q)}$, for $t=1, 2, \cdots, n-1$,
   the minimax error \eqref{eq:minimaxerrdef} can be bounded as
  \begin{align*}
-\Delta_n^*(\cF,c_1,c_2)= O(n^{-p/(2p+q)})\,,
+\Delta_n^*(\cF,c_1,c_2)= O\left(\left(\dfrac{D^pC_1^qC_2^p}{n^p}\right)^{1/(2p+q)}\right)\,,
  \end{align*}
  where $D=\sup_{x,y\in \cK} \DR(x,y)$.
  
@@ -117,7 +117,7 @@ $ and
 \]
 the minimax error satisfies 
  \begin{align*}
-\Delta_n^*(\cF,c_1,c_2)= O(n^{-p/(p+q)})\,.
+\Delta_n^*(\cF,c_1,c_2)= O\left( \left(\dfrac{C_1^q C_2^p}{n^p} \right)^{1/(p+q)} \right)\,.
  \end{align*}
 \end{theorem}
 \begin{proof}
