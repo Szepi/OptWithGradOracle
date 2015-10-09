@@ -132,14 +132,14 @@ Assume that $n$ is large enough (the exact condition is given after the theorem)
 Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Type-I oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$,
  the minimax error \eqref{eq:minimaxerrdef} satisfies the following bounds:\\
-\textbf{Class $\F_{L,0}(\K)$ (Convex and smooth):}
+\textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth):}
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?} 
 \[
 \Delta_n^{*}(\F_{L,0}, c_1,c_2) \ge \dfrac{1}{4}d^{\frac{q}{(4p+2q)}}\left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}},
 \]
 where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 
-\textbf{$\F_{L,1}(\K)$ ($1$-strongly convex and smooth):}
+\textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth):}
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
 \Delta_n^{*}(\F, c_1,c_2) \ge \dfrac{1}{4}  \left(\dfrac{1}{2 K_1 \sqrt {d n}}\right)^{\frac{2p}{p+\frac{q}{2}}}, 
@@ -155,6 +155,7 @@ The condition connecting the problem parameters is that $n$ should be large enou
 \begin{proof}
  See Section \ref{sec:lb-proof}.
 \end{proof}
+Table \ref{tab:oracles} presents the upper and lower bounds for two specific choices of $p$ and $q$ and these can be inferred from the results in Theorems \ref{thm:ub}--\ref{thm:lb-convex}.
 While it appears that for the strongly convex case the error becomes smaller with a larger dimension, 
 in most applications $C_1, C_2$ will hide dimension dependent constants 
 and as the lower bound actually increases with the dimension increasing.
