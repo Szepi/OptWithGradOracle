@@ -1,0 +1,55 @@
+%!TEX root =  bgo.tex
+% please do not delete or change the first line (needed by Csaba's editor)
+\subsection{Proofs for Upper Bounds}
+\label{sec:ub-proof}
+In the proof, we use \cref{lem:ub} to deal with noisy and biased gradient, which is essentially Theorem~C.4 of \cite{MahdaviPhd:2014}, and also identical to Theorem~6.3 of \cite{Bu:Convex14}, who cites \cite{Dekel:minibatch12} as the source. 
+The lemma and its proof can be found in \cref{sec:appendix-md}.
+
+Proof of Theorem \ref{thm:ub}:
+
+Since $f$ is convex, by Jensen's inequality and the bias condition in \cref{def:oracle2}, we get
+\begin{align*}
+\MoveEqLeft
+ \E[f(\hat X_n) - \inf_{x \in \cK} f(x)] \\
+ \le&  
+ \dfrac{1}{n}\EE{ \sum_{t=1}^n f(X_t) - \inf_{x \in \cK}f(x) } \\
+ \le &\dfrac{1}{n}\EE{ \sum_{t=1}^n \tilde{f}(X_t) - \inf_{x \in \cK}\tilde{f}(x) } +2C_1 \delta^p
+ \,.
+\end{align*}
+Given $\overline{G}_t=\EE{G_t} = \nabla \tilde{f}(X_t)$, where $\tilde{f}\in \cF_{L,0}$ is convex and smooth,
+the result immediately follows by applying \cref{lem:ub} to $\tilde{f}$. 
+Substituting
+%\todox{This may be confusing... since we are using type-II oracle, $\beta_t$ is actually 0.}
+ $\beta_t = 0$, $\sigma^2_t = C_2 \delta^{-q}$, $a_t=a t^r$ for some $0<r<1$, respectively, we obtain
+ \begin{align}
+& \E[f(\hat X_n) - \inf_{x \in \cK} f(x)]  \nonumber\\
+&\le \dfrac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}+\dfrac{DL}{\alpha}  \right)\nonumber\\
+%& + \sqrt{\frac{2D}{\alpha}} C_1 \delta^p + \frac{D a}{\alpha} n^{r-1} + \frac{C_2 \delta^{-q}}{a(1-r)} n^{-r} \,.
+&+\dfrac{Da}{\alpha} n^{r-1}+\dfrac{C_2 \delta^{-q}}{2a(1-r)}n^{-r}+ (2+\dfrac{2}{n})C_1\delta^p \,.
+\label{eq:ubToBeOpt}
+ \end{align}
+ Choosing $r = \dfrac{p+q}{2p+q}$, and $a$, $\delta$ as stated in \cref{thm:ub}, the last $3$ terms in \eqref{eq:ubToBeOpt} are optimized to
+ \[
+ K_1 C_1^{q/(2p+q)} C_2^{p/(2p+q)} n ^{-p/(2p+q)} \,,
+ \]
+ where 
+% $K_1 = 2^{\dfrac{3q}{2(p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{\dfrac{p+q^2+2pq}{(p+q)(2p+q)}}+2^{\dfrac{3q}{2(2p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{2-\dfrac{1}{2p+q}}$.
+ $(K_1/3)^{2p+q} \le 2^{2q-p}\left(2+q/p \right)^p \left(D/\alpha\right)^{p}$.
+ 
+ When $\tilde{f}\in \cF_{L,\mu, \cR}$ is $L$-smooth and $\mu$-strongly convex, similarly, we obtain
+ \begin{align*}
+& \E[f(\hat X_n) - \inf_{x \in \cK} f(x)] -\dfrac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}\right)\\
+&\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 \delta^{-q}}{\alpha \mu n} \sum_{t=1}^{n-1}\dfrac{1}{t-\dfrac{2L}{\alpha \mu}}\\
+&\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 }{\alpha \mu}\delta^{-q} \dfrac{\log n+1+\alpha \mu/(\alpha \mu-2L)}{n}\\
+&\le K_2C_1^{\dfrac{q}{p+q}}C_2^{\dfrac{p}{p+q}} \left( \dfrac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\dfrac{p}{p+q}}
+ \end{align*}
+The last step optimizes the bound via letting 
+%$\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n}$, 
+$\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)}$, 
+where
+%$K_2^{p+q}=\sqrt{2}^{2p+3q}D^{q/2}\alpha^{-p-q/2}\mu^{-p}$.
+$K_2^{p+q}=2^{q}\alpha^{-p}\mu^{-p}$.
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "bgo"
+%%% End:

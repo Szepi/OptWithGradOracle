@@ -1,0 +1,119 @@
+\documentclass[11pt,letterpaper,english]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{authblk}
+\usepackage{times}
+ \usepackage[margin=1in]{geometry}
+
+\input{commands}
+%\usepackage{xr}
+%\externaldocument{appendix}
+
+% If your paper is accepted, change the options for the package
+% aistats2016 as follows:
+%
+%\usepackage[accepted]{aistats2016}
+%
+% This option will print headings for the title of your paper and
+% headings for the authors names, plus a copyright note at the end of
+% the first column of the first page.
+
+
+\begin{document}
+
+% If your paper is accepted and the title of your paper is very long,
+% the style will print as headings an error message. Use the following
+% command to supply a shorter title of your paper so that it can be
+% used as headings.
+%
+%\runningtitle{I use this title instead because the last one was very long}
+
+% If your paper is accepted and the number of authors is large, the
+% style will print as headings an error message. Use the following
+% command to supply a shorter version of the authors names so that
+% they can be used as headings (for example, use only the surnames)
+%
+%\runningauthor{Surname 1, Surname 2, Surname 3, ...., Surname n}
+
+
+\title{(Bandit) Convex Optimization with Biased Noisy Gradient Oracles}
+\author[1]{Xiaowei  Hu\thanks{xhu3@ualberta.ca}}
+\author[2]{Prashanth L.A.\thanks{prashla@isr.umd.edu}}
+\author[3]{Andr\'as Gy\"orgy\thanks{a.gyorgy@imperial.ac.uk}}
+\author[4]{Csaba Szepesv\'ari\thanks{szepesva@cs.ualberta.ca}}
+\affil[1]{\small Department of Computing Science, University of Alberta}
+\affil[2]{\small Institute for Systems Research, University of Maryland}
+\affil[3]{\small Department of Electrical and Electronic Engineering, Imperial College London }
+\affil[4]{\small Department of Computing Science,
+University of Alberta}
+
+
+\renewcommand\Authands{ and }
+
+\date{}
+
+\maketitle
+
+\begin{abstract}
+We present a general noisy gradient oracle model for convex optimization. The model allows to explicitly address the bias-variance tradeoff of gradient estimation method typical in the literature, as well as to prove upper and lower bounds for the minimax error. As such the oracle model allows a clean way of addressing the limits of achievable performance
+when biased, noisy gradient estimators can be used with controllable bias-variance tradeoffs.
+When considering the model for online convex optimization,
+one consequence of our results is that the currently used gradient estimates cannot be used to construct
+algorithms that would achieve the optimal square-root regret rate for online bandit convex optimization.
+% when the function cannot be queried outside the domain.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\input{intro}
+
+\section{Problem Setup}
+\label{sec:problem}
+\input{problem}
+
+\section{Main Results}
+\label{sec:results}
+\input{results}
+
+\section{Applications To Bandit Convex Optimization}
+\label{sec:ex}
+\input{examples}
+
+\section{Related Work}
+\label{sec:related}
+\input{related}
+
+\section{Proofs}
+\label{sec:proofs}
+%\input{ub_proof}
+\input{appendix}
+
+% \input{lb_proof_sketch}
+%\input{red_proof}
+
+\section{Conclusions}
+\label{sec:conc}
+\input{conc}
+
+
+% \clearpage\newpage
+\bibliographystyle{apalike}
+\bibliography{./main.bib}
+
+\if0
+\subsubsection*{Acknowledgements}
+
+Use unnumbered third level headings for the acknowledgements.  All
+acknowledgements go at the end of the paper.  Be sure to omit any
+identifying information in the initial double-blind submission!
+\fi
+
+%\subsubsection*{References}
+% \clearpage\newpage
+% \onecolumn
+% \appendix
+
+
+\end{document}
