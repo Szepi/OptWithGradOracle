@@ -1,4 +1,4 @@
-%!TEX root =  bgo.tex
+%!TEX root =  bgo-arxiv.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 \subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for $f \in \C^3$}
 \begin{proof}
@@ -94,9 +94,9 @@ we have
 $\E[G] =  \E\left[V\,  \left(\tfrac{f(X^+)  -f(X^-)}{2\delta}\right) \right]$. Besides, given $\EE{V U^\top}=I$,  we get
 \begin{align*}
  \norm{\E[G] - \nabla f(x)} 
- =& \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}\\
- \le &\, \delta \norm{\E[ V \phi(x,\delta, U)]}\\
- \le& \,\frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
+ &= \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}
+ \le \, \delta \norm{\E[ V \phi(x,\delta, U)]}\\
+ &\le \,\frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
 \end{align*}
 and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2]$.
 
