@@ -1,4 +1,4 @@
-%!TEX root =  bgo.tex
+%!TEX root =  bgo-arxiv.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 In the current era of big data, gradient based convex optimization methods are more popular than ever. Several models are considered in the literature, with using different type of gradient information, from accessing the full gradient to constructing gradient estimates only from observing samples from the target function (see, e.g., \citealp{nesterov2004introductory,DeGliNe14,HaLe14:SOC,PoTsy90,flaxman2005online,AbHaRa08,AgDeXi10,Ne11:TR,AgFoHsuKaRa13:SIAM,katkul,kushcla,spall1992multivariate,spall1997one,Dip03:AoS,bhatnagar-book,duchi2015optimal}). In this paper, we present and analyze a general framework of convex optimization with biased gradient oracle, which encompasses several models considered before.
 
@@ -8,14 +8,14 @@ In this model, and optimization algorithm can query the oracle repeatedly, and t
 In this paper we consider the optimization accuracy in both the online and standard optimization setting.
 We  provide upper and lower bound on the minimax optimization error for several oracle models quantifying the bias-variance tradeoff of the gradient estimate. In particular, we provide matching upper and lower bounds for optimizing smooth, convex functions. We do not claim to invent methods for proving upper bounds for the stochastic case
 as these methods have been developed for special cases for a long time by now (see the references above).
-Our main contribution lies in abstracting away the properties of gradient estimation procedures 
+Our main contribution lies in abstracting away the properties of gradient estimation procedures
 to create our new oracle model, in which we are able to study not only upper rates, but also lower rates of convergence.
 As a consequence, our lower bounds show that the known minimax regret of $\sqrt{T}$ \citep{BubeckDKP15,BuEl15}
 of online bandit convex optimization cannot be achieved by the currently used gradient estimation procedures.
 Due to a lower bound of \citet{Chen88:LB-AoS} for noisy zeroth order optimization,
-which we can match with our upper bounds  and using the existing gradient estimation procedures, 
+which we can match with our upper bounds  and using the existing gradient estimation procedures,
 it also appears that there is little room if any for improving the gradient estimation procedures. Hence,
-an interesting corollary to our results is that algorithms which are purely based on gradient estimation 
+an interesting corollary to our results is that algorithms which are purely based on gradient estimation
 will not be able to achieve the minimax regret in online bandit convex optimization.
 
 The rest of the paper is organized as follows: The problem is introduced in \cref{sec:problem}. Our upper and lower bounds on the minimax error are presented in \cref{sec:results}, with applications to bandit convex optimization in \cref{sec:ex}. Related general gradient oracle models are discussed in detail in \cref{sec:related}, while proofs are given in \cref{sec:proofs} and in the appendix.
@@ -49,7 +49,7 @@ Ellipsoid: \cite{AgFoHsuKaRa13:SIAM}
  framework
 What is the problem? (New problem: Convex Optimization with Biased Gradient Oracles)
 What are the results? Matching lower and upper bounds (several oracle models and relation between them; cumulative regret and optimization error (aka simple regret) and relation between them -- this is mostly known; we consider both constrained, unconstrained)
-Why should we care? 
+Why should we care?
 Reason 1: For bandit convex optimization we can construct these oracles and reduce to this problem.
 Reason 2: Previous practical attempts for bandit convex optimization are all centered around such gradient estimates.
 ((some issues with whether you can cancel the noise; we assume you cannot))
