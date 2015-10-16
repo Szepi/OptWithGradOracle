@@ -1,42 +1,9 @@
 \documentclass[11pt,letterpaper,english]{article}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-\usepackage{authblk}
-\usepackage{times}
- \usepackage[margin=1in]{geometry}
-
 \input{commands}
-%\usepackage{xr}
-%\externaldocument{appendix}
-
-% If your paper is accepted, change the options for the package
-% aistats2016 as follows:
-%
-%\usepackage[accepted]{aistats2016}
-%
-% This option will print headings for the title of your paper and
-% headings for the authors names, plus a copyright note at the end of
-% the first column of the first page.
 
 
 \begin{document}
-
-% If your paper is accepted and the title of your paper is very long,
-% the style will print as headings an error message. Use the following
-% command to supply a shorter title of your paper so that it can be
-% used as headings.
-%
-%\runningtitle{I use this title instead because the last one was very long}
-
-% If your paper is accepted and the number of authors is large, the
-% style will print as headings an error message. Use the following
-% command to supply a shorter version of the authors names so that
-% they can be used as headings (for example, use only the surnames)
-%
-%\runningauthor{Surname 1, Surname 2, Surname 3, ...., Surname n}
-
 
 \title{(Bandit) Convex Optimization with Biased Noisy Gradient Oracles}
 \author[1]{Xiaowei  Hu\thanks{xhu3@ualberta.ca}}
@@ -77,9 +44,13 @@ algorithms that would achieve the optimal square-root regret rate for online ban
 \label{sec:results}
 \input{results}
 
-\section{Applications To Bandit Convex Optimization}
-\label{sec:ex}
-\input{examples}
+\section{Applications to Stochastic BCO}
+\label{sec:sbco}
+\input{stochastic_bco}
+
+\section{Applications to Online BCO}
+\label{sec:obco}
+\input{online_bco}
 
 \section{Related Work}
 \label{sec:related}
