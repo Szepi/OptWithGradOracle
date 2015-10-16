@@ -94,9 +94,9 @@ we have
 $\E[G] =  \E\left[V\,  \left(\tfrac{f(X^+)  -f(X^-)}{2\delta}\right) \right]$. Besides, given $\EE{V U^\top}=I$,  we get
 \begin{align*}
  \norm{\E[G] - \nabla f(x)} 
- = \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}
- \le \delta \norm{\E[ V \phi(x,\delta, U)]}
- \le \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
+ =& \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}\\
+ \le &\, \delta \norm{\E[ V \phi(x,\delta, U)]}\\
+ \le& \,\frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
 \end{align*}
 and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2]$.
 
@@ -114,18 +114,7 @@ For the case of uncontrolled noise, the claim for the variance, i.e., $c_2(\delt
 \end{proof}
 
 
-\subsubsection*{One-point estimates}
-\begin{proposition}
-\label{prop:grad-onepoint}
-For one-point feedback oracle, i.e.,
-\begin{align*}
-G = \dfrac{Z}{\delta}V, \quad Z=f(x+\delta U)+\xi\,,
-\end{align*}
-in addition to the conditions in Proposition \ref{prop:grad-spsa}, we further assume $\EE{V}=0$,
-and for $f \in \C^3$, more specifically, $V=h(U)$ is a deterministic odd function of $U$ and $U$ symmetrically distributed. Then, $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ same as the uncontrolled noise case in \cref{tab:oracles}.
-% \todoc{Add the convex+smooth case}
-\end{proposition}
-
+\subsubsection*{Proof of Proposition \ref{prop:grad-onepoint}}
 
 \if0
 \begin{proposition}
@@ -164,7 +153,8 @@ Now,
 \begin{align*}
 \EE{V\, \dfrac{f(x+\delta U)}{\delta}} 
 &= \EE{V \frac{f(x)}{\delta}} +  \EE{VU^{\tr}  
-\, \nabla f(x)}  + \EE{\frac{\delta^2}{2}\, V U\tr \nabla^2 f(x) U} +   \EE{\frac{\delta^2}{2}  V \,R^{+}(x,\delta,U)(U \otimes U \otimes U)} 
+\, \nabla f(x)}  + \EE{\frac{\delta^2}{2}\, V U\tr \nabla^2 f(x) U} \\
+&\qquad+   \EE{\frac{\delta^2}{2}  V \,R^{+}(x,\delta,U)(U \otimes U \otimes U)} 
 \\
 &= \, \nabla f(x)  + \EE{\frac{\delta^2}{2}  V \,R^{+}(x,\delta,U)(U \otimes U \otimes U)}\,. 
 \end{align*}
@@ -188,11 +178,11 @@ $\left|\phi(x,\delta,u) \right| \le  \dfrac{L\delta}{2} \norm{u}^2$.
 Then,  given $\EE{VU^\top}=I$, $\EE{V}=0$, we obtain
 \begin{align*}
 \norm{ \EE{ G } - \nabla f(x) }_* 
-&= \norm{ \EE{\frac{f(x + \delta U)}{\delta}V}-\EE{VU^\top \nabla f(X)}  }_*
-=\norm{ \EE{V\left( \frac{f(x + \delta U)}{\delta}- -U^\top \nabla f(X)\right)}  }_*\\
-&= \norm{ \EE{V\left( \phi(x,\delta,U)+\dfrac{f(x)}{\delta} \right)}  }_*
-=\norm{ \EE{V\phi(x,\delta,U)} }_*
-\le \dfrac{L\delta}{2}\EE{\norm{V}_*\norm{U}^2}\,.
+&= \norm{ \EE{\frac{f(x + \delta U)}{\delta}V}-\EE{VU^\top \nabla f(X)}  }_*\\
+&=\norm{ \EE{V\left( \frac{f(x + \delta U)}{\delta}- -U^\top \nabla f(X)\right)}  }_*\\
+&= \norm{ \EE{V\left( \phi(x,\delta,U)+\dfrac{f(x)}{\delta} \right)}  }_*\\
+&=\norm{ \EE{V\phi(x,\delta,U)} }_*\\
+&\le \dfrac{L\delta}{2}\EE{\norm{V}_*\norm{U}^2}\,.
 \end{align*}
 
 In both cases, the claim regarding the variance of $G$ follows in a similar manner as in the proof of Proposition \ref{prop:grad-spsa}.
@@ -236,15 +226,7 @@ Therefore, for $f \in \C^3$, $\gamma$ is a $(C_1\delta^2, C_2/\delta^2)$ type-I 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection*{One point estimates with smoothing}
-\begin{proposition}
-\label{prop:flaxman}
-For the one-point feedback oracle in \cref{prop:grad-onepoint}, let
-\begin{align*}
-V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,
-\end{align*}
-where $W$ is a convex body with surface $\partial W$, $U \in \partial W$ is uniformly distributed. $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume. Then, if $f$ is Lipschitz, $\gamma$ is a type-II oracle with $c_1(\delta)=C_1 \delta$, $c_2(\delta) = C_2/\delta^2$.
-\end{proposition}
+\subsubsection*{Proof of Proposition \ref{prop:flaxman}}
 \begin{proof}
 Since $U$ is uniformly distributed over $\partial W$, for any $x \in \cK$, the expectation of $G$ can be written as
 \begin{align*}
@@ -260,11 +242,11 @@ $\tilde{f}(x) =\int_{w \in W} f(x+\delta w)\dfrac{\,d w}{\lvert W\rvert} $, and
 When $f$ is $L_0$-Lipschitz, $f(x+\delta w)-f(x) \le L_0\delta \norm{w}$, so $\gamma$ is a type-II oracle with $c_1(\delta) = C_1 \delta$, where $C_1 = L_0 \sup_{w\in W}\norm{w}$.
 The variance of $G$ is the same as stated in \cref{prop:grad-onepoint}.
 \end{proof}
-\begin{remark}
-Note that $f$ do not need to be differentiable here. 
-$U$ and $V$ can be selected under other distributions, like Gaussian. 
-For more examples about smoothing technique, see \cite{flaxman2005online}, \cite{nesterov2004introductory}, \cite{PoTsy90}, \cite{HaLe14:SOC}.
-\end{remark}
+%\begin{remark}
+%Note that $f$ do not need to be differentiable here. 
+%$U$ and $V$ can be selected under other distributions, like Gaussian. 
+%For more examples about smoothing technique, see \cite{flaxman2005online}, \cite{nesterov2004introductory}, \cite{PoTsy90}, \cite{HaLe14:SOC}.
+%\end{remark}
 
 
 % 

@@ -2,7 +2,7 @@
 % please do not delete or change the first line (needed by Csaba's editor)
 
 \textit{Notation:} Capital letters will denote random variables.
-For $p\le q$ integers, \todoc{natural numbers?}
+For $p\le q$ positive integers, 
  we use the notation $a_{p:q}$ to denote
  the sequence $(a_p,a_{p+1}, \dots, a_{q})$.
 
@@ -26,10 +26,10 @@ $ D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
 \label{fig:oracle}
 \end{figure}
 
-In this paper we consider convex optimization in a novel setting, both for online learning and optimization. 
+In this paper we consider convex optimization in a novel setting, both for stochastic as well as online BCO. 
 %More specifically, we consider both an online learning setting and an optimization setting.
-In the online setting, the environment chooses a sequence of loss functions $f_1,\dots,f_n$ belonging to a set $\cF$ of convex functions over a common, non-empty convex closed domain $\cK\subset \R^d$. 
-In the optimization setting, a single fixed loss function $f\in \cF$ is chosen.
+In the online BCO setting, the environment chooses a sequence of loss functions $f_1,\dots,f_n$ belonging to a set $\cF$ of convex functions over a common, non-empty convex closed domain $\cK\subset \R^d$. 
+In the stochastic BCO setting, a single fixed loss function $f\in \cF$ is chosen.
 As usual, the algorithms choose a sequence of points $X_1,\dots,X_n\in \cK$ in a sequential way. 
 The novelty of our setting is that the algorithm, upon selecting point $X_t$, receives 
 a noisy and potentially biased estimate $G_t\in \R^d$ 
@@ -41,10 +41,10 @@ A smaller $\delta_t$ results in a smaller ``bias'' (for the precise meaning of b
 The algorithm also receives a point $Y_t\in \cK$, which is guaranteed to be in the $\delta_t$-vicinity of $X_t$. 
 While this point is not relevant in the optimization setting, in the online learning setting, 
 the algorithm suffers a loss at $Y_t$.
-As usual, the goal in the online setting is to keep the expected \emph{regret}, 
+As usual, the goal in the online BCO setting is to keep the expected \emph{regret}, 
 	$R_n =\EE{ \sum_{t=1}^n f_t(Y_t)} - \inf_{x\in \cK} \sum_{t=1}^n f_t(x)$,
 small.
-In the optimization setting, the algorithm is also required to select a point $\hat{X}_n\in \cK$ once
+In the stochastic BCO setting, the algorithm is also required to select a point $\hat{X}_n\in \cK$ once
 the $n$th round is over (in both settings, $n$ is given to the algorithms)
 and the algorithm's performance is quantified using the \emph{optimization error}, 
 $\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
@@ -55,7 +55,7 @@ In what follows, the functions $c_1,c_2:[0,\infty)\to [0,\infty)$ will be assume
 monotonously increasing (resp., decreasing) with 
 $\lim_{\delta\to  0} c_1(\delta)=0$ and $\lim_{\delta\to 0} c_2(\delta)=+\infty$.
 Typical choices for $c_1,c_2$ are $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2\delta^{-q}$ with $p,q>0$.
-We define two classes of oracles. The relationship between these oracles will be studied in \cref{sec:orrel}.
+We define two classes of oracles. 
 \begin{definition}[$(c_1,c_2)$ Type-I  oracle]
 \label{def:oracle1}
 We say that $\gamma$ is a  $(c_1,c_2)$ Type-I oracle, if for any function $f\in \cF$,
@@ -93,14 +93,24 @@ to modify the definitions to use subgradients. For simplicity, we will not consi
 \norm{\nabla \tilde{f}- \nabla f}_\infty \le c_1(\delta)
 \end{align}
 
+The following result formalizes the relationship between type-I and II oracles.
+\begin{theorem}\label{thm:typered}
+\cref{def:oracle1} is a sufficient condition of \cref{def:oracle2}, given a bounded $\cK$. That is, for any $(c_1,c_2)$ Type-I oracle $\gamma$, there exist some constant $R$ such that  $\gamma$ is a $(c'_1,c_2)$ Type-II oracle, with $c'_1(\delta)=Rc_1(\delta)$.
+
+Similarly, \cref{def:oracle2} is sufficient for \cref{def:oracle1} if the alternative condition \eqref{eq:oracle2alt} holds.
+\end{theorem}
+\begin{proof}
+See Section \ref{sec:orrel}.
+\end{proof}
+
 Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory), 
 though most often the oracles constructed in practice 
 will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a stochastic mapping.
-\todoc{In fact, I am not sure which definition we should use. So things might change here.}
-There are several examples of oracles satisfying these definitions; see \cref{sec:ex}.
+% \todoc{In fact, I am not sure which definition we should use. So things might change here.}
+There are several examples of oracles satisfying these definitions; see \cref{sec:sbco}.
 We will denote the set of Type-I (Type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$). 
 
-In this paper we will study the minimax regret in the online setting, while we study the minimax error in the optimization setting (sometimes, also called as the ``simple regret'').
+In this paper we will study the minimax regret in the online BCO setting, while we study the minimax error in the stochastic BCO setting (sometimes, also called as the ``simple regret'').
 Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
 The minimax expected regret for $(\cF,c_1,c_2)$ with Type-I oracles is
 \begin{align}
@@ -123,7 +133,7 @@ through the oracles $\gamma_{1:n}$,
 and we use $R_n^{\cA}(f_{1:n},\gamma_{1:n})$ the expected regret of $\cA$ against $(f_{1:n},\gamma_{1:n})$.
 The minimax regret for Type-II (and other similar) oracles is defined analogously (in what follows we only define these quantities for Type-I oracles, as the extension to other types of oracles is immediate).
 
-In the optimization setting, the minimax error is defined through
+In the stochastic BCO setting, the minimax error is defined through
 \begin{align}
 \label{eq:minimaxerrdef}
 \Delta_n^*(\cF,c_1,c_2)
