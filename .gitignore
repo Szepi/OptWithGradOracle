@@ -32,3 +32,11 @@ figs/oracle.graffle/image4.pdf
 figs/oracle.graffle/image5.pdf
 
 main (Autosaved).bib
+
+notes.txt
+
+*.fls
+
+*.fdb_latexmk
+
+arxiv/bgo-arxiv.pdf

@@ -1,4 +1,4 @@
-%!TEX root =  bgo.tex
+%!TEX root =  bgo-arxiv.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 
 %%%%%%%%%%%%%%%%%%%% Added for arxiv report %%%%%%%%%%%%%%%%%%%%%
@@ -44,19 +44,20 @@
 \def\BState{\State\hskip-\ALG@thistlm}
 \makeatother
 
-\usepackage{amsthm}
-\newtheorem{remark}{Remark}
-\newtheorem{proposition}{Proposition}
-\newtheorem{definition}{Definition}
- \newtheorem{theorem}{Theorem}
-% \usepackage[amsmath,standard,thmmarks]{ntheorem} % ntheorem makes cleveref work properly 
- \newtheorem{corollary}[theorem]{Corollary}
- \newtheorem{lemma}[theorem]{Lemma}
+
+%\usepackage{amsthm}
+%\newtheorem{remark}{Remark}
+%\newtheorem{proposition}{Proposition}
+%\newtheorem{definition}{Definition}
+% \newtheorem{theorem}{Theorem}
+\usepackage[amsmath,standard,thmmarks]{ntheorem} % ntheorem makes cleveref work properly
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{lemma}[theorem]{Lemma}
 
 % Hyperlinks make it very easy to navigate an electronic document.
 % In addition, this is where you should specify the thesis title
 % and author as they appear in the properties of the PDF document.
-% Use the "hyperref" package 
+% Use the "hyperref" package
 % N.B. HYPERREF MUST BE THE SECOND TO LAST PACKAGE LOADED; ADD ADDITIONAL PKGS ABOVE
 \usepackage[pdftex,letterpaper=true,pagebackref=false]{hyperref} % with basic options
 		% N.B. pagebackref=true provides links back from the References to the body text. This can cause trouble for printing.
