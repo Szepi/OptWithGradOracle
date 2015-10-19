@@ -19,8 +19,6 @@ This optimality also implies that there is little hope to design gradient estima
 the currently used gradient estimators are not likely to lead to an algorithm that could  achieve the optimal
 regret $O(n^{1/2})$} for online bandit convex optimization, established by \citet{BubeckDKP15,BuEl15}.
 
-As an aside, we note that the algorithm from \cite{AgFoHsuKaRa13:SIAM} uses the ellipsoid method and achieves the  optimal
-regret $O(n^{1/2})$. \todoc{Not for this setting! This paper should be mentioned in the previous section actually. For this setting, we  do not have \emph{any} algorithms that would achieve $O(n^{1/2})$.}
 With a noisy gradient oracle, the next result shows that the regret is  $\O(n^{2/3})$ and this matches the lower bound in Theorem \ref{thm:aaa}.
 \begin{theorem}
 For zeroth order noisy optimization with smooth convex functions, the gradient estimators together with mirror descent (see Algorithm \ref{alg}) achieve $\O(n^{2/3})$ regret. \end{theorem}

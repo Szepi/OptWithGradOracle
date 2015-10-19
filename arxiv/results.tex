@@ -152,19 +152,26 @@ where $K_3$ is a constant that depends on $p$ and $q$.\\
 \textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth):}
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
-\Delta_n^{*}(\F, c_1,c_2) \ge K_4  \left(\dfrac{C_1^{\frac{q}{p}} C_2^2 }{ {d n}}\right)^{\frac{2p}{2p+q}},
+\Delta_n^{*}(\F_{L,1}, c_1,c_2) \ge K_3^2  \left(\dfrac{C_1^{\frac{q}{p}} C_2^2 }{ {d n}}\right)^{\frac{2p}{2p+q}},
 \]
 where $K_4$ is a constant that depends on $p$ and $q$.
 \end{theorem}
-The condition connecting the problem parameters is that $n$ should be large enough so that
+In the above, $K_3 = \dfrac{1}{4}\left(\dfrac{1}{2 K_4}\right)^{\frac{2p}{2p+q}}$, where $K_4 = \frac{p}{(p+\tfrac{q}{2})} \left(\frac{q}{2(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
+Further, the condition connecting the problem parameters is that $n$ should be large enough so that
 \begin{enumerate}[\bfseries (i)]
-\item $d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{1}{2\sqrt{n} K_5} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min( \frac{C_1 (2p+q)}{q},  L)$ for $\F_{L,0}(\K)$ and
-\item $d^{\frac{-(4p+q)}{(2p+q)}}\left(\frac{1}{2\sqrt{n} K_5} \right)^{\frac{p}{p+\frac{q}{2}}} \le \min( \frac{C_1 (2p+q)}{q},  L)$ for $\F_{L,1}(\K)$,
+\item $d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{ C_1^{\frac{q}{2p}} C_2 }{2\sqrt{n} K_4} \right)^{\frac{2p}{2p+q}}\le \min\left( \frac{C_1 (2p+q)}{q},  L\right)$ for $\F_{L,0}(\K)$ and
+\item $d^{\frac{-(4p+q)}{(2p+q)}}\left(\frac{ C_1^{\frac{q}{2p}} C_2}{2\sqrt{n} K_4} \right)^{\frac{2p}{2p+q}} \le \min\left( \frac{C_1 (2p+q)}{q},  L\right)$ for $\F_{L,1}(\K)$.
 \end{enumerate}
- where $K_5 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 \begin{proof}
  See Section \ref{sec:appendix-lb-proof}.
 \end{proof}
+
+\begin{remark}(\textbf{\textit{Scaling}})
+For any function class $\F$, by the definition of the minimax error \eqref{eq:minimaxerrdef}, it is easy to see that
+$$\Delta_n^*(\mu \F, c_1,c_2) = \mu \Delta_n^*\left(\F, \frac{c_1}{\mu},\frac{c_2}{\mu^2}\right),$$
+ where $\mu F$ denotes the function class comprised of functions in $\F$, each scaled by $\mu>0$. In particular, this relation implies that the bound for $\mu$-strongly convex function class is only a constant factor away from the bound for $1$-strongly convex function class.
+\end{remark}
+
 Table \ref{tab:oracles} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems \ref{thm:ub}--\ref{thm:lb-convex}.
 While it appears that for the strongly convex case the error becomes smaller with a larger dimension,
 in most applications $C_1, C_2$ will hide dimension dependent constants
