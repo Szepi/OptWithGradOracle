@@ -240,7 +240,10 @@ $\tilde{f}(x) =\int_{w \in W} f(x+\delta w)\dfrac{\,d w}{\lvert W\rvert} $, and
 \]
 
 When $f$ is $L_0$-Lipschitz, $f(x+\delta w)-f(x) \le L_0\delta \norm{w}$, so $\gamma$ is a type-II oracle with $c_1(\delta) = C_1 \delta$, where $C_1 = L_0 \sup_{w\in W}\norm{w}$.
-The variance of $G$ is the same as stated in \cref{prop:grad-onepoint}.
+
+When $f$ is $L$-smooth,  $f(x+\delta w)-f(x) \le \ip{\nabla f(x), \delta w}+\dfrac{L}{2}\delta^2 \norm{w}^2$. Given that $K$ is symmetric, $\int_{w \in W}w\,d w=0$, so $\gamma$ is a type-II oracle with $c_1(\delta)=C_1 \delta^2$, where $C_1 = \dfrac{L}{2 |W|}\int_{w\in W}\norm{w}^2\,d w$.
+
+In both cases, the variance of $G$ is the same as stated in \cref{prop:grad-onepoint}.
 \end{proof}
 %\begin{remark}
 %Note that $f$ do not need to be differentiable here. 

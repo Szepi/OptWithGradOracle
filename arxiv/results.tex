@@ -48,9 +48,9 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 	\State Query the oracle at $X_t$.
 	\State Receive $G_t$, $Y_t$.
 	\State Update
-	$$
+	$
 	X_{t+1}=\argmin_{x\in \mathcal{K}}\left[ \eta_{t} \ip{G_t,x}+D_{\mathcal{R}}(x,X_t) \right] \,.
-	$$
+	$
 \EndFor
 \State {\bf Return:} $\hat{X}_n = \frac{1}{n}\sum_{t=1}^n X_t \,.$
 \end{algorithmic}
@@ -114,14 +114,14 @@ Then, for any $(c_1,c_2)$ Type-II oracle
 \textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth):}
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?}
 \[
-\Delta_n^{*}(\F_{L,0}, c_1,c_2) \le K_1\left(\dfrac{D^2 {C_1^{\frac{q}{p}} C_2}}{ n}\right)^{\frac{p}{2p+q}},
+\Delta_n^{*}(\F_{L,0}, c_1,c_2) \le K_1\left(\dfrac{D {C_1^{\frac{q}{p}} C_2}}{ n}\right)^{\frac{p}{2p+q}},
 \]
 where $D:=\sup_{x,y\in \cK} \DR(x,y)$ and $K_1$ is a constant that depends on oracle parameters $p, q$ and strong convexity constant $\alpha$ of $\cal R$.\\
 \textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth):}
 \[
 \Delta_n^{*}(\F_{L,0}, c_1,c_2) \le K_2\left(\dfrac{C_1^{\frac{q}{p}} C_2}{ n}\right)^{\frac{p}{p+q}},
 \]
-where $K_2$ is a constant that depends on $p, q, \alpha, D$ and $\mu$..
+where $K_2$ is a constant that depends on $p, q, \alpha$ and $\mu$..
 
 
 \end{theorem}
