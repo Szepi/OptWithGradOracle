@@ -133,21 +133,21 @@ We next state lower bounds for both convex as well as strongly convex function c
 Filling the gap is left for future work.
 \begin{theorem}[\textit{\textbf{Lower bound}}]
 \label{thm:lb-convex}
-Let $n>0$ be an integer, $p>0, q\ge 2$, $C_1,C_2>0$,
+Let $n>0$ be an integer, $p,q>0$, $C_1,C_2>0$,
 $\cK\subset \R^d$ convex, closed, with  $\{+1,-1\}^d\subset \cK$ and let $L>0$.
 Assume that $n$ is large enough (the exact condition is given after the theorem).
 %For any $v \in \{+1,-1\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where
 %$f^{(i)}_{v_i}(x_i) := \dfrac{\epsilon}{2} (x_i - v_i)^2$, for $i=1,\ldots,d$.
 %Consider the space of functions $\F:= \{f_v \mid v  \in \{+1,-1\}^d\}$, with $\epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, where \\$K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Type-I oracle
- with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$,
- the minimax error \eqref{eq:minimaxerrdef} satisfies the following bounds:\\
+ with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, 
+ the minimax error \eqref{eq:minimaxerrdef} satisfies the following bounds for $n$ large enough:\\
 \textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth):}
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?}
 \[
 \Delta_n^{*}(\F_{L,0}, c_1,c_2) \ge K_3 \left(\dfrac{d^{\frac{q}{2p}}  C_1^{\frac{q}{p}} C_2^2}{ n}\right)^{\frac{p}{2p+q}},
 \]
-where $K_3$ is a constant that depends on $p$ and $q$.\\
+where $K_3$ is a constant that, together with the lower bound on $n$, depends on $p/q$, $C_1$ and $C_2$.\\
 % = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.\\
 \textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth):}
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
