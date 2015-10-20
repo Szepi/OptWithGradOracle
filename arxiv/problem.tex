@@ -1,4 +1,4 @@
-%!TEX root =  bgo.tex
+%!TEX root =  bgo-arxiv.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 
 \textit{Notation:} Capital letters will denote random variables.
@@ -14,6 +14,8 @@ A function $f$ is $\mu$-strongly convex w.r.t. a \emph{function} $\cR$
  A function $f$ is $L$-smooth w.r.t. $\| \cdot \|$ for some $L>0$ if
  %$f(x) \le f(y) + \ip{\nabla f(y), y-x} +
 $ D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
+ This latter condition is equivalent to that $\nabla f$ is $L$-Lipschitz.
+ \todoc{Add citation}
  We let $\F_{L,\mu}(\K)$ denote the class of functions that are $\mu$-strongly convex and $L$-smooth on the set $\K$.
  The set of $L$-smooth functions is thus $\F_{L,0}(\K)$. Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t. $\cR$.
  We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions.
@@ -92,6 +94,7 @@ to modify the definitions to use subgradients. For simplicity, we will not consi
 \label{eq:oracle2alt}
 \norm{\nabla \tilde{f}- \nabla f}_* \le c_1(\delta)
 \end{align}
+We call the resulting oracles Type-IIb.
 
 The following result formalizes the relationship between type-I and II oracles.
 \begin{theorem}\label{thm:typered}

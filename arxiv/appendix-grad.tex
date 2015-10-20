@@ -244,6 +244,14 @@ When $f$ is $L_0$-Lipschitz, $f(x+\delta w)-f(x) \le L_0\delta \norm{w}$, so $\g
 When $f$ is $L$-smooth,  $f(x+\delta w)-f(x) \le \ip{\nabla f(x), \delta w}+\dfrac{L}{2}\delta^2 \norm{w}^2$. Given that $W$ is symmetric, $\int_{w \in W}w\,d w=0$, so $\gamma$ is a type-II oracle with $c_1(\delta)=C_1 \delta^2$, where $C_1 = \dfrac{L}{2 |W|}\int_{w\in W}\norm{w}^2\,d w$.
 
 In both cases, the variance of $G$ is the same as stated in \cref{prop:grad-onepoint}.
+
+Finally, if $f$ is $L$-smooth,
+\begin{align*}
+\norm{\nabla \tilde{f}(x)- \nabla f(x)}_*
+&\le \int_W \norm{\nabla f(x+\delta w) - \nabla f(x)}_* \frac{dw}{|W|}
+\le \frac{L\delta^2}{2}\int_W \norm{w}^2 \frac{dw}{|W|} = C_1 \delta^2
+\end{align*}
+with the same value of $C_1$ as before.
 \end{proof}
 %\begin{remark}
 %Note that $f$ do not need to be differentiable here.
