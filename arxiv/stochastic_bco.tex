@@ -163,9 +163,9 @@ For the one-point feedback oracle in \cref{prop:grad-onepoint}, let
 \begin{align*}
 V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,
 \end{align*}
-where $W$ is a convex body with surface $\partial W$, $U \in \partial W$ is uniformly distributed. $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume. 
+where $W$ is a convex body with surface $\partial W$, $U \in \partial W$ is uniformly distributed. $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume.
 Then, if $f$ is Lipschitz, $\gamma$ is a type-II oracle with $c_1(\delta)=C_1 \delta$, $c_2(\delta) = C_2/\delta^2$.
-If $f$ is smooth, further assuming $K$ is symmetric w.r.t. origin, $\gamma$ is a type-II oracle with $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2/\delta^2$.
+If $f$ is smooth, further assuming $W$ is symmetric w.r.t. origin, $\gamma$ is a type-II oracle with $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2/\delta^2$.
 \end{proposition}
 \begin{proof}
 See Section \ref{sec:appendix-grad}.
@@ -317,7 +317,7 @@ These bounds decrease faster in $n$ than the bound available in Theorem \ref{thm
 However, what is more interesting is that our results also shows that an $O(n^{-1/2})$ upper bound \emph{cannot} be achieved using the gradient oracles available for this setting, no matter what algorithm would be used used to interact with these oracles.
 
 The above result also shows that the gradient oracle based algorithms are optimal for smooth problems, under a controlled noise setting.
-While \cite{duchi2015optimal} suggests that it is the power of two-point gradient estimators that help to achieve this, we need to add that a critical condition to achieve the optimal rate is that the noise must be controlled. For the case of uncontrolled noise, the best known upper bound for convex+smooth functions is $O(n^{-1/3}$ and this is due to \cite{saha2011improved}. 
+While \cite{duchi2015optimal} suggests that it is the power of two-point gradient estimators that help to achieve this, we need to add that a critical condition to achieve the optimal rate is that the noise must be controlled. For the case of uncontrolled noise, the best known upper bound for convex+smooth functions is $O(n^{-1/3}$ and this is due to \cite{saha2011improved}.
 
 Finally, let us make some remarks on the early literature on this problem.
 A finite time lower bound for stochastic, smooth BCO is presented by  \citet{Chen88:LB-AoS} for
