@@ -1,11 +1,10 @@
 %!TEX root =  bgo-opt-ml-nips.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 
-\textit{Notation:} Capital letters will denote random variables.
-For $p\le q$ positive integers,
- we use the notation $a_{p:q}$ to denote
- the sequence $(a_p,a_{p+1}, \dots, a_{q})$.
-
+\textit{Preliminaries:} Capital letters will denote random variables.
+%For $p\le q$ positive integers,
+% we use the notation $a_{p:q}$ to denote
+% the sequence $(a_p,a_{p+1}, \dots, a_{q})$.
  We let $\| \cdot \|$ denote some norm on $\R^d$ and we denote its dual norm by $\dnorm{\cdot}$.
  A function $f$ is $\mu$-strongly convex w.r.t. $\| \cdot \|$  if
  $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x,y$ in a non-empty convex closed set $\K \in \R^d$.
@@ -18,7 +17,7 @@ $ D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
  \todoc{Add citation}
  We let $\F_{L,\mu}(\K)$ denote the class of functions that are $\mu$-strongly convex and $L$-smooth on the set $\K$.
  The set of $L$-smooth functions is thus $\F_{L,0}(\K)$. Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t. $\cR$.
- We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions.
+% We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions.
 
 %\begin{figure}
 %\begin{center}
@@ -127,13 +126,15 @@ to modify the definitions to use subgradients. For simplicity, we will not consi
 \norm{\nabla \tilde{f}- \nabla f}_* \le c_1(\delta)
 \end{align}
 We call the resulting oracles Type-IIb. It can be shown that every Type-I oracle is a Type-II oracle for bounded $\K$, while the converse holds under condition \eqref{eq:oracle2alt}.
+Finally note that for optimization it is more natural to drop $Y$ from the requirements; this is indeed what we do later.
 
 Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
 though most often the oracles constructed in practice
 will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a stochastic mapping.
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-There are several examples of oracles satisfying these definitions and a non-exhaustive list is as follows:
-\citep[pp.~58--60]{kushcla}, \cite{katkul}, \cite{spall1992multivariate}, \cite{flaxman2005online}, \cite{Ne11:TR}, \cite{PoTsy90}.
+There are several examples of oracles satisfying these definitions and a non-exhaustive list of works is as follows:
+\citep[pp.~58--60]{kushcla}, \citep{katkul,spall1992multivariate,flaxman2005online,Ne11:TR,PoTsy90,flaxman2005online,
+saha2011improved,HaLe14:SOC,duchi2015optimal}.
 We will denote the set of Type-I (Type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
 
 In this paper we will study the minimax regret in the online BCO setting, while we study the minimax error in the stochastic BCO setting (sometimes, also called as the ``simple regret'').

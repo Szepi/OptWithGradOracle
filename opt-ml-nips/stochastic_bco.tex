@@ -17,13 +17,15 @@ replicating the result of \citet{saha2011improved}).
 In particular, the only hope to improve this rate, \emph{while staying within the realm of our oracle model}, is to improve the bias-variance properties of the oracle (either by proving a better bound, or constructing better oracles).
 One case when this is possible is when the noise in the function evaluation oracle is under control
 (e.g., \citep{Ne11:TR,duchi2015optimal}).
-In this case, in the case of convex and smooth problems,
+In this case, for smooth convex objectives, 
 one can use two observations (reducing the sample size by a factor of two only, i.e., in a negligible manner) 
 to ``cancel the noise out''  to get an oracle with bias $c_1(\delta) = C_1\delta$ 
 and a constant variance (i.e., $p=1$, $q=0$). Plugging these values into our upper and lower bounds, we get the optimal $\Theta(n^{-1/2})$ rate, replicating the results \citet{Ne11:TR,duchi2015optimal}.
 For strongly and smooth convex functions, our upper bound from  \cref{thm:ub}  also gives the optimal rate,
 replicating the result of \citet{HaLe14:SOC} (when not considering the constraint set).
-
+By our earlier remarks, our lower bound also provide lower bounds on the regret. In particular,
+our $\Omega(n^{-1/3})$ lower bound for the smooth convex case transfers into an $\Omega(n^{2/3})$ lower bound
+for the regret.
 
 %%% Local Variables:
 %%% mode: latex
