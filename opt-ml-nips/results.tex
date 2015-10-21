@@ -24,7 +24,7 @@ We next state lower bounds for both convex as well as strongly convex function c
 Filling the gap is left for future work.
 \begin{theorem}[\textit{\textbf{Lower bound}}]
 \label{thm:lb-convex}
-Let $n>0$ be an integer, $p>0, q\ge 2$, $C_1,C_2>0$,
+Let $n>0$ be an integer, $p,q >0$, $C_1,C_2>0$,
 $\cK\subset \R^d$ convex, closed, with  $\{+1,-1\}^d\subset \cK$ and let $L>0$.
 Assume that $n$ is large enough (the exact condition is given after the theorem).
 Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Type-I oracle
@@ -39,8 +39,8 @@ Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Typ
 where $K_3 = \frac{1}{4}\left(\dfrac{1}{2 K_4}\right)^{\frac{2p}{2p+q}}$ and $K_4 = \frac{p}{(p+\tfrac{q}{2})} \left(\frac{q}{2(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 Further, the condition connecting the problem parameters is that $n$ should be large enough so that
 \begin{inparaenum}[\bfseries (i)]
-\item $d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{ C_1^{\frac{q}{2p}} C_2 }{2\sqrt{n} K_4} \right)^{\frac{2p}{2p+q}}\le \min\left( \frac{C_1 (2p+q)}{q},  L\right)$  for $\F_{L,0}(\K)$ and
-\item $d^{\frac{-(4p+q)}{(2p+q)}}\left(\frac{ C_1^{\frac{q}{2p}} C_2}{2\sqrt{n} K_4} \right)^{\frac{2p}{2p+q}} \le \min\left( \frac{C_1 (2p+q)}{q},  L\right)$  for $\F_{L,1}(\K)$.
+\item $d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{ C_1^{\frac{q}{2p}} C_2 }{2\sqrt{n} K_4} \right)^{\frac{2p}{2p+q}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z},  L\right)$ with $z=p/q$, for $\F_{L,0}(\K)$ and
+\item $d^{\frac{-(4p+q)}{(2p+q)}}\left(\frac{ C_1^{\frac{q}{2p}} C_2}{2\sqrt{n} K_4} \right)^{\frac{2p}{2p+q}} \le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z},  L\right)$  for $\F_{L,1}(\K)$.
 \end{inparaenum}
 \end{theorem}
 \begin{remark}(\textbf{\textit{Scaling}})

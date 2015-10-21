@@ -288,7 +288,7 @@ while the inequality \eqref{eq:dlb} follows from the fact that each infimum term
 % Using the one-dimensional minimax error $\Delta_n^{*}$, we obtain
 % \[\Delta_n^* \ge d \Delta_n^{*}.\]
 \paragraph{Rates:}\ \\
-General $p$ and $q\ge 2$:
+General $p, q >0$:
 \begin{align}
 \Delta_n^{(d)*} \ge \dfrac{1}{4} d^{\frac{q}{(4p+2q)}} \left(\dfrac{1}{2 K_5 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}} \text{ for } 
 \epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\dfrac{1}{2\sqrt{n} K_5} \right)^{\frac{p}{p+\frac{q}{2}}}.
@@ -375,11 +375,13 @@ Substituting the above bound into \eqref{eq:pinskersc}, we obtain
 
 
 \paragraph{Derivation of the rates uniformly for all $\delta$:}
-Replacing the positive part function in \eqref{eq:final-lower-bd-sc} and optimizing $\delta$, we obtain the following for $q \ge 2$:
+Replacing the positive part function in \eqref{eq:final-lower-bd-sc} and optimizing $\delta$, we obtain the following:
 \[
 \delta^*=\left(\frac{\nu q}{2C_1(p+q/2)}\right)^{1/p}
 \]
-and for any choice of $\delta$, the minimax error $\Delta_n^{*}$ satisfies
+as long as $\nu<\frac{2z+1}{C_1^{2z-1}(z+1)^z}$, with $z=p/q$ (note that $\epsilon/C_1 \ge {\delta^*}^p$),
+and for any choice of $\delta$, the following lower bound for the minimax error:
+% and for any choice of $\delta$, the minimax error $\Delta_n^{*}$ satisfies
 \[
 \Delta_n^{*} \ge \dfrac{\nu^2}{2} \left(1 - \sqrt{n}  K_5 \nu^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_5 = \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
 \]
@@ -403,8 +405,8 @@ On the other hand, for $p=q=2$, we get
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Generalization to $d$ dimensions:}
-The proof in $d$ dimensions for strongly convex functions follows in similar fashion as that for the case of convex functions and we obtain the following rates:
-General $p$ and $q\ge 2$:
+The proof in $d$ dimensions for strongly convex functions follows in similar fashion as that for the case of convex functions and we obtain the following rates:\\
+General $p, q >0$:
 \begin{align}
 \Delta_n^{(d)*} \ge \dfrac{1}{4} d^{\frac{-2p}{(2p+q)}} \left(\dfrac{1}{2 K_5 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}} \text{ for } 
 \nu = d^{\frac{-(4p+q)}{(2p+q)}}\left(\dfrac{1}{2\sqrt{n} K_5} \right)^{\frac{p}{p+\frac{q}{2}}}.
