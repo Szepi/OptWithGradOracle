@@ -16,7 +16,7 @@ equivalent oracle can get better rate than $\Omega(n^{-1/3})$} (our upper bound 
 replicating the result of \citet{saha2011improved}).
 In particular, the only hope to improve this rate, \emph{while staying within the realm of our oracle model}, is to improve the bias-variance properties of the oracle (either by proving a better bound, or constructing better oracles).
 One case when this is possible is when the noise in the function evaluation oracle is under control
-(e.g., \citep{Ne11:TR,duchi2015optimal}).
+(e.g., \citep{Ne11:TR,duchi2015optimal}). \todoc{Another case is when the objective is linear.}
 In this case, for smooth convex objectives, 
 one can use two observations (reducing the sample size by a factor of two only, i.e., in a negligible manner) 
 to ``cancel the noise out''  to get an oracle with bias $c_1(\delta) = C_1\delta$ 
