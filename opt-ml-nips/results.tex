@@ -1,12 +1,12 @@
 In this section we provide our main results in forms of upper and lower bounds on the minimax error.
-First we provide an upper bound by analyzing a mirror-descent algorithm given in \cref{alg}.
-In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex and the target function $f$ is smooth or  smooth and strongly convex.
+%First we provide an upper bound by analyzing a mirror-descent algorithm given in \cref{alg}.
+%In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex and the target function $f$ is smooth or  smooth and strongly convex.
 \begin{theorem}[\textit{\textbf{Upper bound}}]
 \label{thm:ub}
 For any $(c_1,c_2)$ Type-II oracle
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$,
-mirror descent algorithm \todoc{which is the right ref for MD algo?} 
-with a suitable regularization function $\mathcal{R}$ that is $\alpha$-strongly convex w.r.t. some norm $\norm{\cdot}$ and $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$,
+mirror descent algorithm \citep{NeYu83}
+with a $\alpha$-strongly convex (w.r.t. some norm $\norm{\cdot}$) regularizer $\mathcal{R}$ such that $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$,
 satisfies the following bounds under appropriate choices for $\eta_t, \delta$ that depend on $p, q, C_1, C_2$ and $L$:
 \begin{align*}
 &\textbf{$\bm{\F_{L,0}(\K)}$ (Convex and $L$-smooth):} \hspace{5.5em} \Delta_n^{*}(\F_{L,0}, c_1,c_2) \le K_1\left(\dfrac{D {C_1^{\frac{q}{p}} C_2}}{ n}\right)^{\frac{p}{2p+q}},\\
@@ -16,7 +16,7 @@ satisfies the following bounds under appropriate choices for $\eta_t, \delta$ th
 where $D:=\sup_{x,y\in \cK} \DR(x,y)$, $K_1$ is a constant that depends on oracle parameters $p, q$ and strong convexity constant $\alpha$ of $\cal R$ and
 where $K_2$ is a constant that depends on $p, q, \alpha$ and $\mu$.
 \end{theorem}
-We next state lower bounds for both convex as well as strongly convex function classes. In particular, we observe that for convex and smooth functions the upper bound for the mirror descent scheme matches the lower bound, up to constants, whereas there is a gap for strongly convex+smooth functions.
+We next state lower bounds for both convex as well as strongly convex function classes. In particular, we observe that for convex and smooth functions the upper bound for the mirror descent scheme matches the lower bound, up to constants, whereas there is a gap for strongly convex and smooth functions.
 Filling the gap is left for future work.
 \begin{theorem}[\textit{\textbf{Lower bound}}]
 \label{thm:lb-convex}

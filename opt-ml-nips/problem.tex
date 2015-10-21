@@ -126,13 +126,14 @@ to modify the definitions to use subgradients. For simplicity, we will not consi
 \label{eq:oracle2alt}
 \norm{\nabla \tilde{f}- \nabla f}_* \le c_1(\delta)
 \end{align}
-We call the resulting oracles Type-IIb. The relationship between type-I and type-II oracles is studied in Appendix \ref{sec:orrel}.
+We call the resulting oracles Type-IIb. It can be shown that every Type-I oracle is a Type-II oracle for bounded $\K$, while the converse holds under condition \eqref{eq:oracle2alt}.
 
 Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
 though most often the oracles constructed in practice
 will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a stochastic mapping.
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-There are several examples of oracles satisfying these definitions; see \cref{sec:sbco}.
+There are several examples of oracles satisfying these definitions and a non-exhaustive list is as follows:
+\citep[pp.~58--60]{kushcla}, \cite{katkul}, \cite{spall1992multivariate}, \cite{flaxman2005online}, \cite{Ne11:TR}, \cite{PoTsy90}.
 We will denote the set of Type-I (Type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
 
 In this paper we will study the minimax regret in the online BCO setting, while we study the minimax error in the stochastic BCO setting (sometimes, also called as the ``simple regret'').
