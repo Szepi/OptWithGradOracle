@@ -40,3 +40,4 @@ notes.txt
 *.fdb_latexmk
 
 arxiv/bgo-arxiv.pdf
+*.pdf
