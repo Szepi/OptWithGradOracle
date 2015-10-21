@@ -1,4 +1,42 @@
 %!TEX root =  bgo-opt-ml-nips.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 
-to be done
+In stochastic bandit convex optimization (also known as  convex optimization with stochastic zeroth order oracles)
+an algorithm submits queries to an oracle in a sequential manner in $n$ rounds.
+The oracle returns noisy values of the convex objective function at the submitted points.
+At the end, the algorithm also produces a guess of the objective's minimizer; the algorithm's performance
+is measured in terms of the suboptimality of this guess, measured using the objective function.
+In their seminal work \citet{NeYu83} consider two approaches to this problem: Methods that try to construct
+gradient information and methods that avoid gradient estimation and rather use 
+geometric principles (the ellipsoid method, essentially).
+While methods in the second class make the error decay at the $O(1/\sqrt{n})$ rate, 
+the error scales extremely poorly with the number of optimization variables $d$.
+For example, \citet{liang2014zeroth} proves a bound of the form $\sqrt{d^{14}/n}$, improving the $\sqrt{d^{33}/n}$ bound
+of \citet{AgFoHsuKaRa13:SIAM}.
+A lower bound due to \citep{shamir2012complexity} however scales only with $\sqrt{d^2/n}$.
+Methods that first construct gradient estimates, which are fed to algorithms that expect gradient-information
+have a long history, though in early years the focus was either asymptotic convergence,
+or asymptotic rates. \todoc{Prashanth: Can you please add some citations}
+The story with these methods is that they get the optimal rate and dimension dependence for ``nice'' problems, such
+as when the objective function is strongly convex and smooth 
+\citep{HaLe14:SOC}, but their performance, mostly in terms of the rate degrades as one removes constraints
+from the objective function. For example, for smooth convex problems, the best published results with this technique 
+is $O(n^{1/3})$ \citep{saha2011improved}.%
+%\footnote{
+%A day before the submission to the workshop we became aware of the recent NIPS submission of
+%\citet{DeKo15:BSCO}, which claims to improve this result. 
+%}
+ \todoc{This \citet{jamieson2012query} paper is weird. Also, it does not construct gradient estimates, so I took out from here.}
+Our motivation in this paper is to formally study the possible limitations of the gradient-based approach.
+We do this by precisely defining a new oracle model. The new oracles can be consulted to obtain gradient estimates.
+They have a tuneable parameter, which controls the bias-variance tradeoff that 
+exists for all known gradient construction methods. We then prove lower bounds and (sometimes) matching upper bounds
+for algorithms that use these oracles. Our lower bound for stochastic smooth bandit convex optimization gives the rate 
+$\Omega(n^{1/3})$, assuming that the currently available gradient-estimation methods are unimprovable.
+
+
+%The authors provided some algorithms and upper bounds, but as they themselves emphasize (cf. pg. 359), the attainable complexity is far from clear. Quite recently, Jamieson et al. (2012) provided an Ω(??d/T) lower bound for strongly-convex functions, which demonstrates that the “fast” O(1/T ) rate in terms of T , that one enjoys with gradient information, is not possible here. In contrast, the current best-known upper bounds are O(??4 d2/T),O(??3 d2/T),O(??d2/T) for convex, strongly-convex, and strongly-convex-and-smooth functions respectively (Flaxman et al. (2005); Agarwal et al. (2010)); And a O(??d32/T ) bound for convex functions (Agarwal et al. (2011)), which is better in terms of dependence on T but very bad in terms of the dimension d.
+
+
+
+
