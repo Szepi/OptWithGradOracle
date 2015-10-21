@@ -11,7 +11,7 @@ For any $(c_1,c_2)$ Type-II oracle returning $\tilde{f}$ which inherits the prop
 the mirror descent algorithm \citep{NeYu83}
 with a $\alpha$-strongly convex (w.r.t. some norm $\norm{\cdot}$) regularizer $\mathcal{R}$ such that $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$,
 satisfies the following bounds under appropriate choices for the learning rate $\eta_t$, and the accuracy parameter $\delta$ (these depend on $p, q, C_1, C_2$ and $L$):
-\vspace*{-0.3in}
+\vspace*{-0.17in}
 \begin{align*}
 &\textbf{$\bm{\F_{L,0}(\K)}$ (Convex and $L$-smooth):} \hspace{5.5em} \Delta_n^{*}(\F_{L,0}, c_1,c_2) \le K_1\left(\dfrac{D {C_1^{\frac{q}{p}} C_2}}{ n}\right)^{\frac{p}{2p+q}},\\
 &\textbf{$\bm{\F_{L,\mu}(\K)}$ ($\mu$-strongly convex and $L$-smooth):} \hspace{1em}
@@ -36,7 +36,7 @@ Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Typ
 &\textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and $L$-smooth):} \hspace{1em}
 \Delta_n^{*}(\F_{L,1}, c_1,c_2) \ge K_3^2  \left(\dfrac{C_1^{\frac{q}{p}} C_2^2 }{ {d n}}\right)^{\frac{2p}{2p+q}},
 \end{align*}
-where $K_3 = \dfrac{1}{4}\left(\dfrac{1}{2 K_4}\right)^{\frac{2p}{2p+q}}$, where $K_4 = \frac{p}{(p+\tfrac{q}{2})} \left(\frac{q}{2(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
+where $K_3 = \frac{1}{4}\left(\dfrac{1}{2 K_4}\right)^{\frac{2p}{2p+q}}$ and $K_4 = \frac{p}{(p+\tfrac{q}{2})} \left(\frac{q}{2(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 Further, the condition connecting the problem parameters is that $n$ should be large enough so that
 \begin{inparaenum}[\bfseries (i)]
 \item $d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{ C_1^{\frac{q}{2p}} C_2 }{2\sqrt{n} K_4} \right)^{\frac{2p}{2p+q}}\le \min\left( \frac{C_1 (2p+q)}{q},  L\right)$  for $\F_{L,0}(\K)$ and
