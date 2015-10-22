@@ -159,13 +159,13 @@ at the price of reducing the number of rounds by a factor of two only, which has
 Type-II oracles can be obtained using the same construction as above, but with a different analysis:
 \begin{proposition}
 \label{prop:flaxman}
-For the one-point feedback oracle in \cref{prop:grad-onepoint}, let
+For the one-point feedback oracle stated in \cref{prop:grad-onepoint}, let
 \begin{align*}
 V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,
 \end{align*}
-where $W$ is a convex body with surface $\partial W$, $U \in \partial W$ is uniformly distributed. $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume.
+where $W \subset \R^n$ is a convex body with the boundary $\partial W$, $U \in \partial W$ is uniformly distributed. $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume.
 Then, if $f$ is Lipschitz, $\gamma$ is a type-II oracle with $c_1(\delta)=C_1 \delta$, $c_2(\delta) = C_2/\delta^2$.
-If $f$ is smooth, further assuming $W$ is symmetric w.r.t. origin, $\gamma$ is a type-II, and also a type-IIb oracle with $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2/\delta^2$. Hence, in this case $\gamma$ is also a type-I oracle with the same $c_1$ and $c_2$.
+If $f$ is smooth, further assuming $W$ is symmetric w.r.t. the origin, $\gamma$ is a type-II, and also a type-IIb oracle with $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2/\delta^2$. Hence, in this case $\gamma$ is also a type-I oracle with the same $c_1$ and $c_2$.
 \end{proposition}
 \begin{proof}
 See Section \ref{sec:appendix-grad}.

@@ -227,31 +227,49 @@ Therefore, for $f \in \C^3$, $\gamma$ is a $(C_1\delta^2, C_2/\delta^2)$ type-I 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection*{Proof of Proposition \ref{prop:flaxman}}
+Before the proof, we introduce a fundamental theorem of vector calculus, which is commonly known as the Gauss-Ostrogradsky theorem or the divergence theorem . A special case of the theorem for real-valued functions in $\R^n$ can be stated as follows.
+\begin{lemma}
+\label{lem:gradientCalculus}
+Suppose $W \subset \R^n$ is an open set with the boundary $\partial W$. At each point of $\partial W$ there is a normal vector $n_W$ such that $n_W$  (i) has unit norm, (ii) is orthogonal to $\partial W$, (iii) points outward from $W$. Suppose $f: \R^n\to \R$ is a function of class $C^1$ defined at least on the closure of $W$, then we have
+\begin{align*}
+\int_{ W} \nabla f\,d W = \int_{\partial W} f n_W \,d \partial W \,.
+\end{align*}
+\end{lemma}
+
 \begin{proof}
-Since $U$ is uniformly distributed over $\partial W$, for any $x \in \cK$, the expectation of $G$ can be written as
+Given that $\EE{\norm{V}_*^2}$ and $\EE{\xi^2}$ are bounded, the variance of $G$ remains the same as stated in \cref{prop:grad-onepoint}.
+
+As to the bias, let $\tilde{f}$ be a smoothed version of $f$, i.e., $\forall x \in \cK$, 
+\begin{align*}
+\tilde{f}(x) &= \EE{f(x+\delta V)} =\int_{v \in W} f(x+\delta v)\dfrac{\,d w}{\lvert W\rvert}\,,
+\end{align*}
+where the expectation is w.r.t. $V$, which is a random variable uniformly chosen from $W$. The second equality interprets the expectation as integral. 
+Now we want to prove that for any given $x\in \cK$, $G$ is an unbiased gradient estimate of $\tilde{f}$ at $x$.
+Since $U$ is uniformly distributed over $\partial W$,  the expectation of $G$ can be written as
 \begin{align*}
 \EE{G} =\dfrac{\lvert \partial W\rvert}{\lvert W \rvert} \int_{\partial W} \dfrac{1}{\delta} f(x+\delta U)n_W(U)\dfrac{\,d U}{\lvert \partial W\rvert}
 =  \int_W \nabla f(x+\delta U)\dfrac{\,d U}{\lvert W\rvert}\,,
 \end{align*}
-where the second equality follows from Gradient's theorem, with the fact that the gradient of $\hat{f} =\dfrac{1}{\delta} f(x+\delta U) $ w.r.t. $U$ is $\nabla f(x+\delta U)$. Then, exchange the order of gradient and integral, we can see $\EE{G}$ is the gradient of some function
-$\tilde{f}(x) =\int_{w \in W} f(x+\delta w)\dfrac{\,d w}{\lvert W\rvert} $, and
-\[
-\norm{\tilde{f}(x)-f(x)}_\infty =\int_{w \in W} f(x+\delta w)-f(x)\dfrac{\,d w}{\lvert W\rvert} \,.
-\]
+where the second equality follows from \cref{lem:gradientCalculus}, by replacing the gradient of $\hat{f}(u) =\dfrac{1}{\delta} f(x+\delta u) $ with $\nabla f(x+\delta u)$. 
+Then, the order of the gradient and the integral can be exchanged, because $\int_W f(x+\delta U)\,d U$ exists. Consequently, we obtain $\EE{G} = \nabla \tilde{f}(x)$.
 
-When $f$ is $L_0$-Lipschitz, $f(x+\delta w)-f(x) \le L_0\delta \norm{w}$, so $\gamma$ is a type-II oracle with $c_1(\delta) = C_1 \delta$, where $C_1 = L_0 \sup_{w\in W}\norm{w}$.
+Moreover, $\tilde{f}$ and $f$ are actually close. In particular, for any $x \in \cK$,
+\begin{align}
+\label{eq:f2tildef}
+\tilde{f}(x)-f(x) =\int_{ W} f(x+\delta w)-f(x)\dfrac{\,d w}{\lvert W\rvert} \,.
+\end{align}
 
-When $f$ is $L$-smooth,  $f(x+\delta w)-f(x) \le \ip{\nabla f(x), \delta w}+\dfrac{L}{2}\delta^2 \norm{w}^2$. Given that $W$ is symmetric, $\int_{w \in W}w\,d w=0$, so $\gamma$ is a type-II oracle with $c_1(\delta)=C_1 \delta^2$, where $C_1 = \dfrac{L}{2 |W|}\int_{w\in W}\norm{w}^2\,d w$.
+When $f$ is $L_0$-Lipschitz, $\vert f(x+\delta w)-f(x)\vert \le L_0\delta \norm{w}$, which combined with \eqref{eq:f2tildef} gives that $\gamma$ is a type-II oracle with $c_1(\delta) = C_1 \delta$, where $C_1 = L_0 \sup_{w\in W}\norm{w}$.
 
-In both cases, the variance of $G$ is the same as stated in \cref{prop:grad-onepoint}.
+When $f$ is convex and $L$-smooth,  $0\le f(x+\delta w)-f(x) - \ip{\nabla f(x), \delta w}\le\dfrac{L}{2}\delta^2 \norm{w}^2$. Given that $W$ is symmetric, $\int_{ W} \ip{\nabla f(x), \delta w} \,d w=0$. Hence, one can easily get that $\gamma$ is a type-II oracle with $c_1(\delta)=C'_1 \delta^2$, where $C'_1 = \dfrac{L}{2 |W|}\int_{ W}\norm{w}^2\,d w$.
 
 Finally, if $f$ is $L$-smooth,
 \begin{align*}
 \norm{\nabla \tilde{f}(x)- \nabla f(x)}_*
 &\le \int_W \norm{\nabla f(x+\delta w) - \nabla f(x)}_* \frac{dw}{|W|}
-\le \frac{L\delta^2}{2}\int_W \norm{w}^2 \frac{dw}{|W|} = C_1 \delta^2
+\le L\delta^2\int_W \norm{w}^2 \frac{dw}{|W|} =2 C'_1 \delta^2
 \end{align*}
-with the same value of $C_1$ as before.
+with the same value of $C'_1$ as before. So $\gamma$ is also a  type-I oracle with $c_1(\delta)=2C'_1 \delta^2$.
 \end{proof}
 %\begin{remark}
 %Note that $f$ do not need to be differentiable here.
