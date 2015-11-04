@@ -1,62 +1,101 @@
 \documentclass[11pt,letterpaper,english]{article}
 
 \input{commands}
-
-
+\newcommand{\Borel}{\fB}
+\newcommand{\Cb}{\cC_b}
 \begin{document}
-Given a vector space $\mathcal{X} \subset \R^d$, $\mu$ is a measure on it, $f: \R^d \to \R$ is a measurable function. The convolution of 
-$f$ and $\mu$ at $x\in \mathcal{X}$ is defined as
-\begin{align*}
-\left( f*\mu \right) (x) := \int f(x-y)\mu (d y)
-= \int f(y)\mu(x-dy) = \int f(y)\mu_x(dy)\,,
-\end{align*}
-where $\mu_x(A) = \mu(x-A)$ for any $A\in Borel(\mathcal{X})$. $Borel(\mathcal{X})$ is the Borel $\sigma$-field of $\mathcal{X}$.
+Let $\cX$ be a Banach space over the reals $\R$, 
+$\cX^*$ its topological dual (i.e., the set of continuous linear, $\R$-valued functionals on $\cX$). 
+We shall assume that $\cX^*$ is separable. \todoc{needed?}
+We will denote the value $\phi(x)$ of a functional $\phi$ from $\cX^*$ applied to a vector $x\in \cX$ by $\ip{\phi,x}$.
+We will treat $\cX$ as a measurable space with the Borel $\sigma$-algebra $\Borel(\cX)$ on it. 
 
-Now we can see $\left\lbrace \mu_x: x\in \mathcal{X} \right\rbrace$ is a family of measures with the parameter $x$. The weak differentiability of $\mu_x$ can be defined as follows.
+Let $\cY$ be a Banach space.
+An $\cY$-valued vector measure $\nu$ is called finite if for any $A\in \Borel(\cX)$, $\norm{\nu(A)}<\infty$.
+The convolution of a measurable function  $f: \cX \to \R$  and a measure $\mu$ on $\cX$ at $x\in \cX$ is defined as
+\todoc{Changed to $y-x$..}
+\begin{align*}
+\left( f*\mu \right) (x) := \int f(y-x)\mu (d y)
+ %= \int f(y)\mu(x+dy)
+ = \int f(y)\mu_x(dy)\,,
+\end{align*}
+where $\mu_x$ is defined by $\mu_x(A) = \mu(x+A)$ ($A\in \Borel(\cX)$). 
+Let $\Cb(\cX)$ denote the set of continuous, bounded, real-valued functions defined on $\cX$.
+%Now we can see $\left\lbrace \mu_x: x\in \cX \right\rbrace$ is a family of measures with the parameter $x$. 
 \begin{definition}
-Fix $x_0 \in \mathcal{X}$, we say $\mu_x$ is weakly differentiable at $x_0$, if there exists a finite measure $\mu'_{x_0}: \mathcal{X}\to \mathcal{X}^*$ such that
+We say that $\mu_x$ is \emph{weakly differentiable} 
+at $x_0\in \cX$ with weak derivative $\mu'_{(x_0)}$, if 
+ $\mu'_{x_0}: \Borel(\cX)\to \cX^*$ is a finite measure such that for any $f \in \Cb(\cX)$,
 \begin{align*}
-\forall f \in \mathcal{C}_B(\mathcal{X}), \quad
-\int f(y)\mu_{x_0+\xi}(dy) - \int f(y)\mu_{x_0}(dy)
--\ip{\int f(y)\mu'_{x_0}(dy), \xi} = \sigma(\norm{\xi}) \,,
+\int f(y)\mu_{x_0+\xi}(dy) - \int f(y)\mu_{(x_0)}(dy)
+-\ip{\int f(y)\mu'_{x_0}(dy), \xi} = o(\norm{\xi}) \,\text{ as } \norm{\xi}\to 0\,.
 \end{align*}
-which goes to $0$ as $\norm{\xi} \to 0$. Note that $\norm{\mu'_{x_0}(A)}_*< \infty$ for any $A\in Borel(\mathcal{X})$, $\mathcal{C}_B(\mathcal{X})$ denotes the continuous, bounded, real-valued functions defined on $\mathcal{X}$.
 \end{definition}
-Consequently, we call $\mu'_x$ the weak derivative of $\mu_x$. And $\mu'_x$ is unique.
+\todoc{How is integration defined? Why is $f$ $\mu_{(x_0)}'$ integrable?
+If we used instead $\int f(y) \ip{ \mu'_{(x_0)}(dy),\xi}$, the first question would not arise:
+$\ip{\mu'_{(x_0)}(\cdot),\xi}$ is an ordinary signed measure.
+}
+Note that $\mu'_{(x)}$ is uniquely defined.
+Further, $\mu'_{(x)} = \mu'_{(x')}$ for any $x,x'\in \cX$.
 
+Recall that the function $f: \cX \to \R$ is differentiable at $x_0\in \cX$ (in the Fr\'echet sense) if 
+for some $g\in X^*$,
+\begin{align*}
+f(x_0+\xi) - f(x_0) - \ip{g,\xi} = o(\norm{\xi}) \text{ as } \norm{\xi} \to 0\,.
+\end{align*}
+Then, $g$ is called the derivative of $f$ at $x_0$ and is denoted by $\frac{d}{dx}f(x_0)$.
 \begin{proposition}
 \label{prop:diffconvolution}
-For any $f \in \mathcal{C}_B(\mathcal{X})$, the differentiability of $f*\mu$ is equivalent to the differentiability of $\mu$ in the weak sense.
-Moreover, $\forall x_0\in \mathcal{X}$, 
-$\dfrac{d}{dx} (f*\mu) (x_0) = \int f(y)\mu'_{x_0}(dy)$.
+The following are equivalent:
+\begin{enumerate}
+\item \label{prop:diffc:1}
+	 For any $f \in \Cb(\cX)$, $f*\mu$ is differentiable at all points $x_0\in \cX$; 
+\item \label{prop:diffc:2}
+	 For any $f \in \Cb(\cX)$, $f*\mu$ is differentiable at some point $x_0\in \cX$; 
+\item \label{prop:diffc:3}
+	 $\mu$ is weakly differentiable. 
+\end{enumerate}
+Moreover, when  for some $f\in \Cb(\cX)$, $f*\mu$ is differentiable at $x_0\in \cX$,
+$\frac{d}{dx} (f*\mu) (x_0) = \int f(y)\mu'_{x_0}(dy)$.
 \end{proposition}
 \begin{proof}
-Denote $\hat{f}(x) := (f*\mu)(x)$. Given any $x_0\in \mathcal{X}$, if $\hat{f}$ is differentiable at $x_0$, by the definition of differentiability, there exists $g \in \mathcal{X}^*$ such that
+ \eqref{prop:diffc:2} $\Rightarrow$ \eqref{prop:diffc:3}:
+ Fix $x_0\in \cX$ and pick any $f\in\Cb(\cX)$.
+Denote $\hat{f}(x) := (f*\mu)(x)$. 
+Since $\hat{f}$ is differentiable at $x_0$, there exists $g_f \in \cX^*$ such that
 \begin{align}
 \label{eq:diffhatf}
 \hat{f}(x_0+\xi) - \hat{f}(x_0) 
 = \int f(y)\mu_{x_0+\xi}(dy) - \int f(y)\mu_{x_0}(dy)
-= \ip{g, \xi}+\sigma(\norm{\xi}) \,.
+= \ip{g_f, \xi}+o(\norm{\xi}) \,.
 \end{align}
-Choose some $\mathcal{X}^*$-valued measure $\lambda$ such that 
-$g = \int f(y)\lambda(dy)$, then plug this into \eqref{eq:diffhatf}. Recall the definition of weak differentiability, combined with arbitrary $f$, we can see that $\lambda$ is the weak derivative of $\mu$. Hence, the differentiability of $(f*\mu)$ is a sufficient condition of the differentiability of $\mu$. 
+Then, $\Lambda:\Cb(\cX) \to X^*$, defined by $\Lambda(f)= g_f$ is a bounded, linear operator (here, $\Cb(\cX)$ is taken with the $\norm{\cdot}_\infty$ topology). By the Riesz representation theorem,  \todoc{Which one?} 
+$\Lambda(f) = \int f(y) \lambda(y)$ for some $\cX^*$-valued measure $\lambda$ on $(\cX,\Borel(\cX))$.
+\todoc{Things are a little fishy here.}
+\todoc[inline]{
+Choose some $\cX^*$-valued measure $\lambda$ such that 
+$g_f = \int f(y)\lambda(dy)$, 
+then plug this into \eqref{eq:diffhatf}.}
+Recalling the definition of weak differentiability, we can see that $\lambda$ is the weak derivative of $\mu$. 
 
+ \eqref{prop:diffc:3} $\Rightarrow$ \eqref{prop:diffc:2}:
 Next, to prove its necessity, let $g=\int f(y)\mu'_{x_0}(dy)$. It is obvious that \eqref{eq:diffhatf} will also hold. Therefore, $(f*\mu)$ is differentiable. Its gradient $g$ at $x_0$ is $\int f(y)\mu'_{x_0}(dy)$.
+\end{proof}
 
 Now we want to give a probability based representation of $\dfrac{d}{dx} (f*\mu) (x_0)$.
 
-By \cref{prop:diffconvolution}, we have for any $x\in \mathcal{X}$,
+By \cref{prop:diffconvolution}, we have for any $x\in \cX$,
 \begin{align*}
 \dfrac{d}{dx} (f*\mu) (x) = \int f(y)\mu'_{x}(dy)
 = \int f(x-y)\mu'(dy) \,,
 \end{align*}
-where the second equality results from the definition $\mu'_{x}(A)=\mu'(x-A)$. Since $\mu':\mathcal{X}\to \mathcal{X}^*$ is a finite measure, we can define 
+where the second equality results from the definition $\mu'_{x}(A)=\mu'(x-A)$. Since $\mu':\cX\to \cX^*$ is a finite measure, we can define 
 \begin{align*}
-\forall A \in Borel(\mathcal{X}), \quad
-\nu(A) = \dfrac{\norm{\mu'(A)}_*}{\norm{\mu'(\mathcal{X})}_*}\,,
+\forall A \in \Borel(\cX), \quad
+\nu(A) = \dfrac{\norm{\mu'(A)}_*}{\norm{\mu'(\cX)}_*}\,,
 \end{align*}
 which is a probability measure. Hence 
-$\dfrac{d}{dx} (f*\mu) (x) = \norm{\mu'(\mathcal{X})}_* \int f(x-y) \dfrac{d\mu'}{d\nu}(y) \nu(dy)$, where $\dfrac{d\mu'}{d\nu}$ is the Radon-Nikodym derivative of $\mu'$ w.r.t $\nu$.
+$\dfrac{d}{dx} (f*\mu) (x) = \norm{\mu'(\cX)}_* \int f(x-y) \dfrac{d\mu'}{d\nu}(y) \nu(dy)$, where $\dfrac{d\mu'}{d\nu}$ is the Radon-Nikodym derivative of $\mu'$ w.r.t $\nu$.
 
 Further assume $\mu$ is a probability measure with the distribution function $p(\cdot)$, i.e., $\mu(dx) = p(x)dx$. If $p(x)$ is differentiable, then
 $\nu(dy) = \dfrac{\norm{p'(y)}_*}{\int \norm{p'(x)}_*dx}dy$.
@@ -65,8 +104,4 @@ So we have
 \dfrac{d}{dx} (f*\mu) (x) = U \int f(x-y) q(y) \nu (dy)\,,
 \end{align*}
 where $U = \int \norm{p'(x)}_*dx$, $q(y) = \dfrac{p'(y)}{\norm{p'(y)}_*}$.
-
-
-
-\end{proof}
 \end{document}

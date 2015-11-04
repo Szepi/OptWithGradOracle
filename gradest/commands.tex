@@ -1,4 +1,4 @@
-%!TEX root =  bgo-arxiv.tex
+%!TEX root =  gradEst.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 
 %%%%%%%%%%%%%%%%%%%% Added for arxiv report %%%%%%%%%%%%%%%%%%%%%
@@ -86,12 +86,44 @@
 \usepackage[capitalize]{cleveref}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\cE}{\mathcal{E}}
-\newcommand{\cF}{\mathcal{F}}
-\newcommand{\cA}{\mathcal{A}}
-\newcommand{\cK}{\mathcal{K}}
-\newcommand{\cB}{\mathcal{B}}
-\newcommand{\cY}{\mathcal{Y}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MACROS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\ddefloop#1{\ifx\ddefloop#1\else\ddef{#1}\expandafter\ddefloop\fi}
+
+% \bA, \bB, ...
+\def\ddef#1{\expandafter\def\csname b#1\endcsname{\ensuremath{\mathbf{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+
+% \bbA, \bbB, ...
+\def\ddef#1{\expandafter\def\csname bb#1\endcsname{\ensuremath{\mathbb{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+
+% \cA, \cB, ...
+\def\ddef#1{\expandafter\def\csname c#1\endcsname{\ensuremath{\mathcal{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+
+% \vA, \vB, ..., \va, \vb, ...
+\def\ddef#1{\expandafter\def\csname v#1\endcsname{\ensuremath{\boldsymbol{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\ddefloop
+
+% \valpha, \vbeta, ...,  \vGamma, \vDelta, ...,
+\def\ddef#1{\expandafter\def\csname v#1\endcsname{\ensuremath{\boldsymbol{\csname #1\endcsname}}}}
+\ddefloop {alpha}{beta}{gamma}{delta}{epsilon}{varepsilon}{zeta}{eta}{theta}{vartheta}{iota}{kappa}{lambda}{mu}{nu}{xi}{pi}{varpi}{rho}{varrho}{sigma}{varsigma}{tau}{upsilon}{phi}{varphi}{chi}{psi}{omega}{Gamma}{Delta}{Theta}{Lambda}{Xi}{Pi}{Sigma}{varSigma}{Upsilon}{Phi}{Psi}{Omega}\ddefloop
+
+% \fA, \fB, ..., \fa, \fb, ...
+\def\ddef#1{\expandafter\def\csname f#1\endcsname{\ensuremath{\mathfrak{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghjklmnopqrstuvwxyz\ddefloop
+
+
+
+%\newcommand{\cE}{\mathcal{E}}
+%\newcommand{\cF}{\mathcal{F}}
+%\newcommand{\cA}{\mathcal{A}}
+%\newcommand{\cK}{\mathcal{K}}
+%\newcommand{\cB}{\mathcal{B}}
+%\newcommand{\cY}{\mathcal{Y}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\EE}[1]{\mathbb{E}\left[#1\right]}
 \newcommand{\ip}[1]{\langle #1 \rangle}
@@ -120,7 +152,7 @@
 \renewcommand{\O}{\mathcal{O}}
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\K}{\mathcal{K}}
-\newcommand{\cR}{\mathcal{R}}
+%\newcommand{\cR}{\mathcal{R}}
 
 \newcommand{\dnorm}[1]{\norm{#1}_*} % Dual norm
 \def\<{\left\langle} % Angle brackets
