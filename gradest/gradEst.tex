@@ -35,8 +35,11 @@ at $x_0\in \cX$ with weak derivative $\mu'_{(x_0)}$, if
 If we used instead $\int f(y) \ip{ \mu'_{(x_0)}(dy),\xi}$, the first question would not arise:
 $\ip{\mu'_{(x_0)}(\cdot),\xi}$ is an ordinary signed measure.
 }
-Note that $\mu'_{(x)}$ is uniquely defined.
-Further, $\mu'_{(x)} = \mu'_{(x')}$ for any $x,x'\in \cX$.
+The definition immediately gives the following:
+\begin{proposition}
+The measure $\mu'_{(x)}$, when exists, is uniquely defined.
+Further,for any $x,x'\in \cX$,  $\mu'_{(x)}(\cdot) = \mu'_{(x')}(x+\cdot)$.
+\end{proposition}
 
 Recall that the function $f: \cX \to \R$ is differentiable at $x_0\in \cX$ (in the Fr\'echet sense) if 
 for some $g\in X^*$,
@@ -59,6 +62,8 @@ Moreover, when  for some $f\in \Cb(\cX)$, $f*\mu$ is differentiable at $x_0\in \
 $\frac{d}{dx} (f*\mu) (x_0) = \int f(y)\mu'_{x_0}(dy)$.
 \end{proposition}
 \begin{proof}
+ \eqref{prop:diffc:1} $\Rightarrow$ \eqref{prop:diffc:2} is obvious.
+ 
  \eqref{prop:diffc:2} $\Rightarrow$ \eqref{prop:diffc:3}:
  Fix $x_0\in \cX$ and pick any $f\in\Cb(\cX)$.
 Denote $\hat{f}(x) := (f*\mu)(x)$. 
@@ -78,9 +83,11 @@ $g_f = \int f(y)\lambda(dy)$,
 then plug this into \eqref{eq:diffhatf}.}
 Recalling the definition of weak differentiability, we can see that $\lambda$ is the weak derivative of $\mu$. 
 
- \eqref{prop:diffc:3} $\Rightarrow$ \eqref{prop:diffc:2}:
-Next, to prove its necessity, let $g=\int f(y)\mu'_{x_0}(dy)$. It is obvious that \eqref{eq:diffhatf} will also hold. Therefore, $(f*\mu)$ is differentiable. Its gradient $g$ at $x_0$ is $\int f(y)\mu'_{x_0}(dy)$.
+ \eqref{prop:diffc:3} $\Rightarrow$ \eqref{prop:diffc:1}:
+Let $g_f=\int f(y)\mu'_{x_0}(dy)$. It is obvious that \eqref{eq:diffhatf} will also hold. 
+Therefore, $f*\mu$ is differentiable and its derivative  at $x_0$ is $\int f(y)\mu'_{x_0}(dy)$.
 \end{proof}
+\todoc[inline]{I looked up to this point.}
 
 Now we want to give a probability based representation of $\dfrac{d}{dx} (f*\mu) (x_0)$.
 
@@ -89,7 +96,7 @@ By \cref{prop:diffconvolution}, we have for any $x\in \cX$,
 \dfrac{d}{dx} (f*\mu) (x) = \int f(y)\mu'_{x}(dy)
 = \int f(x-y)\mu'(dy) \,,
 \end{align*}
-where the second equality results from the definition $\mu'_{x}(A)=\mu'(x-A)$. Since $\mu':\cX\to \cX^*$ is a finite measure, we can define 
+where the second equality results from the definition $\mu'_{x}(A)=\mu'(x-A)$. Since $\mu':\cX\to \cX^*$ is a finite measure, we can define \todoc{We should be using the total variation measure.}
 \begin{align*}
 \forall A \in \Borel(\cX), \quad
 \nu(A) = \dfrac{\norm{\mu'(A)}_*}{\norm{\mu'(\cX)}_*}\,,
@@ -97,11 +104,16 @@ where the second equality results from the definition $\mu'_{x}(A)=\mu'(x-A)$. S
 which is a probability measure. Hence 
 $\dfrac{d}{dx} (f*\mu) (x) = \norm{\mu'(\cX)}_* \int f(x-y) \dfrac{d\mu'}{d\nu}(y) \nu(dy)$, where $\dfrac{d\mu'}{d\nu}$ is the Radon-Nikodym derivative of $\mu'$ w.r.t $\nu$.
 
-Further assume $\mu$ is a probability measure with the distribution function $p(\cdot)$, i.e., $\mu(dx) = p(x)dx$. If $p(x)$ is differentiable, then
+In what follows we look at some special cases when the measure-derivatives can be calculated.
+\section{$\mu$ has a density}
+Assume now that $\mu$ is a probability measure with the distribution function $p(\cdot)$, i.e., $\mu(dx) = p(x)dx$. If $p(x)$ is differentiable, then
 $\nu(dy) = \dfrac{\norm{p'(y)}_*}{\int \norm{p'(x)}_*dx}dy$.
 So we have
 \begin{align*}
 \dfrac{d}{dx} (f*\mu) (x) = U \int f(x-y) q(y) \nu (dy)\,,
 \end{align*}
 where $U = \int \norm{p'(x)}_*dx$, $q(y) = \dfrac{p'(y)}{\norm{p'(y)}_*}$.
+
+\section{$\mu$ is uniform over some nice set}
+\todoc[inline]{Use Gauss-Ostrogradskii to write the derivative.}
 \end{document}
