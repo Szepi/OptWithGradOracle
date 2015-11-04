@@ -33,114 +33,47 @@ However, what differs in the optimization variant is that the value of the loss 
 Hence, in this setting the distinction between one-point and multi-point feedback (as long as the number observations is fixed, independently of the dimension) is irrelevant:
 By grouping $K$ multiple consecutive observations, one can turn an $n$ rounds one-point feedback setup into an $n/K$-round $K$-point feedback setup. The reduction in the number of rounds, being a fixed constant factor, is negligible, as far as the convergence rates are considered.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table*}
-\small
-\centering
-\begin{tabular}{|c|c|c|}
-\toprule
-\textbf{Noise }$\bm{ \rightarrow}$ & \multirow{2}{*}{\textbf{Controlled }($\bm{\xi^+ = \xi^-}$)} & \multirow{2}{*}{\textbf{Uncontrolled }(see~\eqref{eq:noiseass})} \\
-\textbf{Function } &&\\
-$\bm{\downarrow}$ &&\\\midrule
-\multirow{2}{*}{\textbf{Convex + Smooth}} & \multirow{2}{*}{$(C_1 \delta, C_2)$} & \multirow{2}{*}{$(C_1\delta, C_2/\delta^2)$}\\
- &&\\\midrule
-\multirow{2}{*}{$\bm{f \in \C^3}$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} \\
- &&\\\bottomrule
-\end{tabular}
-\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.
-For the first row, $C_1 =
-\frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$ and
-$C_2 =   L^2 (2 + \frac{1}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right])$
-for the controlled noise and
- $C_2 =  C_{2}^{(u)} \doteq 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$ for the uncontrolled noise.
-For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}$ and $C_2 =  C_{2}^{(u)}$,
-with $B_3 = \sup_{x\in \K} \norm{\nabla^3 f(x)}$, where $\norm{\cdot}$ is the implied norm for rank-3 tensors.
-}
-\label{tab:oracles}
-\end{table*}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %A major tool in bandit convex optimization is to design gradient estimators, which are then used in conjunction with variants of gradient descent. \todoc{zillions of references.}
 A common popular idea in bandit convex optimization is to use the bandit feedback to construct noisy (and biased) estimates of the gradient.
 In the following, we provide a few examples for oracles that construct gradient estimates for function classes that are increasingly general - from smooth, convex to non-differentiable functions.
 
-\subsection{Two-point feedback}
-Here we present an oracle that uses two function evaluations to obtain a gradient estimate.
-As will be discussed later, this oracle
- encompasses several simultaneous perturbation methods (see \cite{bhatnagar-book}):
-Given the inputs $x\in \K$,  $0<\delta\le 1$,
-% \todoc{We need an upper bound I believe. Add it earlier.}
-the gradient estimate is
-\begin{align}
-G &=  \dfrac{Z^+ - Z^-}{2\delta}\, V \,, \text{ where }  Z^{\pm} = f(X^{\pm}) + \xi^{\pm} \text{ and } X^{\pm} = x \pm \delta U\,.
- \label{eq:twosp}
-\end{align}
-In the above, $U,V\in \R^d$, $\xi^{\pm}\in \R$ are random, jointly distributed random variables, $U,V$ chosen by the oracle
-from some fixed distribution characterizing the oracle and $\xi^{\pm}$ being the noise of the returned feedback $Z^{\pm}$ at points $X^{\pm}$.
-For the following proposition we consider $4=2\times 2$ cases.
-First, the function is either assumed to be $L$-smooth and convex (i.e., the derivative of $f$ is $L$-Lipschitz w.r.t. $\norm{\cdot}_*$), or it is assumed to be three times continuously differentiable (in notation: $f\in C^3$).
-The other two options are that either $\xi^+=\xi^-$, which we call the \emph{controlled noise} setting (see above for the motivation), or we make the alternate assumptions
-\begin{align}
-\E[\xi^+ |\, V] = \E[\xi^+ |\, V] =0 \text{~~ and ~~}\E [ (\xi^{+} - \xi^-)^{2} \mid V] \le \sigma_\xi^2 <\infty\,.
-\label{eq:noiseass}
-\end{align}
-
-The following proposition provides conditions under which the bias-variance parameters $(c_1,c_2)$ can be bounded as shown in \cref{tab:oracles}:
-\begin{proposition}
-\label{prop:grad-spsa}
-Consider a function $f:\D \to \R$, with $\K \subset \D^\circ \subset \R^d$.%
-\footnote{Here, $\D^\circ$ denotes the interior of $\D$.}
-For any $x \in \cK$, and $0< \delta \le 1$ let the oracle $\gamma$ return $G$ as specified in~\eqref{eq:twosp},
-where $(U,V)$ are such that $x+\delta U \in \D$ a.s.,
-$\E[V U\tr] = I$, while
-$\EE{\norm{V}_*^2}, \EE{ \norm{U}^3 }<+\infty$.
-\if0
-Consider the following function classes:\\
-\textbf{1:} $f$ is convex, with a $L$-Lipschitz gradient.\\
-\textbf{2:} $f \in \C^3$, i.e., $f$ is three times continuously differentiable and has bounded third derivative.
-
-Let $\xi^+, \xi^-$ be  random and are either \\
-\textbf{Controlled:} $\xi^+= \xi^-$ (or)  \\
-\textbf{Uncontrolled:} $\E[\xi^+ \mid V] = \E[\xi^+ \mid V] =0$ and $\E \left( (\xi^{+} - \xi^-)^{2} \mid V\right) < \infty$.
-\fi
-Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by \cref{tab:oracles}.
-\end{proposition}
-\begin{proof}
-See Section \ref{sec:appendix-grad}.
-\end{proof}
-
-\paragraph{Popular choices for $V$ and $U$:}
-\begin{enumerate}[\bfseries (i)]
- \item If we set $U_i$ to be independent, symmetric $\pm 1$-valued r.v.s and $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed by \cite{spall1992multivariate}.
-It is easy to see that $\EE{  V U\tr } = I$ holds in this case.
- When the norm $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$ and $C_2 = O(d)$. If we set $\norm{\cdot}$ to be the max-norm, $C_1 = O(\sqrt{d})$ and $C_2 = O(d)$.
- \item If we set $V=U$, with $U$ chosen uniform at random on the surface of a sphere with radius $\sqrt{d}$,
- then we recover the RDSA scheme proposed by  \citeauthor{kushcla} \citep[cf. pp.~58--60][]{kushcla}.
- In particular, $(U_i)_i$ are identically distributed with $\EE{ U_i U_j } = 0$ if $i\ne j$ and $\EE{ U\tr U } = d$, hence $\EE{U_i^2} = 1$. Thus, if we choose $\norm{\cdot}$ to be the $2$-norm, $C_1 = O( d^2 )$ and $C_2 = O(d)$.
- \item If we set $V=U$, with $U$ the standard $d$-dimensional Gaussian with unit covariance matrix, we recover the smoothed functional (SF) scheme proposed by \cite{katkul}.
-Indeed, in this case, by definition, $\EE{VU\tr} = \EE{U U\tr } = I$.
-When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
-%$\norm{U}^4 = (\sum_{i=1}^d U_i^2)^{2} = \sum_i U_i^4 + 2 \sum_{i<j} U_i^2 U_j^2$,
-%hence $\EE{ \norm{U}^4} = O(d^2)$
- and $C_2 = O( d)$.
- This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
-%  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).
-\end{enumerate}
-
 \subsection{One-point feedback}
-It is also possible to obtain a gradient oracle based on a single noisy observation
-of the form $G = \frac{Z}{\delta}V$, where $Z = f(x+\delta U) + \xi$.
+Given $x\in \cK$, $0<\delta\le 1$, common gradient estimates that are
+based on a single query to the function evaluation oracle (the so-called
+``one-point feedback'') take the form
+\begin{align}
+  \label{eq:one-point}
+G = \frac{Z}{\delta}V, \textrm{ where } Z = f(x+\delta U) + \xi\,,
+\end{align}
+where $(U,V)\in \R^d\times \R^d$ are jointly distributed random variables
+and $\xi$ is the function evaluation noise (the distribution of $\xi$ may depend on $x+\delta U$) and $G$ is the estimate of $\nabla f(x)$ ($f:\cK\to \R$).
+
+In all oracle constructions we will use the following assumption:
+\begin{ass}
+  \label{ass:gradbasic}
+  $\K \subset \D^\circ \subset \R^d$, where $f:\D \to \R$.
+  \footnote{Here, $\D^\circ$ denotes the interior of $\D$.}
+  The joint distribution for $(U,V)$ is such that
+  for any $x\in \K$, $x+\delta U \in \D$ a.s.,
+  $\E[V U\tr] = I$, while
+  $\EE{\norm{V}_*^2}$, $\EE{ \norm{U}^3 }<+\infty$.
+\end{ass}
+
 For uncontrolled noise, this can be shown to be a $(c_1,c_2)$ Type-I oracle with slightly stronger assumptions on $(U,V)$ (e.g., $U$ symmetrically distributed, $V = h(U)$, with $h$ odd in addition to the previous assumptions)
 with $(c_1,c_2)$ essentially the same as before, except that now instead of the span of $f$, the magnitude of $f$ appears in the bound. For the controlled noise case, the oracle has the same variance as in the case of uncontrolled noise, because this oracle does not ``cancel out'' the noise.%
 This is exactly the property that is exploited by \cite{duchi2015optimal}.
 
 \begin{proposition}
 \label{prop:grad-onepoint}
-For one-point feedback oracle, i.e.,
-\begin{align*}
-G = \dfrac{Z}{\delta}V, \quad Z=f(x+\delta U)+\xi\,,
-\end{align*}
-in addition to the conditions in Proposition \ref{prop:grad-spsa}, we further assume $\EE{V}=0$,
-and for $f \in \C^3$, more specifically, $V=h(U)$ is a deterministic odd function of $U$ and $U$ symmetrically distributed. Then, $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ same as the uncontrolled noise case in \cref{tab:oracles}.
+Let $f:\cD \to \R$ and let $\gamma$ be the one-point feedback oracle defined in \eqref{eq:one-point}.
+Let \cref{ass:gradbasic} hold.
+Assume further that
+  $U$ is symmetrically distributed,
+  $V = h(U)$, where $h:\R^d \to \R^d$ is an odd function,
+  and
+  $\EE{V}=0$,
+Then, $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ same as the uncontrolled noise case in \cref{tab:oracles}.
 % \todoc{Add the convex+smooth case}
 \end{proposition}
 \begin{proof}
@@ -172,34 +105,91 @@ See Section \ref{sec:appendix-grad}.
 \end{proof}
 
 
-\if0
-Type-II oracles can be obtained using the same construction as above, but with a different analysis:
+
+\subsection{Two-point feedback}
+Here we present an oracle that uses two function evaluations to obtain a gradient estimate.
+As will be discussed later, this oracle
+ encompasses several simultaneous perturbation methods (see \cite{bhatnagar-book}):
+Given the inputs $x\in \K$,  $0<\delta\le 1$,
+% \todoc{We need an upper bound I believe. Add it earlier.}
+the gradient estimate is
+\begin{align}
+G &=  \dfrac{Z^+ - Z^-}{2\delta}\, V \,, \text{ where }  Z^{\pm} = f(X^{\pm}) + \xi^{\pm} \text{ and } X^{\pm} = x \pm \delta U\,.
+ \label{eq:twosp}
+\end{align}
+In the above, $U,V\in \R^d$, $\xi^{\pm}\in \R$ are random, jointly distributed random variables, $U,V$ chosen by the oracle
+from some fixed distribution characterizing the oracle and $\xi^{\pm}$ being the noise of the returned feedback $Z^{\pm}$ at points $X^{\pm}$.
+For the following proposition we consider $4=2\times 2$ cases.
+First, the function is either assumed to be $L$-smooth and convex (i.e., the derivative of $f$ is $L$-Lipschitz w.r.t. $\norm{\cdot}_*$), or it is assumed to be three times continuously differentiable (in notation: $f\in C^3$).
+The other two options are that either $\xi^+=\xi^-$, which we call the \emph{controlled noise} setting (see above for the motivation), or we make the alternate assumptions
+\begin{align}
+\E[\xi^+-\xi^- |\, U,V] = 0 \text{~~ and ~~}\E [ (\xi^{+} - \xi^-)^{2} \mid V] \le \sigma_\xi^2 <\infty\,.
+\label{eq:noiseass}
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table*}
+\small
+\centering
+\begin{tabular}{|c|c|c|}
+\toprule
+\textbf{Noise }$\bm{ \rightarrow}$ & \multirow{2}{*}{\textbf{Controlled }($\bm{\xi^+ = \xi^-}$)} & \multirow{2}{*}{\textbf{Uncontrolled }(see~\eqref{eq:noiseass})} \\
+\textbf{Function } &&\\
+$\bm{\downarrow}$ &&\\\midrule
+\multirow{2}{*}{\textbf{Convex + Smooth}} & \multirow{2}{*}{$(C_1 \delta, C_2)$} & \multirow{2}{*}{$(C_1\delta, C_2/\delta^2)$}\\
+ &&\\\midrule
+\multirow{2}{*}{$\bm{f \in \C^3}$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} & \multirow{2}{*}{$(C_1 \delta^2, C_2/\delta^2)$} \\
+ &&\\\bottomrule
+\end{tabular}
+\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.
+For the first row, $C_1 =
+\frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$ and
+$C_2 =   L^2 (2 + \frac{1}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right])$
+for the controlled noise and
+ $C_2 =  C_{2}^{(u)} \doteq 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$ for the uncontrolled noise.
+For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}$ and $C_2 =  C_{2}^{(u)}$,
+with $B_3 = \sup_{x\in \K} \norm{\nabla^3 f(x)}$, where $\norm{\cdot}$ is the implied norm for rank-3 tensors.
+}
+\label{tab:oracles}
+\end{table*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The following proposition provides conditions under which the bias-variance parameters $(c_1,c_2)$ can be bounded as shown in \cref{tab:oracles}:
 \begin{proposition}
-\label{prop:flaxman}
-In the one-point feedback, let
-\begin{align*}
-V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,
-\end{align*}
-where $W$ is a convex body with surface $\partial W$, $U \in \partial W$ is uniformly distributed. $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume. Then, $\gamma$ is a type-II oracle with $c_2(\delta) = C_2/\delta^2$.
-\todox{$c_1$ depends on property of $f$.}
+\label{prop:grad-spsa}
+Consider a function $f:\D \to \R$, with $\K \subset \D^\circ \subset \R^d$.%
+\footnote{Here, $\D^\circ$ denotes the interior of $\D$.}
+For any $x \in \cK$, and $0< \delta \le 1$ let the oracle $\gamma$ return $G$ as specified in~\eqref{eq:twosp},
+where $(U,V)$ are such that $x+\delta U \in \D$ a.s.,
+$\E[V U\tr] = I$, while
+$\EE{\norm{V}_*^2}$ and $\EE{ \norm{U}^3 }<+\infty$.
+Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by \cref{tab:oracles}.
 \end{proposition}
 \begin{proof}
-this will go elsewhere.
+See Section \ref{sec:appendix-grad}.
 \end{proof}
-\begin{proposition}\textbf{\textit{(One-point feedback)}}
- Letting
- \[
- G =  V \dfrac{f(x+\delta U) + \xi}{\delta}\,,
- \]
- one obtains a gradient estimate using only one function evaluation.
+\todoc[inline]{I am pretty sure that the bias could be brought down
+for two-point feedback, too, using the technique of \cref{prop:flaxman}.
+}
 
-For function class \textbf{1},  let $U$ be drawn from the surface of a unit ball centered at origin w.r.t. some norm $\norm{\cdot}$, $V=dU$, then $\gamma$ is a $(C_1\delta^2, C_2/\delta^2)$ Type-II oracle.
+\paragraph{Popular choices for $V$ and $U$:}
+\begin{enumerate}[\bfseries (i)]
+ \item If we set $U_i$ to be independent, symmetric $\pm 1$-valued r.v.s and $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed by \cite{spall1992multivariate}.
+It is easy to see that $\EE{  V U\tr } = I$ holds in this case.
+ When the norm $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$ and $C_2 = O(d)$. If we set $\norm{\cdot}$ to be the max-norm, $C_1 = O(\sqrt{d})$ and $C_2 = O(d)$.
+ \item If we set $V=U$, with $U$ chosen uniform at random on the surface of a sphere with radius $\sqrt{d}$,
+ then we recover the RDSA scheme proposed by  \citeauthor{kushcla} \citep[cf. pp.~58--60][]{kushcla}.
+ In particular, $(U_i)_i$ are identically distributed with $\EE{ U_i U_j } = 0$ if $i\ne j$ and $\EE{ U\tr U } = d$, hence $\EE{U_i^2} = 1$. Thus, if we choose $\norm{\cdot}$ to be the $2$-norm, $C_1 = O( d^2 )$ and $C_2 = O(d)$.
+ \item If we set $V=U$, with $U$ the standard $d$-dimensional Gaussian with unit covariance matrix, we recover the smoothed functional (SF) scheme proposed by \cite{katkul}.
+Indeed, in this case, by definition, $\EE{VU\tr} = \EE{U U\tr } = I$.
+When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
+%$\norm{U}^4 = (\sum_{i=1}^d U_i^2)^{2} = \sum_i U_i^4 + 2 \sum_{i<j} U_i^2 U_j^2$,
+%hence $\EE{ \norm{U}^4} = O(d^2)$
+ and $C_2 = O( d)$.
+ This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
+%  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).
+\end{enumerate}
 
- For function class \textbf{2}, in addition to the conditions in Proposition \ref{prop:grad-spsa}, we further assume $V$ is symmetrically distributed, then $\gamma$ is also a $(C_1\delta^2, C_2/\delta^2)$ Type-I oracle.
 
-\end{proposition}
-As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants by using appropriate choices for $V$ and $U$ See Appendix \ref{sec:appendix-grad} for a formal proof.
-\fi
 % If the function $f$ is assumed to be convex and smooth, then gradient estimates similar to \eqref{eq:twosp} can be constructed and this does not require higher order smoothness conditions as in Proposition \ref{prop:grad-spsa}.
 % \begin{proposition}
 % \label{prop:grad-convex}

@@ -2,10 +2,12 @@
 % please do not delete or change the first line (needed by Csaba's editor)
 \subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for $f \in \C^3$}
 \begin{proof}
-We use the proof technique of \cite{spall1992multivariate} (in particular, Lemma 1 there) in order to prove the main claim here.
-By our assumptions on $\xi^{\pm}$ and $V$,  we have
+We use the proof technique of \cite{spall1992multivariate}
+  (in particular, Lemma 1 there).
+We start by bounding the bias.
+Since by assumption $\EE{ \xi^+-\xi^-|V}=0$, we have
 \begin{align*}
-&\E\left[  V\left(\dfrac{\xi_n^+ - \xi_n^-}{2\delta}\right) \right]= 0
+\E\left[  V\left(\dfrac{\xi_n^+ - \xi_n^-}{2\delta}\right) \right]= 0\,,
 \end{align*}
 implying that
 \begin{align*}
@@ -43,8 +45,8 @@ Now,
 \label{eq:l1}
 \end{align}
 and therefore,
-by taking the expectations of both sides,
-using that $\EE{V U\tr} = I$ and then using $|R^{\pm}(x,\delta,U) (U \otimes U \otimes U)| \le
+by taking expectations of both sides,
+using $\EE{V U\tr} = I$ and then $|R^{\pm}(x,\delta,U) (U \otimes U \otimes U)| \le
 \norm{R^{\pm}(x,\delta,U)} \norm{U}^3$,
 we get that
 \begin{align*}
@@ -68,12 +70,12 @@ we bound $\E\left\| G - \E G\right\|^2$ as follows:
 \end{align}
 where $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$
 and $\fspan(f) = \sup_{x\in \D} f(x) - \inf_{x\in \D} f(x)$.
-The equality in \eqref{eq:h3} follows from $\EE{ \xi^+ \,|\, V } = \EE{ \xi^- \,|\, V } = 0$.
+The equality in \eqref{eq:h3} follows from $\EE{ \xi^+-\xi^- \,|\, U,V } = 0$.
 \end{proof}
 
 \subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for convex and smooth $f$}
 \begin{proof}
-Since $f$ is convex with a  $L$-Lipschitz gradient, we have the following for any $\delta>0$:
+Since $f$ is convex with an $L$-Lipschitz gradient, for any $\delta>0$ it holds that
 \begin{align*}
 \frac{\<\nabla f(x), \delta u\>}{2\delta} \le \frac{f(x + \delta u) -  f(x)}{2\delta} \le& \frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{2\delta}.
 \end{align*}
@@ -82,24 +84,25 @@ Using similar inequalities for $f(x-\delta u)$, we obtain
 \<\nabla f(x), u\> - \frac{L \delta \norm{ u}^2}{2} \le \frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} \le& \<\nabla f(x), u\> + \frac{L \delta \norm{ u}^2}{2}.
 \end{align*}
 Letting
-$\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} - \<\nabla f(x),  u\>\right)$, we have
+$\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} - \<\nabla f(x),  u\>\right)$, we get
 \begin{align*}
 \left|\phi(x,\delta,u) \right| \le&  \dfrac{L}{2} \norm{u}^2\,.
 % \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
 \end{align*}
 
-Recall, from the proof of Proposition \ref{prop:grad-spsa} for $f\in \C^3$, that
+Recall, from the proof of Proposition \ref{prop:grad-spsa} for $f\in \C^3$
+that
 %for the gradient estimate $G:= V\, \left( \frac{f(X^+) + \xi^+  - (f(X^-) + \xi^-)}{2\delta}\right)$,
-we have
-$\E[G] =  \E\left[V\,  \left(\tfrac{f(X^+)  -f(X^-)}{2\delta}\right) \right]$. Besides, given $\EE{V U^\top}=I$,  we get
+$\E[G] =  \E\left[V\,  \left(\tfrac{f(X^+)  -f(X^-)}{2\delta}\right) \right]$. Combining this, $\EE{V U^\top}=I$ and the above bound on $\phi$, we get
 \begin{align*}
- \norm{\E[G] - \nabla f(x)}
- &= \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}
- \le \, \delta \norm{\E[ V \phi(x,\delta, U)]}\\
+ \norm{\E[G] - \nabla f(x)}_*
+ &= \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}_*
+ \le \, \delta \norm{\E[ V \phi(x,\delta, U)]}_*\\
  &\le \,\frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
 \end{align*}
 and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2]$.
 
+Let us now consider the bound on $\EE{ \norm{G}_*^2}$.
 In the case of controlled noise, i.e., $\xi^+ = \xi^-$,
 \begin{align*}
  \E \norm{G}^2
@@ -239,18 +242,18 @@ Suppose $W \subset \R^n$ is an open set with the boundary $\partial W$. At each 
 \begin{proof}
 Given that $\EE{\norm{V}_*^2}$ and $\EE{\xi^2}$ are bounded, the variance of $G$ remains the same as stated in \cref{prop:grad-onepoint}.
 
-As to the bias, let $\tilde{f}$ be a smoothed version of $f$, i.e., $\forall x \in \cK$, 
+As to the bias, let $\tilde{f}$ be a smoothed version of $f$, i.e., $\forall x \in \cK$,
 \begin{align*}
 \tilde{f}(x) &= \EE{f(x+\delta V)} =\int_{v \in W} f(x+\delta v)\dfrac{\,d w}{\lvert W\rvert}\,,
 \end{align*}
-where the expectation is w.r.t. $V$, which is a random variable uniformly chosen from $W$. The second equality interprets the expectation as integral. 
+where the expectation is w.r.t. $V$, which is a random variable uniformly chosen from $W$. The second equality interprets the expectation as integral.
 Now we want to prove that for any given $x\in \cK$, $G$ is an unbiased gradient estimate of $\tilde{f}$ at $x$.
 Since $U$ is uniformly distributed over $\partial W$,  the expectation of $G$ can be written as
 \begin{align*}
 \EE{G} =\dfrac{\lvert \partial W\rvert}{\lvert W \rvert} \int_{\partial W} \dfrac{1}{\delta} f(x+\delta U)n_W(U)\dfrac{\,d U}{\lvert \partial W\rvert}
 =  \int_W \nabla f(x+\delta U)\dfrac{\,d U}{\lvert W\rvert}\,,
 \end{align*}
-where the second equality follows from \cref{lem:gradientCalculus}, by replacing the gradient of $\hat{f}(u) =\dfrac{1}{\delta} f(x+\delta u) $ with $\nabla f(x+\delta u)$. 
+where the second equality follows from \cref{lem:gradientCalculus}, by replacing the gradient of $\hat{f}(u) =\dfrac{1}{\delta} f(x+\delta u) $ with $\nabla f(x+\delta u)$.
 Then, the order of the gradient and the integral can be exchanged, because $\int_W f(x+\delta U)\,d U$ exists. Consequently, we obtain $\EE{G} = \nabla \tilde{f}(x)$.
 
 Moreover, $\tilde{f}$ and $f$ are actually close. In particular, for any $x \in \cK$,
