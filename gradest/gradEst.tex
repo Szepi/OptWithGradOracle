@@ -25,10 +25,10 @@ Let $\Cb(\cX)$ denote the set of continuous, bounded, real-valued functions defi
 \begin{definition}
 We say that $\mu_x$ is \emph{weakly differentiable} 
 at $x_0\in \cX$ with weak derivative $\mu'_{(x_0)}$, if 
- $\mu'_{x_0}: \Borel(\cX)\to \cX^*$ is a finite measure such that for any $f \in \Cb(\cX)$,
+ $\mu'_{(x_0)}: \Borel(\cX)\to \cX^*$ is a finite measure such that for any $f \in \Cb(\cX)$,
 \begin{align*}
-\int f(y)\mu_{x_0+\xi}(dy) - \int f(y)\mu_{(x_0)}(dy)
--\ip{\int f(y)\mu'_{x_0}(dy), \xi} = o(\norm{\xi}) \,\text{ as } \norm{\xi}\to 0\,.
+\int f(y)\mu_{x_0+\xi}(dy) - \int f(y)\mu_{x_0}(dy)
+-\int f(y)\ip{\mu'_{(x_0)}(dy), \xi} = o(\norm{\xi}) \,\text{ as } \norm{\xi}\to 0\,.
 \end{align*}
 \end{definition}
 \todoc{How is integration defined? Why is $f$ $\mu_{(x_0)}'$ integrable?
@@ -38,7 +38,7 @@ $\ip{\mu'_{(x_0)}(\cdot),\xi}$ is an ordinary signed measure.
 The definition immediately gives the following:
 \begin{proposition}
 The measure $\mu'_{(x)}$, when exists, is uniquely defined.
-Further,for any $x,x'\in \cX$,  $\mu'_{(x)}(\cdot) = \mu'_{(x')}(x+\cdot)$.
+Further, for any $x,x'\in \cX$,  $\mu'_{(x)}(\cdot) = \mu'_{(x')}(x-x'+\cdot)$. So, we will simply denote $\mu'_{(x)}$ as $\mu'_{x}$ in the following.
 \end{proposition}
 
 Recall that the function $f: \cX \to \R$ is differentiable at $x_0\in \cX$ (in the Fr\'echet sense) if 
@@ -49,7 +49,7 @@ f(x_0+\xi) - f(x_0) - \ip{g,\xi} = o(\norm{\xi}) \text{ as } \norm{\xi} \to 0\,.
 Then, $g$ is called the derivative of $f$ at $x_0$ and is denoted by $\frac{d}{dx}f(x_0)$.
 \begin{proposition}
 \label{prop:diffconvolution}
-The following are equivalent:
+Consider the following statements:
 \begin{enumerate}
 \item \label{prop:diffc:1}
 	 For any $f \in \Cb(\cX)$, $f*\mu$ is differentiable at all points $x_0\in \cX$; 
@@ -58,6 +58,7 @@ The following are equivalent:
 \item \label{prop:diffc:3}
 	 $\mu$ is weakly differentiable. 
 \end{enumerate}
+\eqref{prop:diffc:3} implies \eqref{prop:diffc:1}. \eqref{prop:diffc:1} implies \eqref{prop:diffc:2}. When $f$ is also compactly supported, \eqref{prop:diffc:2} implies \eqref{prop:diffc:3}.
 Moreover, when  for some $f\in \Cb(\cX)$, $f*\mu$ is differentiable at $x_0\in \cX$,
 $\frac{d}{dx} (f*\mu) (x_0) = \int f(y)\mu'_{x_0}(dy)$.
 \end{proposition}
@@ -74,7 +75,7 @@ Since $\hat{f}$ is differentiable at $x_0$, there exists $g_f \in \cX^*$ such th
 = \int f(y)\mu_{x_0+\xi}(dy) - \int f(y)\mu_{x_0}(dy)
 = \ip{g_f, \xi}+o(\norm{\xi}) \,.
 \end{align}
-Then, $\Lambda:\Cb(\cX) \to X^*$, defined by $\Lambda(f)= g_f$ is a bounded, linear operator (here, $\Cb(\cX)$ is taken with the $\norm{\cdot}_\infty$ topology). By the Riesz representation theorem,  \todoc{Which one?} 
+Then, $\Lambda:\Cb(\cX) \to \cX^*$, defined by $\Lambda(f)= g_f$ is a bounded, linear operator (here, $\Cb(\cX)$ is taken with the $\norm{\cdot}_\infty$ topology). By the Riesz representation theorem,  \todoc{Which one?} 
 $\Lambda(f) = \int f(y) \lambda(y)$ for some $\cX^*$-valued measure $\lambda$ on $(\cX,\Borel(\cX))$.
 \todoc{Things are a little fishy here.}
 \todoc[inline]{
@@ -94,26 +95,44 @@ Now we want to give a probability based representation of $\dfrac{d}{dx} (f*\mu)
 By \cref{prop:diffconvolution}, we have for any $x\in \cX$,
 \begin{align*}
 \dfrac{d}{dx} (f*\mu) (x) = \int f(y)\mu'_{x}(dy)
-= \int f(x-y)\mu'(dy) \,,
+= \int f(y-x)\mu'(dy) \,,
 \end{align*}
-where the second equality results from the definition $\mu'_{x}(A)=\mu'(x-A)$. Since $\mu':\cX\to \cX^*$ is a finite measure, we can define \todoc{We should be using the total variation measure.}
+where the second equality results from the definition $\mu'_{x}(A)=\mu'(x+A)$. 
+Since $\mu':\cX\to \cX^*$ is a finite measure, it has bounded total variation. The total variation of $\mu'$ is defined by
+\begin{align*}
+\vert \mu' \vert (A) = \sup_{\pi(A)} \sum_{E\in \pi(A)} \norm{\mu'(E)}_*, \quad \forall A \in \Borel(\cX) \,,
+\end{align*}
+where the supremum is over all finite partition $\pi(A)$ of $A$ into disjoint members of $\Borel(\cX)$.
+Then we can define 
+\todoc{We should be using the total variation measure.}
 \begin{align*}
 \forall A \in \Borel(\cX), \quad
-\nu(A) = \dfrac{\norm{\mu'(A)}_*}{\norm{\mu'(\cX)}_*}\,,
+\nu(A) = \dfrac{\vert \mu' \vert (A)}{\vert \mu' \vert (\cX)}\,,
 \end{align*}
 which is a probability measure. Hence 
-$\dfrac{d}{dx} (f*\mu) (x) = \norm{\mu'(\cX)}_* \int f(x-y) \dfrac{d\mu'}{d\nu}(y) \nu(dy)$, where $\dfrac{d\mu'}{d\nu}$ is the Radon-Nikodym derivative of $\mu'$ w.r.t $\nu$.
+$\dfrac{d}{dx} (f*\mu) (x) =  \int f(y-x) \dfrac{d\mu'}{d\nu}(y) \nu(dy)$, where $\dfrac{d\mu'}{d\nu}$ is the Radon-Nikodym derivative of $\mu'$ w.r.t $\nu$.
 
 In what follows we look at some special cases when the measure-derivatives can be calculated.
 \section{$\mu$ has a density}
-Assume now that $\mu$ is a probability measure with the distribution function $p(\cdot)$, i.e., $\mu(dx) = p(x)dx$. If $p(x)$ is differentiable, then
+Assume now that $\mu$ is a probability measure with the probability density function $p(\cdot)$, i.e., $\mu(dx) = p(x)dx$. If $p(x)$ is differentiable, then
 $\nu(dy) = \dfrac{\norm{p'(y)}_*}{\int \norm{p'(x)}_*dx}dy$.
 So we have
 \begin{align*}
-\dfrac{d}{dx} (f*\mu) (x) = U \int f(x-y) q(y) \nu (dy)\,,
+\dfrac{d}{dx} (f*\mu) (x) =  \int f(y-x) q(y) \nu (dy)\,,
 \end{align*}
-where $U = \int \norm{p'(x)}_*dx$, $q(y) = \dfrac{p'(y)}{\norm{p'(y)}_*}$.
+where $q(y) = \dfrac{p'(y)}{\norm{p'(y)}_*}\int \norm{p'(x)}_*dx$.
+
+In particular, when $\mu$ is the Gaussian distribution $N(0, \sigma^2 I)$, where $I$ is the $d$-dimensional identity matrix.  Its measure derivative is
+$\mu'(dy) = -\dfrac{1}{\sigma^2}y\mu(dy)$.
+%Let $\norm{\cdot}$ be the Euclidean norm, we have that $q(y) \nu (dy) = -\dfrac{1}{\sigma^2}y\mu(dy)$. 
+Select the random variable $U$ from the distribution $\mu$, 
+after writing the integral into expectation, it can be obtained that 
+\begin{align*}
+\dfrac{d}{dx} \EE{f(x+U)} = \dfrac{1}{\sigma^2}\EE{f(x+U)U} \,,
+\end{align*}
+where $\hat{f}(\cdot)=\EE{f(\cdot+U)}$ is a smoothed version of $f(\cdot)$. This gradient estimation approach is commonly known as the smoothing technique.
 
 \section{$\mu$ is uniform over some nice set}
 \todoc[inline]{Use Gauss-Ostrogradskii to write the derivative.}
+
 \end{document}
