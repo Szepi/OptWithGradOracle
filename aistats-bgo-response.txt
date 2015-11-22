@@ -2,9 +2,7 @@ We thank the reviewers for their comments.
 
 Reviewer 1:
 1,3) Thanks, indeed, there are errors in Table 1, which we will correct, and we will also discuss the suggested reference.
-2) While Theorem 1 focuses on choosing an optimal delta given p,q>0, Lemma 1 in the appendix actually gives a more general result, which can be applied even if any of $p,q,C_1,C_2$ are zero, and \delta can be chosen accordingly. Theorem 2 can be tweaked to hold for all q>0 by changing conditions (i) and (ii) after Theorem 2 to have the following right-hand side: $\min(L,\frac{2z+1}{C_1^{2z-1}(z+1)^z})$ with $z=p/q$.
-THIS DOES NOT SEEM RIGHT   AS IT IS INDEPENDENT OF n.
-You are right that Theorem 2 does not hold for q=0 and we shall modify the text appropriately to reflect this.
+2) While Theorem 1 focuses on choosing an optimal delta given p,q>0, Lemma 1 in the appendix actually gives a more general result, which can be applied even if any of $p,q,C_1,C_2$ are zero, and \delta can be chosen accordingly. Theorem 2 can be tweaked to hold for all q>0 by changing conditions (i) and (ii) after Theorem 2: namely, the right hand side of the conditions should be changed to \min(L,\frac{2z+1}{C_1^{2z-1}(z+1)^z}) where z=p/q. You are right that Theorem 2 does not hold for q=0 and we will modify the text appropriately to reflect this.
 
 
 Reviewer 2:
