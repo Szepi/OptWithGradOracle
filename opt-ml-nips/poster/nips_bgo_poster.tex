@@ -213,6 +213,7 @@ For any algorithm $\mathrm{A}$ that observes $n$ random elements from a  $(p,q)$
 \node[fancytitle] at (box2.north) {\textbf{\Large Main Result}};
 \end{tikzpicture}
 \end{large}
+\vspace{-10ex}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -230,7 +231,8 @@ For any algorithm $\mathrm{A}$ that observes $n$ random elements from a  $(p,q)$
 \begin{tikzpicture}[transform shape, baseline=-3.5cm]
 \node [mybox] (box2) {%
     \begin{minipage}[t!]{.91\textwidth}
-
+     When $p=q=2$, recover the upper bound $O(T^{-1/3})$ for smooth functions, and $O(T^{-1/2})$ for smooth \& strongly convex functions\\
+     
 \begin{tabular}{cc}
 \hspace{-2.4em}						\tikz[baseline]{
             \node[draw=black,minimum width=20pt,fill=teagreen,anchor=base] (t1)
@@ -245,11 +247,22 @@ For any algorithm $\mathrm{A}$ that observes $n$ random elements from a  $(p,q)$
 \node[fancytitle] at (box2.north) {\textbf{\Large Main Result}};
 \end{tikzpicture}
 \end{large}
+\vspace{-10ex}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \headerbox{What else}{name=finalbox,column=2,below=upperbound,span=2, headerColorOne=teagreen, borderColor=teagreen}{
-Some remarks on our results should go here
+\begin{itemize}
+\item \textbf{Partition:} gradient estimate + gradient-based algorithm. Abstract gradient estimates away from the algorithm. Directly feed the algorithm with biased, noisy gradient estimate.
+\end{itemize}
+%$\Longrightarrow$ Abstract gradient estimates away from the algorithm. Directly feed the algorithm with biased, noisy gradient estimate.
+\begin{itemize}
+\item \textbf{Necessary Sub-optimal?} If a proof for a gradient method uses only the stated bias-variance tradeoff, then the stated lower bound applies.
+\item \textbf{Better gradient estimate exists?} 
+\end{itemize}
+
+
+
 }
 
 \end{poster}%
