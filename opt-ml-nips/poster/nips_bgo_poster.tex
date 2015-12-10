@@ -1,7 +1,7 @@
 \documentclass[landscape,a0paper,fontscale=0.292]{baposter}
 
 \usepackage{macros}
-
+\usepackage[normalem]{ulem}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Begin of Document
@@ -80,7 +80,7 @@
 
 \begin{large}
 \begin{tabular}{cccc}
-\tikz[baseline]{
+\hspace{-1ex}\tikz[baseline]{
             \node[ellipse,minimum width=50pt, minimum height=20pt, fill=blue!20,anchor=base] (t1)
             {\textbf{Bias}};} 
 & 
@@ -97,7 +97,7 @@
             \node[rectangle,minimum height=20pt, fill=yellow!30,anchor=base] (t1)
             {$\bm{\EE{\norm{ G  }_*^2} \le c_2(\delta)}$};} \\[2ex]
 \end{tabular}
-\vspace{-3ex}
+\vspace{-1ex}
 \begin{center}
 \tikz[baseline]{
             \node[trapezium,trapezium left angle=70,
@@ -113,6 +113,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \headerbox{Sample Oracles}{name=sampleoracles,column=0,below=oracle,span=2}{
+%\tikz[baseline]{
+            %\node[ellipse, minimum width=50pt, minimum height=20pt,fill=blue!20,anchor=base] (t1)
+            %{Controlled Noise};}  $\rightarrow$ \textbf{\color{tealgreen} $\xi^+ = \xi^-$} \hspace{2em} 
+						%\tikz[baseline]{
+            %\node[ellipse, minimum width=50pt, minimum height=20pt,fill=green!20,anchor=base] (t1)
+            %{Uncontrolled Noise};}
+						%$\rightarrow$ \textbf{\color{tealgreen} $\xi^+ \ne \xi^-$} 
+%
+%\vspace{3ex}
+
 \begin{tabular}{cc}
 \tikzstyle{mybox} = [draw=blue, fill=green!20, very thick,
     rectangle, rounded corners, inner sep=20pt, inner ysep=20pt]
@@ -144,7 +154,7 @@ $\bm{G =  (f(x+U)+\xi)  V\,}$
 \end{tikzpicture}
 \end{tabular}
 
-\vspace{-15ex}
+\vspace{-8ex}
 
 \begin{center}
 	\tikz[baseline]{
@@ -152,20 +162,25 @@ $\bm{G =  (f(x+U)+\xi)  V\,}$
             {\textbf{\large Choose $\bm{U,V}$ such that $\bm{\EE{ V U^\top  } = I}$, $\bm{\EE{ V } = 0}$.} };
             }
 \end{center}
-\vspace{-5ex}
-\begin{center}
-	\tikz[baseline]{
-            \node[fill=red!20,anchor=base] (t1)
-            {A popular choice: $U=\delta u$, $V=\dfrac{d}{\delta}u$, $u$ is random unit vector};
-            }
-\end{center}
 
-%\begin{tikzpicture}[overlay]
-%        \path[thick,->] (box) edge [bend right] (t1);
-%        \path[thick,->] (box2) edge [bend left] (t1);
-%\end{tikzpicture}
+\vspace{-1ex}
+
+%\begin{center}
+	%\tikz[baseline]{
+            %\node[fill=red!20,anchor=base] (t1)
+            %{A popular choice: $U=\delta u$, $V=\dfrac{d}{\delta}u$, $u$ is random unit vector};
+            %}
+%\end{center}
+
+\begin{tikzpicture}[overlay]
+        \path[thick,->] (box) edge [bend right] (t1.west);
+        \path[thick,->] (box2) edge [bend left] (t1);
+\end{tikzpicture}
 
 Covers  {\color{blue!80} Katkovnik and Kulchitsky (1972), Polyak and Tsybakov (1990), Dippon (2003); Nesterov (2011), Kushner and Clark (1978), Flaxman et al. (2005), Spall (1992), $\ldots$}
+
+
+\vspace{2ex}
 
 \begin{center}
 \tikz[baseline]{
@@ -208,12 +223,17 @@ For any algorithm $\mathrm{A}$ that observes $n$ random elements from a  $(p,q)$
             \node[draw=black,minimum width=20pt,fill=shockingpink!20,anchor=base] (t1)
             {$\bm{\Delta_n(\F_{L,1},\mathrm{A},c_1,c_2 )} \bm{ = \Omega(  n^{-\frac{2p}{2p+q}})}$};}
 \end{tabular}
+
+\vspace{2ex}
+
+\textbf{Case $\bm{p=q=2}$: $\bm{\Delta_n}$ is $\bm{\Omega(n^{-1/3})}$ for $\bm{\F_{L,0}}$ and $\bm{\Omega(n^{-2/3})}$ for $\bm{\F_{L,1}}$}
+
     \end{minipage}
     };
 \node[fancytitle] at (box2.north) {\textbf{\Large Main Result}};
 \end{tikzpicture}
 \end{large}
-\vspace{-10ex}
+\vspace{-7ex}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -231,7 +251,6 @@ For any algorithm $\mathrm{A}$ that observes $n$ random elements from a  $(p,q)$
 \begin{tikzpicture}[transform shape, baseline=-3.5cm]
 \node [mybox] (box2) {%
     \begin{minipage}[t!]{.91\textwidth}
-     When $p=q=2$, recover the upper bound $O(T^{-1/3})$ for smooth functions, and $O(T^{-1/2})$ for smooth \& strongly convex functions\\
      
 \begin{tabular}{cc}
 \hspace{-2.4em}						\tikz[baseline]{
@@ -242,27 +261,52 @@ For any algorithm $\mathrm{A}$ that observes $n$ random elements from a  $(p,q)$
             \node[draw=black,minimum width=20pt,fill=shockingpink!20,anchor=base] (t1)
             {$\bm{\Delta_n(\F_{L,\mu},\mathrm{MD},c_1,c_2 ) = O( n^{- \frac{p}{p+q} } )}$};}
 \end{tabular}
+
+\vspace{2ex}
+
+\textbf{Case $\bm{p=q=2}$: $\bm{\Delta_n}$ is $\bm{O(n^{-1/3})}$ for $\bm{\F_{L,0}}$ and $\bm{O(n^{-1/2})}$ for $\bm{\F_{L,1}}$}
+
     \end{minipage}
     };
 \node[fancytitle] at (box2.north) {\textbf{\Large Main Result}};
 \end{tikzpicture}
+
+\vspace{-8ex}
+
 \end{large}
-\vspace{-10ex}
-}
+		
+		}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\headerbox{Conclusion and Future Work}{name=finalbox,column=2,below=upperbound,span=2, headerColorOne=teagreen, borderColor=teagreen}{
-\begin{itemize}
-\item \textbf{Partition:} gradient estimate + gradient-based algorithm. Abstract gradient estimates away from the algorithm. Directly feed the algorithm with biased, noisy gradient estimate.
-\end{itemize}
-%$\Longrightarrow$ Abstract gradient estimates away from the algorithm. Directly feed the algorithm with biased, noisy gradient estimate.
-\begin{itemize}
-\item \textbf{Necessary Sub-optimal?} If a proof for a gradient method uses only the stated bias-variance tradeoff, then the stated lower bound applies.
-\item \textbf{Better gradient estimate exists?} 
-\end{itemize}
+\headerbox{The Message}{name=finalbox,column=2,below=upperbound,span=2, headerColorOne=teagreen, borderColor=teagreen}{
 
+\begin{large}
+\textbf{To get the optimal $\bm{O(n^{-1/2})}$ rate for $\F_{L,0}$  with uncontrolled noise,
+with a low-complexity algorithm,
+one of the following must be done:
+}
 
-
+\vspace{1ex}
+ 
+\begin{tabular}{c}
+\tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {Design an oracle with $q=0$};}	
+\\
+\tikz[baseline]{
+            \node[fill=red!20,anchor=base] (t1)
+            {\sout{\textbf{Design an algorithm that makes better use of the gradient estimates}.}};}	
+\\
+\tikz[baseline]{
+            \node[fill=blue!20,anchor=base] (t1)
+            {Exploit some properties of gradient estimates beyond bias/variance.};}	
+\\
+\tikz[baseline]{
+            \node[fill=brown!20,anchor=base] (t1)
+            {Design a non-gradient algorithm. };}
+\end{tabular}
+\end{large}
 }
 
 \end{poster}%
