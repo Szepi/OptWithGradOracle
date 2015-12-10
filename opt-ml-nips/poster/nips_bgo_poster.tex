@@ -121,7 +121,7 @@
 \begin{tikzpicture}[transform shape, baseline=-3.5cm]
 \node [mybox] (box) {%
     \begin{minipage}[t!]{.43\textwidth}
-$\bm{G = \frac{ (f(x+U)+\xi^+) - (f(x-U)+\xi^-)}{2\delta} V\,}$
+$\bm{G = \frac{ (f(x+U)+\xi^+) - (f(x-U)+\xi^-)}{2} V\,}$
     \end{minipage}
     };
 \node[fancytitle] at (box.north) {Two-point estimate};
@@ -137,25 +137,33 @@ $\bm{G = \frac{ (f(x+U)+\xi^+) - (f(x-U)+\xi^-)}{2\delta} V\,}$
 \begin{tikzpicture}[transform shape, baseline=-3.5cm]
 \node [mybox] (box2) {%
     \begin{minipage}[t!]{.3\textwidth}
-$\bm{G = \frac{ (f(x+U)+\xi^+) }{\delta} V\,}$
+$\bm{G =  (f(x+U)+\xi)  V\,}$
     \end{minipage}
     };
 \node[fancytitle] at (box2.north) {One-point estimate};
 \end{tikzpicture}
 \end{tabular}
 
-\vspace{-10ex}
+\vspace{-15ex}
 
 \begin{center}
 	\tikz[baseline]{
             \node[fill=red!20,anchor=base] (t1)
-            {\textbf{\large Choose $\bm{U,V}$ such that $\bm{\EE{ V U^\top  } = I}$, $\bm{\EE{ V } = 0}$}};}
+            {\textbf{\large Choose $\bm{U,V}$ such that $\bm{\EE{ V U^\top  } = I}$, $\bm{\EE{ V } = 0}$.} };
+            }
 \end{center}
 
-\begin{tikzpicture}[overlay]
-        \path[thick,->] (box) edge [bend right] (t1);
-        \path[thick,->] (box2) edge [bend left] (t1);
-\end{tikzpicture}
+\begin{center}
+	\tikz[baseline]{
+            \node[fill=red!20,anchor=base] (t1)
+            {A popular choice: $U=\delta u$, $V=\dfrac{d}{\delta}u$, $u$ is random unit vector};
+            }
+\end{center}
+
+%\begin{tikzpicture}[overlay]
+%        \path[thick,->] (box) edge [bend right] (t1);
+%        \path[thick,->] (box2) edge [bend left] (t1);
+%\end{tikzpicture}
 
 Covers  {\color{blue!80} Katkovnik and Kulchitsky (1972), Polyak and Tsybakov (1990), Dippon (2003); Nesterov (2011), Kushner and Clark (1978), Flaxman et al. (2005), Spall (1992), $\ldots$}
 
