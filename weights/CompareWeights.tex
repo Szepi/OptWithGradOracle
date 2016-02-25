@@ -1,0 +1,52 @@
+\documentclass[11pt,letterpaper,english]{article}
+
+\input{commands}
+
+
+\begin{document}
+Loss function: $f(x) = \dfrac{\epsilon}{2} (x-1)^2$
+
+Oracle: $g_t = \epsilon (x_t-1) + C_1 \delta^2 + \xi_t$
+
+Algorithm 1: $ x_{t+1} = x_t - \eta  g_t$
+
+Algorithm 2: $\bar{g}_t = \dfrac{1}{K+1}  (g_t + g_{t-1} + ... + g_{t-K})$, 
+$x_{t+1} = x_t - \eta  \bar{g}_t$
+
+Choose $\epsilon = T^{-\frac{1}{3}}$, $\eta = T^{-\frac{5}{8}}$, $K = T^{\frac{1}{8}}$.
+
+For Algorithm 1:
+\begin{align*}
+x_{t+1} =& (1-\eta \epsilon) x_{t} + \eta \epsilon - \eta C_1 \delta^2-\eta \xi_{t}\\
+=&  \left(1-\eta \epsilon\right)^t x_1+ \eta \epsilon+\eta \epsilon\left(1-\eta \epsilon\right)+\cdots + \eta \epsilon\left(1-\eta \epsilon\right)^{t-1}\\
+&-C_1 \delta^2\left( \eta + \eta\left( 1-\eta \epsilon \right)+\cdots + \eta \left(1-\eta \epsilon\right)^{t-1} \right) \\
+&-\eta \xi_t -\eta \left(1-\eta \epsilon\right)\xi_{t-1}- \cdots -\eta \left(1-\eta \epsilon\right)^{t-1}\xi_{1}\\
+=& \left(1-\eta \epsilon\right)^t x_1+ 1-\left(1-\eta \epsilon \right)^t
+-C_1 \delta^2 \dfrac{1}{\epsilon}\left( 1-\left(1-\eta \epsilon \right)^t \right)\\
+&- \eta \xi_t -\eta \left(1-\eta \epsilon\right)\xi_{t-1}- \cdots -\eta \left(1-\eta \epsilon\right)^{t-1}\xi_{1}
+\end{align*}
+
+Denote the coefficients of $\left\lbrace\xi_t\right\rbrace$ in $x_{t+1}$ as $a^{(t)}, a^{(t-1)},\cdots,a^{(1)}$. We can see that the coefficients of $x_1$ in $x_{t+1}$ is $1+\epsilon (a^{(t)}+ a^{(t-1)}+\cdots + a^{(1)})$. So only the coefficients of $\left\lbrace\xi_t\right\rbrace$ will matter.
+
+For Algorithm 2, $\eta$ should be replaced by $\eta \frac{1}{K+1}$. Moreover, the polynomial is not as regular as, but close to, some power of $\left(1-\eta \frac{1}{K+1} \epsilon\right)$.
+
+For example, when $K=2$:
+\begin{align*}
+x_2: &-\eta \frac{1}{K+1} \xi_1 \\
+x_3: &-\eta \frac{1}{K+1} \left[ \xi_2 + \left( 2- \eta \frac{1}{K+1}\epsilon\right)\xi_1\right]\\
+x_4: &-\eta \frac{1}{K+1} \left[ \xi_3 + \left( 2- \eta \frac{1}{K+1}\epsilon\right)\xi_2+ \left( 3- 4\eta \frac{1}{K+1}\epsilon+\eta^2 \frac{1}{(K+1)^2}\epsilon^2\right)\xi_1\right]\\
+x_5: &-\eta \frac{1}{K+1} [ \xi_4 + \left( 2- \eta \frac{1}{K+1}\epsilon\right)\xi_3+\left( 3- 4\eta \frac{1}{K+1}\epsilon+\eta^2 \frac{1}{(K+1)^2}\epsilon^2\right)\xi_2  \\
+&+ \left( 2- 10\eta \frac{1}{K+1}\epsilon+6\eta^2 \frac{1}{(K+1)^2}\epsilon^2-\eta^3 \frac{1}{(K+1)^3}\epsilon^3\right)\xi_1]
+\end{align*}
+
+Compared with the case of Algorithm 1:
+\begin{align*}
+x_2: &-\eta  \xi_1 \\
+x_3: &-\eta  \left[ \xi_2 + \left( 1- \eta \epsilon\right)\xi_1\right]\\
+x_4: &-\eta  \left[ \xi_3 + \left( 1- \eta \epsilon\right)\xi_2+ \left( 1- 2\eta \epsilon+\eta^2 \epsilon^2\right)\xi_1\right]\\
+x_5: &-\eta  \left[ \xi_4 + \left( 1- \eta \epsilon\right)\xi_3+ \left( 1- 2\eta \epsilon+\eta^2 \epsilon^2\right)\xi_2+ \left( 1- 3\eta \epsilon+3\eta^2 \epsilon^2-\eta^3 \epsilon^3\right)\xi_1\right]
+\end{align*}
+
+
+
+\end{document}
