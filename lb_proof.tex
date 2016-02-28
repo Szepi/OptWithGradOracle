@@ -49,7 +49,7 @@ Hence,
 Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
 We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
- \gamma_v(x) = \epsilon(x-v) - v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
+ \gamma_v(x) = \epsilon(x-v) + v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
 \end{align}
 where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
 to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
@@ -79,7 +79,7 @@ Using \eqref{eq:fv-lb}, we obtain
 \Delta_n^{(1)*}  \ge & \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \label{eq:strong-convex-bd}\\
   = & \inf_{\A} \dfrac{\epsilon }{2} \, \left(\P_{+}(\hat X_n < 0) + \P_{-}(\hat X_n > 0)\right), \label{eq:Pplus}\\
   \ge &\inf_{\A} \dfrac{\epsilon }{2} \,\left(1 - \tvnorm{\P_{+}- \P_{-}}\right), \label{eq:lecam}\\
-  \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker}
+  \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(2\ln 2\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker}
 \end{align}
 where 
 the equality in \eqref{eq:Pplus} uses the definitions of $\P_+$ and $\P_-$.  
@@ -89,19 +89,19 @@ Further, the inequality in \eqref{eq:lecam} follows from the definition of total
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 Define $G_t$ to be the $t$th observation of $\A$: $G_t:\Omega \to \R$, with $G_t( g_{1:n}, v) = g_t$.
 Let $P_+^t(g_1,\dots,g_t)$ denote the joint distribution of $G_1,\dots,G_t$ conditioned on $V=+1$.
-Let $P_{+}^t(\cdot\mid g_1,\ldots,g_{t-1})$ denote the distribution of $G_t$ conditional on $V=+1$ and $G_1=g_1,\ldots,G_{t-1}=g_{t-1}$. Define  $P_{-j}^t(\cdot\mid g_1,\ldots,g_{t-1})$ in a similar fashion.
+Let $P_{+}^t(\cdot\mid g_1,\ldots,g_{t-1})$ denote the distribution of $G_t$ conditional on $V=+1$ and $G_1=g_1,\ldots,G_{t-1}=g_{t-1}$. Define  $P_{-}^t(\cdot\mid g_1,\ldots,g_{t-1})$ in a similar fashion.
 Then, by the chain rule for KL-divergences, we have
 \begin{align}
 \label{eq:dklchain}
-&\dkl{P_{+}}{P_{-}}= \sum_{t=1}^n \int_{\R^{t-1}} \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})} d P_{+}^t( g_{1:t-1}).\nonumber
+&\dkl{P_{+}}{P_{-}}= \sum_{t=1}^n \int_{\R^{t-1}} \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})} d P_{+}^{t-1}( g_{1:t-1}).
 \end{align}
 By the oracle's definition, $G_t \sim  \normal(\gamma_{+}(\cA_t(G_{1:t-1})),\sigma^2)$. Hence, 
 $P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with the mean $\cA_t(g_{1:t-1})$ and variance $\sigma^2$.
 %, where $A(g_{1:t-1})$ denotes the point chosen by the algorithm given observations $g_1,\ldots, g_{t-1}$ and $\gamma_{+}$ is the gradient oracle defined earlier. 
-Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2\epsilon$ and hence
+Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = -2\epsilon$ and hence
 \begin{align}
  |\gamma_+(x) - \gamma_-(x)| 
-& = | f'_+(x) - \min(\epsilon,C_1 \delta(g_{1:t-1})^p - (f'_-(x)+\min(\epsilon,C_1 \delta(g_{1:t-1})^p)) | \nonumber \\
+& = | f'_+(x) + \min(\epsilon,C_1 \delta(g_{1:t-1})^p - (f'_-(x)-\min(\epsilon,C_1 \delta(g_{1:t-1})^p)) | \nonumber \\
 & = 2 (\epsilon - C_1 \delta(g_{1:t-1})^p)_+\,,
  \label{eq:gdiff-ub}
 \end{align}
@@ -122,8 +122,8 @@ Note that the above bound holds uniformly over all algorithms $\A$.
 Substituting the above bound into \eqref{eq:pinsker}, we obtain 
 \begin{align}
  \Delta_n^{(1)*}
-  \ge & \dfrac{\epsilon}{2} \left(1 - \sqrt{
-    n}  \dfrac{\max_{\delta>0} (\epsilon-C_1\delta^p)_+\delta^{q/2}}{C_2}
+  \ge & \dfrac{\epsilon}{2} \left(1 - 2 \sqrt{
+    n}  \dfrac{\max_{\delta>0} (\epsilon-C_1\delta^p)_+\delta^{q/2}}{\sqrt{C_2}}
   \right)\label{eq:final-lower-bd}
 \end{align}
 
@@ -154,7 +154,7 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 % \]
 
 \paragraph{Derivation of the rates uniformly for all $\delta$:}
-Observe that $\max_{\delta> 0} (\epsilon - C_1 \delta^p)_+ \delta = \max_{\delta> 0} (\epsilon - C_1 \delta^p) \delta$. 
+Observe that $\max_{\delta> 0} (\epsilon - C_1 \delta^p)_+ \delta^{q/2} = \max_{\delta> 0} (\epsilon - C_1 \delta^p) \delta^{q/2}$. 
 In other words, minimizer $\delta^*$ of \eqref{eq:final-lower-bd} can never be in the zero arm of the positive part function, i.e., $(\epsilon - C_1 \delta^p)_+ $, and hence we minimize \eqref{eq:final-lower-bd} by replacing the positive part with $(\epsilon - C_1 \delta^p)$.
 
 Assuming $q \ge 2$, we obtain the following 
@@ -165,22 +165,22 @@ Assuming $q \ge 2$, we obtain the following
 maybe there will be a condition that $n$ should be ``big enough''. Brr.}
 and for any choice of $\delta$, the following lower bound for the minimax error:
 \[
-\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  K_1 \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
+\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{K_1}{2+\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
 \]
  
-Plugging in $\epsilon = \left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, we obtain
+Plugging in $\epsilon = \left(\dfrac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, we obtain
 \begin{align}
-\Delta_n^{(1)*} \ge \dfrac{1}{4}\left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}}.
+\Delta_n^{(1)*} \ge \dfrac{2p+q}{8p+2q}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}}.
 \label{eq:lb-pq}
 \end{align}
 
 Now, when $q=2$ and $p=1$, this simplifies to
 \[
-\Delta_n^{(1)*} \ge \dfrac{\sqrt{C_1 C_2}}{2\sqrt{2}} n^{-1/4}, \text{ for } \epsilon=\sqrt{2C_1C_2} n^{-1/4}.
+\Delta_n^{(1)*} \ge \dfrac{ (4C_1^2C_2)^{1/4}}{3\sqrt{3}} n^{-1/4}, \text{ for } \epsilon=\sqrt{2/3}C_1^{1/2}C_2^{1/4} n^{-1/4}.
 \]
 On the other hand, for $p=q=2$, we get
 \[
-\Delta_n^{(1)*} \ge  \frac{3}{8}\left(\frac{C_1 C_2^2}{16}\right)^{1/3} n^{-1/3} \text{ for } \epsilon=\frac{3}{2}\left(\frac{C_1 C_2^2}{16}\right)^{1/3}n^{-1/3}.
+\Delta_n^{(1)*} \ge  \frac{9}{10}\left(\frac{C_1 C_2}{100}\right)^{1/3} n^{-1/3} \text{ for } \epsilon=3\left(\frac{C_1 C_2}{100}\right)^{1/3}n^{-1/3}.
 \]
 
 
@@ -200,7 +200,7 @@ By definition, $f_v$ is additively separable and minimized at $x^*_v=v$ with the
 We consider oracles $\gamma_v$ defined by
 $\gamma_v(x) = \sum_{i=1}^d \gamma_{v_i}^{(i)}e_i$, where 
 $e_i$ is the $i$th unit vector in the standard Euclidean base,
-$\gamma_{v_i}^{(i)} = \epsilon(x_i-v_i) - v_i\, \frac{C_1 \delta^p}{\sqrt{d}} + \xi_i$, where $\xi_i \sim \normal(0,\frac{C_2}{d\delta^q})$. 
+$\gamma_{v_i}^{(i)} = \epsilon(x_i-v_i) + v_i\, \frac{C_1 \delta^p}{\sqrt{d}} + \xi_i$, where $\xi_i \sim \normal(0,\frac{C_2}{d\delta^q})$. 
 It is evident that the $\gamma$ is a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 
 Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$, which is composed of $f_v$s, as defined above. We have
@@ -286,22 +286,27 @@ while the inequality \eqref{eq:dlb} follows from the fact that each infimum term
 % \[\Delta_n^* \ge d \Delta_n^{(1)*}.\]
 \paragraph{Rates:}\ \\
 General $p$ and $q\ge 2$:
+%\begin{align}
+%\Delta_n^{(d)*} \ge \dfrac{1}{4} d^{\frac{q}{(4p+2q)}} \left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}} \text{ for } 
+%\epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
+%\label{eq:lb-pq-d}
+%\end{align}
 \begin{align}
-\Delta_n^{(d)*} \ge \dfrac{1}{4} d^{\frac{q}{(4p+2q)}} \left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}} \text{ for } 
-\epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
+\Delta_n^{(d)*} \ge  \dfrac{2p+q}{8p+2q}\sqrt{d}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}} \text{ for } 
+\epsilon = \dfrac{1}{\sqrt{d}}\left(\dfrac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
 \label{eq:lb-pq-d}
 \end{align}
 
 Case $p=1$ and $q=2$:
 \begin{align*}
 % \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
-\Delta_n^{(d)*}  \ge& \frac{\sqrt{C_1 C_2}}{2\sqrt 2}\left(\frac{d}{n}\right)^{\frac{1}{4}}.
+\Delta_n^{(d)*}  \ge& \dfrac{ (4C_1^2C_2)^{1/4}}{3\sqrt{3}} d^{1/2}n^{-1/4}.
 \end{align*}
 
 Case $p=q=2$:
 \begin{align*}
 % \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
-\Delta_n^{(d)*}  \ge& \dfrac{3}{8}\left(\frac{  C_1 C_2^2}{16 }\right)^{1/3} \left(\frac{ \sqrt{d} }{ n}\right)^{1/3}.
+\Delta_n^{(d)*}  \ge& \frac{9}{10}\left(\frac{C_1 C_2}{100}\right)^{1/3} d^{1/2}n^{-1/3}.
 \end{align*}
 
 %%% Local Variables: 

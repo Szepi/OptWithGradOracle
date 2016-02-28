@@ -16,10 +16,10 @@
 % \rowcolor{gray!20}
  & \textbf{Upper bound} & \textbf{Lower bound} & \textbf{Upper bound} & \textbf{Lower bound}\\
  \midrule
-\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2 d}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2}{d n}\right)^{1/2}$} \\[0.5ex]
+\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2}{d n}\right)^{1/2}$} \\[0.5ex]
  ($p=1$, $q=2$) & & & &\\\midrule
 %%%%%%%%%%%%%%%%%%%
-\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 \sqrt d}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 }{d n}\right)^{2/3}$}\\[1.4ex]
+\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 }{d n}\right)^{2/3}$}\\[1.4ex]
  ($p=2$, $q=2$) & & & &\\
   \midrule
  \textbf{No bias or variance} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\left(\dfrac{d^2}{n}\right)^{1/2}$}  \\[0.5ex]
@@ -135,14 +135,15 @@ Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Typ
 \textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth):}
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?} 
 \[
-\Delta_n^{*}(\F_{L,0}, c_1,c_2) \ge \dfrac{1}{4}d^{\frac{q}{(4p+2q)}}\left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}},
+\Delta_n^{*}(\F_{L,0}, c_1,c_2) \ge \dfrac{2p+q}{8p+2q}\sqrt{d}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}},
 \]
-where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
+%where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
+where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 
 \textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth):}
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
-\Delta_n^{*}(\F, c_1,c_2) \ge \dfrac{1}{4}  \left(\dfrac{1}{2 K_1 \sqrt {d n}}\right)^{\frac{2p}{p+\frac{q}{2}}}, 
+\Delta_n^{*}(\F_{L,1}, c_1,c_2) \ge \dfrac{1}{4}  \left(\dfrac{1}{2 K_1 \sqrt {d n}}\right)^{\frac{2p}{p+\frac{q}{2}}}, 
 \]
 where $K_1$ is the same as before.
 \end{theorem}
