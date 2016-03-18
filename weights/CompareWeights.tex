@@ -1,5 +1,5 @@
 \documentclass[11pt,letterpaper,english]{article}
-
+\usepackage{bbold}
 \input{commands}
 
 
@@ -28,26 +28,80 @@ x_{t+1} =& (1-\eta \epsilon) x_{t} + \eta \epsilon - \eta C_1 \delta^2-\eta \xi_
 &- \eta \xi_t -\eta \left(1-\eta \epsilon\right)\xi_{t-1}- \cdots -\eta \left(1-\eta \epsilon\right)^{t-1}\xi_{1}
 \end{align*}
 
-Denote the coefficients of $\left\lbrace\xi_t\right\rbrace$ in $x_{t+1}$ as $a^{(t)}, a^{(t-1)},\cdots,a^{(1)}$. We can see that the coefficients of $x_1$ in $x_{t+1}$ is $1+\epsilon (a^{(t)}+ a^{(t-1)}+\cdots + a^{(1)})$. So only the coefficients of $\left\lbrace\xi_t\right\rbrace$ will matter.
+%Denote the coefficients of $\left\lbrace\xi_t\right\rbrace$ in $x_{t+1}$ as $a^{(t)}, a^{(t-1)},\cdots,a^{(1)}$. We can see that the coefficients of $x_1$ in $x_{t+1}$ is $1+\epsilon (a^{(t)}+ a^{(t-1)}+\cdots + a^{(1)})$. So only the coefficients of $\left\lbrace\xi_t\right\rbrace$ will matter.
+%
+%For Algorithm 2, $\eta$ should be replaced by $\eta \frac{1}{K+1}$. Moreover, the polynomial is not as regular as, but close to, some power of $\left(1-\eta \frac{1}{K+1} \epsilon\right)$.
+%
+%For example, when $K=2$:
+%\begin{align*}
+%x_2: &-\eta \frac{1}{K+1} \xi_1 \\
+%x_3: &-\eta \frac{1}{K+1} \left[ \xi_2 + \left( 2- \eta \frac{1}{K+1}\epsilon\right)\xi_1\right]\\
+%x_4: &-\eta \frac{1}{K+1} \left[ \xi_3 + \left( 2- \eta \frac{1}{K+1}\epsilon\right)\xi_2+ \left( 3- 4\eta \frac{1}{K+1}\epsilon+\eta^2 \frac{1}{(K+1)^2}\epsilon^2\right)\xi_1\right]\\
+%x_5: &-\eta \frac{1}{K+1} [ \xi_4 + \left( 2- \eta \frac{1}{K+1}\epsilon\right)\xi_3+\left( 3- 4\eta \frac{1}{K+1}\epsilon+\eta^2 \frac{1}{(K+1)^2}\epsilon^2\right)\xi_2  \\
+%&+ \left( 2- 10\eta \frac{1}{K+1}\epsilon+6\eta^2 \frac{1}{(K+1)^2}\epsilon^2-\eta^3 \frac{1}{(K+1)^3}\epsilon^3\right)\xi_1]
+%\end{align*}
+%
+%Compared with the case of Algorithm 1:
+%\begin{align*}
+%x_2: &-\eta  \xi_1 \\
+%x_3: &-\eta  \left[ \xi_2 + \left( 1- \eta \epsilon\right)\xi_1\right]\\
+%x_4: &-\eta  \left[ \xi_3 + \left( 1- \eta \epsilon\right)\xi_2+ \left( 1- 2\eta \epsilon+\eta^2 \epsilon^2\right)\xi_1\right]\\
+%x_5: &-\eta  \left[ \xi_4 + \left( 1- \eta \epsilon\right)\xi_3+ \left( 1- 2\eta \epsilon+\eta^2 \epsilon^2\right)\xi_2+ \left( 1- 3\eta \epsilon+3\eta^2 \epsilon^2-\eta^3 \epsilon^3\right)\xi_1\right]
+%\end{align*}
 
-For Algorithm 2, $\eta$ should be replaced by $\eta \frac{1}{K+1}$. Moreover, the polynomial is not as regular as, but close to, some power of $\left(1-\eta \frac{1}{K+1} \epsilon\right)$.
+\begin{proposition}
+Given the algorithm (1 or 2) and oracle, for each $t=1,2,\cdots$, $x_t$ can be written as
+\begin{align}
+\label{eq:expression_x_t}
+x_{t} = w^{(t)}_0 x_1 + 1-w^{(t)}_0 -C_1 \delta^2 \frac{1}{\epsilon}(1-w^{(t)}_0) -w^{(t)}_1 \xi_1 - w^{(t)}_2 \xi_2 - \cdots - w^{(t)}_{t-1} \xi_{t-1} \,,
+\end{align}
+where $w^{(t)}_0 = 1-\epsilon (w^{(t)}_1+\cdots+w^{(t)}_{t-1})$.
+\end{proposition}
+\begin{proof}[mathematical induction]
+It is obvious that \ref{eq:expression_x_t} holds for $t=1$ with $w^{(1)}_0=1$.
+Assume that \ref{eq:expression_x_t} holds for $t=1,2,\cdots,n$, we will prove that it is also true for $t=n+1$.
 
-For example, when $K=2$:
+Given the expression of $x_n$, we have
 \begin{align*}
-x_2: &-\eta \frac{1}{K+1} \xi_1 \\
-x_3: &-\eta \frac{1}{K+1} \left[ \xi_2 + \left( 2- \eta \frac{1}{K+1}\epsilon\right)\xi_1\right]\\
-x_4: &-\eta \frac{1}{K+1} \left[ \xi_3 + \left( 2- \eta \frac{1}{K+1}\epsilon\right)\xi_2+ \left( 3- 4\eta \frac{1}{K+1}\epsilon+\eta^2 \frac{1}{(K+1)^2}\epsilon^2\right)\xi_1\right]\\
-x_5: &-\eta \frac{1}{K+1} [ \xi_4 + \left( 2- \eta \frac{1}{K+1}\epsilon\right)\xi_3+\left( 3- 4\eta \frac{1}{K+1}\epsilon+\eta^2 \frac{1}{(K+1)^2}\epsilon^2\right)\xi_2  \\
-&+ \left( 2- 10\eta \frac{1}{K+1}\epsilon+6\eta^2 \frac{1}{(K+1)^2}\epsilon^2-\eta^3 \frac{1}{(K+1)^3}\epsilon^3\right)\xi_1]
+g_n &= \epsilon (x_n-1) + C_1 \delta^2 + \xi_n \\
+&= \epsilon w^{(n)}_0 x_1 - \epsilon w^{(n)}_0 + C_1 \delta^2w^{(n)}_0 -\epsilon w^{(n)}_1 \xi_1-\cdots-\epsilon w^{(n)}_{n-1} \xi_{n-1}+\xi_n \,.
 \end{align*}
-
-Compared with the case of Algorithm 1:
+Similar results can apply to $g_{(n-1)^+}, \cdots,g_{(n-K)^+}$, where $(\cdot)^+:=\max\left(\cdot, 1 \right)$. Therefore, 
 \begin{align*}
-x_2: &-\eta  \xi_1 \\
-x_3: &-\eta  \left[ \xi_2 + \left( 1- \eta \epsilon\right)\xi_1\right]\\
-x_4: &-\eta  \left[ \xi_3 + \left( 1- \eta \epsilon\right)\xi_2+ \left( 1- 2\eta \epsilon+\eta^2 \epsilon^2\right)\xi_1\right]\\
-x_5: &-\eta  \left[ \xi_4 + \left( 1- \eta \epsilon\right)\xi_3+ \left( 1- 2\eta \epsilon+\eta^2 \epsilon^2\right)\xi_2+ \left( 1- 3\eta \epsilon+3\eta^2 \epsilon^2-\eta^3 \epsilon^3\right)\xi_1\right]
+\bar{g}_n =& \dfrac{1}{K+1}\sum_{i=(n-K)^+}^n g_i \\
+=& \epsilon \dfrac{\sum_{j=(n-K)^+}^n w^{(j)}_0}{K+1} x_1 - \epsilon \dfrac{\sum_{j=(n-K)^+}^n w^{(j)}_0}{K+1} +C_1 \delta^2  \dfrac{\sum_{j=(n-K)^+}^n w^{(j)}_0}{K+1}\\
+&-\epsilon \dfrac{\sum_{j=\max\left(2,(n-K)^+\right)}^n w^{(j)}_1}{K+1} \xi_1
+-\epsilon \dfrac{\sum_{j=\max\left(3,(n-K)^+\right)}^n w^{(j)}_2}{K+1} \xi_2-\cdots
+-\epsilon \dfrac{w^{(n)}_{n-1}}{K+1} \xi_{n-1}  +\dfrac{\sum_{i=(n-K)^+}^n \xi_i}{K+1} \,.
 \end{align*}
+Then, following the algorithm, we have that
+\begin{align*}
+x_{n+1} =& x_n -\eta \bar{g}_n \\
+=& \left( w^{(n)}_0-\dfrac{\eta \epsilon}{K+1} \sum_{j=(n-K)^+}^n w^{(j)}_0  \right)x_1
++1- w^{(n)}_0+\dfrac{\eta \epsilon}{K+1} \sum_{j=(n-K)^+}^n w^{(j)}_0 \\
+&- C_1 \delta^2\dfrac{1}{\epsilon} \left(1- w^{(n)}_0+\dfrac{\eta \epsilon}{K+1} \sum_{j=(n-K)^+}^n w^{(j)}_0    \right) \\
+&-  \sum_{i=1}^{n-1} \left( w^{(n)}_i- \dfrac{\eta \epsilon}{K+1} \sum_{j=\max \left(i+1,(n-K)^+\right)}^n w^{(j)}_i +\dfrac{\eta}{K+1} \mathbb{1}\left\lbrace i \geq n-k \right\rbrace \right) \xi_i  -\dfrac{\eta}{K+1}\xi_n \,.
+\end{align*}
+Let 
+\begin{align*}
+w^{(n+1)}_0 &= w^{(n)}_0-\dfrac{\eta \epsilon}{K+1} \sum_{j=(n-K)^+}^n w^{(j)}_0 \,,\\
+w^{(n+1)}_i &= w^{(n)}_i- \dfrac{\eta \epsilon}{K+1} \sum_{j=\max \left(i+1,(n-K)^+\right)}^n w^{(j)}_i +\dfrac{\eta}{K+1} \mathbb{1}\left\lbrace i \geq n-k \right\rbrace \,,i=1,2,\cdots,n-1 \,, \\
+w^{(n+1)}_n &=\dfrac{\eta}{K+1} \,.
+\end{align*}
+We get 
+\begin{align*}
+x_{n+1} = w^{(n+1)}_0 x_1 + 1-w^{(n+1)}_0 -C_1 \delta^2 \frac{1}{\epsilon}(1-w^{(n+1)}_0) -w^{(n+1)}_1 \xi_1 - w^{(n+1)}_2 \xi_2 - \cdots - w^{(n+1)}_{n} \xi_{n} \,.
+\end{align*}
+Now we only need to prove that $w^{(n+1)}_0=1-\epsilon \sum_{i=1}^n w^{(n+1)}_i$. Given that $w^{(j)}_0=1-\epsilon \sum_{i=1}^{j-1} w^{(j)}_i$, where $j=1,2,\cdots,n$, the right hand side is
+\begin{align*}
+ \sum_{i=1}^n w^{(n+1)}_i
+&=  \sum_{i=1}^{n-1} w^{(n)}_i +\dfrac{\eta}{K+1} \left( \min\left(K+1,n \right) -\epsilon  \sum_{i=1}^{n-1} \sum_{j=\max \left(i+1,(n-K)^+\right)}^n w^{(j)}_i \right) \\
+&= \dfrac{1}{\epsilon} \left( 1-w^{(n)}_0 \right) + \dfrac{\eta}{K+1}  \sum_{j=(n-K)^+}^n w^{(j)}_0  \\
+&=  \dfrac{1}{\epsilon} \left( 1-w^{(n+1)}_0 \right) \,.
+\end{align*}
+Thereby, \ref{eq:expression_x_t} also holds for $t=n+1$. Proof is done.
+
+\end{proof}
 
 \section{Compute regret from the expression}
 Under both of the algorithms, the estimate can be written as
@@ -71,7 +125,7 @@ Denote $W = w_1+\cdots+w_T$, then
 \begin{align*}
 \EE{R} \geq  \dfrac{\epsilon}{2} \left( (x_1-1)^2-2(x_1-1)(\epsilon x_1-\epsilon +C_1 \delta^2)W + (\epsilon x_1-\epsilon +C_1 \delta^2+C_2 \delta^{-2}T^{-1})^2W^2  \right) \,.
 \end{align*}
-The lower bound is minimized when $W=\dfrac{(x_1-1)(\epsilon x_1-\epsilon +C_1 \delta^2)}{\epsilon x_1-\epsilon +C_1 \delta^2+C_2 \delta^{-2}T^{-1}} \to 1$. Therefore, 
+The lower bound is minimized when $W=\dfrac{(x_1-1)(\epsilon x_1-\epsilon +C_1 \delta^2)}{\left(\epsilon x_1-\epsilon +C_1 \delta^2+C_2 \delta^{-2}T^{-1}\right)^2} $. Therefore, 
 \begin{align*}
 \EE{R} = O(\dfrac{\epsilon}{2}) = O(T^{-\frac{1}{3}})\,.
 \end{align*}
@@ -82,7 +136,6 @@ w_1+\cdots+w_T&= \eta \left( 1+(1-\eta \epsilon)+\cdots+(1-\eta \epsilon)^{T-1} 
 w_1^2+\cdots+w_T^2&=\eta^2 \left( 1+(1-\eta \epsilon)^2+\cdots+(1-\eta \epsilon)^{2(T-1)} \right) \to \dfrac{\eta^2}{1-(1-\eta \epsilon)^2}= T^{-\frac{7}{24}}\,.
 \end{align*}
 Therefore, $\EE{R} = O(T^{-\frac{5}{12}})+O(T^{-\frac{1}{4}})>O(T^{-\frac{1}{3}})$.
-
 
 
 
