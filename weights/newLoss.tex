@@ -1,0 +1,23 @@
+\documentclass[11pt,letterpaper,english]{article}
+
+\input{commands}
+
+
+\begin{document}
+Loss function: $f_v(x) = x-v+2\epsilon \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)$, $v= 1, -1$.
+
+The oracle: $\gamma_v = \epsilon \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}}+v \min \left( \epsilon, C_1 \delta^p \right)+\xi$.
+
+When $x<0$, 
+\begin{align*}
+f_+(x)-f_+(x^*) > -1 +2\epsilon \ln\left( 1+e^{\frac{1}{\epsilon}} \right) >\epsilon
+\end{align*}
+So $f_v(x)-f_v(x^*)>\epsilon \indic{x v  < 0}$.
+
+\begin{align*}
+|\gamma_--\gamma_+| &= -\epsilon \dfrac{1-e^{-\frac{x-1}{\epsilon}}}{1+e^{-\frac{x-1}{\epsilon}}} + \epsilon \dfrac{1-e^{-\frac{x+1}{\epsilon}}}{1+e^{-\frac{x+1}{\epsilon}}}-2 \min \left( \epsilon, C_1 \delta^p \right)\\
+&\leq 2\epsilon \dfrac{e^{1/\epsilon}-1}{e^{1/\epsilon}+1}-2 \min \left( \epsilon, C_1 \delta^p \right)\\
+&\leq 2\left( \epsilon -C_1\delta^p \right)_+
+\end{align*}
+
+\end{document}
