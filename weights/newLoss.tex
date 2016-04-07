@@ -4,7 +4,8 @@
 
 
 \begin{document}
-Loss function: $f_v(x) = x-v+2\epsilon \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)$, $v= 1, -1$, $0.5$-smooth.
+Loss function: $f_v(x) =\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)$, $v= 1, -1$, $0.5$-smooth.
+
 
 The oracle: $\gamma_v = \epsilon \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}}+v \min \left( \epsilon, C_1 \delta^p \right)+\xi$.
 
