@@ -6,12 +6,11 @@
 \begin{document}
 Loss function: $f_v(x) =\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)$, $v= 1, -1$, $0.5$-smooth.
 
-
 The oracle: $\gamma_v = \epsilon \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}}+v \min \left( \epsilon, C_1 \delta^p \right)+\xi$.
 
 When $x<0$, 
 \begin{align*}
-f_+(x)-f_+(x^*) > -1 +2\epsilon \ln\left( 1+e^{\frac{1}{\epsilon}} \right) >1>\epsilon
+f_+(x)-f_+(x^*) >\epsilon\left( -1 +2\epsilon \ln\left( 1+e^{\frac{1}{\epsilon}} \right) \right)>\epsilon
 \end{align*}
 So $f_v(x)-f_v(x^*)>\epsilon \indic{x v  < 0}$.
 
