@@ -37,22 +37,34 @@ We first lower bound  the minimax error in one dimension and then generalize it 
 % We first prove the theorem in a one-dimensional setting and generalize it later.
 Define $\F_{L,0}$ to be comprised of $f_v$ for $v \in \{-1,+1\}$, where
 % By assumption,  $\{f_+, f_-\}\subset \F$, with 
+%\begin{align*}
+%  f_v(x) := \dfrac{\epsilon}{2} (x - v)^2, \,\, x \in \cK \subset \R\,.
+%\end{align*}
 \begin{align*}
-  f_v(x) := \dfrac{\epsilon}{2} (x - v)^2, \,\, x \in \cK \subset \R\,.
+f_v(x) :=\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right), \,\, x \in \cK \subset \R\,.
+\end{align*}
+The first and second order derivatives of $f_v$ are
+\begin{align*}
+f'_v(x) &=\epsilon \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} ,\\ 
+f''_v(x) &= \dfrac{2e^{-\frac{x-v}{\epsilon}} }{\left(  1+e^{-\frac{x-v}{\epsilon}}\right)^2}  .
 \end{align*}
 % we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-Clearly, $f_v$ is minimized at $x^*_v = v$ with the minimum value being zero.
+Clearly, $f_v$ is $\frac{1}{2}$-smooth and minimized at $x^*_v = v$.
+When $xv<0$, $\epsilon<\dfrac{1}{4\ln 2}$, due to the monotony, we have
+\begin{align*}
+f_v(x)-f_v(x_v^*) >\epsilon\left( -1 +2\epsilon \ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}  \right)> \dfrac{\epsilon}{2}.
+\end{align*}
 Hence,
 %Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
 \begin{align}
   f_v(x) - f_v(x^*_v)
-  = &  \dfrac{\epsilon}{2} (x - v)^2 \ge  \dfrac{\epsilon}{2}  \indic{x v  < 0}. \label{eq:main:fv-lb-main}
+  \ge \dfrac{\epsilon}{2}  \indic{x v  < 0}. \label{eq:main:fv-lb-main}
 \end{align}
 % Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
 We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
- \gamma_v(x) = \epsilon(x-v) + v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:main:oracle-1d}
+ \gamma_v(x) = \epsilon \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} + v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:main:oracle-1d}
 \end{align}
 where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$.
 % ; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$)  to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
@@ -78,11 +90,16 @@ Using \eqref{eq:main:fv-lb-main}, we obtain
 \end{align}
 where $\P_{+}$ (resp. $P_-$) is the distribution $\P$ conditioned on $v=+1$ (resp. $v=-1$).
 
-Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = -2\epsilon$ and hence
+Observe that, for any $x\in \R$, 
+%$f_+'(x) - f_-'(x) = -2\epsilon$ and hence
+\begin{align*}
+0 \le f_-'(x) - f_+'(x) \le 2\epsilon \dfrac{e^{1/\epsilon}-1}{e^{1/\epsilon}+1} < 2\epsilon .
+\end{align*}
+Therefore,
 \begin{align}
 & |\gamma_+(x) - \gamma_-(x)| \nonumber\\
 & = | f'_+(x) - \min(\epsilon,C_1 \delta^p) - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | \nonumber \\
-& = 2 (\epsilon - C_1 \delta^p)_+\,,
+& < 2 (\epsilon - C_1 \delta^p)_+\,,
  \label{eq:main:gdiff-ub}
 \end{align}
 where $(\epsilon - C_1 \delta^p)_+ = \max(\epsilon - C_1 \delta^p,0)$. 
