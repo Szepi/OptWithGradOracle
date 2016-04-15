@@ -137,8 +137,7 @@ Using that $a W^2 + bW +c \ge c-b^2/(4a)$, we get
 & \ge \frac{\epsilon (x_1-1)^2}{2} \frac{C_2}{C_2 + 2(x_1-1)^2 T \delta^2 \epsilon^2+ 2 C_1^2 T \delta^6}.
 \end{align*}
 
-Now, for Algorithm~2, the parameter choices are $\epsilon = T^{-\frac{1}{3}}$, $\eta = T^{-\frac{5}{8}}$, $K = T^{\frac{1}{8}}$, $\delta=T^{-\frac{3}{16}}$, leading to the lower bound $\EE{R} = \Omega(T^{-1/3})$, contradicting the upper bound $O(T^{-3/8})$ of \citet{DekelEK15}.
-
+Now,  \citet{DekelEK15} chooses $\delta=T^{-\frac{3}{16}}$ for Algorithm~2. Then, selecting $\epsilon = T^{-\frac{5}{16}}$, the lower bound becomes $\Omega(T^{-5/16})$, contradicting the $O(T^{5/8})$ regret bound for the online learning case, since it leads to an $O(T^{-3/8})$ upper bound for the optimization problem we consider.
 
 \bibliographystyle{plainnat}
 \bibliography{../main}
