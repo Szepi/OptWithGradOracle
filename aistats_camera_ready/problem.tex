@@ -57,7 +57,8 @@ In what follows, the functions $c_1,c_2:[0,\infty)\to [0,\infty)$ will be assume
 monotonously increasing (resp., decreasing) with
 $\lim_{\delta\to  0} c_1(\delta)=0$ and $\lim_{\delta\to 0} c_2(\delta)=+\infty$.
 Typical choices for $c_1,c_2$ are $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2\delta^{-q}$ with $p,q>0$.
-We define two classes of oracles. \todoc{$Y$ should be removed completely, and added only when online learning is considered.}
+We define two classes of oracles. The relationship between these oracles will be studied in \cref{sec:orrel}.
+\todoc{$Y$ should be removed completely, and added only when online learning is considered.}
 \begin{definition}[$(c_1,c_2)$ Type-I  oracle]
 \label{def:oracle1}
 We say that $\gamma$ is a  $(c_1,c_2)$ Type-I oracle, if for any function $f\in \cF$,
@@ -96,15 +97,6 @@ to modify the definitions to use subgradients. For simplicity, we will not consi
 \end{align}
 We call the resulting oracles Type-IIb.
 
-The following result formalizes the relationship between type-I and II oracles.
-\begin{theorem}\label{thm:typered}
-\cref{def:oracle1} is a sufficient condition of \cref{def:oracle2}, given a bounded $\cK$. That is, for any $(c_1,c_2)$ Type-I oracle $\gamma$, there exist some constant $R$ such that  $\gamma$ is a $(c'_1,c_2)$ Type-II oracle, with $c'_1(\delta)=Rc_1(\delta)$.
-
-Similarly, \cref{def:oracle2} is sufficient for \cref{def:oracle1} if the alternative condition \eqref{eq:oracle2alt} holds.
-\end{theorem}
-\begin{proof}
-See Section \ref{sec:orrel}.
-\end{proof}
 
 Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
 though most often the oracles constructed in practice
