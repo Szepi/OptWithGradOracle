@@ -1,0 +1,30 @@
+%!TEX root =  bgo_camera_ready.tex
+% please do not delete or change the first line (needed by Csaba's editor)
+% \subsubsection{Reductions and Proofs}
+% \label{sec:orrel}
+
+\subsubsection*{Proof of Theorem \ref{thm:typered}}
+\begin{proof}
+Given $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $ in \cref{def:oracle1}, we can always construct a function $\tilde{f}:\cK \to \mathbb{R}$,
+\[
+\tilde{f}(y) =\EE{ f(y)+ \left( G-\nabla f(x) \right)^\top y} \,,
+\]
+where the expection is over the randomness of $G$, satisfying
+\begin{align*}
+\norm{\tilde{f}(y)-f(y)}_{\infty}
+=
+ \norm{ \EE{\left( G-\nabla f(x) \right)^\top y}}_{\infty}
+ \le \norm{\EE{G}-\nabla f(x)}_* \norm{y}
+ \le  Rc_1(\delta)\,,
+\end{align*}
+by choosing $R = \sup_{y \in \cK}\norm{y}$.
+
+Also notice that
+\[
+ \nabla \tilde{f}(x) = \EE{\nabla f(x)+ \left( G-\nabla f(x)\right)}
+ =\EE{G}\,.
+\]
+Therefore, $\gamma$ is also a $(c'_1,c_2)$ Type-II oracle.
+
+Next, given \eqref{eq:oracle2alt} and $\EE{G}=\nabla \tilde{f}(x)$ in \cref{def:oracle2}, we can immediately get the bias condition of \cref{def:oracle1}.
+\end{proof}

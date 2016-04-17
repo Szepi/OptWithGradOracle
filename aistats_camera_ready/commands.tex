@@ -1,0 +1,143 @@
+%!TEX root =  bgo_camera_ready.tex
+% please do not delete or change the first line (needed by Csaba's editor)
+
+%%%%%%%%%%%%%%%%%%%% Added for arxiv report %%%%%%%%%%%%%%%%%%%%%
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{authblk}
+\usepackage{times}
+\usepackage[margin=1in]{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{etex}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{natbib}
+\usepackage[noend]{algpseudocode}
+\usepackage{url}
+\usepackage{bm}
+% \usepackage[margin=2.5cm]{geometry}
+\setlength{\marginparwidth}{20mm}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{hhline}
+\usepackage{paralist}
+\usepackage{xspace}
+
+\usepackage[disable]{todonotes}
+%\usepackage{todonotes}
+\newcommand{\todoc}[2][]{\xspace\todo[color=red!20!white,size=\tiny,#1]{Cs: #2}}
+\newcommand{\todox}[2][]{\xspace\todo[color=orange!20!white,size=\tiny,#1]{X: #2}}
+\newcommand{\todoa}[2][]{\xspace\todo[color=blue!20!white,size=\tiny,#1]{A: #2}}
+\newcommand{\todop}[2][]{\xspace\todo[color=green!20!white,size=\tiny,#1]{P: #2}}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+
+%\usepackage{amsthm}
+%\newtheorem{remark}{Remark}
+%\newtheorem{proposition}{Proposition}
+%\newtheorem{definition}{Definition}
+% \newtheorem{theorem}{Theorem}
+\usepackage[amsmath,standard,thmmarks]{ntheorem} % ntheorem makes cleveref work properly
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{lemma}[theorem]{Lemma}
+
+% Hyperlinks make it very easy to navigate an electronic document.
+% In addition, this is where you should specify the thesis title
+% and author as they appear in the properties of the PDF document.
+% Use the "hyperref" package
+% N.B. HYPERREF MUST BE THE SECOND TO LAST PACKAGE LOADED; ADD ADDITIONAL PKGS ABOVE
+\usepackage[pdftex,letterpaper=true,pagebackref=false]{hyperref} % with basic options
+		% N.B. pagebackref=true provides links back from the References to the body text. This can cause trouble for printing.
+\hypersetup{
+    plainpages=false,       % needed if Roman numbers in frontpages
+    pdfpagelabels=true,     % adds page number as label in Acrobat's page count
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={(Bandit) Convex Optimization with Biased Noisy Gradient Oracles},    % set
+    pdfauthor={},    % set
+%     pdfauthor={D\'avid Szepesv\'ari},    % set
+%    pdfsubject={Subject},  % subject: CHANGE THIS TEXT! and uncomment this line
+%    pdfkeywords={keyword1} {key2} {key3}, % list of keywords, and uncomment this line if desired
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=blue,         % color of internal links
+    citecolor=blue,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+% N.B. CLEVEREF MUST BE LOADED; AFTER HYPERREF
+\usepackage[capitalize]{cleveref}
+\newtheorem{ass}{Assumption}
+\crefname{ass}{Assumption}{Assumptions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\EE}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\ip}[1]{\langle #1 \rangle}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\scnorm}[1]{\left\|#1\right\|}
+\DeclareMathOperator{\fspan}{span}
+\DeclareMathOperator\erf{erf}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\argmax}{argmax}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\dom}{dom}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\DR}{D_{\mathcal{R}}}
+
+%%% Prashanth: some of my macros..need to remove duplicates
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\G}{\mathcal{G}}
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\cR}{\mathcal{R}}
+
+\newcommand{\dnorm}[1]{\norm{#1}_*} % Dual norm
+\def\<{\left\langle} % Angle brackets
+\def\>{\right\rangle}
+
+
+
+
+\newcommand{\sign}{\mathop{\rm sign}}
+% \newcommand{\norm}[1]{\left\|{#1}\right\|} % A norm with 1 argument
+\newcommand{\tvnorm}[1]{\norm{#1}_{\rm TV}}
+\newcommand{\dkl}[2]{D_{\rm kl}\left({#1} |\!| {#2} \right)}
+\newcommand{\normal}{\mathsf{N}}  % Normal distribution
+\newcommand{\openleft}[2]{\left({#1},{#2}\right]} % Interval open on left
+\def\mbf#1{\mathbf{#1}}
+\def\indic#1{\mbf{1}\left\{#1\right\}} % Indicator function
+\newcommand{\tr}{^\mathsf{\scriptscriptstyle T}} % transpose
