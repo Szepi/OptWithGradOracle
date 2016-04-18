@@ -31,8 +31,8 @@
 
 
 In this section we provide our main results in forms of upper and lower bounds on the minimax error.
-First we provide an upper bound by analyzing a mirror-descent algorithm given in \cref{alg}.
-In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex and the target function $f$ is smooth or  smooth and strongly convex.
+First we give an upper bound by analyzing a mirror-descent algorithm given in \cref{alg}.
+In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex and the target function $f$ is smooth or  smooth and strongly convex. A standard analysis yields the following upper bounds:
 % In the algorithm, we will assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\|\cdot\|$ on $\R^d$, that is $\tfrac{\alpha}{2} \|x-y\|^2 \le \DR(x,y)=f(x)-f(y)-\ip{\nabla f(y),x-y}$ for all $x,y \in \K$. Moreover, we will consider the cases when the target function $f$ is $L$-smooth w.r.t.\  the norm $\| \cdot \|$ for some $L>0$, that is, $f(x) \le f(y) + \ip{\nabla f(y), y-x} + \tfrac{L}{2} \|x-y\|^2$, and when $f$ is $\mu$-strongly convex w.r.t.\  $\cR$, that is,
 % $f(x) \ge f(y) + \ip{\nabla f(y),y-x} +\tfrac{\mu}{2} \DR(x,y)$ for all $x,y \in \K$.
 
@@ -158,7 +158,9 @@ The condition connecting the problem parameters is that $n$ should be large enou
 % See Section \ref{sec:appendix-lb-proof}.
 %\end{proof}
 
-By continuity, the above claim can be extended to cover the case of $q=0$. For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive to an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ leads to an $\Omega(d/\sqrt{n})$ lower bound.
+By continuity, the above claim can be extended to cover the case of $q=0$. For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive to an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ leads to an $\Omega(d/\sqrt{n})$ lower bound. The proof of the lower bound is obtained in the usual way by presenting a family of functions and a type-I oracle such that any algorithm suffers at least the stated error on one of the functions. In particular, for $\F_{L,0}$ we use
+$f_v(x)=\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)$ with $v=\pm 1$, $\epsilon>0$, and $x \in \cK \subset \R$.
+
 
 \begin{remark}(\textbf{\textit{Scaling}})
 For any function class $\F$, by the definition of the minimax error \eqref{eq:minimaxerrdef}, it is easy to see that
