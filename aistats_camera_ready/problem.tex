@@ -115,7 +115,7 @@ Both are defined with respect to a class of loss functions $\cF$, and the bias/v
 The minimax expected regret for $(\cF,c_1,c_2)$ with type-I oracles is
 \begin{align*}
 %\MoveEqLeft
-R_n^*(\cF,c_1,c_2)
+R_{\F,n}^*(c_1,c_2)
 &= \inf_{\cA} \sup_{f_{1:n}\in \cF^n}
 	\sup_{\substack{\gamma_1,\ldots,\gamma_n \in \Gamma_1(f_t,c_1,c_2)%\\1\le t \le n
 	}} R_n^{\cA} %(f_{1:n},\gamma_{1:n})
@@ -135,12 +135,12 @@ and we use $R_n^{\cA}$ the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:
 The minimax regret for type-II (and other similar) oracles is defined analogously (in what follows we only define these quantities for type-I oracles, as the extension to type-II oracles is immediate).
 
 In the stochastic BCO setting, the minimax error is defined through
-\begin{align*}
-%\label{eq:minimaxerrdef}
-\Delta_n^*(\cF,c_1,c_2)
+\begin{align}
+\label{eq:minimaxerrdef}
+\Delta_{\F,n}^*(c_1,c_2)
 = \inf_{\cA} \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \Delta_n^{\cA}\,, %(f,\gamma)\,,
 % \EE{ f(\hat{X}_n) } - \inf_{x\in \cK}  f(x)\,,
-\end{align*}
+\end{align}
 where, again, $\cA$ ranges through all algorithms that interact with the loss $f$ through $\gamma$ and
 $\Delta_n^{\cA}$ is the optimization error that $\cA$ suffers
 after $n$ rounds of interaction with $f$ through $\gamma$ as described earlier.
@@ -150,10 +150,10 @@ where $R = \sup_{x\in \K} \norm{x}$: simply consider $\tilde{f}(y) =  f(y) + (\E
 where $G$ is the gradient estimate returned by the oracle. % (cf. \cref{thm:typered}).
 As a result, if for some set $\Delta_{n}^{\mathrm{type-I}}$, $\Delta_{n}^{\mathrm{type-II}}$
 denote the appropriate minimax errors and $R=1$
-then $\Delta_{n}^{\mathrm{type-I}}(\cF,c_1,c_2) \le \Delta_{n}^{\mathrm{type-II}}(\cF, c_1,c_2)  $.
+then $\Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(c_1,c_2)  $.
 As a result, when proving lower bounds, we shall consider type-I, while when proving upper bounds we will consider type-II oracles.
-Further note that for either type of oracles, $\Delta_n^*(\cF,c_1,c_2) \le R_n^*(\cF,c_1,c_2)/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing as $\hat{X}_n$ the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
+Further note that for either type of oracles, $\Delta_{\F,n}^*(c_1,c_2) \le R_{\F,n}^*(c_1,c_2)/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing as $\hat{X}_n$ the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
 Indeed, then $f(\hat{X}_n) \le \frac1n \sum_{t=1}^n f(X_t)$ by Jensen's inequality, hence the average regret of $\A$ will upper bound the error of choosing $\hat{X}_n$ at the end.
-A consequence of this is that a lower bound for $\Delta_n^*(\cF,c_1,c_2) $ will also be a lower bound for $R_n(\cF,c_1,c_2)^*/n$ and an upper bound on $R_n^*(\cF,c_1,c_2)$ leads to a an upper bound on $\Delta_n^*(\cF,c_1,c_2)$. This explains why we allowed to take supremum over time-varying oracles in the definition of the regret and why we used a static oracle for the optimization error: to maximize the strength of the bounds we obtain.
+A consequence of this is that a lower bound for $\Delta_{\F,n}^*(c_1,c_2) $ will also be a lower bound for $R_{\F,n}(c_1,c_2)^*/n$ and an upper bound on $R_{\F,n}^*(c_1,c_2)$ leads to a an upper bound on $\Delta_{\F,n}^*(c_1,c_2)$. This explains why we allowed to take supremum over time-varying oracles in the definition of the regret and why we used a static oracle for the optimization error: to maximize the strength of the bounds we obtain.
  \todoc{Add reference.}
 %$\hat{X}_n$ is the point returned by $\cA$ after $n$ rounds of interaction which work as described earlier.

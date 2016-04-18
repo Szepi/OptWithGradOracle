@@ -1,4 +1,4 @@
-%!TEX root =  bgo_camera_ready.tex
+%!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 \begin{table*}
 \small
@@ -33,7 +33,7 @@
 In this section we provide our main results in forms of upper and lower bounds on the minimax error.
 First we provide an upper bound by analyzing a mirror-descent algorithm given in \cref{alg}.
 In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex and the target function $f$ is smooth or  smooth and strongly convex.
-% In the algorithm, we will assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t. some norm $\|\cdot\|$ on $\R^d$, that is $\tfrac{\alpha}{2} \|x-y\|^2 \le \DR(x,y)=f(x)-f(y)-\ip{\nabla f(y),x-y}$ for all $x,y \in \K$. Moreover, we will consider the cases when the target function $f$ is $L$-smooth w.r.t. the norm $\| \cdot \|$ for some $L>0$, that is, $f(x) \le f(y) + \ip{\nabla f(y), y-x} + \tfrac{L}{2} \|x-y\|^2$, and when $f$ is $\mu$-strongly convex w.r.t. $\cR$, that is,
+% In the algorithm, we will assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\|\cdot\|$ on $\R^d$, that is $\tfrac{\alpha}{2} \|x-y\|^2 \le \DR(x,y)=f(x)-f(y)-\ip{\nabla f(y),x-y}$ for all $x,y \in \K$. Moreover, we will consider the cases when the target function $f$ is $L$-smooth w.r.t.\  the norm $\| \cdot \|$ for some $L>0$, that is, $f(x) \le f(y) + \ip{\nabla f(y), y-x} + \tfrac{L}{2} \|x-y\|^2$, and when $f$ is $\mu$-strongly convex w.r.t.\  $\cR$, that is,
 % $f(x) \ge f(y) + \ip{\nabla f(y),y-x} +\tfrac{\mu}{2} \DR(x,y)$ for all $x,y \in \K$.
 
 %Unconstrained case:
@@ -48,10 +48,8 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 \For{$t=1, 2, \cdots, n-1$}
 	\State Query the oracle at $X_t$.
 	\State Receive $G_t$, $Y_t$.
-	\State Update
-	$
-	X_{t+1}=\argmin_{x\in \mathcal{K}}\left[ \eta_{t} \ip{G_t,x}+D_{\mathcal{R}}(x,X_t) \right] \,.
-	$
+	\State Set
+	$X_{t+1}=\argmin_{x\in \mathcal{K}}\left[ \eta_{t} \ip{G_t,x}+D_{\mathcal{R}}(x,X_t) \right].$
 \EndFor
 \State {\bf Return:} $\hat{X}_n = \frac{1}{n}\sum_{t=1}^n X_t \,.$
 \end{algorithmic}
@@ -84,10 +82,10 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 \label{thm:ub}
 Consider the class $\F_{L,0}$ of convex, $L$-smooth functions on the bounded, convex domain $\cK \subset \R^d$.
 % let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
-Assume further that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t. some norm $\norm{\cdot}$, and $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$.
+Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$.
 For any $(c_1,c_2)$ Type-II oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
- if \cref{alg} is run with $\eta_t = \dfrac{\alpha}{a_t+L}$ and
+ if \cref{alg} is run with $\eta_t = \alpha/(a_t+L)$ and
 % \[
 % \delta = \left( \dfrac{C_2}{2aC_1}\sqrt{\dfrac{\alpha}{2D}} \right)^{1/(p+q)}n^{-1/(2p+q)} \,,
 % \] 
@@ -95,30 +93,31 @@ For any $(c_1,c_2)$ Type-II oracle
  \delta = \left( \dfrac{C_2}{4aC_1}\dfrac{2p+q}{p}\dfrac{n}{n+1}\right)^{1/(p+q)}n^{-1/(2p+q)} \,,$  where
  $a^{2p+q} =2^{q-p}\left( 2+\dfrac{q}{p} \right)^p\left(1+ \dfrac{1}{n} \right)^q \left( \dfrac{\alpha}{D} \right)^{p+q}C_1^q C_2^p $,
  $a_t = a t^{(p+q)/(2p+q)}$, for $t=1, 2, \cdots, n-1$,
-then  the minimax error \eqref{eq:minimaxerrdef} can be bounded as
+then  the regret and the minimax error %\eqref{eq:minimaxerrdef} 
+can be bounded as
  \begin{align*}
- \Delta_n^*(\cF,c_1,c_2)= O\left(\left(\dfrac{D^pC_1^qC_2^p}{n^p}\right)^{1/(2p+q)}\right)\,,
+ \Delta_{\F_{L,0},n}^*(c_1,c_2)\!\le \!R_{\F_{L,0},n}^*(c_1,c_2)\!=\! O\!\!\left(\!\!\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{n}\right)^{\!\!\frac{p}{2p+q}}\!\right)
  \end{align*}
  where $D=\sup_{x,y\in \cK} \DR(x,y)$.
  
-For the class $\F_{L,\mu,\cR}$ of $\mu$-strongly convex (w.r.t. $\cR$) and $L$-smooth functions, with $\mu > \dfrac{2L}{\alpha}$, 
+For the class $\F=\F_{L,\mu,\cR}$ of $\mu$-strongly convex (w.r.t.\  $\cR$) and $L$-smooth functions, with $\mu >2L/\alpha$, 
 $
- \eta_t = \dfrac{2}{\mu t} \,,
-$ and
+ \eta_t = 2/(\mu t),
+$ and 
 %\[
 %\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
 %\]
 \[
 \delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
 \]
-the minimax error satisfies 
+the regret and the minimax error satisfy
  \begin{align*}
-\Delta_n^*(\cF,c_1,c_2)= O\left( \left(\dfrac{C_1^q C_2^p}{n^p} \right)^{1/(p+q)} \right)\,
+\Delta_{\F_{L,\mu,\cR},n}^*(c_1,c_2) \!\le \! R_{\F_{L,\mu,\cR},n}^*(c_1,c_2) \!= \! O\!\!\left( \!\!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\!\frac{p}{p+q}} \! \right). \\
  \end{align*}
 \end{theorem}
-\begin{proof}
-See \cref{sec:appendix-md}.
-\end{proof}
+%\begin{proof}
+%See \cref{sec:appendix-md}.
+%\end{proof}
 
 We next state lower bounds for both convex as well as strongly convex function classes. In particular, we observe that for convex and smooth functions the upper bound for the mirror descent scheme matches the lower bound, up to constants, whereas there is a gap for strongly convex+smooth functions.
 Filling the gap is left for future work.
@@ -132,11 +131,12 @@ Assume that $n$ is large enough (the exact condition is given after the theorem)
 %Consider the space of functions $\F:= \{f_v \mid v  \in \{+1,-1\}^d\}$, with $\epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, where \\$K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$. 
 Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ Type-I oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q\ge 0$,
- the minimax error \eqref{eq:minimaxerrdef} satisfies the following bounds:\\
+ the regret and the minimax error (and hence the regret) satisfies the following bounds:\\
 \textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth):}
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?} 
 \[
-\Delta_n^{*}(\F_{L,0}, c_1,c_2) \ge \dfrac{2p+q}{8p+2q}\sqrt{d}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}},
+%R_{\F_{L,0},n}^{*}(c_1,c_2) \ge
+ \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge \dfrac{2p+q}{8p+2q}\sqrt{d}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}},
 \]
 %where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
@@ -144,7 +144,7 @@ where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac
 \textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth):}
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
-\Delta_n^{*}(\F_{L,1}, c_1,c_2) \ge \dfrac{1}{4}  \left(\dfrac{1}{2 K_1 \sqrt {d n}}\right)^{\frac{2p}{p+\frac{q}{2}}}, 
+\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge \dfrac{1}{4}  \left(\dfrac{1}{2 K_1 \sqrt {d n}}\right)^{\frac{2p}{p+\frac{q}{2}}}, 
 \]
 where $K_1$ is the same as before.
 \end{theorem}
@@ -154,11 +154,11 @@ The condition connecting the problem parameters is that $n$ should be large enou
 \item $d^{\frac{-(4p+q)}{(2p+q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}} \le L$ for $\F_{L,1}(\K)$.
 \end{inparaenum}
 % where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
-\begin{proof}
- See Section \ref{sec:appendix-lb-proof}.
-\end{proof}
+%\begin{proof}
+% See Section \ref{sec:appendix-lb-proof}.
+%\end{proof}
 
-By continuity, the above claim can be extended to the cover the case of $q=0$. For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive to a $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ leads a $\Omega(d/\sqrt{n})$ lower bound.
+By continuity, the above claim can be extended to cover the case of $q=0$. For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive to an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ leads to an $\Omega(d/\sqrt{n})$ lower bound.
 
 \begin{remark}(\textbf{\textit{Scaling}})
 For any function class $\F$, by the definition of the minimax error \eqref{eq:minimaxerrdef}, it is easy to see that
@@ -166,10 +166,10 @@ $$\Delta_n^*(\mu \F, c_1,c_2) = \mu \Delta_n^*\left(\F, \frac{c_1}{\mu},\frac{c_
  where $\mu F$ denotes the function class comprised of functions in $\F$, each scaled by $\mu>0$. In particular, this relation implies that the bound for $\mu$-strongly convex function class is only a constant factor away from the bound for $1$-strongly convex function class.
 \end{remark}
 
-Table \ref{tab:oracles} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems \ref{thm:ub}--\ref{thm:lb-convex}.
+Table \ref{tab:oracles} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems~\ref{thm:ub} and~\ref{thm:lb-convex}.
 While it appears that for the strongly convex case the error becomes smaller with a larger dimension,
-in most applications $C_1, C_2$ will hide dimension dependent constants
-and as the lower bound actually increases with the dimension increasing.
+in most applications $C_1, C_2$ will hide dimension dependent constants,
+and the lower bound actually increases with the dimension increasing.
 Some specific examples will be discussed in the next section.
 % \begin{theorem}[\textit{Lower bound: Strongly convex}]
 % \label{thm:lb-strongly-convex}
