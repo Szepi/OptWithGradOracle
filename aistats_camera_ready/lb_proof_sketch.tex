@@ -86,7 +86,7 @@ Using \eqref{eq:main:fv-lb-main}, we obtain
 &\Delta_n^*(\F_{L,0}, C_1 \delta^p ,C_2 \delta^{-q})  \ge  \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \label{eq:main:strong-convex-bd}\\
   = & \inf_{\A} \dfrac{\epsilon }{2} \, \left(\P_{+}(\hat X_n < 0) + \P_{-}(\hat X_n > 0)\right), \label{eq:main:Pplus}\\
   \ge &\inf_{\A} \dfrac{\epsilon }{2} \,\left(1 - \tvnorm{\P_{+}- \P_{-}}\right), \label{eq:main:lecam}\\
-  \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(2\ln 2\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:main:pinsker-main}
+  \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:main:pinsker-main}
 \end{align}
 where $\P_{+}$ (resp. $P_-$) is the distribution $\P$ conditioned on $v=+1$ (resp. $v=-1$).
 
@@ -111,8 +111,8 @@ Note that the above bound holds uniformly over all algorithms $\A$.
 Substituting the above bound into \eqref{eq:main:pinsker-main}, we obtain 
 \begin{align*}
  \Delta_n^*(\F_{L,0}, C_1 \delta^p ,\frac{C_2}{\delta^{q}})
-  \ge & \frac{\epsilon}{2} \left(1 - 2\sqrt{
-    n}  \frac{(\epsilon-C_1\delta^p)_+\delta^{q/2}}{\sqrt{C_2}}
+  \ge & \frac{\epsilon}{2} \left(1 - \sqrt{
+    n}  \frac{(\epsilon-C_1\delta^p)_+\delta^{q/2}}{C_2}
   \right).\label{eq:main:final-lower-bd}
 \end{align*}
 

@@ -126,7 +126,7 @@ where $\delta(g_{1:t-1})$ is the tolerance parameter chosen by $\A$, based on th
 From the foregoing, 
 \begin{align}
 \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\le&\dfrac{(\gamma_{+}(A(g_{1:t-1})) - \gamma_{-}(A(g_{1:t-1})))^2}{2 C_2\delta^{-q}}\label{eq:dkgauss1}\\
- =& \dfrac{2(\epsilon-C_1\delta(g_{1:t-1})^p)_+^2\delta(g_{1:t-1})^q}{C_2}\label{eq:dkgauss}\\
+<& \dfrac{2(\epsilon-C_1\delta(g_{1:t-1})^p)_+^2\delta(g_{1:t-1})^q}{C_2}\label{eq:dkgauss}\\
  \le & \max_{\delta>0} \dfrac{2(\epsilon-C_1\delta^p)_+^2\delta^q}{C_2}
 \end{align}
 The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while the equality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}.
