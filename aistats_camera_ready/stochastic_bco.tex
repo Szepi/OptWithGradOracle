@@ -173,13 +173,14 @@ for two-point feedback, too, using the technique of \cref{prop:flaxman}.
 }
 
 \paragraph{Popular choices for $V$ and $U$:}
+
 \begin{inparaenum}[$\bullet$]
  \item If we set $U_i$ to be independent, symmetric $\pm 1$-valued r.v.s and $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed by \cite{spall1992multivariate}.
 It is easy to see that $\EE{  V U\tr } = I$ holds in this case.
- When the norm $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$ and $C_2 = O(d)$. If we set $\norm{\cdot}$ to be the max-norm, $C_1 = O(\sqrt{d})$ and $C_2 = O(d)$.
+ When the norm $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$ and $C_2 = O(d)$. If we set $\norm{\cdot}$ to be the max-norm, $C_1 = O(\sqrt{d})$ and $C_2 = O(d)$.\\
  \item If we set $V=U$, with $U$ chosen uniform at random on the surface of a sphere with radius $\sqrt{d}$,
  then we recover the RDSA scheme proposed by  \citeauthor{kushcla} \citep[cf. pp.~58--60][]{kushcla}.
- In particular, $(U_i)_i$ are identically distributed with $\EE{ U_i U_j } = 0$ if $i\ne j$ and $\EE{ U\tr U } = d$, hence $\EE{U_i^2} = 1$. Thus, if we choose $\norm{\cdot}$ to be the $2$-norm, $C_1 = O( d^2 )$ and $C_2 = O(d)$.
+ In particular, $(U_i)_i$ are identically distributed with $\EE{ U_i U_j } = 0$ if $i\ne j$ and $\EE{ U\tr U } = d$, hence $\EE{U_i^2} = 1$. Thus, if we choose $\norm{\cdot}$ to be the $2$-norm, $C_1 = O( d^2 )$ and $C_2 = O(d)$.\\
  \item If we set $V=U$, with $U$ the standard $d$-dimensional Gaussian with unit covariance matrix, we recover the smoothed functional (SF) scheme proposed by \cite{katkul}.
 Indeed, in this case, by definition, $\EE{VU\tr} = \EE{U U\tr } = I$.
 When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
