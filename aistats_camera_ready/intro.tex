@@ -10,10 +10,10 @@ In the stochastic BCO setting, an algorithm repeatedly queries the oracle at dif
 We  provide upper and lower bounds on the minimax optimization error (or regret) for several oracle models quantifying the bias-variance tradeoff of the gradient estimate. In particular, we provide matching upper and lower bounds for optimizing smooth, convex functions. We do not claim to invent methods for proving upper bounds as these methods have been developed for special cases for a long time by now (see the references above).
 Our main contribution lies in abstracting away the properties of gradient estimation procedures
 to create our new oracle model, in which we are able to study not only upper bounds, but also lower bounds about the rate of convergence
-(earlier work of \citet{Chen88:LB-AoS} considered a related lower bound on the converge of the iterate instead of the function value).
+(earlier work of \citealt{Chen88:LB-AoS} considered a related lower bound on the converge of the iterate instead of the function value).
 Note that our oracle model does not capture the full strength of the gradient estimates used in previous work, but it fully describes the properties of the estimates that are used in their analysis.
 As a consequence, our lower bounds show that the known minimax regret of $\sqrt{T}$ \citep{BubeckDKP15,BuEl15}
-of online bandit convex optimization cannot be achieved by the current analysis techniques of the currently used gradient estimation procedures, and our lower bounds even invalidate the claimed weaker upper bound of \cite{DeElKo15}.
+of online and stochastic bandit convex optimization\todoa{add reference to stochastic} cannot be achieved by the current analysis techniques of the currently used gradient estimation procedures, and our lower bounds even invalidate the claimed weaker upper bound of \cite{DeElKo15}.
 %Hence, an interesting corollary to our results is that algorithms which are purely based on gradient estimation will not be able to achieve the minimax regret in online bandit convex optimization using the current proof techniques.
 
 %The rest of the paper is organized as follows: The problem is introduced in \cref{sec:problem}. Our upper and lower bounds on the minimax error are presented in \cref{sec:results}. Sections \ref{sec:sbco}--\ref{sec:obco} describe applications to stochastic and online BCO , respectively. Related general gradient oracle models are discussed in detail in \cref{sec:related}, while proofs are given in \cref{sec:proofs}.
