@@ -1,20 +1,19 @@
-%!TEX root =  bgo_camera_ready.tex
+%!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 
 \textit{Notation:} Capital letters will denote random variables.
-For $p\le q$ positive integers,
- we use the notation $a_{p:q}$ to denote
- the sequence $(a_p,a_{p+1}, \dots, a_{q})$.
+For $i\le j$ positive integers,
+ we use the notation $a_{i:j}$ to denote
+ the sequence $(a_i,a_{i+1}, \dots, a_{j})$.
 
- We let $\| \cdot \|$ denote some norm on $\R^d$ and we denote its dual norm by $\dnorm{\cdot}$.
- A function $f$ is $\mu$-strongly convex w.r.t. $\| \cdot \|$  if
- $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x,y$ in a non-empty convex closed set $\K \in \R^d$.
+ We let $\| \cdot \|$ denote some norm on $\R^d$ and we denote its dual norm by $\dnorm{\cdot}$. Let $\K \subset \R^d$ be a non-empty closed convex  set. A function $f:\K \to \R$ is $\mu$-strongly convex w.r.t. $\| \cdot \|$  ($\mu\ge 0$) if
+ $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x,y \in \K$.
 A function $f$ is $\mu$-strongly convex w.r.t. a \emph{function} $\cR$
 	if $\tfrac{\mu}{2}\DR(x,y)\le\mathcal{D}_f(x,y)$ for all $x,y \in \K$.
  A function $f$ is $L$-smooth w.r.t. $\| \cdot \|$ for some $L>0$ if
  %$f(x) \le f(y) + \ip{\nabla f(y), y-x} +
 $ D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
- This latter condition is equivalent to that $\nabla f$ is $L$-Lipschitz.
+ This latter condition is equivalent to that $\nabla f$ is $L$-Lipschitz \citep[Theorem~2.1.5]{nesterov2004introductory}.
  \todoc{Add citation}
  We let $\F_{L,\mu}(\K)$ denote the class of functions that are $\mu$-strongly convex and $L$-smooth on the set $\K$.
  The set of $L$-smooth functions is thus $\F_{L,0}(\K)$. Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t. $\cR$.
@@ -40,7 +39,7 @@ of the gradient of the loss function $f$
 To control the bias and the variance the algorithm can choose a \emph{tolerance parameter} $\delta_t>0$
 (in particular, we allow the algorithms to choose the tolerance parameter sequentially).
 A smaller $\delta_t$ results in a smaller ``bias'' (for the precise meaning of bias, we will consider two definitions below), while typically with a smaller $\delta_t$ the ``variance'' of the gradient estimate increases.
-The algorithm also receives a point $Y_t\in \cK$, which is guaranteed to be in the $\delta_t$-vicinity of $X_t$.
+The algorithm also receives a point $Y_t\in \cK$,\footnote{In some cases we allow $f$ to be defined outside of $\K$ and allow $Y_t$ to be in a small vicinity of $\K$.} which is guaranteed to be in the $\delta_t$-vicinity of $X_t$.
 While this point is not relevant in the optimization setting, in the online learning setting,
 the algorithm suffers a loss at $Y_t$.
 As usual, the goal in the online BCO setting is to keep the expected \emph{regret},
