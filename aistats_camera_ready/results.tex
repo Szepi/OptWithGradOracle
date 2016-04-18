@@ -83,7 +83,7 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 \label{thm:ub}
 Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t. some norm $\norm{\cdot}$, and $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$.
 Then, for any $(c_1,c_2)$ Type-II oracle
- with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$,
+ with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q\ge 0$,
  Algorithm \cref{alg} run with appropriate $\eta_t, \delta$ that depend on $p, q, C_1, C_2$ and $L$, satisfies the following bounds:\\
 %  $\eta_t= \dfrac{\alpha}{a_t+L}$ and
 %  $
@@ -165,6 +165,8 @@ Further, the condition connecting the problem parameters is that $n$ should be l
 \begin{proof}
  See Section \ref{sec:appendix-lb-proof}.
 \end{proof}
+
+By continuity, the above claim can be extended to the cover the case of $q=0$. For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive to a $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ leads a $\Omega(d/\sqrt{n})$ lower bound.
 
 \begin{remark}(\textbf{\textit{Scaling}})
 For any function class $\F$, by the definition of the minimax error \eqref{eq:minimaxerrdef}, it is easy to see that

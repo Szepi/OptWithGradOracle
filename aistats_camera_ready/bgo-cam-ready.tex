@@ -26,14 +26,14 @@
 % command to supply a shorter version of the authors names so that
 % they can be used as headings (for example, use only the surnames)
 %
-%\runningauthor{Surname 1, Surname 2, Surname 3, ...., Surname n}
+\runningauthor{Xiaowei Hu, Prashanth L.A., Andr\'as Gy\"orgy, and Csaba Szepesv\'ari}
 
 \twocolumn[
 
 \aistatstitle{(Bandit) Convex Optimization with Biased Noisy Gradient Oracles}
 
 
-\aistatsauthor{Xiaowei  Hu$^1$ \And Prashanth L.A.$^2$ \And Andr\'as Gy\"orgy$^3$ \And Csaba Szepesv\'ari$^1$ \vspace{2mm}}
+\aistatsauthor{Xiaowei  Hu$^1$ \And Prashanth L.A.$^2$ \And Andr\'as Gy\"orgy$^3$ \And Csaba Szepesv\'ari$^1$ \vspace{1mm}}
 
 \aistatsaddress{$^1$ Department of Computing Science, University of Alberta \\
 $^2$ Institute for Systems Research, University of Maryland \\
@@ -41,11 +41,11 @@ $^3$ Department of Electrical and Electronic Engineering, Imperial College Londo
 
 
 \begin{abstract}
-We present a general noisy gradient oracle model for convex optimization. The model allows to explicitly address the bias-variance tradeoff of gradient estimation method typical in the literature, as well as to prove upper and lower bounds for the minimax error. As such the oracle model allows a clean way of addressing the limits of achievable performance
+We present a general noisy gradient oracle model for convex optimization. The model allows to explicitly address the bias-variance tradeoff of gradient estimation methods typical in the literature, as well as to prove upper and lower bounds for the minimax error. As such the oracle model allows a clean way of addressing the limits of achievable performance
 when biased, noisy gradient estimators can be used with controllable bias-variance tradeoffs.
-When considering the model for online convex optimization,
-one consequence of our results is that the currently used gradient estimates cannot be used to construct
-algorithms that would achieve the optimal square-root regret rate for online bandit convex optimization.
+When considering the model for online/stochastic convex optimization,
+one consequence of our results is that the currently used gradient estimates and the proof techniques used to analyze them cannot 
+achieve the optimal square-root regret rate for online/stochastic bandit convex optimization.
 % when the function cannot be queried outside the domain.
 \end{abstract}
 
@@ -73,29 +73,26 @@ algorithms that would achieve the optimal square-root regret rate for online ban
 \label{sec:related}
 \input{related}
 
-\section{PROOFS}
-\label{sec:proofs}
-%\input{ub_proof}
-\input{lb_proof_sketch}
-%\input{red_proof}
+%\section{PROOFS}
+%\label{sec:proofs}
+%%\input{ub_proof}
+%\input{lb_proof_sketch}
+%%\input{red_proof}
 
 \section{Conclusions}
 \label{sec:conc}
 \input{conc}
 
+\subsubsection*{Acknowledgements}
+This work was supported by the Alberta Innovates Technology Futures through the Alberta Ingenuity Centre for Machine Learning and NSERC.
 
 \clearpage\newpage
 %\begin{small}
 \bibliographystyle{apalike}
 \bibliography{main}
 %\end{small}
-\if0
-\subsubsection*{Acknowledgements}
 
-Use unnumbered third level headings for the acknowledgements.  All
-acknowledgements go at the end of the paper.  Be sure to omit any
-identifying information in the initial double-blind submission!
-\fi
+
 
 %\subsubsection*{References}
 \clearpage\newpage
