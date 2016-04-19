@@ -107,9 +107,9 @@ $ and
 %\[
 %\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
 %\]
-\[
-\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
-\]
+$
+\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\tfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
+$
 the regret and the minimax error satisfy
  \begin{align*}
 \Delta_{\F_{L,\mu,\cR},n}^*(c_1,c_2) \!\le \! R_{\F_{L,\mu,\cR},n}^*(c_1,c_2) \!= \! O\!\!\left( \!\!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\!\frac{p}{p+q}} \! \right). \\
@@ -150,7 +150,7 @@ where $K_1$ is the same as before.
 \end{theorem}
 The condition connecting the problem parameters is that $n$ should be large enough so that\\
 \begin{inparaenum}[\bfseries (i)]
-\item $d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le L$ for $\F_{L,0}(\K)$ and\\
+\item $d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le L$ for $\F_{L,0}(\K)$; and\\
 \item $d^{\frac{-(4p+q)}{(2p+q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}} \le L$ for $\F_{L,1}(\K)$.
 \end{inparaenum}
 % where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
@@ -164,7 +164,7 @@ $f_v(x)=\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon
 
 \begin{remark}(\textbf{\textit{Scaling}})
 For any function class $\F$, by the definition of the minimax error \eqref{eq:minimaxerrdef}, it is easy to see that
-$$\Delta_n^*(\mu \F, c_1,c_2) = \mu \Delta_n^*\left(\F, \frac{c_1}{\mu},\frac{c_2}{\mu^2}\right),$$
+$$\Delta_n^*(\mu \F, c_1,c_2) = \mu \Delta_n^*\left(\F, c_1/\mu,c_2/\mu^2\right),$$
  where $\mu F$ denotes the function class comprised of functions in $\F$, each scaled by $\mu>0$. In particular, this relation implies that the bound for $\mu$-strongly convex function class is only a constant factor away from the bound for $1$-strongly convex function class.
 \end{remark}
 
