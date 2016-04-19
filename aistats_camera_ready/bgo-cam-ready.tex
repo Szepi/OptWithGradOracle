@@ -46,16 +46,19 @@ A popular class of algorithms for convex optimization and online learning with b
 feedback rely on constructing noisy gradient estimates, which are then used in place
 of the actual gradients in appropriately adjusted first-order algorithms.
 Depending on the properties of the function to be optimized and the nature of ``noise'' in the bandit feedback,
-the gradient estimates show different bias-variance tradeoffs and, correspondingly,
-in previous works these algorithms were proven to achieve different convergence rates.
+the bias and variance of gradient estimates exhibit various tradeoffs.
+% and, correspondingly,
+%the algorithms were proven to achieve various convergence rates.
  In this paper we propose a novel framework that replaces the specific gradient estimation
- methods with an abstract oracle model capturing the controlled bias-variance tradeoff
- of existing gradient estimators. With the help of the new framework we unify previous works,
- reproducing  previous results in a clean and concise fashion, 
+ methods with an abstract oracle model.
+ % capturing the controlleable bias-variance tradeoff
+ %of existing gradient estimators. 
+ With the help of the new framework we unify previous works,
+ reproducing  their results in a clean and concise fashion, 
  while, perhaps more importantly, the framework also allows us to formally show that to achieve the optimal 
-  root-$n$ rate in online/stochastic bandit convex optimization
+  root-$n$ rate %in online/stochastic bandit convex optimization
   either the algorithms that use existing gradient estimators,
-  or the proofs have to go beyond what has been used up to now in the literature.
+  or the proofs have to go beyond what exists today.
 \if0
 We present a novel noisy gradient oracle model for convex optimization. The model allows to explicitly address the bias-variance tradeoff of gradient estimation methods typical in the literature, as well as to prove upper and lower bounds for the minimax error. As such the oracle model allows a clean way of addressing the limits of achievable performance
 when biased, noisy gradient estimators with controllable bias-variance tradeoffs are employed.
