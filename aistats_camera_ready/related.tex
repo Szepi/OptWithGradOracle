@@ -1,4 +1,4 @@
-%!TEX root =  bgo_camera_ready.tex
+%!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 Gradient oracle models have been studied in a number of previous papers 
 \citep{dAsp08,Baes09,SchRoBa11,DeGliNe14}.
@@ -31,8 +31,7 @@ $O(1/n^2 ( \norm{x_1-x^*}^2 + A_n^2 )$ where $A_n = O( \sum_{t=1}^n t \norm{e_t}
 assuming that errors' noise level is a positive constant (in all our result, this holds).
 This clearly shows the differences between the analysis and that the noisy case requires (somewhat) special treatment.
 
-A similar, but simpler oracle model building on the inexact oracle model of  \cite{DeGliNe14}, 
-but one which lacks the bias-variance tradeoff central to this paper (i.e., they assume the variance and bias can be controlled independently of each other) appeared recently in a conference program \citep{DvoGa15}. The results in this paper are upper bounds on the error of certain gradient methods and they correspond to the bounds we obtained with $q=0$.
+Similar, but simpler noisy oracle models were introduced, e.g., by \citet{JN11a,Hon12,DvoGa15}, but these models lack the bias-variance tradeoff central to this paper (i.e., they assume the variance and bias can be controlled independently of each other). The results in these papers are upper bounds on the error of certain gradient methods (also to some very specific problem for \citealp{Hon12}), and they correspond to the bounds we obtained with $q=0$.
 \todoc[inline]{The paper of \citet{SchRoBa11} has 100 citations on google scholar.
 The paper of \cite{DeGliNe14} has similarly many.
 There are probably more relevant works. Someone could take a quick look and perhaps add a few more relevant ones.
