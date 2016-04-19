@@ -27,22 +27,22 @@ $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
 \label{fig:oracle}
 \end{figure}
 
-In this paper we consider convex optimization in a novel setting, both for stochastic as well as online BCO.
+In this paper, we consider convex optimization in a novel setting, both for stochastic as well as online BCO.
 %More specifically, we consider both an online learning setting and an optimization setting.
 In the online BCO setting, the environment chooses a sequence of loss functions $f_1,\dots,f_n$ belonging to a set $\cF$ of convex functions over a common, non-empty convex closed domain $\cK\subset \R^d$.
 In the stochastic BCO setting, a single fixed loss function $f\in \cF$ is chosen.
-As usual, the algorithms choose a sequence of points $X_1,\dots,X_n\in \cK$ in a sequential way.
+An algorithm chooses a sequence of points $X_1,\dots,X_n\in \cK$ in a serial fashion.
 The novelty of our setting is that the algorithm, upon selecting point $X_t$, receives
 a noisy and potentially biased estimate $G_t\in \R^d$
 of the gradient of the loss function $f$
-(more generally, an estimate of a subgradient of $f$ in case $f$ is non-differentiable at $X_t$).
-To control the bias and the variance the algorithm can choose a \emph{tolerance parameter} $\delta_t>0$
+(more generally, an estimate of a subgradient of $f$, in case $f$ is non-differentiable at $X_t$).
+To control the bias and the variance, the algorithm can choose a \emph{tolerance parameter} $\delta_t>0$
 (in particular, we allow the algorithms to choose the tolerance parameter sequentially).
-A smaller $\delta_t$ results in a smaller ``bias'' (for the precise meaning of bias, we will consider two definitions below), while typically with a smaller $\delta_t$ the ``variance'' of the gradient estimate increases.
+A smaller $\delta_t$ results in a smaller ``bias'' (for the precise meaning of bias, we will consider two definitions below), while typically with a smaller $\delta_t$, the ``variance'' of the gradient estimate increases.
 The algorithm also receives a point $Y_t\in \cK$,\footnote{In some cases we allow $f$ to be defined outside of $\K$ and allow $Y_t$ to be in a small vicinity of $\K$.} which is guaranteed to be in the $\delta_t$-vicinity of $X_t$.
 While this point is not relevant in the optimization setting, in the online learning setting,
 the algorithm suffers a loss at $Y_t$.
-As usual, the goal in the online BCO setting is to keep the expected \emph{regret},
+The goal in the online BCO setting is to keep the expected \emph{regret},
 	$R_n =\EE{ \sum_{t=1}^n f_t(Y_t)} - \inf_{x\in \cK} \sum_{t=1}^n f_t(x)$,
 small.
 In the stochastic BCO setting, the algorithm is also required to select a point $\hat{X}_n\in \cK$ once
@@ -50,7 +50,7 @@ the $n$th round is over (in both settings, $n$ is given to the algorithms)
 and the algorithm's performance is quantified using the \emph{optimization error},
 $\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
 
-The main novelty of the model is that the information flow between the algorithm and the environment is controlled by the gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit this framework.
+The main novelty of the model is that the information flow between the algorithm and the environment is controlled by the gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit in this framework.
 
 In what follows, the functions $c_1,c_2:[0,\infty)\to [0,\infty)$ will be assumed to be continuous,
 monotonously increasing (resp., decreasing) with
@@ -154,6 +154,6 @@ then $\Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-I
 As a result, when proving lower bounds, we shall consider type-I, while when proving upper bounds we will consider type-II oracles.
 Further note that for either type of oracles, $\Delta_{\F,n}^*(c_1,c_2) \le R_{\F,n}^*(c_1,c_2)/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing as $\hat{X}_n$ the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
 Indeed, then $f(\hat{X}_n) \le \frac1n \sum_{t=1}^n f(X_t)$ by Jensen's inequality, hence the average regret of $\A$ will upper bound the error of choosing $\hat{X}_n$ at the end.
-A consequence of this is that a lower bound for $\Delta_{\F,n}^*(c_1,c_2) $ will also be a lower bound for $R_{\F,n}(c_1,c_2)^*/n$ and an upper bound on $R_{\F,n}^*(c_1,c_2)$ leads to a an upper bound on $\Delta_{\F,n}^*(c_1,c_2)$. This explains why we allowed to take supremum over time-varying oracles in the definition of the regret and why we used a static oracle for the optimization error: to maximize the strength of the bounds we obtain.
+A consequence of this relation is that a lower bound for $\Delta_{\F,n}^*(c_1,c_2) $ will also be a lower bound for $R_{\F,n}(c_1,c_2)^*/n$ and an upper bound on $R_{\F,n}^*(c_1,c_2)$ leads to a an upper bound on $\Delta_{\F,n}^*(c_1,c_2)$. This explains why we allowed taking supremum over time-varying oracles in the definition of the regret and why we used a static oracle for the optimization error: to maximize the strength of the bounds we obtain.
  \todoc{Add reference.}
 %$\hat{X}_n$ is the point returned by $\cA$ after $n$ rounds of interaction which work as described earlier.
