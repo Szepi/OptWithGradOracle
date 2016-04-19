@@ -6,7 +6,7 @@ For $i\le j$ positive integers,
  we use the notation $a_{i:j}$ to denote
  the sequence $(a_i,a_{i+1}, \dots, a_{j})$.
 
- We let $\| \cdot \|$ denote some norm on $\R^d$ and we denote its dual norm by $\dnorm{\cdot}$. Let $\K \subset \R^d$ be a non-empty closed convex  set. A function $f:\K \to \R$ is $\mu$-strongly convex w.r.t.\  $\| \cdot \|$  ($\mu\ge 0$) if
+ We let $\| \cdot \|$ denote some norm on $\R^d$, whose dual is denoted by $\dnorm{\cdot}$. Let $\K \subset \R^d$ be a non-empty closed convex  set. A function $f:\K \to \R$ is said to be $\mu$-strongly convex w.r.t.\  $\| \cdot \|$  ($\mu\ge 0$) if
  $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x,y \in \K$.
 A function $f$ is $\mu$-strongly convex w.r.t.\  a \emph{function} $\cR$
 	if $\tfrac{\mu}{2}\DR(x,y)\le\mathcal{D}_f(x,y)$ for all $x,y \in \K$.
@@ -16,9 +16,9 @@ $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
  This latter condition is equivalent to that $\nabla f$ is $L$-Lipschitz \citep[Theorem~2.1.5]{nesterov2004introductory}.
  \todoc{Add citation}
  We let $\F_{L,\mu}(\K)$ denote the class of functions that are $\mu$-strongly convex and $L$-smooth on the set $\K$.
- The set of $L$-smooth functions is thus $\F_{L,0}(\K)$. Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t.\  $\cR$, and let $\C^3$ denote the set of three times continuously differentiable functions.
-% We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions.
-\todoa{This will be needed in the long version}
+ The set of $L$-smooth functions is thus $\F_{L,0}(\K)$. Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t.\  $\cR$.
+% We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions. 
+ \todoc{I am pretty sure $\normal(0, I) is not used in the main text, hence commenting it out. We will need to define it for the full version!!!}
 
 \begin{figure}
 \begin{center}
@@ -36,13 +36,13 @@ An algorithm chooses a sequence of points $X_1,\dots,X_n\in \cK$ in a serial fas
 The novelty of our setting is that the algorithm, upon selecting point $X_t$, receives
 a noisy and potentially biased estimate $G_t\in \R^d$
 of the gradient of the loss function $f$
-(more generally, an estimate of a subgradient of $f$, in case $f$ is non-differentiable at $X_t$).
+(more generally, an estimate of a subgradient of $f$, in case $f$ is not differentiable at $X_t$).
 To control the bias and the variance, the algorithm can choose a \emph{tolerance parameter} $\delta_t>0$
 (in particular, we allow the algorithms to choose the tolerance parameter sequentially).
 A smaller $\delta_t$ results in a smaller ``bias'' (for the precise meaning of bias, we will consider two definitions below), while typically with a smaller $\delta_t$, the ``variance'' of the gradient estimate increases.
-The algorithm also receives a point $Y_t\in \cK$,\footnote{In some cases we allow $f$ to be defined outside of $\K$ and allow $Y_t$ to be in a small vicinity of $\K$.} which is guaranteed to be in the $\delta_t$-vicinity of $X_t$.
+The algorithm also receives a point $Y_t\in \cK$,\footnote{For simplicity, in some cases we allow $f$ to be defined outside of $\K$ and allow $Y_t$ to be in a small vicinity of $\K$.} which is guaranteed to be in the $\delta_t$-vicinity of $X_t$.
 While this point is not relevant in the optimization setting, in the online learning setting,
-the algorithm suffers a loss at $Y_t$.
+in round $t$ the algorithm suffers the loss $f_t(Y_t)$.
 The goal in the online BCO setting is to keep the expected \emph{regret},
 	$R_n =\EE{ \sum_{t=1}^n f_t(Y_t)} - \inf_{x\in \cK} \sum_{t=1}^n f_t(x)$,
 small.
@@ -51,18 +51,19 @@ the $n$th round is over (in both settings, $n$ is given to the algorithms)
 and the algorithm's performance is quantified using the \emph{optimization error},
 $\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
 
-The main novelty of the model is that the information flow between the algorithm and the environment is controlled by the gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit in this framework.
+The main novelty of the model is that the information flow between the algorithm and the environment (holding $f$, or $f_{1:n}$) is mediated by the gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit in this framework.
 
-In what follows, the functions $c_1,c_2:[0,\infty)\to [0,\infty)$ will be assumed to be continuous,
+We will use two classes of oracles. In any case, the oracles are specified by
+two functions $c_1,c_2:[0,\infty)\to [0,\infty)$, which will be assumed to be continuous,
 monotonously increasing (resp., decreasing) with
 $\lim_{\delta\to  0} c_1(\delta)=0$ and $\lim_{\delta\to 0} c_2(\delta)=+\infty$.
 Typical choices for $c_1,c_2$ are $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2\delta^{-q}$ with $p,q>0$.
-We define two classes of oracles. 
+Our type-I oracles are defined as follows:
 %The relationship between these oracles will be studied in \cref{sec:orrel}.
 \todoc{$Y$ should be removed completely, and added only when online learning is considered.}
 \begin{definition}[$(c_1,c_2)$ type-I  oracle]
 \label{def:oracle1}
-We say that $\gamma$ is a  $(c_1,c_2)$ type-I oracle, if for any function $f\in \cF$,
+We say that $\gamma$ is a  $(c_1,c_2)$ type-I oracle for $\cF$, if for any function $f\in \cF$,
 $x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that
 $\norm{x-Y}\le \delta$ almost surely (a.s.),
 \vspace{-0.2cm}
@@ -77,7 +78,7 @@ The upper bound on $\delta$ is arbitrary: by changing the norm, any other value 
 The second type of oracle considered is as follows:
 \begin{definition}[$(c_1,c_2)$ type-II  oracle]
 \label{def:oracle2}
-We say that $\gamma$ is a  $(c_1,c_2)$ type-II oracle, if for any function $f\in \cF$,
+We say that $\gamma$ is a  $(c_1,c_2)$ type-II oracle for $\cF$, if for any function $f\in \cF$,
 $x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that $\norm{x-Y}\le \delta$ a.s.,
 \vspace{-0.2cm}
 \begin{enumerate}
@@ -89,6 +90,7 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 \end{enumerate}
 \end{definition}
 This definition is most useful when $\tilde{f}$ is known to belong to $\cF$, too; however, we prefer to state these conditions separately.
+\todoc{They are NOT stated separately now!!!!!}
 %An alternative to the bias condition for type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with%
 %\footnote{
 %This definition requires the function $f$ to be differentiable. When the functions in $f$ are not differentiable, it is possible
@@ -104,16 +106,17 @@ Note that our definition allows the same oracle $\gamma$ to respond to the same 
 though most often the oracles constructed in practice
 will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a stochastic mapping.
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-There are several examples of oracles satisfying these definitions (see \cref{sec:sbco}).
+Examples of oracles for various $(c_1,c_2)$ are discussed in  \cref{sec:sbco}.
 We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
 
 
 
 
 
-In this paper we will study the minimax regret in the online BCO setting, while we study the minimax error in the stochastic BCO setting (sometimes, also called as the ``simple regret'').
+In this paper we will study the minimax regret in the online convex optimization setting, \todoc{BCO: I took it off as it was  confusing: What is ``bandit'' here?}
+ while we study the minimax error in the stochastic convex optimization setting (sometimes, also called as the ``simple regret'').
 Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
-The minimax expected regret for $(\cF,c_1,c_2)$ with type-I oracles is
+The \emph{minimax expected regret} for $(\cF,c_1,c_2)$ with type-I oracles is
 \begin{align*}
 %\MoveEqLeft
 R_{\F,n}^*(c_1,c_2)
@@ -132,8 +135,10 @@ R_{\F,n}^*(c_1,c_2)
 where $\cA$ ranges through all algorithms that interact with the loss sequence  $f_{1:n}= (f_1,\dots,f_n)$
 as described earlier
 through the oracles $\gamma_{1:n}$,
-and $R_n^{\cA}$ denotes the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:n}$).
-The minimax regret for type-II oracles is defined analogously (in what follows we only define these quantities for type-I oracles, as the extension to type-II oracles is immediate).
+and we use $R_n^{\cA}$ to denote the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:n}$).
+The minimax regret for type-II (and other similar) oracles is defined analogously (in what follows we only define these quantities for type-I oracles, as the extension \todoc{Is extension the right word?}
+ to type-II oracles is immediate).
+ \todoc{Do the oracles ``talk''?}
 
 In the stochastic BCO setting, the minimax error is defined through
 \begin{align}
@@ -145,6 +150,7 @@ In the stochastic BCO setting, the minimax error is defined through
 where, again, $\cA$ ranges through all algorithms that interact with the loss $f$ through $\gamma$ and
 $\Delta_n^{\cA}$ is the optimization error that $\cA$ suffers
 after $n$ rounds of interaction with $f$ through $\gamma$ as described earlier.
+\todoc{Note about using only one oracle?}
 
 When the set $\K$ is bounded and the function set $\F$ is invariant to linear shifts, every $(c_1,c_2)$ type-I oracle is also an $(R c_1,c_2)$ type-II oracle,
 where $R = \sup_{x\in \K} \norm{x}$: simply consider $\tilde{f}(y) =  f(y) + (\EE{G}-\nabla f(x))\tr y $,
