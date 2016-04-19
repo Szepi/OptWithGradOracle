@@ -9,19 +9,15 @@ The oracle constructions from the previous section also apply to the online BCO 
 This rules out the controlled noise case, where one can employ two function valuations and cancel out the noise. Thus, for the online BCO setting, one should consider type-I (and II) oracles with $c_1(\delta) = C_1 \delta^p$ and $c_2(\delta) = C_2\delta^{-q}$ with $p=q=2$.
 For these type of oracles, the results from Theorem \ref{thm:lb-convex} give the following result: 
 \begin{theorem}\label{thm:aaa}
-Let $\cF$ be the space of convex, $L$-smooth functions over a convex non-empty domain $\K$.
-With a 
-$(\delta^2,\delta^{-2})$ type-I oracle, no algorithm can achieve better regret than $\Omega(n^{2/3})$.
+Let $\cF_{L,0}$ be the space of convex, $L$-smooth functions over a convex non-empty domain $\K$.
+No algorithm can achieve better regret than $\Omega(n^{2/3})$ for every $(\delta^2,\delta^{-2})$ type-I oracle.
 \end{theorem}
-
-This optimality also implies that there is little hope to design gradient estimators with fundamentally better bias-variance tradeoff for this setting. Hence, by our earlier remark connecting regret and optimization error, we conclude that
- \textbf{
-the currently used gradient estimators are not likely to lead to an algorithm that could  achieve the optimal
-regret $O(n^{1/2})$} for online bandit convex optimization, established by \citet{BubeckDKP15,BuEl15}.
-
-With a noisy gradient oracle, the next result shows that the regret is  $\O(n^{2/3})$ and this matches the lower bound in Theorem \ref{thm:aaa}.
+With a noisy gradient oracle of \cref{prop:flaxman}, Theorem~\ref{thm:aaa} implies that this regret rate is achievable, essentially recovering, and in some sense proving optimality of the result of \citet{saha2011improved}:
 \begin{theorem}
-For zeroth order noisy optimization with smooth convex functions, the gradient estimators together with mirror descent (see Algorithm \ref{alg}) achieve $\O(n^{2/3})$ regret. \end{theorem}
+For zeroth order noisy optimization with smooth convex functions, the gradient estimator of \cref{prop:flaxman} together with mirror descent (see Algorithm \ref{alg}) achieve $\O(n^{2/3})$ regret.
+\end{theorem}
+This optimality result shows that with the usual analysis of the current gradient estimation techniques, no gradient method can achieve the optimal regret $O(n^{1/2})$ for online bandit convex optimization, established by \citet{BubeckDKP15,BuEl15}. Note that this shows a contradiction to the recent result of \citet{DeElKo15}, who claimed to achieve $\tilde{O}(n^{5/8})$ regret with the same $(\delta^2,\delta^{-2})$ gradient oracle as \citet{saha2011improved}, using only the bias and variance properties described by the oracle.\todoa{Actually, all these proofs use Type-IIb oracles....}
+
 
 
 
