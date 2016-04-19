@@ -1,133 +1,5 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-\subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for $f \in \C^3$}
-\begin{proof}
-We use the proof technique of \cite{spall1992multivariate}
-  (in particular, Lemma 1 there).
-We start by bounding the bias.
-Since by assumption $\EE{ \xi^+-\xi^-|V}=0$, we have
-\begin{align*}
-\E\left[  V\left(\dfrac{\xi_n^+ - \xi_n^-}{2\delta}\right) \right]= 0\,,
-\end{align*}
-implying that
-\begin{align*}
-\E[G] =  \E\left[V\,  \dfrac{f(X^+)  -f(X^-)}{2\delta} \right]\,.
-\end{align*}
-
-By Taylor's theorem, using that $f\in C^3$, we obtain, a.s.,
-% \todoc{I am using the integral form, because otherwise you would need to argue that the point picked on the line segment between $x$ and $x\pm \delta U$ is measurable.
-% For the notation etc see \url{http://www.gold-saucer.org/math/taylor/taylor.pdf}}
-\begin{align*}
-f(x \pm \delta U) =
- f(x)
- \pm\delta\,  U\tr\,\nabla f(x)
-  + \frac{\delta^2}{2}\, U\tr \nabla^2 f(x) U
-  \pm  \frac{\delta^3}{2} \, R^{\pm}(x,\delta,U) \,(U, U, U),
-\end{align*}
-where
-\begin{align}
- R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s \, \delta U ) (1-s)^2 ds. \label{eq:taylor-r}
-\end{align}
-In the above, $\nabla^3 f(\cdot)$ is considered as a rank-3 tensor.
-Letting $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }$,%
-\footnote{Here, $\norm{\cdot}$ is the implied norm: For a rank-3 tensor $T$, $\norm{T} = \sup_{x,y,z\ne 0}
-\frac{|T (x,y,z)|}{\norm{x}\norm{y}\norm{z}}$.
-}
-we have $\norm{ R^{\pm}(x,\delta,U)} \le B_3/3$ a.s.
-Now,
-\begin{align}
-\begin{split}
-\MoveEqLeft       V\, \dfrac{f(X^+)-f(X^-)}{2\delta}
-  = V\, \dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta} \\
-&= VU^{\tr}
-\, \nabla f(x)   +   \frac{\delta^2}{4}  V \,(R^{+}(x,\delta,U)+R^{-}(x,\delta,U))(U \otimes U \otimes U)\,.
-\end{split}
-\label{eq:l1}
-\end{align}
-and therefore,
-by taking expectations of both sides,
-using $\EE{V U\tr} = I$ and then $|R^{\pm}(x,\delta,U) (U \otimes U \otimes U)| \le
-\norm{R^{\pm}(x,\delta,U)} \norm{U}^3$,
-we get that
-\begin{align*}
-\norm{ \EE{ G } - \nabla f(x) }_*
-\le \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}\,\, \delta^2 \,.
-\end{align*}
-
-Let us now bound the variance of $G$:
-Using the identity $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$, which holds for any random variable $X$,%
-\footnote{When $\norm{\cdot}$ is defined from an inner product,
-$\E\left\|X -  E[X]\right\|^2 = \EE{\norm{X}^2} - \norm{\EE{X}}^2 \le \EE{\norm{X}^2}$ also holds, shaving off a factor of four from the inequality below.}
-we bound $\E\left\| G - \E G\right\|^2$ as follows:
-\begin{align}
-\MoveEqLeft \E\left\| G - \E G\right\|^2
- \le 4 \E \left\|G\right\|^2 \nonumber \\
-& =  4\E\left( \left\| V \right\|_*^2 \left(\left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2  + 2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right) \left(\dfrac{f(X^+) - f(X^-)}{2\delta}\right)
-+ \left( \dfrac{f(X^+) - f(X^-)}{2\delta} \right)^2 \right)\right) \nonumber \\
-&=  4\E\left( \left\| V \right\|_*^2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2\right)
-+ 4 \E \left(\left\| V \right\|_*^2 \right)\left( \dfrac{f(X^+) - f(X^-)}{2\delta} \right)^2  \label{eq:h3} \\
-& \le  \frac{C_2}{\delta^2}\,, \nonumber \label{eq:h4}
-\end{align}
-where $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$
-and $\fspan(f) = \sup_{x\in \D} f(x) - \inf_{x\in \D} f(x)$.
-The equality in \eqref{eq:h3} follows from $\EE{ \xi^+-\xi^- \,|\, U,V } = 0$.
-\end{proof}
-
-\subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for convex and smooth $f$}
-The proof follows by parallel arguments to that used in the proof of Lemma 1 in \cite{duchi2015optimal} and we give it here for the sake of completeness.
-
-\begin{proof}
-For any convex function $f$ with an $L$-Lipschitz gradient, for any $\delta>0$ it holds that
-\begin{align*}
-\frac{\<\nabla f(x), \delta u\>}{2\delta} \le \frac{f(x + \delta u) -  f(x)}{2\delta} \le& \frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{2\delta}.
-\end{align*}
-Using similar inequalities for $f(x-\delta u)$, we obtain
-\begin{align*}
-\<\nabla f(x), u\> - \frac{L \delta \norm{ u}^2}{2} \le \frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} \le& \<\nabla f(x), u\> + \frac{L \delta \norm{ u}^2}{2}.
-\end{align*}
-Letting
-$\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} - \<\nabla f(x),  u\>\right)$, we get
-\begin{align*}
-\left|\phi(x,\delta,u) \right| \le&  \dfrac{L}{2} \norm{u}^2\,.
-% \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
-\end{align*}
-
-Using $\EE{V U^\top}=I$, we obtain
-\begin{align*}
-\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)\right]=&
-\E\left[ V U^\top\nabla f(x) +  \delta\phi(x,\delta,U) V \right]\\
-= &  \nabla f(x) + \delta \widehat\phi(x,\delta),
-\end{align*}
-where $\widehat\phi(x,\delta)$ satisfies $\scnorm{\widehat\phi(x,\delta)}_*  \le \, \dfrac{L}{2}\E[ \dnorm{V} \norm{U}^2]$.
-
-Applying the above expression to $F(\cdot, \Psi)$ and recalling that $G=V\,  \left(\tfrac{F(X^+,\psi)  -F(X^-,\psi)}{2\delta}\right)$, we have, for $P$-almost every $\psi$, 
-$$\E[G] = \nabla F(x,\psi) + \delta \widehat\phi(x,\delta),$$
-where, as before, $\widehat\phi(x,\delta)$ satisfies $\scnorm{\widehat\phi(x,\delta)}_*  \le \, \dfrac{L(\psi)}{2}\E[ \dnorm{V} \norm{U}^2]$.
-
-Using the fact that $E[\nabla F(x,\Psi)] = \nabla f(x)$, we obtain
-\begin{align*}
- \norm{\E[G] - \nabla f(x)}_*
- &= \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}_*
- \le \, \delta \norm{\E[ V \phi(x,\delta, U)]}_*\\
- &\le \,\frac{\delta L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2],
-\end{align*}
-and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2]$.
-
-We now bound $\EE{ \norm{G}_*^2}$ as follows:
-%In the case of controlled noise, i.e., $\xi^+ = \xi^-$,
-\begin{align*}
- \E \norm{G}^2
-& = \mathbb{E}\norm{V\left(\delta \phi(x,\delta, U)+ U^\top\nabla f(x) \right)}^2
- \le  \E\left[ \left( \dnorm{ V U \tr \nabla f(x)} + \frac{\delta L}{2} \dnorm{V} \norm{U}^2 \right)^2\right]\\
-& \le  2 \E\left[  \dnorm{ V U \tr \nabla f(x)}^2\right]  + \frac{\delta^2 L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right],
-\end{align*}
-and the claim for the variance follows by setting $c_2(\delta) = C_2$,
-where $C_2 =  2 B_1^2  + \frac{ L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$ with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$.
-
-For the case of uncontrolled noise, the claim for the variance, i.e., $c_2(\delta) = C_2/\delta^2$ follows in the same manner as that in the proof of Proposition \ref{prop:grad-spsa}.
-\end{proof}
-
-
 \subsubsection*{Proof of Proposition \ref{prop:grad-onepoint}}
 
 \if0
@@ -310,3 +182,132 @@ with the same value of $C'_1$ as before. So $\gamma$ is also a  type-I oracle wi
 %
 % Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled and one can conclude that $G$ is only an order $O(\delta^2)$ term away from $f'(x)$. Note that the second-order term in one-point SPSA is zero-mean, while in the two-point SPSA it is zero.
 % As a result, we only need $\Delta_{\cdot i}$ to be zero-mean instead of symmetry.
+
+\subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for $f \in \C^3$}
+\begin{proof}
+We use the proof technique of \cite{spall1992multivariate}
+  (in particular, Lemma 1 there).
+We start by bounding the bias.
+Since by assumption $\EE{ \xi^+-\xi^-|V}=0$, we have
+\begin{align*}
+\E\left[  V\left(\dfrac{\xi_n^+ - \xi_n^-}{2\delta}\right) \right]= 0\,,
+\end{align*}
+implying that
+\begin{align*}
+\E[G] =  \E\left[V\,  \dfrac{f(X^+)  -f(X^-)}{2\delta} \right]\,.
+\end{align*}
+
+By Taylor's theorem, using that $f\in C^3$, we obtain, a.s.,
+% \todoc{I am using the integral form, because otherwise you would need to argue that the point picked on the line segment between $x$ and $x\pm \delta U$ is measurable.
+% For the notation etc see \url{http://www.gold-saucer.org/math/taylor/taylor.pdf}}
+\begin{align*}
+f(x \pm \delta U) =
+ f(x)
+ \pm\delta\,  U\tr\,\nabla f(x)
+  + \frac{\delta^2}{2}\, U\tr \nabla^2 f(x) U
+  \pm  \frac{\delta^3}{2} \, R^{\pm}(x,\delta,U) \,(U, U, U),
+\end{align*}
+where
+\begin{align}
+ R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s \, \delta U ) (1-s)^2 ds. \label{eq:taylor-r}
+\end{align}
+In the above, $\nabla^3 f(\cdot)$ is considered as a rank-3 tensor.
+Letting $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }$,%
+\footnote{Here, $\norm{\cdot}$ is the implied norm: For a rank-3 tensor $T$, $\norm{T} = \sup_{x,y,z\ne 0}
+\frac{|T (x,y,z)|}{\norm{x}\norm{y}\norm{z}}$.
+}
+we have $\norm{ R^{\pm}(x,\delta,U)} \le B_3/3$ a.s.
+Now,
+\begin{align}
+\begin{split}
+\MoveEqLeft       V\, \dfrac{f(X^+)-f(X^-)}{2\delta}
+  = V\, \dfrac{f(x+\delta U) - f(x-\delta U)}{2\delta} \\
+&= VU^{\tr}
+\, \nabla f(x)   +   \frac{\delta^2}{4}  V \,(R^{+}(x,\delta,U)+R^{-}(x,\delta,U))(U \otimes U \otimes U)\,.
+\end{split}
+\label{eq:l1}
+\end{align}
+and therefore,
+by taking expectations of both sides,
+using $\EE{V U\tr} = I$ and then $|R^{\pm}(x,\delta,U) (U \otimes U \otimes U)| \le
+\norm{R^{\pm}(x,\delta,U)} \norm{U}^3$,
+we get that
+\begin{align*}
+\norm{ \EE{ G } - \nabla f(x) }_*
+\le \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}\,\, \delta^2 \,.
+\end{align*}
+
+Let us now bound the variance of $G$:
+Using the identity $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$, which holds for any random variable $X$,%
+\footnote{When $\norm{\cdot}$ is defined from an inner product,
+$\E\left\|X -  E[X]\right\|^2 = \EE{\norm{X}^2} - \norm{\EE{X}}^2 \le \EE{\norm{X}^2}$ also holds, shaving off a factor of four from the inequality below.}
+we bound $\E\left\| G - \E G\right\|^2$ as follows:
+\begin{align}
+\MoveEqLeft \E\left\| G - \E G\right\|^2
+ \le 4 \E \left\|G\right\|^2 \nonumber \\
+& =  4\E\left( \left\| V \right\|_*^2 \left(\left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2  + 2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right) \left(\dfrac{f(X^+) - f(X^-)}{2\delta}\right)
++ \left( \dfrac{f(X^+) - f(X^-)}{2\delta} \right)^2 \right)\right) \nonumber \\
+&=  4\E\left( \left\| V \right\|_*^2 \left(\dfrac{\xi^+ - \xi^-}{2\delta}\right)^2\right)
++ 4 \E \left(\left\| V \right\|_*^2 \right)\left( \dfrac{f(X^+) - f(X^-)}{2\delta} \right)^2  \label{eq:h3} \\
+& \le  \frac{C_2}{\delta^2}\,, \nonumber \label{eq:h4}
+\end{align}
+where $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$
+and $\fspan(f) = \sup_{x\in \D} f(x) - \inf_{x\in \D} f(x)$.
+The equality in \eqref{eq:h3} follows from $\EE{ \xi^+-\xi^- \,|\, U,V } = 0$.
+\end{proof}
+
+\subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for convex and smooth $f$}
+The proof follows by parallel arguments to that used in the proof of Lemma 1 in \cite{duchi2015optimal} and we give it here for the sake of completeness.
+
+\begin{proof}
+For any convex function $f$ with an $L$-Lipschitz gradient, for any $\delta>0$ it holds that
+\begin{align*}
+\frac{\<\nabla f(x), \delta u\>}{2\delta} \le \frac{f(x + \delta u) -  f(x)}{2\delta} \le& \frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{2\delta}.
+\end{align*}
+Using similar inequalities for $f(x-\delta u)$, we obtain
+\begin{align*}
+\<\nabla f(x), u\> - \frac{L \delta \norm{ u}^2}{2} \le \frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} \le& \<\nabla f(x), u\> + \frac{L \delta \norm{ u}^2}{2}.
+\end{align*}
+Letting
+$\phi(x,\delta,u):=\frac1{\delta}\left(\frac{f(x + \delta u) -  f(x-\delta u)}{2\delta} - \<\nabla f(x),  u\>\right)$, we get
+\begin{align*}
+\left|\phi(x,\delta,u) \right| \le&  \dfrac{L}{2} \norm{u}^2\,.
+% \frac{f(x - \delta u) -  f(x)}{\delta} \le& -\frac{\<\nabla f(x), \delta u\> + (L / 2) \norm{\delta u}^2}{\delta}
+\end{align*}
+
+Using $\EE{V U^\top}=I$, we obtain
+\begin{align*}
+\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)\right]=&
+\E\left[ V U^\top\nabla f(x) +  \delta\phi(x,\delta,U) V \right]\\
+= &  \nabla f(x) + \delta \widehat\phi(x,\delta),
+\end{align*}
+where $\widehat\phi(x,\delta)$ satisfies $\scnorm{\widehat\phi(x,\delta)}_*  \le \, \dfrac{L}{2}\E[ \dnorm{V} \norm{U}^2]$.
+
+Applying the above expression to $F(\cdot, \Psi)$ and recalling that $G=V\,  \left(\tfrac{F(X^+,\psi)  -F(X^-,\psi)}{2\delta}\right)$, we have, for $P$-almost every $\psi$, 
+$$\E[G] = \nabla F(x,\psi) + \delta \widehat\phi(x,\delta),$$
+where, as before, $\widehat\phi(x,\delta)$ satisfies $\scnorm{\widehat\phi(x,\delta)}_*  \le \, \dfrac{L(\psi)}{2}\E[ \dnorm{V} \norm{U}^2]$.
+
+Using the fact that $E[\nabla F(x,\Psi)] = \nabla f(x)$, we obtain
+\begin{align*}
+ \norm{\E[G] - \nabla f(x)}_*
+ &= \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}_*
+ \le \, \delta \norm{\E[ V \phi(x,\delta, U)]}_*\\
+ &\le \,\frac{\delta L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2],
+\end{align*}
+and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2]$.
+
+We now bound $\EE{ \norm{G}_*^2}$ as follows:
+%In the case of controlled noise, i.e., $\xi^+ = \xi^-$,
+\begin{align*}
+ \E \norm{G}^2
+& = \mathbb{E}\norm{V\left(\delta \phi(x,\delta, U)+ U^\top\nabla f(x) \right)}^2
+ \le  \E\left[ \left( \dnorm{ V U \tr \nabla f(x)} + \frac{\delta L}{2} \dnorm{V} \norm{U}^2 \right)^2\right]\\
+& \le  2 \E\left[  \dnorm{ V U \tr \nabla f(x)}^2\right]  + \frac{\delta^2 L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right],
+\end{align*}
+and the claim for the variance follows by setting $c_2(\delta) = C_2$,
+where $C_2 =  2 B_1^2  + \frac{ L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$ with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$.
+
+For the case of uncontrolled noise, the claim for the variance, i.e., $c_2(\delta) = C_2/\delta^2$ follows in the same manner as that in the proof of Proposition \ref{prop:grad-spsa}.
+\end{proof}
+
+
