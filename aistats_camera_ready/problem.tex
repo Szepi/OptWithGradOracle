@@ -22,9 +22,11 @@ $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
 
 \begin{figure}
 \begin{center}
+\vspace{-0.1cm}
 \includegraphics[width=0.45\textwidth]{../figs/oracle}
 \end{center}
-\caption{The Interaction of the algorithms with the gradient estimation oracle and the environment. For more information, see the text.}
+\vspace{-0.6cm}
+\caption{The Interaction of the algorithms with the gradient estimation oracle and the environment. For more information, see the text. \vspace{-0.3cm}}
 \label{fig:oracle}
 \end{figure}
 
@@ -61,6 +63,7 @@ Typical choices for $c_1,c_2$ are $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C
 Our type-I oracles are defined as follows:
 %The relationship between these oracles will be studied in \cref{sec:orrel}.
 \todoc{$Y$ should be removed completely, and added only when online learning is considered.}
+\vspace{-0.2cm}
 \begin{definition}[$(c_1,c_2)$ type-I  oracle]
 \label{def:oracle1}
 We say that $\gamma$ is a  $(c_1,c_2)$ type-I oracle for $\cF$, if for any function $f\in \cF$,
@@ -72,6 +75,7 @@ $\norm{x-Y}\le \delta$ almost surely (a.s.),
 \item $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $ (bias); and
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$.
 \end{enumerate}
+\vspace{-0.1cm}
 \end{definition}
 The upper bound on $\delta$ is arbitrary: by changing the norm, any other value can also be accommodated. Also, the upper bound only matters when $\K$ is bounded and the functions in $\cF$ are defined only in a small vicinity of $\K$.
 
@@ -88,6 +92,7 @@ $\norm{\tilde{f}- f}_\infty \le c_1(\delta)$  and
 $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$ (variance).
 \end{enumerate}
+\vspace{-0.1cm}
 \end{definition}
 This definition is most useful when $\tilde{f}$ is known to belong to $\cF$, too; however, we prefer to state these conditions separately.
 \todoc{They are NOT stated separately now!!!!!}

@@ -4,9 +4,9 @@ Gradient oracle models have been studied in a number of previous papers
 \citep{dAsp08,Baes09,SchRoBa11,DeGliNe14}.
 %assume that set $\K$ is bounded and that the oracle provides at each point $x\in \K$ an approximate gradient $g$ satisfying condition
 %$|\ip{g-\nabla f(x), v-w}| \le \delta$ for all $v,w,x\in \K$.
-A full comparison between these oracle models is given by \cite{DeGliNe14}.
+A full comparison between these oracle models is given by \citet{DeGliNe14}.
 For illustration, here we only review the model of this latter paper as a typical example of these previous works.
-The model of \cite{DeGliNe14} assumes a first-order approximation to the function
+The model of \citet{DeGliNe14} assumes a first-order approximation to the function
 with parameters $(\delta,L)$. In particular, 
 given $(x,\delta,L)$ and the convex function $f$, 
 the oracle gives a pair $(t,g)\in \R \times \R^d$
@@ -29,7 +29,7 @@ $O(1/n^2 ( \norm{x_1-x^*}^2 + A_n^2 )$ where $A_n = O( \sum_{t=1}^n t \norm{e_t}
 assuming that errors' noise level is a positive constant (in all our result, this holds).
 This clearly shows the differences between the analysis and that the noisy case requires (somewhat) special treatment.
 
-Similar, but simpler noisy oracle models were introduced \citep{JN11a,Hon12,DvoGa15}, but these models lack the bias-variance tradeoff central to this paper (i.e., they assume the variance and bias can be controlled independently of each other). The results in these papers are upper bounds on the error of certain gradient methods (also to some very specific problem for \citealp{Hon12}), and they correspond to the bounds we obtained with $q=0$.
+Similar, but simpler noisy oracle models were introduced \citep{JN11a,Hon12,DvoGa15}, but these models lack the bias-variance tradeoff central to this paper (i.e., they assume the variance and bias can be controlled independently of each other). The results in these papers are upper bounds on the error of certain gradient methods (also to some very specific problem for \cite{Hon12}), and they correspond to the bounds we obtained with $q=0$.
 \todoc[inline]{The paper of \citet{SchRoBa11} has 100 citations on google scholar.
 The paper of \cite{DeGliNe14} has similarly many.
 There are probably more relevant works. Someone could take a quick look and perhaps add a few more relevant ones.

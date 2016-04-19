@@ -3,7 +3,7 @@
 In the \emph{online BCO} setting a learner sequentially chooses the points $X_1,\dots,X_n\in \cK$ while observing the losses $f_1(X_1),\dots,f_n(X_n)$. More specifically, in round $t$, having observed $f_1(X_1),\dots,f_{t-1}(X_{t-1})$ of the previous rounds, the learner chooses $X_t\in \cK$, after which it observed $f_t(X_t)$. The learner's goal is to minimize its expected regret $\EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x\in \cK} \sum_{t=1}^n f_t(x) }$. 
 This problem is also called online convex optimization with one-point feedback.
 A slightly different problem is obtained if we allow the learner to choose multiple points in every round, at which points the function $f_t$ is observed. The loss is suffered at $X_t$. The points where the function is observed (``observation points'' for short) may or may not be tied to $X_t$. One possibility is that $X_t$ is one of the observation points.  
-Another possibility is that $X_t$ is the average of the observation points (e.g., \citealt{AgDeXi10}). Yet another possibility is that there is no relationship between them. 
+Another possibility is that $X_t$ is the average of the observation points (e.g., \citet{AgDeXi10}). Yet another possibility is that there is no relationship between them. 
 
 The oracle constructions from the previous section also apply to the online BCO setting, except that one cannot employ two-point feedback as the functions change in each round.  \todoc{Here we should actually introduce $Y$ etc.}
 This rules out the controlled noise case, where one can employ two function valuations and cancel out the noise. Thus, for the online BCO setting, one should consider type-I (and II) oracles with $c_1(\delta) = C_1 \delta^p$ and $c_2(\delta) = C_2\delta^{-q}$ with $p=q=2$.

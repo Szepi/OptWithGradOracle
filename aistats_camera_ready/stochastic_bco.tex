@@ -195,13 +195,13 @@ for two-point feedback, too, using the technique of \cref{prop:flaxman}.
 
 \paragraph{Popular choices for $U$ and $V$:}\ \\
 \begin{inparaenum}[$\bullet$]
- \item If we set $U_i$ to be independent, symmetric $\pm 1$-valued random variables and $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed by \cite{spall1992multivariate}.
+ \item If we set $U_i$ to be independent, symmetric $\pm 1$-valued random variables and $V_i = 1/U_i$, then we recover the popular SPSA scheme proposed by \citet{spall1992multivariate}.
 It is easy to see that $\EE{  V U\tr } = I$ holds in this case.
  When the norm $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$ and $C_2 = O(d)$. If we set $\norm{\cdot}$ to be the max-norm, $C_1 = O(\sqrt{d})$ and $C_2 = O(d)$.\\
  \item If we set $V=U$ with $U$ chosen uniform at random on the surface of a sphere with radius $\sqrt{d}$,
  then we recover the RDSA scheme proposed by  \citet[pp.~58--60]{kushcla}.
  In particular, the $(U_i)$ are identically distributed with $\EE{ U_i U_j } = 0$ if $i\ne j$ and $\EE{ U\tr U } = d$, hence $\EE{U_i^2} = 1$. Thus, if we choose $\norm{\cdot}$ to be the $2$-norm, $C_1 = O( d^2 )$ and $C_2 = O(d)$.\\
- \item If we set $V=U$ with $U$ the standard $d$-dimensional Gaussian with unit covariance matrix, we recover the smoothed functional (SF) scheme proposed by \cite{katkul}.
+ \item If we set $V=U$ with $U$ the standard $d$-dimensional Gaussian with unit covariance matrix, we recover the smoothed functional (SF) scheme proposed by \citet{katkul}.
 Indeed, in this case, by definition, $\EE{VU\tr} = \EE{U U\tr } = I$.
 When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
 %$\norm{U}^4 = (\sum_{i=1}^d U_i^2)^{2} = \sum_i U_i^4 + 2 \sum_{i<j} U_i^2 U_j^2$,
@@ -281,12 +281,12 @@ When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
 \subsection{Achievable Results for Stochastic BCO}
 We now consider stochastic BCO with $L$-smooth functions over a convex, closed non-empty domain $\K$. \todoc{Check that $K$ is always assumed to be closed. Otherwise the optimum may not belong to $K$.}\todoa{Duchi et al (2015) assumes closed functions.}
 Let $\cF$ denote the set of these functions.
-\cite{duchi2015optimal} proves that the minimax expected optimization error
+\citet{duchi2015optimal} proves that the minimax expected optimization error
 for the functions $\cF$ with uncontrolled noise is lower bounded by $\Omega(n^{-1/2})$. \todoc{We should sort out dimension dependences later.}
 They also give an algorithm which uses two-point gradient estimates which matches this lower bound for the case of \emph{controlled noise}.
 For controlled noise, the constructions in the previous section give that for two-point estimators $c_1(\delta) = C_1 \delta^p$ and $c_2(\delta) = C_2\delta^{-q}$ with $p=1$ and $q=0$. Plugging this into
 \cref{thm:ub} we get the rate $O(n^{-1/2})$ (which is unsurprising
-given that the algorithms and the upper bound proof techniques are essentially the same as that of \citealp{duchi2015optimal}).
+given that the algorithms and the upper bound proof techniques are essentially the same as that of \citet{duchi2015optimal}).
 However, when the noise is uncontrolled, the best that we get is $p=2$ and $q=2$.
 From \cref{thm:lb-convex} we get that with such oracles, no algorithm can get better rate than $\Omega(n^{-1/3})$, while from
 \cref{thm:ub} we get that these rates are matched by mirror descent.
@@ -309,21 +309,21 @@ Furthermore, no algorithm using $\gamma$
  can achieve better error than $\Omega(n^{-1/2})$ for every $(\delta,1)$ type-I oracle $\gamma$.
 \end{theorem}
 
-For stochastic BCO with uncontrolled noise, \cite{AgFoHsuKaRa13:SIAM} analyze a variant of the well-known ellipsoid method and provide regret bounds for the case of convex, $1$-Lipschitz and bounded functions on $[0,1]$. Their regret bound implies a minimax error \eqref{eq:minimaxerrdef} bound of order  $O\left(\sqrt{d^{32}/n}\right)$.
+For stochastic BCO with uncontrolled noise, \citet{AgFoHsuKaRa13:SIAM} analyze a variant of the well-known ellipsoid method and provide regret bounds for the case of convex, $1$-Lipschitz and bounded functions on $[0,1]$. Their regret bound implies a minimax error \eqref{eq:minimaxerrdef} bound of order  $O\left(\sqrt{d^{32}/n}\right)$.
 %\todoc{Not for this setting! This paper should be mentioned in the previous section actually. For this setting, we  do not have \emph{any} algorithms that would achieve $O(n^{1/2})$.}
-\cite{liang2014zeroth} provide an algorithm based on random walks (and not using gradient estimates) for the setting of convex, bounded functions whose domain is contained in the unit cube and their algorithm results in a bound of the order $\O\left((d^{14}/n)^{1/2}\right)$ for the minimax error.
+\citet{liang2014zeroth} provide an algorithm based on random walks (and not using gradient estimates) for the setting of convex, bounded functions whose domain is contained in the unit cube and their algorithm results in a bound of the order $\O\left((d^{14}/n)^{1/2}\right)$ for the minimax error.
 %\todoc{What are the conditions for their theorem? Boundedness? Lipschitzness? Or nothing?}
 %This algorithm achieves an upper bound of $\O\left((d^{14}/n)^{1/2}\right)$,
 These bounds decrease faster in $n$ than the bound available in Theorem \ref{thm:aaab}, while showing a much worse dependence on the dimension.\todoc{We should show the dimension dependence in the result to make this point. This should be shown for the same setting as the one considered by \cite{liang2014zeroth}.}
 However, what is more interesting is that our results also shows that an $O(n^{-1/2})$ upper bound \emph{cannot} be achieved solely based on the oracle properties of the gradient estimates considered. Since the analysis of all gradient algorithms for stochastic BCO does this, it is no wonder that the best known upper bound for convex+smooth functions is $O(n^{-1/3})$ \citep{saha2011improved}.
 
 The above result also shows that the gradient oracle based algorithms are optimal for smooth problems, under a controlled noise setting.
-While \cite{duchi2015optimal} suggests that it is the power of two-point gradient estimators that helps to achieve this, we need to add that having controlled noise is also critical. %a critical condition to achieve the optimal rate is that the noise must be controlled. 
+While \citet{duchi2015optimal} suggests that it is the power of two-point gradient estimators that helps to achieve this, we need to add that having controlled noise is also critical. %a critical condition to achieve the optimal rate is that the noise must be controlled. 
 
 Finally, let us make some remarks on the early literature on this problem.
 A finite time lower bound for stochastic, smooth BCO is presented by  \citet{Chen88:LB-AoS} for
 convex functions on the real line. When applied to our setting in the uncontrolled noise case, his results imply that $\EE{ \norm{\hat{X}_n - x^* }}$, that is, the distance of the estimate to the optimum, is at least $\Omega(n^{-1/3})$, which matches the bound in \cref{thm:aaab}.
-Note that this is larger than the error achieved by the algorithms of \cite{liang2014zeroth,BubeckDKP15,BuEl15}, but the apparent contradiction is easily resolved by noticing the difference in their error measure: distance to the optimum vs. distance n the function value.
+Note that this is larger than the error achieved by the algorithms of \citet{liang2014zeroth,BubeckDKP15,BuEl15}, but the apparent contradiction is easily resolved by noticing the difference in their error measure: distance to the optimum vs. distance n the function value.
 Similar results are obtained by \citet{PoTsy90}, who also considered distance to the optimum and proved that mirror descent with gradient estimation achieves asymptotically optimal rates for these settings.
 
 %While the lower bound is stated for $r$-smooth functions with $r$ odd (these are functions $f$ with $\norm{f^{(r)}}_{\infty}\le L$), and $r$ greater than one, careful checking of the results show that nor $r>1$, neither that $r$ must be odd is ever used in the proof.
