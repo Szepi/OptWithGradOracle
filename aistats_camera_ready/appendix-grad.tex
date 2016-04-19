@@ -16,14 +16,19 @@ where $V, U$ are random variables that satisfy $\E[V U\tr] = I_d$, $U_i, i=1,\ld
 Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta^2$ and $c_2(\delta) = C_2/\delta^2$.
 \end{proposition}
 \fi
-\begin{proof}
+\begin{proof}\ \\
 % \todoc[inline]{This proof must be updated to follow the proof of Prop 1. Don't write $\le O(\cdot)$,for example.}
-As in the case of two-point feedback, we can ignore the noise element in $G$ to infer the following:
+\textbf{Case 1: $f \in \C^3$:}\ \\
+We use the proof technique of \cite{spall1997one}.
+We start by bounding the bias.
+Since by assumption $\EE{ \xi|V}=0$, we have
+\begin{align*}
+\E\left[  V\left(\dfrac{\xi}{\delta}\right) \right]= 0\,,
+\end{align*}
+implying that
 \begin{align*}
 \E[G] =  \E\left[ V \left(\dfrac{f(x+\delta U) }{\delta}\right)\right] \,.
 \end{align*}
-
-\paragraph{Case 1: $f \in \C^3$:}\ \\
 By Taylor's theorem, we obtain, a.s.,
 \begin{align*}
 f(x + \delta U) =
@@ -52,6 +57,23 @@ we obtain
 \norm{ \EE{ G } - \nabla f(x) }_*
 \le \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}\,\, \delta^2 \,.
 \end{align*}
+
+Let us now bound the variance of $G$:
+Using the identity $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$, which holds for any random variable $X$,%
+\footnote{When $\norm{\cdot}$ is defined from an inner product,
+$\E\left\|X -  E[X]\right\|^2 = \EE{\norm{X}^2} - \norm{\EE{X}}^2 \le \EE{\norm{X}^2}$ also holds, shaving off a factor of four from the inequality below.}
+we bound $\E\left\| G - \E G\right\|^2$ as follows:
+\begin{align}
+\MoveEqLeft \E\left\| G - \E G\right\|^2
+ \le 4 \E \left\|G\right\|^2 \nonumber \\
+& =  4\E\left( \left\| V \right\|_*^2 \left(\left(\dfrac{\xi}{\delta}\right)^2  + 2 \left(\dfrac{\xi}{\delta}\right) \left(\dfrac{f(x+\delta U)}{\delta}\right)
++ \left( \dfrac{f(x+\delta U) }{\delta} \right)^2 \right)\right) \nonumber \\
+&=  4\E\left( \left\| V \right\|_*^2 \left(\dfrac{\xi}{\delta}\right)^2\right)
++ 4 \E \left(\left\| V \right\|_*^2 \right)\left( \dfrac{f(x+\delta U) }{\delta} \right)^2  \label{eq:h31} \\
+& \le  \frac{C_2}{\delta^2}\,, \nonumber \label{eq:h41}
+\end{align}
+where $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+B_0\right)$, with $B_0 = \sup_{x\in \D} f(x)$.
+The equality in \eqref{eq:h31} follows from $\EE{ \xi \,|\, V } = 0$.
 
 \paragraph{Case 2: $f$ is convex and $L$-smooth:}\ \\
 Since $f$ is convex and $L$-smooth, for any $0<\delta <1$,
@@ -237,11 +259,9 @@ we get that
 \le \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}\,\, \delta^2 \,.
 \end{align*}
 
-Let us now bound the variance of $G$:
-Using the identity $\E\left\|X -  E[X]\right\|^2 \le 4 \E \left\|X\right\|^2$, which holds for any random variable $X$,%
-\footnote{When $\norm{\cdot}$ is defined from an inner product,
-$\E\left\|X -  E[X]\right\|^2 = \EE{\norm{X}^2} - \norm{\EE{X}}^2 \le \EE{\norm{X}^2}$ also holds, shaving off a factor of four from the inequality below.}
-we bound $\E\left\| G - \E G\right\|^2$ as follows:
+We bound the variance of $G$ as follows:
+%As in the proof of Proposition \ref{prop:grad-onepoint}, 
+%we have $\E\left\| G - \E G\right\|^2 \le 4 \E \left\|G\right\|^2$ and the variance of $G$ is bounded as follows:
 \begin{align}
 \MoveEqLeft \E\left\| G - \E G\right\|^2
  \le 4 \E \left\|G\right\|^2 \nonumber \\
