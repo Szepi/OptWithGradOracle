@@ -23,12 +23,12 @@ essentially use gradient estimates and first-order methods
 %((some issues with whether you can cancel the noise; we assume you cannot))A
 
 In this paper, we consider the optimization accuracy in both the stochastic and online bandit convex optimization (BCO) setting.
-In the stochastic BCO setting, an algorithm repeatedly queries the oracle at different points in order to find a near minimizer of the objective function. Here, performance is measured in terms of the excess cost of the last point compared to  that of the minimizer,
-also known as the optimization error. In the online setting, each query points incurs a cost and performance is measured
-in terms of the total excess cost of these points, or the regret
+%In the stochastic BCO setting, an algorithm repeatedly queries the oracle at different points in order to find a near minimizer of the objective function. Here, performance is measured in terms of the excess cost of the last point compared to  that of the minimizer,
+%also known as the optimization error. In the online setting, each query points incurs a cost and performance is measured
+%in terms of the total excess cost of these points, or the regret
 %On the other hand, in an online BCO setting, the aim is to minimize the regret, which roughly translates to ensuring
  %that the sum of the function values at the points returned by the oracle is not too far from the optimal value 
- (see Section \ref{sec:sbco} for a detailed description).
+% (see Section \ref{sec:sbco} for a detailed description).
 We  provide upper and lower bounds on the minimax optimization error (or regret) for several oracle models, which correspond to different ways of quantifying the bias-variance tradeoff of the gradient estimate. In particular, we provide matching upper and lower bounds for optimizing smooth, convex functions. We do not claim to invent methods for proving upper bounds, as the methods we use have been known previously for special cases  (see the references above),
 but our main contribution lies in abstracting away the properties of gradient estimation procedures, 
 thereby unifying previous analysis, providing a concise summary and explanation of differences between previous works.
