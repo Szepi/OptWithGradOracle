@@ -28,9 +28,12 @@ is that
 \begin{equation}
 \label{eq:controlled}
 Z_t = F(X_t,\noiseCap_t),
-\end{equation} where $\noiseCap_t\in \R$ is chosen by the algorithm and $\EE{F(x,\noiseCap)}=f(X)$ for some distribution $P_{\noiseCap}$ over the reals. That is the algorithm can call the oracle $F(x,\noise)$ by selecting both $x$ and $\noise$. Note that the algorithm is aware of $P_{\noiseCap}$, but does not know how different values of $\noise$ affect the noise $\xi(x,\noise)=F(x,\noise)-f(x)$. Nevertheless, the algorithm can control the noise by selecting $\noiseCap_t$, and hence it can obtain unbiased estimates of the function values by selecting $\noiseCap_t$ from $P_{\noiseCap}$; we will refer to this case as the \emph{controlled noise} setting and to other situations as the case of \emph{uncontrolled noise}. The advantage of the controlled noise setting is that the algorithm may obtain samples of $F$ at $X^+$ and $X^-$, with the same noise levels:
-controlling the noise this way helps in improving the accuracy of the estimates and is common in the field of \emph{simulation optimization}
-\citep{KlSpNa99,duchi2015optimal}. This is especially useful when the gradient estimate is created from multiple observations, see \eqref{eq:twosp}. Note that creating an estimate from $K$ points (which is equivalent to a multi-point feedback setup where $K$ points are queried in each round) changes the number of rounds from $n$ to $n/K$, and  the reduction in the number of rounds, being a fixed constant factor, is negligible, as far as the convergence rates are considered.
+\end{equation} where $\noiseCap_t\in \R$ is chosen by the algorithm and $\EE{F(x,\noiseCap)}=f(X)$ for some distribution $P_{\noiseCap}$ over the reals. As in \cite{duchi2015optimal}, we assume that the function $F(\cdot, \psi)$ is $L(\psi)$-smooth and the quantity $L(\Psi) = \sqrt{\E [L(\Psi)^2]}$ is finite.  
+%That is the algorithm can call the oracle $F(x,\noise)$ by selecting both $x$ and $\noise$. 
+Note that the algorithm is aware of $P_{\noiseCap}$, but does not know how different values of $\noise$ affect the noise $\xi(x,\noise)=F(x,\noise)-f(x)$. Nevertheless, the algorithm can control the noise by selecting $\noiseCap_t$, and hence it can obtain unbiased estimates of the function values by selecting $\noiseCap_t$ from $P_{\noiseCap}$; we will refer to this case as the \emph{controlled noise} setting and to other situations as the case of \emph{uncontrolled noise}. 
+%The advantage of the controlled noise setting is that the algorithm may obtain samples of $F$ at $X^+$ and $X^-$, with the same noise levels:
+In a controlled noise setting, the algorithm may obtain samples of $F$ at $X^+$ and $X^-$, with the same noise levels, leading to improved accuracy in the gradient estimates. This is common in the field of \emph{simulation optimization}
+\citep{KlSpNa99,duchi2015optimal} and is especially useful when the gradient estimate is created from multiple observations, see \eqref{eq:twosp}. Note that creating an estimate from $K$ points (which is equivalent to a multi-point feedback setup where $K$ points are queried in each round) changes the number of rounds from $n$ to $n/K$, and  the reduction in the number of rounds, being a fixed constant factor, is negligible, as far as the convergence rates are considered.
 
 
 %
@@ -152,10 +155,12 @@ $\bm{\downarrow}$ &&\\\midrule
  &&\\\bottomrule
 \end{tabular}
 \caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.
-For the first row, $C_1 =
-\frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$, $C'_1=L \E[\|V\|^2]$, and
-$C_2 =   L^2 (2 + \frac{1}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right])$
-for the controlled noise and
+For the first row:  
+$C_1 = \frac{L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2]$ and 
+and
+$C_2 =  2 B_1^2  + \frac{ L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$, with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$, for the controlled noise;
+$C_1 =
+\frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$, $C'_1=L \E[\|V\|^2]$,  and
  $C_2 =  C_{2}^{(u)} \doteq 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$ for the uncontrolled noise.
 For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}$ and $C_2 =  C_{2}^{(u)}$,
 with $B_3 = \sup_{x\in \K} \norm{\nabla^3 f(x)}$, where $\norm{\cdot}$ is the implied norm for rank-3 tensors.
