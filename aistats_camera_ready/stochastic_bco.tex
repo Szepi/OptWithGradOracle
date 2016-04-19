@@ -81,7 +81,7 @@ Assume further that
   $V = h(U)$, where $h:\R^d \to \R^d$ is an odd function,
   $\EE{V}=0$, and $\E[V U\tr] = I$.
 Then, in the uncontrolled noise case, $\gamma$ is a $(c_1(\delta),c_2(\delta))$ type-I oracle given in \cref{tab:oracles}, where 
-$C_2=4 \EE{\norm{V}_*^2}\left( \E[\xi^2]+\sup_{x\in\D} f(x)\right)$, and $C_1 =
+$C_2=4 \EE{\norm{V}_*^2}\left( \E[\xi^2]+\sup_{x\in\D} f^2(x)\right)$, and $C_1 =
 \frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$ when $f \in \F_{L,0}$ and  
 $C_1 = \tfrac{B_3}{6} \EE{ \norm{V}_* \norm{U}^3 }$ for  $f \in \C^3$ where $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }_T$ where $\norm{\cdot}_T$ denotes the implied norm for rank-3 tensors.  
 % \todoc{Add the convex+smooth case}
@@ -177,7 +177,7 @@ The following proposition, whose proof is based on \citep[Lemma~1]{spall1992mult
 Let \cref{ass:gradbasic} hold and let $\gamma$  be a two-point feedback oracle defined by \eqref{eq:twosp}.
 Suppose furthermore that $\E[V U\tr] = I$.
 Then $\gamma$ is a type-I oracle with the pair $(c_1(\delta),c_2(\delta))$ 
-given by \cref{tab:oracles}. For uncontrolled noise and for controlled noise with $f\in\C^3$, $C_1$ is as in \cref{prop:grad-onepoint} and $C_2$ is twice as $C_2$ in \cref{prop:grad-onepoint}. For the controlled noise case with $f \in \F_{L,0}$,
+given by \cref{tab:oracles}. For uncontrolled noise and for controlled noise with $f\in\C^3$, $C_1$ is as in \cref{prop:grad-onepoint} and $C_2$ is $4 C_2$ from \cref{prop:grad-onepoint}. For the controlled noise case with $f \in \F_{L,0}$,
 $C_1 = \frac{L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2]$ and 
 and
 $C_2 =  2 B_1^2  + \frac{ L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$, with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$.
