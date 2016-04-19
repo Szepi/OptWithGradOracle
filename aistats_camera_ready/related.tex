@@ -14,13 +14,11 @@ such that $t + \ip{g,\cdot-x}$ is a linear lower approximation to $f(\cdot)$ in 
 $0\le f(y) - \left\{ t+ \ip{g,y-x}\right\} \le \frac{L}{2} \norm{y-x}^2 + \delta$.
 \cite{DeGliNe14} argue that this notion appears naturally in several optimization problems and study whether the so-called accelerated gradient techniques are still superior to their non-accelerated counterparts (and find a negative answer).
 The authors study both lower and upper rates of convergence, similarly to our paper.
-
-%, except that in the lower bounds the algorithm is not allowed to control the oracle parameters.
-
 A major difference between the previous and our settings is that we allow stochastic noise (and bias), which the algorithms can control, while the oracle in these previous paper must guarantee that the accuracy requirements hold in each time step
 with probability one.
 This is a much stronger requirement, which may be impossible to satisfy in some problems, such as when 
 the only information available about the functions is noise contaminated.
+
 Some works, such as \citet{SchRoBa11} allow arbitrary sequences of errors and show error bounds as a function
 of the accumulated errors. 
 Our proof technique is actually essentially the same (as can be expected).
@@ -31,7 +29,7 @@ $O(1/n^2 ( \norm{x_1-x^*}^2 + A_n^2 )$ where $A_n = O( \sum_{t=1}^n t \norm{e_t}
 assuming that errors' noise level is a positive constant (in all our result, this holds).
 This clearly shows the differences between the analysis and that the noisy case requires (somewhat) special treatment.
 
-Similar, but simpler noisy oracle models were introduced, e.g., by \citet{JN11a,Hon12,DvoGa15}, but these models lack the bias-variance tradeoff central to this paper (i.e., they assume the variance and bias can be controlled independently of each other). The results in these papers are upper bounds on the error of certain gradient methods (also to some very specific problem for \citealp{Hon12}), and they correspond to the bounds we obtained with $q=0$.
+Similar, but simpler noisy oracle models were introduced \citep{JN11a,Hon12,DvoGa15}, but these models lack the bias-variance tradeoff central to this paper (i.e., they assume the variance and bias can be controlled independently of each other). The results in these papers are upper bounds on the error of certain gradient methods (also to some very specific problem for \citealp{Hon12}), and they correspond to the bounds we obtained with $q=0$.
 \todoc[inline]{The paper of \citet{SchRoBa11} has 100 citations on google scholar.
 The paper of \cite{DeGliNe14} has similarly many.
 There are probably more relevant works. Someone could take a quick look and perhaps add a few more relevant ones.

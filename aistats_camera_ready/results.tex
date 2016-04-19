@@ -90,9 +90,9 @@ For any $(c_1,c_2)$ Type-II oracle
 % \delta = \left( \dfrac{C_2}{2aC_1}\sqrt{\dfrac{\alpha}{2D}} \right)^{1/(p+q)}n^{-1/(2p+q)} \,,
 % \] 
  $
- \delta = \left( \dfrac{C_2}{4aC_1}\dfrac{2p+q}{p}\dfrac{n}{n+1}\right)^{1/(p+q)}n^{-1/(2p+q)} \,,$  where
- $a^{2p+q} =2^{q-p}\left( 2+\dfrac{q}{p} \right)^p\left(1+ \dfrac{1}{n} \right)^q \left( \dfrac{\alpha}{D} \right)^{p+q}C_1^q C_2^p $,
- $a_t = a t^{(p+q)/(2p+q)}$, for $t=1, 2, \cdots, n-1$,
+ \delta = \left( \tfrac{C_2}{4aC_1}\tfrac{2p+q}{p}\tfrac{n}{n+1}\right)^{\frac{1}{p+q}}n^{-\frac{1}{2p+q}} \,,$  where
+ $a^{2p+q} =2^{q-p}\left( 2+\tfrac{q}{p} \right)^p\left(1+ \tfrac{1}{n} \right)^q \left( \tfrac{\alpha}{D} \right)^{p+q}C_1^q C_2^p $,
+ $a_t = a t^{\frac{p+q}{2p+q}}$, for $t=1, 2, \cdots, n-1$,
 then  the regret and the minimax error %\eqref{eq:minimaxerrdef} 
 can be bounded as
 % \begin{align*}
@@ -112,15 +112,14 @@ $ and
 %\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
 %\]
 $
-\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\tfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
+\delta^{p+q} =  \tfrac{C_2\left( \log n+1+\tfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
 $
 the regret and the minimax error satisfy
-% \begin{align*}
-\[
-\Delta_{\F_{L,\mu,\cR},n}^*(c_1,c_2) \!\le \! R_{\F_{L,\mu,\cR},n}^*(c_1,c_2) \!= \! O\!\!\left( \!\!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\!\frac{p}{p+q}} \! \right). \\
-\vspace{-0.3cm}
-\]
-% \end{align*}
+\begin{align*}
+\lefteqn{\Delta_{\F_{L,\mu,\cR},n}^*(c_1,c_2) } \\
+& \le  R_{\F_{L,\mu,\cR},n}^*(c_1,c_2) =  O\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\frac{p}{p+q}} \right).
+\vspace{-0.5cm}
+\end{align*}
 \end{theorem}
 %\begin{proof}
 %See \cref{sec:appendix-md}.

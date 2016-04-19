@@ -33,7 +33,7 @@ Z_t = F(X_t,\noiseCap_t),
 Note that the algorithm is aware of $P_{\noiseCap}$, but does not know how different values of $\noise$ affect the noise $\xi(x,\noise)=F(x,\noise)-f(x)$. Nevertheless, the algorithm can control the noise by selecting $\noiseCap_t$, and hence it can obtain unbiased estimates of the function values by selecting $\noiseCap_t$ from $P_{\noiseCap}$; we will refer to this case as the \emph{controlled noise} setting and to other situations as the case of \emph{uncontrolled noise}. 
 %The advantage of the controlled noise setting is that the algorithm may obtain samples of $F$ at $X^+$ and $X^-$, with the same noise levels:
 In a controlled noise setting, the algorithm may obtain samples of $F$ at $X^+$ and $X^-$, with the same noise levels, leading to improved accuracy in the gradient estimates. This is common in the field of \emph{simulation optimization}
-\citep{KlSpNa99,duchi2015optimal} and is especially useful when the gradient estimate is created from multiple observations, see \eqref{eq:twosp}. Note that creating an estimate from $K$ points (which is equivalent to a multi-point feedback setup where $K$ points are queried in each round) changes the number of rounds from $n$ to $n/K$, and  the reduction in the number of rounds, being a fixed constant factor, is negligible, as far as the convergence rates are considered.
+\citep{KlSpNa99,duchi2015optimal} and is especially useful when the gradient estimate is created from multiple observations, see \eqref{eq:twosp}. Note that creating an estimate from $K$ points (which is equivalent to a multi-point feedback setup where $K$ points are queried in each round) changes the effective number of rounds from $n$ to $n/K$, which is a negligible reduction for any fixed $K$ as far as convergence rates are considered.
 
 
 %
@@ -154,29 +154,28 @@ $\bm{\downarrow}$ &&\\\midrule
 \multirow{2}{*}{$\bm{f \in \C^3}$} & \multirow{2}{*}{$(C_1 \delta^2, \frac{C_2}{\delta^2})$} & \multirow{2}{*}{$(C_1 \delta^2, \frac{C_2}{\delta^2})$} \\
  &&\\\bottomrule
 \end{tabular}
-\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$.
+\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$, with $C_1, C'_1,C_2$ being problem dependent constants.\protect\footnotemark
+\label{tab:oracles}
+}
+\end{table}
+\footnotetext{
 For the first row:  
 $C_1 = \frac{L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2]$ and 
 and
 $C_2 =  2 B_1^2  + \frac{ L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$, with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$, for the controlled noise;
 $C_1 =
-\frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$, $C'_1=L \E[\|V\|^2]$,  and
+L\E[ \dnorm{V} \norm{U}^2]/2$, $C'_1=L \E[\|V\|^2]$,  and
  $C_2 =  C_{2}^{(u)} \doteq 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$ for the uncontrolled noise.
-For the second row, $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}$ and $C_2 =  C_{2}^{(u)}$,
+For the second row, $C_1 = B_3 \EE{ \norm{V}_* \norm{U}^3 }/6$ and $C_2 =  C_{2}^{(u)}$,
 with $B_3 = \sup_{x\in \K} \norm{\nabla^3 f(x)}$, where $\norm{\cdot}$ is the implied norm for rank-3 tensors.
 }
-\label{tab:oracles}
-\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The following proposition, whose proof is based on \citep[Lemma~1]{spall1992multivariate} and \citep[Lemma~1]{duchi2015optimal}, provides conditions under which the bias-variance parameters $(c_1,c_2)$ can be bounded as shown in \cref{tab:oracles}:
 \begin{proposition}
 \label{prop:grad-spsa}
-Consider a function $f:\D \to \R$, with $\K \subset \D^\circ \subset \R^d$. %\footnote{Here, $\D^\circ$ denotes the interior of $\D$.}
-For any $x \in \cK$, and $0< \delta \le 1$ let the oracle $\gamma$ return $G$ as specified in~\eqref{eq:twosp},
-where $(U,V)$ are such that $x+\delta U \in \D$ a.s.,
-$\E[V U\tr] = I$, while
-$\EE{\norm{V}_*^2}$ and $\EE{ \norm{U}^3 }<+\infty$.
-Then $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by \cref{tab:oracles}.
+Let \cref{ass:gradbasic} hold and let $\gamma$  be a two-point feedback oracle defined by \eqref{eq:twosp}.
+Suppose furthermore that $\E[V U\tr] = I$.
+Then $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given in \cref{tab:oracles}.
 \end{proposition}
 %\begin{proof}
 %See Section \ref{sec:appendix-grad}.
