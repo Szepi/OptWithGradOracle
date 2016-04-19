@@ -12,7 +12,7 @@ given $(x,\delta,L)$ and the convex function $f$,
 the oracle gives a pair $(t,g)\in \R \times \R^d$
 such that $t + \ip{g,\cdot-x}$ is a linear lower approximation to $f(\cdot)$ in the sense that 
 $0\le f(y) - \left\{ t+ \ip{g,y-x}\right\} \le \frac{L}{2} \norm{y-x}^2 + \delta$.
-\cite{DeGliNe14} argue that this notion appears naturally in several optimization problems and study whether the so-called accelerated gradient techniques are still superior to their non-accelerated counterparts (and find a negative answer).
+\citet{DeGliNe14} argue that this notion appears naturally in several optimization problems and study whether the so-called accelerated gradient techniques are still superior to their non-accelerated counterparts (and find a negative answer).
 The authors study both lower and upper rates of convergence, similarly to our paper.
 A major difference between the previous and our settings is that we allow stochastic noise (and bias), which the algorithms can control, while the oracle in these previous paper must guarantee that the accuracy requirements hold in each time step
 with probability one.

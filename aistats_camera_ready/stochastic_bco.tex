@@ -133,12 +133,13 @@ where $Z^{\pm} = f(X^{\pm}) + \xi^{\pm}$, $X^{\pm} = x \pm \delta U$, $U,V\in \R
 from some fixed distribution characterizing the oracle, and $\xi^{\pm}$ being the noise of the returned feedback $Z^{\pm}$ at points $X^{\pm}$.
 For the following proposition we consider $4=2\times 2$ cases.
 First, the function is either assumed to be $L$-smooth and convex (i.e., the derivative of $f$ is $L$-Lipschitz w.r.t. $\norm{\cdot}_*$), or it is assumed to be three times continuously differentiable ($f\in C^3$).
-The other two options are either the controlled noise  setting of \eqref{eq:controlled}, or, in the uncontrolled case, we make the alternate assumptions
-\begin{align}
-\E[\xi^+-\xi^- |\, U,V] = 0 \text{~~ and ~~}\nonumber\\
-\E [ (\xi^{+} - \xi^-)^{2} |\, V] \le \sigma_\xi^2 <\infty\,.
+The other two options are either the controlled noise  setting of \eqref{eq:controlled}, or, in the uncontrolled case, we make the alternate assumptions \vspace{-0.2cm}
+\begin{eqnarray}
+\E[\xi^+-\xi^- |\, U,V] &=& 0 \text{~~ and ~~}\nonumber\\
+\E [ (\xi^{+} - \xi^-)^{2} |\, V] &\le& \sigma_\xi^2 <\infty\,.
 \label{eq:noiseass}
-\end{align}
+\end{eqnarray}
+\vspace{-0.8cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
@@ -156,7 +157,8 @@ $\bm{\downarrow}$ &&\\\midrule
 \multirow{2}{*}{$\bm{f \in \C^3}$} & \multirow{2}{*}{$(C_1 \delta^2, \frac{C_2}{\delta^2})$} & \multirow{2}{*}{$(C_1 \delta^2, \frac{C_2}{\delta^2})$} \\
  &&\\\bottomrule
 \end{tabular}
-\caption{Gradient oracles for different function classes and noise categories. Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$, with $C_1, C'_1, C_2$ defined in Propositions \ref{prop:grad-onepoint}--\ref{prop:grad-spsa}.
+\caption{Gradient oracles for different function classes and noise categories. %Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$, with 
+The constants $C_1, C'_1, C_2$ are defined in Propositions~\ref{prop:grad-onepoint}--\ref{prop:grad-spsa}.
 \label{tab:oracles}
 }
 \end{table}
