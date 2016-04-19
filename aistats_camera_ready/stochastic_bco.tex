@@ -28,7 +28,7 @@ is that
 \begin{equation}
 \label{eq:controlled}
 Z_t = F(X_t,\noiseCap_t),
-\end{equation} where $\noiseCap_t\in \R$ is chosen by the algorithm and $\EE{F(x,\noiseCap)}=f(X)$ for some distribution $P_{\noiseCap}$ over the reals. As in \cite{duchi2015optimal}, we assume that the function $F(\cdot, \psi)$ is $L(\psi)$-smooth and the quantity $L(\Psi) = \sqrt{\E [L(\Psi)^2]}$ is finite.  
+\end{equation} where $\noiseCap_t\in \R$ is chosen by the algorithm and $\EE{F(x,\noiseCap)}=f(X)$ for some distribution $P_{\noiseCap}$ over the reals. As in \cite{duchi2015optimal}, we assume that the function $F(\cdot, \psi)$ is $L(\psi)$-smooth $P_{\noiseCap}$-a.s. and the quantity $L(\Psi) = \sqrt{\E [L(\Psi)^2]}$ is finite.  
 %That is the algorithm can call the oracle $F(x,\noise)$ by selecting both $x$ and $\noise$. 
 Note that the algorithm is aware of $P_{\noiseCap}$, but does not know how different values of $\noise$ affect the noise $\xi(x,\noise)=F(x,\noise)-f(x)$. Nevertheless, the algorithm can control the noise by selecting $\noiseCap_t$, and hence it can obtain unbiased estimates of the function values by selecting $\noiseCap_t$ from $P_{\noiseCap}$; we will refer to this case as the \emph{controlled noise} setting and to other situations as the case of \emph{uncontrolled noise}. 
 %The advantage of the controlled noise setting is that the algorithm may obtain samples of $F$ at $X^+$ and $X^-$, with the same noise levels:

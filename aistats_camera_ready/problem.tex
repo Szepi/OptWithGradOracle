@@ -71,7 +71,7 @@ $\norm{x-Y}\le \delta$ almost surely (a.s.),
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$.
 \end{enumerate}
 \end{definition}
-The upper bound on $\delta$ is arbitrary: By changing the norm, any other value can also be accommodated. Also, the upper bound only matters when $\K$ is bounded and the functions in $\cF$ are defined only in a small vicinity of $\K$.
+The upper bound on $\delta$ is arbitrary: by changing the norm, any other value can also be accommodated. Also, the upper bound only matters when $\K$ is bounded and the functions in $\cF$ are defined only in a small vicinity of $\K$.
 
 The second type of oracle considered is as follows:
 \begin{definition}[$(c_1,c_2)$ type-II  oracle]
@@ -103,7 +103,7 @@ Note that our definition allows the same oracle $\gamma$ to respond to the same 
 though most often the oracles constructed in practice
 will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a stochastic mapping.
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-There are several examples of oracles satisfying these definitions; see \cref{sec:sbco}.
+There are several examples of oracles satisfying these definitions (see \cref{sec:sbco}).
 We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
 
 
@@ -128,11 +128,11 @@ R_{\F,n}^*(c_1,c_2)
 %%%%%%& \qquad \qquad \qquad \qquad \qquad
 %-\inf_{x\in \cK} \sum_{t=1}^n f_t(x)\,,\\
 \end{align*}
-where $\cA$ ranges through all algorithms that interact with the $f_{1:n}= (f_1,\dots,f_n)$ loss sequence
+where $\cA$ ranges through all algorithms that interact with the loss sequence  $f_{1:n}= (f_1,\dots,f_n)$
 as described earlier
 through the oracles $\gamma_{1:n}$,
-and we use $R_n^{\cA}$ the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:n}$).
-The minimax regret for type-II (and other similar) oracles is defined analogously (in what follows we only define these quantities for type-I oracles, as the extension to type-II oracles is immediate).
+and $R_n^{\cA}$ denotes the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:n}$).
+The minimax regret for type-II oracles is defined analogously (in what follows we only define these quantities for type-I oracles, as the extension to type-II oracles is immediate).
 
 In the stochastic BCO setting, the minimax error is defined through
 \begin{align}
