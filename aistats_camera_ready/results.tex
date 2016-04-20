@@ -26,7 +26,7 @@
 \bottomrule
 %%%%%%%%%%%%%%%%
 \end{tabular}
-\caption{Summary of upper and lower bounds for different smooth function classes and  gradient oracles for the settings of \cref{thm:ub} and \cref{thm:lb-convex}. Note that when $\cR$ is the squared norm and $\K$ is the hypercube (as in the lower bounds), $D=\theta(d)$ in the upper bounds.}
+\caption{Summary of upper and lower bounds for different smooth function classes and  gradient oracles for the settings of \cref{thm:ub} and \cref{thm:lb-convex}. Note that when $\cR$ is the squared norm and $\K$ is the hypercube (as in the lower bounds), $D=\theta(d)$ in the upper bounds and also that $C_1$, $C_2$ may hide dimension-dependent quantities for the common gradient estimators, as will be discussed later.}
 \end{table*}
 
 
@@ -42,12 +42,11 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 
 \begin{algorithm}[t]
 \begin{algorithmic}
-    \State {\bf Input:}  Closed convex set $\cK$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$.
+    \State {\bf Input:}  Closed convex set $\cK\ne \emptyset$, regularization function $\mathcal{R}:\dom(\mathcal{R})\to \mathbb{R}$, $\cK^{\circ}\subset \dom(\mathcal{R})$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$.
 %     In round $t=1, 2, \cdots, n-1$:
 \State Initialize $X_1\in \cK$ arbitrarily.
 \For{$t=1, 2, \cdots, n-1$}
-	\State Query the oracle at $X_t$.
-	\State Receive $G_t$, $Y_t$.
+	\State Query the oracle at $X_t$ to receive $G_t$, $Y_t$.
 	\State Set
 	$X_{t+1}=\argmin_{x\in \mathcal{K}}\left[ \eta_{t} \ip{G_t,x}+D_{\mathcal{R}}(x,X_t) \right].$
 \EndFor
@@ -80,9 +79,10 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 
 \begin{theorem}[\textit{Upper bound}]
 \label{thm:ub}
-Consider the class $\F_{L,0}$ of convex, $L$-smooth functions on the bounded, convex domain $\cK \subset \R^d$.
+Consider the class $\F_{L,0}$ of convex, $L$-smooth functions on the bounded, convex domain $\cK\ne \emptyset$, $\cK \subset \R^d$.
 % let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
-Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\interior(\mathcal{K})\subseteq \dom(\mathcal{R})$.
+Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.%
+\footnote{For $A\subset \mathbb{R}^d$, $A^\circ$ denotes the interior of $A$.}
 For any $(c_1,c_2)$ Type-II oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
  if \cref{alg} is run with $\eta_t = \alpha/(a_t+L)$ and
@@ -97,14 +97,14 @@ then  the regret and the minimax error %\eqref{eq:minimaxerrdef}
 can be bounded as
 % \begin{align*}
  \[
- \Delta_{\F_{L,0},n}^*(c_1,c_2)\!\le \!R_{\F_{L,0},n}^*(c_1,c_2)\!=\! O\!\!\left(\!\!\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{n}\right)^{\!\!\frac{p}{2p+q}}\!\right)
+ \Delta_{\F_{L,0},n}^*(c_1,c_2)\!\le \!
+ \frac{R_{\F_{L,0},n}^*(c_1,c_2)}{n}\!=\! O\!\!\left(\!\!\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{\sqrt{n}}\right)^{\!\!\frac{p}{p+\frac{q}{2}}}\!\right)\,,
 \vspace{-0.3cm}
  \]
  %\end{align*}
- 
  where $D=\sup_{x,y\in \cK} \DR(x,y)$.
  
-For the class $\F=\F_{L,\mu,\cR}$ of $\mu$-strongly convex (w.r.t.\  $\cR$) and $L$-smooth functions, with $\mu >2L/\alpha$, 
+For the class $\F=\F_{L,\mu,\cR}$ of $\mu$-strongly convex (w.r.t.\  $\cR$) and $L$-smooth functions, with $\alpha >2L/\mu$, 
 $
  \eta_t = 2/(\mu t),
 $ and 
@@ -117,10 +117,11 @@ $
 the regret and the minimax error satisfy
 \begin{align*}
 \lefteqn{\Delta_{\F_{L,\mu,\cR},n}^*(c_1,c_2) } \\
-& \le  R_{\F_{L,\mu,\cR},n}^*(c_1,c_2) =  O\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\frac{p}{p+q}} \right).
+& \le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} =  O\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{\sqrt{n}} \right)^{\!\!\frac{2p}{p+q}} \right).
 \vspace{-0.5cm}
 \end{align*}
 \end{theorem}
+\todoc[inline]{So what is hidden in $O(\cdot)$?}
 %\begin{proof}
 %See \cref{sec:appendix-md}.
 %\end{proof}
@@ -130,7 +131,7 @@ Filling the gap is left for future work.
 \begin{theorem}[\textit{Lower bound}]
 \label{thm:lb-convex}
 Let $n>0$ be an integer, $p>0, q\ge 2$, $C_1,C_2>0$, 
-$\cK\subset \R^d$ convex, closed, with  $\{+1,-1\}^d\subset \cK$.
+$\cK\subset \R^d$ convex, closed, with  $[+1,-1]^d\subset \cK$.
 Assume that $n$ is large enough (the exact condition is given after the theorem). \todoc{Maybe in the appendix.}
 %For any $v \in \{+1,-1\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where
 %$f^{(i)}_{v_i}(x_i) := \dfrac{\epsilon}{2} (x_i - v_i)^2$, for $i=1,\ldots,d$.
@@ -166,8 +167,9 @@ $\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\fra
 % See Section \ref{sec:appendix-lb-proof}.
 %\end{proof}
 
-By continuity, the above claim can be extended to cover the case of $q=0$. For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive to an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ leads to an $\Omega(d/\sqrt{n})$ lower bound. The proof of the lower bound is obtained in the usual way by presenting a family of functions and a type-I oracle such that any algorithm suffers at least the stated error on one of the functions. In particular, for $\F_{L,0}$ we use
-$f_v(x)=\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)$ with $v=\pm 1$, $\epsilon>0$, and $x \in \cK \subset \R$.
+By continuity, the above claim can be extended to cover the case of $q=0$ (constant variance). 
+For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ (no bias) leads to an $\Omega(d/\sqrt{n})$ lower bound. The proof of the lower bound is obtained in the usual way by presenting a family of functions and a type-I oracle such that any algorithm suffers at least the stated error on one of the functions. In particular, for $\F_{L,0}$ with $L\ge 1/2$ we use
+$f_{v,\epsilon}(x)=\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)$ with $v=\pm 1$, $\epsilon>0$, and $x \in \cK \subset \R$ for appropriate $\epsilon$. Note that for \emph{any} $\epsilon>0$, $f_{v,\epsilon}\in \F_{1/2,0}\setminus \cup_{0<\lambda<1/2} \F_{\lambda,0}$.
 
 
 \begin{remark}(\textbf{\textit{Scaling}})

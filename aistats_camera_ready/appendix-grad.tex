@@ -305,16 +305,16 @@ where $\widehat\phi(x,\delta)$ satisfies $\scnorm{\widehat\phi(x,\delta)}_*  \le
 
 Applying the above expression to $F(\cdot, \Psi)$ and recalling that $G=V\,  \left(\tfrac{F(X^+,\psi)  -F(X^-,\psi)}{2\delta}\right)$, we have, for $P$-almost every $\psi$, 
 $$\E[G] = \nabla F(x,\psi) + \delta \widehat\phi(x,\delta),$$
-where, as before, $\widehat\phi(x,\delta)$ satisfies $\scnorm{\widehat\phi(x,\delta)}_*  \le \, \dfrac{L(\psi)}{2}\E[ \dnorm{V} \norm{U}^2]$.
+where, as before, $\widehat\phi(x,\delta)$ satisfies $\scnorm{\widehat\phi(x,\delta)}_*  \le \, \dfrac{L_{\psi}}{2}\E[ \dnorm{V} \norm{U}^2]$.
 
 Using the fact that $E[\nabla F(x,\Psi)] = \nabla f(x)$, we obtain
 \begin{align*}
  \norm{\E[G] - \nabla f(x)}_*
  &= \scnorm{\E\left[V\,  \left(\frac{f(x+\delta U)  -f(x-\delta U)}{2\delta}\right)-V U^\top\nabla f(x) \right]}_*
  \le \, \delta \norm{\E[ V \phi(x,\delta, U)]}_*\\
- &\le \,\frac{\delta L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2],
+ &\le \,\frac{\delta \overline{L}_{\Psi}}{2} \E[ \dnorm{V} \norm{U}^2],
 \end{align*}
-and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2]$.
+and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta \overline{L}_{\Psi}}{2} \E[ \dnorm{V} \norm{U}^2]$.
 
 We now bound $\EE{ \norm{G}_*^2}$ as follows:
 %In the case of controlled noise, i.e., $\xi^+ = \xi^-$,
@@ -322,10 +322,10 @@ We now bound $\EE{ \norm{G}_*^2}$ as follows:
  \E \norm{G}^2
 & = \mathbb{E}\norm{V\left(\delta \phi(x,\delta, U)+ U^\top\nabla f(x) \right)}^2
  \le  \E\left[ \left( \dnorm{ V U \tr \nabla f(x)} + \frac{\delta L}{2} \dnorm{V} \norm{U}^2 \right)^2\right]\\
-& \le  2 \E\left[  \dnorm{ V U \tr \nabla f(x)}^2\right]  + \frac{\delta^2 L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right],
+& \le  2 \E\left[  \dnorm{ V U \tr \nabla f(x)}^2\right]  + \frac{\delta^2 \overline{L}_{\Psi}^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right],
 \end{align*}
 and the claim for the variance follows by setting $c_2(\delta) = C_2$,
-where $C_2 =  2 B_1^2  + \frac{ L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$ with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$.
+where $C_2 =  2 B_1^2  + \frac{ \overline{L}_{\Psi}^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$ with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$.
 
 For the case of uncontrolled noise, the claim for the variance, i.e., $c_2(\delta) = C_2/\delta^2$ follows in the same manner as that in the proof of Proposition \ref{prop:grad-spsa}.
 \end{proof}
