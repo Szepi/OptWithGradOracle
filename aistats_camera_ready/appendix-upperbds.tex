@@ -7,8 +7,8 @@ The lemma and its proof can be found below.
 By the discussion in \cref{sec:problem}, we have $\Delta^*_{\F,n}(c_1,c_2) \le R^*_{\F,n}(c_1,c_2)/n$ by Jensen's inequality, so it is enough to bound the regret for the online case.
 From the bias condition in \cref{def:oracle2}, we get
 \begin{align*}
- \EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x \in \cK}\sum_{t=1}^n f_t(x) },
- \le \frac{1}{n}\EE{ \sum_{t=1}^n \tilde{f}(X_t) - \inf_{x \in \cK}sum_{t=1}^n \tilde{f}_t(x) } +2C_1 \delta^p
+ \EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x \in \cK}\sum_{t=1}^n f_t(x) }
+ \le \frac{1}{n}\EE{ \sum_{t=1}^n \tilde{f}_t(X_t) - \inf_{x \in \cK}\sum_{t=1}^n \tilde{f}_t(x) } +2C_1 \delta^p
  \,.
 \end{align*}
 
@@ -19,7 +19,7 @@ Substituting
  $\beta_t = 0$, $\sigma^2_t = C_2 \delta^{-q}$, $a_t=a t^r$ for some $0<r<1$, respectively, we obtain
  \begin{align}
 \MoveEqLeft
-\E[ \sum_{t=1}^n f(_t\hat X_n) - \inf_{x \in \cK} sum_{t=1}^n f_t(x)] \nonumber \\
+\EE{ \sum_{t=1}^n f(_t\hat X_n) - \inf_{x \in \cK} \sum_{t=1}^n f_t(x)} \nonumber \\
 &\le \frac{1}{n}\left(\EE{f_1(X_1)-\inf_{x \in \cK}f(x)}+\frac{DL}{\alpha}  \right) %\nonumber
 +\frac{Da}{\alpha} n^{r-1}+\dfrac{C_2 \delta^{-q}}{2a(1-r)}n^{-r}+ (2+\dfrac{2}{n})C_1\delta^p \,.
 \label{eq:ubToBeOpt}
@@ -65,7 +65,7 @@ sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, if $\tilde{f}$ is $L$-smooth,
 \end{align*}
 where $\sigma_t^2 = \EE{ \norm{G_t-\overline G_t}_*^2}$ is the ``variance'' of $G_t$.
 
-If ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t. $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$,
+If ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t.\  $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$,
 \begin{align*}
  \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }
 \le 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+
@@ -100,11 +100,11 @@ which is equivalent to the result by substituting the definition of Bregman dive
 \end{proof}
 
 \begin{proof}[\cref{lem:ub}]
-Denote $\hat{G}_t = \nabla f(X_t)$.
+Denote $\hat{G}_t = \nabla f_t(X_t)$.
 From the smoothness and convexity of $f$ and using that $\mathcal{R}$ is strongly convex, we have
 \begin{align}
-f(X_{t+1}) - f(x)
- &\le f(X_t) + \ip{ \hat{G}_t, X_{t+1}-X_t } + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \left\{ f(X_t) + \ip{ \hat{G}_t, x-X_t} \right\} \nonumber \\
+f_t(X_{t+1}) - f_t(x)
+ &\le f_t(X_t) + \ip{ \hat{G}_t, X_{t+1}-X_t } + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \left\{ f_t(X_t) + \ip{ \hat{G}_t, x-X_t} \right\} \nonumber \\
  &= \ip{\hat{G}_t, X_{t+1} - x } +  \frac{L}{2} \norm{X_{t+1}-X_t}^2 \nonumber\\
  &\le \ip{\hat{G}_t,X_{t+1}-x} + \frac{L}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t)\,. \label{eq:mdsmoothnoisy1}
 \end{align}
@@ -117,7 +117,7 @@ Hence,
 &\le \beta_t \sqrt{ \frac{2D}{\alpha} } + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x } \,.
 \end{align*}
 After we plug this into~\eqref{eq:mdsmoothnoisy1},
-the plan is to take the conditional expectation of both sides w.r.t. $\F_{t}$.
+the plan is to take the conditional expectation of both sides w.r.t.\  $\F_{t}$.
 As $X_t$ is $\F_{t}$-measurable, and by the definition of $\xi_t$ and $\overline G_t$, $\EE{ \xi_t|\F_{t}} = 0$,
 we have
 \begin{align*}
@@ -136,7 +136,7 @@ Applying
 \cref{lem:mdlinregret}
 to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
 \begin{align*}
- \EE{f(X_{t+1}) - f(x) |\F_{t} }
+ \EE{f_t(X_{t+1}) - f_t(x) |\F_{t} }
 \le & \quad
  \beta_t \sqrt{ \frac{2D}{\alpha} }+
 \frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\F_{t}}+
