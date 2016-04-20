@@ -24,10 +24,10 @@ of the accumulated errors.
 Our proof technique is actually essentially the same (as can be expected).
 However, the noisy case requires special care. For example, Proposition~3 of
 \citet{SchRoBa11}  bounds the optimization error for the smooth, convex case by 
-$O(1/n^2 ( \norm{x_1-x^*}^2 + A_n^2 )$ where $A_n = O( \sum_{t=1}^n t \norm{e_t})$, $e_t$ being the error of the approximate gradient. This expression becomes $\Theta(\frac{1}{n^2} \sum_{t=1}^n t^2)  \approx n$
+$O(1/n^2 ( \norm{x_1-x^*}^2 + A_n^2 ))$ where $A_n = O( \sum_{t=1}^n t \norm{e_t})$, $e_t$ being the error of the approximate gradient. This expression becomes $\Theta(\frac{1}{n^2} \sum_{t=1}^n t^2)  \approx n$
 %is upper and lower bounded, up to a constant factor by,
 assuming that errors' noise level is a positive constant (in all our result, this holds).
-This clearly shows the differences between the analysis and that the noisy case requires (somewhat) special treatment.
+This clearly shows that the noisy case requires (somewhat) special treatment.
 
 Similar, but simpler noisy oracle models were introduced \citep{JN11a,Hon12,DvoGa15}, but these models lack the bias-variance tradeoff central to this paper (i.e., they assume the variance and bias can be controlled independently of each other). The results in these papers are upper bounds on the error of certain gradient methods (also to some very specific problem for \cite{Hon12}), and they correspond to the bounds we obtained with $q=0$.
 \todoc[inline]{The paper of \citet{SchRoBa11} has 100 citations on google scholar.

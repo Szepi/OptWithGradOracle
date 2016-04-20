@@ -16,7 +16,7 @@ $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
  This latter condition is equivalent to that $\nabla f$ is $L$-Lipschitz \citep[Theorem~2.1.5]{nesterov2004introductory}.
  \todoc{Add citation}
  We let $\F_{L,\mu}(\K)$ denote the class of functions that are $\mu$-strongly convex and $L$-smooth on the set $\K$.
- The set of $L$-smooth functions is thus $\F_{L,0}(\K)$. Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t.\  $\cR$.
+ The set of $L$-smooth functions is thus $\F_{L,0}(\K)$. Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t.\  $\cR$. \todoc{Are these $L$-smooth w.r.t. $\cR$? This is a bit confusing.}
 % We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions. 
  \todoc{I am pretty sure $\normal(0, I) is not used in the main text, hence commenting it out. We will need to define it for the full version!!!}
 
@@ -53,9 +53,9 @@ the $n$th round is over (in both settings, $n$ is given to the algorithms)
 and the algorithm's performance is quantified using the \emph{optimization error},
 $\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
 
-The main novelty of the model is that the information flow between the algorithm and the environment (holding $f$, or $f_{1:n}$) is mediated by the gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit in this framework.
+The main novelty of the model is that the information flow between the algorithm and the environment (holding $f$, or $f_{1:n}$) is mediated by a gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit in this framework.
 
-We will use two classes of oracles. In any case, the oracles are specified by
+We will use two classes of oracles. In both cases, the oracles are specified by
 two functions $c_1,c_2:[0,\infty)\to [0,\infty)$, which will be assumed to be continuous,
 monotonously increasing (resp., decreasing) with
 $\lim_{\delta\to  0} c_1(\delta)=0$ and $\lim_{\delta\to 0} c_2(\delta)=+\infty$.
@@ -94,8 +94,10 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 \end{enumerate}
 \vspace{-0.1cm}
 \end{definition}
-This definition is most useful when $\tilde{f}$ is known to belong to $\cF$, too; however, we prefer to state these conditions separately.
-\todoc{They are NOT stated separately now!!!!!}
+\todoc[inline]{
+We had this here:
+``This definition is most useful when $\tilde{f}$ is known to belong to $\cF$, too; however, we prefer to state these conditions separately.''
+But in the definition $\tilde{f}$ is required to belong to $\cF$, so I just removed this.}
 %An alternative to the bias condition for type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with%
 %\footnote{
 %This definition requires the function $f$ to be differentiable. When the functions in $f$ are not differentiable, it is possible
@@ -109,13 +111,10 @@ This definition is most useful when $\tilde{f}$ is known to belong to $\cF$, too
 %
 Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
 though most often the oracles constructed in practice
-will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a stochastic mapping.
+will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a fixed stochastic mapping.
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-Examples of oracles for various $(c_1,c_2)$ are discussed in  \cref{sec:sbco}.
+Examples will be discussed in  \cref{sec:sbco}.
 We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
-
-
-
 
 
 Here, we will study the minimax regret in the online convex optimization setting, \todoc{BCO: I took it off as it was  confusing: What is ``bandit'' here?}
@@ -127,7 +126,7 @@ The \emph{minimax expected regret} for $(\cF,c_1,c_2)$ with type-I oracles is
 R_{\F,n}^*(c_1,c_2)
 &= \inf_{\cA} \sup_{f_{1:n}\in \cF^n}
 	\sup_{\substack{\gamma_1,\ldots,\gamma_n \in \Gamma_1(f_t,c_1,c_2)%\\1\le t \le n
-	}} R_n^{\cA} %(f_{1:n},\gamma_{1:n})
+	}} R_n^{\cA}\,, %(f_{1:n},\gamma_{1:n})
 %\label{eq:minimaxregdef}
 %\\
 %\MoveEqLeft
@@ -138,11 +137,11 @@ R_{\F,n}^*(c_1,c_2)
 %-\inf_{x\in \cK} \sum_{t=1}^n f_t(x)\,,\\
 \end{align*}
 where $\cA$ ranges through all algorithms that interact with the loss sequence  $f_{1:n}= (f_1,\dots,f_n)$
-as described earlier
-through the oracles $\gamma_{1:n}$,
+through the oracles $\gamma_{1:n}$ (in round $t$, oracle $\gamma_t$ is used),
 and we use $R_n^{\cA}$ to denote the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:n}$).
-The minimax regret for type-II (and other similar) oracles is defined analogously (in what follows we only define these quantities for type-I oracles, as the extension \todoc{Is extension the right word?}
- to type-II oracles is immediate).
+The minimax regret for type-II oracles is defined analogously.
+% (in what follows we only define these quantities for type-I oracles, as the extension \todoc{Is extension the right word?}
+% to type-II oracles is immediate).
  \todoc{Do the oracles ``talk''?}
 
 In the stochastic BCO setting, the minimax error is defined through
@@ -155,17 +154,18 @@ In the stochastic BCO setting, the minimax error is defined through
 where, again, $\cA$ ranges through all algorithms that interact with the loss $f$ through $\gamma$ and
 $\Delta_n^{\cA}$ is the optimization error that $\cA$ suffers
 after $n$ rounds of interaction with $f$ through $\gamma$ as described earlier.
+The minimax error for type-II oracles is defined analogously.
 \todoc{Note about using only one oracle?}
 
 When the set $\K$ is bounded and the function set $\F$ is invariant to linear shifts, every $(c_1,c_2)$ type-I oracle is also an $(R c_1,c_2)$ type-II oracle,
 where $R = \sup_{x\in \K} \norm{x}$: simply consider $\tilde{f}(y) =  f(y) + (\EE{G}-\nabla f(x))\tr y $,
 where $G$ is the gradient estimate returned by the oracle. % (cf. \cref{thm:typered}).
-As a result, if for some set $\Delta_{n}^{\mathrm{type-I}}$, $\Delta_{n}^{\mathrm{type-II}}$
+Thus, if for some set $\Delta_{n}^{\mathrm{type-I}}$, $\Delta_{n}^{\mathrm{type-II}}$
 denote the appropriate minimax errors and $R=1$
 then $\Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(c_1,c_2)  $.
 As a result, when proving lower bounds, we shall consider type-I, while when proving upper bounds we will consider type-II oracles.
-Further note that for either type of oracles, $\Delta_{\F,n}^*(c_1,c_2) \le R_{\F,n}^*(c_1,c_2)/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing as $\hat{X}_n$ the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
+Also note that for either type of oracles, $\Delta_{\F,n}^*(c_1,c_2) \le R_{\F,n}^*(c_1,c_2)/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing as $\hat{X}_n$ the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
 Indeed, then $f(\hat{X}_n) \le \frac1n \sum_{t=1}^n f(X_t)$ by Jensen's inequality, hence the average regret of $\A$ will upper bound the error of choosing $\hat{X}_n$ at the end.
-A consequence of this relation is that a lower bound for $\Delta_{\F,n}^*(c_1,c_2) $ will also be a lower bound for $R_{\F,n}(c_1,c_2)^*/n$ and an upper bound on $R_{\F,n}^*(c_1,c_2)$ leads to a an upper bound on $\Delta_{\F,n}^*(c_1,c_2)$. This explains why we allowed taking supremum over time-varying oracles in the definition of the regret and why we used a static oracle for the optimization error: to maximize the strength of the bounds we obtain.
+A consequence of this relation is that a lower bound for $\Delta_{\F,n}^*(c_1,c_2) $ will also be a lower bound for $R^*_{\F,n}(c_1,c_2)/n$ and an upper bound on $R^*_{\F,n}(c_1,c_2)$ leads to an upper bound on $\Delta_{\F,n}^*(c_1,c_2)$. This explains why we allowed taking supremum over time-varying oracles in the definition of the regret and why we used a static oracle for the optimization error: to maximize the strength of the bounds we obtain.
  \todoc{Add reference.}
 %$\hat{X}_n$ is the point returned by $\cA$ after $n$ rounds of interaction which work as described earlier.

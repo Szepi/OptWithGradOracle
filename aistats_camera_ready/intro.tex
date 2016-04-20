@@ -1,7 +1,7 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 Convex optimization is widely studied under different models concerning what can be observed about the objective function. 
-These models range from accessing the full gradient to only observing samples from the objective function (cf. \cite{nesterov2004introductory,DeGliNe14,HaLe14:SOC,PoTsy90,flaxman2005online,AbHaRa08,AgDeXi10,Ne11:TR,AgFoHsuKaRa13:SIAM,katkul,kushcla,spall1992multivariate,spall1997one,Dip03:AoS,bhatnagar-book,duchi2015optimal}). In this paper, we present and analyze a novel framework for convex optimization with biased gradient oracles, which encompasses most of what has been done in the bandit framework where the algorithms observe noisy point-evaluations of the target function and use these to construct gradient estimators.
+These models range from accessing the full gradient to only observing samples from the objective function (cf. \cite{nesterov2004introductory,DeGliNe14,HaLe14:SOC,PoTsy90,flaxman2005online,AbHaRa08,AgDeXi10,Ne11:TR,AgFoHsuKaRa13:SIAM,katkul,kushcla,spall1992multivariate,spall1997one,Dip03:AoS,bhatnagar-book,duchi2015optimal}). In this paper, we present and analyze a novel framework for convex optimization with biased gradient oracles, which encompasses most of what has been done in the bandit framework where the algorithms observe noisy point-evaluations of the objective function and use these to construct gradient estimators.
 
 In our framework, an optimization algorithm can query an oracle repeatedly to get a noisy and biased version of the gradient (or a subgradient for non-differentiable functions), where the algorithm querying the oracle also sets a parameter that controls the tradeoff between the bias and the variance of the gradient estimate.
 % the bias-variance tradeoff
@@ -11,7 +11,7 @@ Gradient oracles have been considered in the literature before: Several previous
 
 The main feature of our model is that we allow stochas- tic noise, control of the bias and the variance, and we also consider lower bounds on the achievable error rates. Our gradient oracle model applies to several gradient estimation techniques extensively used in the literature, mostly for the case when the gradient is estimated only based on noisy observations of the objective function \citep{katkul,kushcla,spall1992multivariate,spall1997one,Dip03:AoS,bhatnagar-book,duchi2015optimal}. A particularly interesting application of our model is the widely studied bandit convex optimization problem,
 mentioned above,
-where all previous algorithms 
+where most previous algorithms 
 essentially use gradient estimates and first-order methods 
 %, where an algorithm can only query a single function value in each round, contaminated with noise 
 \citep{PoTsy90,flaxman2005online,AbHaRa08,AgDeXi10,Ne11:TR,AgFoHsuKaRa13:SIAM,HaLe14:SOC}.
@@ -31,8 +31,8 @@ In this paper, we consider the optimization accuracy in both the stochastic and 
 % (see Section \ref{sec:sbco} for a detailed description).
 We  provide upper and lower bounds on the minimax optimization error (or regret) for several oracle models, which correspond to different ways of quantifying the bias-variance tradeoff of the gradient estimate. In particular, we provide matching upper and lower bounds for optimizing smooth, convex functions. We do not claim to invent methods for proving upper bounds, as the methods we use have been known previously for special cases  (see the references above),
 but our main contribution lies in abstracting away the properties of gradient estimation procedures, 
-thereby unifying previous analysis, providing a concise summary and explanation of differences between previous works.
-More importantly, our framework also allows to prove lower bounds about for any algorithm that relies on gradient
+thereby unifying previous analysis, providing a concise summary and an explanation of differences between previous works.
+More importantly, our framework also allows to prove lower bounds for any algorithm that relies on gradient
 estimation oracles of the type our framework captures
 (earlier work of \citet{Chen88:LB-AoS} considered a related lower bound on the converge of the iterate instead of the function value).
 
@@ -40,7 +40,7 @@ Note that our oracle model does not capture the full strength of the gradient es
 As a consequence, our lower bounds show that the known minimax regret of $\sqrt{T}$ \citep{BubeckDKP15,BuEl15}
 of online and stochastic bandit convex optimization\todoa{add reference to stochastic} cannot be shown to hold
 for any algorithm that uses current gradient estimation procedures, unless the proof exploited finer properties
-of the gradient estimators than used in all prior works. In particular,
+of the gradient estimators than used in prior works. In particular,
 our lower bounds even invalidate the claimed (weaker) upper bound of \citet{DeElKo15}.
 %Hence, an interesting corollary to our results is that algorithms which are purely based on gradient estimation will not be able to achieve the minimax regret in online bandit convex optimization using the current proof techniques.
 

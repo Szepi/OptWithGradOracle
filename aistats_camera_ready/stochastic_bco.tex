@@ -3,7 +3,7 @@
 The main application of the biased noisy gradient oracle based convex optimization of the previous section
 is bandit convex optimization. We introduce here briefly the stochastic version of the problem, while online BCO will be considered in Section~\ref{sec:obco}. Readers familiar with these problems and the associated
 gradient estimation techniques, may skip this description to jump directly to \cref{thm:aaa},
-and come back to it only to clarify our notation and terminology in case some confusion arises later.
+and come back here only if clarifications are needed.
 
 \if0
 For example, \cite{AgDeXi10} used an algorithm that queries at two points per round, and defined the incurred loss as the average of losses at the two observation points. In our oracle, it can be stated as in round $t$, the same oracle $\gamma_t$ responds to the same inputs $(X_t, \delta_t, f_t)$ with two different pairs $(G_{t,1}, Y_{t,1})$ and $(G_{t,2}, Y_{t,2})$. The accumulated regret can be written as
@@ -20,20 +20,23 @@ In particular, in round $t$, the algorithm chooses $X_t$ based on the earlier ob
 
 
 Previous research considered several possible constraints connecting $Z_t$ and $f(X_t)$.
-One simple assumption is that $Z_t-f(X_t)$ is an $\cF_t = \sigma(X_{1:t},Z_{1:t-1})$-adapted martingale difference sequence (with favorable tail properties).
+One simple assumption is that $\{Z_t-f(X_t)\}_t$ is an $\{\cF_t\}_t = \{\sigma(X_{1:t},Z_{1:t-1})\}_t$-adapted martingale difference sequence (with favorable tail properties).
 % \todoc{Some readers might be put off by martingales..}
 A specific case is when $Z_t - f(X_t) = \xi_t$, where $(\xi_t)$ is a sequence of independent and identically distributed (i.i.d.) variables.
-A stronger assumption, which is most appropriate in stochastic programming,
-is that 
+A stronger assumption, common in stochastic programming, is that 
 \begin{equation}
 \label{eq:controlled}
-Z_t = F(X_t,\noiseCap_t),
-\end{equation} where $\noiseCap_t\in \R$ is chosen by the algorithm and $\EE{F(x,\noiseCap)}=f(X)$ for some distribution $P_{\noiseCap}$ over the reals. As in \cite{duchi2015optimal}, we assume that the function $F(\cdot, \psi)$ is $L(\psi)$-smooth $P_{\noiseCap}$-a.s. and the quantity $L(\Psi) = \sqrt{\E [L(\Psi)^2]}$ is finite.  
+Z_t = F(X_t,\noiseCap_t), \quad f(x) = \int F(x,\psi) P_{\noiseCap}(d\psi)\,,
+\end{equation} 
+where $\noiseCap_t\in \R$ is chosen by the algorithm and in particular the algorithm can draw $\noiseCap_t$ 
+at random from $P_{\noiseCap}$.
+As in \cite{duchi2015optimal}, we assume that the function $F(\cdot, \psi)$ is $L_{\psi}$-smooth $P_{\noiseCap}$-a.s. and the quantity $\overline{L}_{\Psi} = \sqrt{\E [L_{\Psi}^2]}$ is finite.  
 %That is the algorithm can call the oracle $F(x,\noise)$ by selecting both $x$ and $\noise$. 
-Note that the algorithm is aware of $P_{\noiseCap}$, but does not know how different values of $\noise$ affect the noise $\xi(x,\noise)=F(x,\noise)-f(x)$. Nevertheless, the algorithm can control the noise by selecting $\noiseCap_t$, and hence it can obtain unbiased estimates of the function values by selecting $\noiseCap_t$ from $P_{\noiseCap}$; we will refer to this case as the \emph{controlled noise} setting and to other situations as the case of \emph{uncontrolled noise}. 
-%The advantage of the controlled noise setting is that the algorithm may obtain samples of $F$ at $X^+$ and $X^-$, with the same noise levels:
-In a controlled noise setting, the algorithm may obtain samples of $F$ at $X^+$ and $X^-$, with the same noise levels, leading to improved accuracy in the gradient estimates. This is common in the field of \emph{simulation optimization}
-\citep{KlSpNa99,duchi2015optimal} and is especially useful when the gradient estimate is created from multiple observations, see \eqref{eq:twosp}. Note that creating an estimate from $K$ points (which is equivalent to a multi-point feedback setup where $K$ points are queried in each round) changes the effective number of rounds from $n$ to $n/K$, which is a negligible reduction for any fixed $K$ as far as convergence rates are considered.
+Note that the algorithm is aware of $P_{\noiseCap}$, but does not know how different values of $\noise$ affect the noise $\xi(x,\noise)=F(x,\noise)-f(x)$. Nevertheless, as the algorithm can control $\noise$ and thus $\xi$, we refer to this as
+\emph{controlled noise} setting and to the others as the case of \emph{uncontrolled noise}.
+As we will see, and is well known in the simulation optimization literature \citep{KlSpNa99,duchi2015optimal},
+this extra structure allows the algorithm to reduce the variance of the noise of its gradient estimates by reusing the same $\noiseCap_t$ in consecutive measurements, while measuring the gradient at the same point, an instance of the method of the method of common random variables.
+As creating an estimate from $K$ points (which is equivalent to the so-called ``multi-point feedback setup'' from the literature where $K$ points are queried in each round) changes the number of rounds from $n$ to $n/K$, which does not change the convergence rate as long as $K$ is fixed. 
 
 
 %
@@ -64,7 +67,7 @@ $\xi$ is the function evaluation noise whose distribution may depend on $x+\delt
 In all oracle constructions we will use the following assumption:
 \begin{ass}
   \label{ass:gradbasic}
-  Let $\K \subset \D^\circ \subset \R^d$, where $f:\D \to \R$.\footnote{Here, $\D^\circ$ denotes the interior of $\D$.}
+  Let $\K \subset \D^\circ \subset \R^d$, where $f:\D \to \R$. %\footnote{Here, $\D^\circ$ denotes the interior of $\D$.}
   For any $x\in \K$, $x+\delta U \in \D$ a.s.,
   and $\EE{\norm{V}_*^2}$, $\EE{ \norm{U}^3 }<+\infty$.
 \end{ass}
@@ -72,7 +75,8 @@ Note that here the function domain $\D$ can be larger than or equal to the set $
 When the functions are defined over $\K$ only and $\K$ is bounded, the above constructions only work for $\delta$ small enough.
 In this case, the best approach perhaps is to use Dikin ellipsoids to construct the oracles, as done by \citet{HaLe14:SOC}.
 
-The next proposition, whose proof is based on ideas from \citet{spall1992multivariate}\todoa{add citation for the convex case} shows that the above one-point gradient estimator leads to a type-I (and, hence, also type-II) oracle under slightly stronger assumptions.
+The next proposition, whose proof is based on ideas from \citet{spall1992multivariate}\todoa{add citation for the convex case} shows that the above one-point gradient estimator leads to a type-I (and, hence, also type-II) oracle.
+\todoc[inline]{We had: ``under slightly stronger assumptions.'' Stronger than what? Add back if we add this info.}
 
 \begin{proposition}
 \label{prop:grad-onepoint}
@@ -82,9 +86,11 @@ Assume further that
   $V = h(U)$, where $h:\R^d \to \R^d$ is an odd function,
   $\EE{V}=0$, and $\E[V U\tr] = I$.
 Then, in the uncontrolled noise case, $\gamma$ is a $(c_1(\delta),c_2(\delta))$ type-I oracle given in \cref{tab:oracles}, where 
-$C_2=4 \EE{\norm{V}_*^2}\left( \sup_V \E[\xi^2|V]+\sup_{x\in\D} f^2(x)\right)$, and $C_1 =
+$C_2=4 \EE{\norm{V}_*^2}\left( \essup \E[\xi^2|V]+\sup_{x\in\D} f^2(x)\right)$, and $C_1 =
 \frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$ when $f \in \F_{L,0}$ and  
-$C_1 = \tfrac{B_3}{6} \EE{ \norm{V}_* \norm{U}^3 }$ for  $f \in \C^3$ where $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }_T$ where $\norm{\cdot}_T$ denotes the implied norm for rank-3 tensors.  
+$C_1 = \tfrac{B_3}{6} \EE{ \norm{V}_* \norm{U}^3 }$ for  $f \in \C^3$ where $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }_T$ where $\norm{\cdot}_T$ denotes the implied norm for rank-3 tensors.%
+\todoc{I replaced $\sup_V$ with $\esssup$ which is what we need. I assume the appendix will need to be updated.}
+\todoc{It is not very clear which entries this proposition gives.}
 % \todoc{Add the convex+smooth case}
 \end{proposition}
 %\begin{proof}
@@ -94,8 +100,10 @@ $C_1 = \tfrac{B_3}{6} \EE{ \norm{V}_* \norm{U}^3 }$ for  $f \in \C^3$ where $B_3
 %\paragraph{One-point feedback with smoothing}
 Another possibility is to use the so-called smoothing technique
 \citep{PoTsy90,flaxman2005online,HaLe14:SOC}\todoa{ Cs: Is this correct?}
-to obtain type-II oracles. Then
-type-II oracles can be obtained using the same construction as above, but with a different analysis, yielding improved oracles for the smooth and convex case:
+to obtain type-II oracles. Following the analysis in \citet{flaxman2005online}, one gets the 
+following result, which improves the bias of the previous result from $O(\delta)$ to $O(\delta^2)$ in the smooth+convex case:
+%This uses the same estimates as above, but with a different analysis, yielding improved oracles for the smooth and convex case: 
+\todoc{I fixed this last sentence. Now I think it makes sense.}
 \begin{proposition}
 \label{prop:flaxman} Let \cref{ass:gradbasic} hold and let $\gamma$ be the one-point feedback oracle defined in \eqref{eq:one-point}.
 Define
@@ -104,11 +112,15 @@ $
 V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,
 $
 %\end{align*}
-where $W \subset \R^n$ is a convex body with boundary $\partial W$, $U$ is uniformly distributed in $\partial W$, $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the volume. Let $C_2>0$ be defined as in \cref{prop:grad-onepoint}.
+where $W \subset \R^n$ is a convex body with boundary $\partial W$, $U$ is uniformly distributed on $\partial W$, $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the appropriate volume. Let $C_2>0$ be defined as in \cref{prop:grad-onepoint}.
 Then, if $f$ is $L_0$-Lipschitz, $\gamma$ is a type-II oracle with $c_1(\delta)=C_1 \delta$, $c_2(\delta) = C_2/\delta^2$ where
 $C_1=L_0 \sup_{w \in W}\|w\|$. 
 Further, assuming $W$ is symmetric w.r.t. the origin, if $f$ is $L$-smooth, then $\gamma$ is a type-I (and type-II oracle) with $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2/\delta^2$ where $C_1=(L/|W|)\int_W\|w\|^2 dw$, and, if in addition $f$ is also convex (i.e., $f\in \F_{L,0}$) then $\gamma$ is a type-I oracle with $c_1(\delta)=C_1 \delta^2/2$ and $c_2(\delta)=C_2/\delta^2$.
 \end{proposition}
+Note that the improvement did not even require convexity.
+Also, the bias is smaller for smoother functions, a property that will be enjoyed by all the gradient estimators.
+%In particular, the gradient estimators adapt to the smoothness of $f$ in this sense.}
+
 %Note that by the above proposition, the smoothing technique provides an improved gradient oracle for the smooth and convex case compared to \cref{prop:grad-onepoint}.
 %\begin{proof}
 %See Section \ref{sec:appendix-grad}.
@@ -117,9 +129,10 @@ Further, assuming $W$ is symmetric w.r.t. the origin, if $f$ is $L$-smooth, then
 
 
 \paragraph{Two-point feedback}
-While the one-point estimators are intriguing, as discussed beforehand,
+While the one-point estimators are intriguing,
 in the optimization setting one can also always group two consecutive observations and obtain similar smoothing-type estimates 
-at the price of reducing the number of rounds by a factor of two only, which has a negligible effect on the rate of convergence.
+at the price of reducing the number of rounds by a factor of two only, 
+which does not change the rate of convergence.
 Next we present an oracle that uses two function evaluations to obtain a gradient estimate.
 As will be discussed later, this oracle encompasses several simultaneous perturbation methods (see \citealp{bhatnagar-book}):
 Given the inputs $x\in \K$,  $0<\delta\le 1$,
@@ -165,9 +178,9 @@ The constants $C_1, C'_1, C_2$ are defined in Propositions~\ref{prop:grad-onepoi
 \end{table}
 %\footnotetext{
 %For the first row:  
-%$C_1 = \frac{L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2]$ and 
+%$C_1 = \frac{\overline{L}_{\Psi}}{2} \E[ \dnorm{V} \norm{U}^2]$ and 
 %and
-%$C_2 =  2 B_1^2  + \frac{ L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$, with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$, for the controlled noise;
+%$C_2 =  2 B_1^2  + \frac{ \overline{L}_{\Psi}^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$, with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$, for the controlled noise;
 %$C_1 =
 %L\E[ \dnorm{V} \norm{U}^2]/2$, $C'_1=L \E[\|V\|^2]$,  and
  %$C_2 =  C_{2}^{(u)} \doteq 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+\fspan(f)\right)$ for the uncontrolled noise.
@@ -182,9 +195,9 @@ Let \cref{ass:gradbasic} hold and let $\gamma$  be a two-point feedback oracle d
 Suppose furthermore that $\E[V U\tr] = I$.
 Then $\gamma$ is a type-I oracle with the pair $(c_1(\delta),c_2(\delta))$ 
 given by \cref{tab:oracles}. For uncontrolled noise and for controlled noise with $f\in\C^3$, $C_1$ is as in \cref{prop:grad-onepoint} and $C_2$ is $4 C_2$ from \cref{prop:grad-onepoint}. For the controlled noise case with $f \in \F_{L,0}$,
-$C_1 = \frac{L(\Psi)}{2} \E[ \dnorm{V} \norm{U}^2]$ and 
+$C_1 = \frac{\overline{L}_{\Psi}}{2} \E[ \dnorm{V} \norm{U}^2]$  
 and
-$C_2 =  2 B_1^2  + \frac{ L(\Psi)^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$, with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$.
+$C_2 =  2 B_1^2  + \frac{ \overline{L}_{\Psi}^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$, with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$.
 \end{proposition}
 %\begin{proof}
 %See Section \ref{sec:appendix-grad}.
@@ -207,7 +220,7 @@ When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
 %$\norm{U}^4 = (\sum_{i=1}^d U_i^2)^{2} = \sum_i U_i^4 + 2 \sum_{i<j} U_i^2 U_j^2$,
 %hence $\EE{ \norm{U}^4} = O(d^2)$
  and $C_2 = O( d)$.
- This scheme can also be interpreted as a smoothing operation that  convolves the gradient of the function $f$ with a Gaussian density.
+ This scheme can also be interpreted as a smoothing operation that  convolves the gradient of  $f$ with a Gaussian density.
 %  , followed by an integration by parts and the resulting integral can be estimated using samples (without access to the gradient of $f$).
 \end{inparaenum}
 
@@ -309,22 +322,23 @@ Furthermore, no algorithm using $\gamma$
  can achieve better error than $\Omega(n^{-1/2})$ for every $(\delta,1)$ type-I oracle $\gamma$.
 \end{theorem}
 
-For stochastic BCO with uncontrolled noise, \citet{AgFoHsuKaRa13:SIAM} analyze a variant of the well-known ellipsoid method and provide regret bounds for the case of convex, $1$-Lipschitz and bounded functions on $[0,1]$. Their regret bound implies a minimax error \eqref{eq:minimaxerrdef} bound of order  $O\left(\sqrt{d^{32}/n}\right)$.
+For stochastic BCO with uncontrolled noise, \citet{AgFoHsuKaRa13:SIAM} analyze a variant of the well-known ellipsoid method and provide regret bounds for the case of convex, $1$-Lipschitz functions over the unit ball. 
+Their regret bound implies a minimax error \eqref{eq:minimaxerrdef} bound of order  $O\left(\sqrt{d^{32}/n}\right)$. 
 %\todoc{Not for this setting! This paper should be mentioned in the previous section actually. For this setting, we  do not have \emph{any} algorithms that would achieve $O(n^{1/2})$.}
 \citet{liang2014zeroth} provide an algorithm based on random walks (and not using gradient estimates) for the setting of convex, bounded functions whose domain is contained in the unit cube and their algorithm results in a bound of the order $\O\left((d^{14}/n)^{1/2}\right)$ for the minimax error.
 %\todoc{What are the conditions for their theorem? Boundedness? Lipschitzness? Or nothing?}
 %This algorithm achieves an upper bound of $\O\left((d^{14}/n)^{1/2}\right)$,
 These bounds decrease faster in $n$ than the bound available in Theorem \ref{thm:aaab}, while showing a much worse dependence on the dimension.\todoc{We should show the dimension dependence in the result to make this point. This should be shown for the same setting as the one considered by \cite{liang2014zeroth}.}
-However, what is more interesting is that our results also shows that an $O(n^{-1/2})$ upper bound \emph{cannot} be achieved solely based on the oracle properties of the gradient estimates considered. Since the analysis of all gradient algorithms for stochastic BCO does this, it is no wonder that the best known upper bound for convex+smooth functions is $O(n^{-1/3})$ \citep{saha2011improved}.
+However, what is more interesting is that our results also shows that an $O(n^{-1/2})$ upper bound \emph{cannot} be achieved solely based on the oracle properties of the gradient estimates considered. Since the analysis of all gradient algorithms for stochastic BCO does this, it is no wonder that the best known upper bound for convex+smooth functions is $O(n^{-1/3})$ \citep{saha2011improved}. (We will comment on the recent paper of \citet{DeElKo15} later.)
 
 The above result also shows that the gradient oracle based algorithms are optimal for smooth problems, under a controlled noise setting.
 While \citet{duchi2015optimal} suggests that it is the power of two-point gradient estimators that helps to achieve this, we need to add that having controlled noise is also critical. %a critical condition to achieve the optimal rate is that the noise must be controlled. 
 
 Finally, let us make some remarks on the early literature on this problem.
 A finite time lower bound for stochastic, smooth BCO is presented by  \citet{Chen88:LB-AoS} for
-convex functions on the real line. When applied to our setting in the uncontrolled noise case, his results imply that $\EE{ \norm{\hat{X}_n - x^* }}$, that is, the distance of the estimate to the optimum, is at least $\Omega(n^{-1/3})$, which matches the bound in \cref{thm:aaab}.
-Note that this is larger than the error achieved by the algorithms of \citet{liang2014zeroth,BubeckDKP15,BuEl15}, but the apparent contradiction is easily resolved by noticing the difference in their error measure: distance to the optimum vs. distance n the function value.
-Similar results are obtained by \citet{PoTsy90}, who also considered distance to the optimum and proved that mirror descent with gradient estimation achieves asymptotically optimal rates for these settings.
+convex functions on the real line. When applied to our setting in the uncontrolled noise case, his results imply that $\EE{ |\hat{X}_n - x^* |}$, that is, the distance of the estimate to the optimum, is at least $\Omega(n^{-1/3})$. 
+Note that this is larger than the error achieved by the algorithms of \citet{liang2014zeroth,BubeckDKP15,BuEl15}, but the apparent contradiction is easily resolved by noticing the difference in their error measure: distance to the optimum vs. error in the function value (in particular, compressing the range of functions makes locating the minimizer harder).
+ \citet{PoTsy90}, who also considered distance to optimum, proved that mirror descent with gradient estimation achieves asymptotically optimal rates for functions that enjoy high order smoothness.
 
 %While the lower bound is stated for $r$-smooth functions with $r$ odd (these are functions $f$ with $\norm{f^{(r)}}_{\infty}\le L$), and $r$ greater than one, careful checking of the results show that nor $r>1$, neither that $r$ must be odd is ever used in the proof.
 %Hence, the result holds for $r\ge 2$.
