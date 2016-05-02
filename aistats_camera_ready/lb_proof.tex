@@ -47,8 +47,90 @@ f''_v(x) = \dfrac{2e^{-\frac{x-v}{\epsilon}} }{\left(  1+e^{-\frac{x-v}{\epsilon
 \end{align*}
 % we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-Clearly, $f_v$ is $\frac{1}{2}$-smooth and minimized at $x^*_v = v$.
-When $xv<0$, $\epsilon<\dfrac{1}{4\ln 2}$, due to the monotony, we have
+Clearly, $f_v$ is $\frac{1}{2}$-smooth and minimized at $x^*_v = v$, with $f_v(v) = 2 \epsilon^2 \ln 2$.
+
+We now lower-bound the difference $f_v(x)-f_v(x_v^*)$ as follows:
+\begin{align}
+M:=&\,\, \min_{x:xv<0} f_v(x) - f_v(v) \label{eq:lbfvdiffM}\\
+ = & \,\, f_v(0) - f_v(v) \label{eq:lbfvdiff}\\
+= &\,\, \epsilon\left(-v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}\right).\label{eq:lbfvdiff2}
+\end{align}
+The equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. As illustrated in Figure \ref{fig:lbfvdiff}, $\min_{x:xv<0} f_v(x)$ is achieved at $x=0$ due to monotonicity of $f_v$. A similar argument works for $v=-1$ as well. 
+%This can also be seen from the plot of $f_+$ to the left of $+1$ and of $f_-$ to the right of $-1$ in Figure \ref{fig:lbfvdiff}. 
+
+ \begin{figure}
+   \centering
+	\begin{tabular}{cc}
+	  \begin{subfigure}[b]{0.5\textwidth}
+ \centering
+   \scalebox{0.8}{\begin{tikzpicture}
+   \begin{axis}[width=9cm,height=5cm,
+          %  grid = major,         
+            axis y line=middle,
+            axis x line=bottom,
+						xlabel={$x$},
+						every axis x label/.style={at={(current axis.right of origin)},anchor=west},
+						%x label style={at={(4,-0.1)}},
+						%ylabel={$f_v$},
+           % grid style={dashed, gray!30},
+            %xmin=-3,     % start the diagram at this x-coordinate
+            %xmax=3,    % end   the diagram at this x-coordinate
+						ymax=5,
+						xtick={-1,0,1},
+            xticklabels={-1,0,+1},
+            yticklabels=\empty
+            ]
+           \addplot[domain=-2.75:5, green!35!black, thick,smooth] 
+              {x-1 + 2*ln(1+exp(-(x-1)))} node [pos=0.9,pin={135:$f_+$}] {} node [pos=0.1,pin={85:{\makecell{\scriptsize decreasing\\\scriptsize when $x\!<\!0$}}}] {}; 
+            \addplot[domain=-5:2.75, red!35!black,thick,smooth] 
+              {x+1 + 2*ln(1+exp(-(x+1)))} node [pos=0.1,pin={45:$f_-$}] {} node [pos=0.615,pin={5:\makecell{\scriptsize$\min\limits_{x<0} f_+(x)$}}] {}; 
+   \end{axis}
+   \end{tikzpicture}}
+	\caption{Plot of $f_+$ and $f_-$ with $\epsilon=1$}
+\label{fig:lbfvdiff}
+	  \end{subfigure}
+	&
+	  \begin{subfigure}[b]{0.5\textwidth}
+ \centering
+   \scalebox{0.8}{\begin{tikzpicture}
+   \begin{axis}[width=9cm,height=5cm,
+          %  grid = major,         
+            axis y line=middle,
+            axis x line=bottom,
+						xlabel={$x$},
+						every axis x label/.style={at={(current axis.right of origin)},anchor=west},
+						%x label style={at={(4,-0.1)}},
+						%ylabel={$f_v$},
+           % grid style={dashed, gray!30},
+            %xmin=-3,     % start the diagram at this x-coordinate
+            %xmax=3,    % end   the diagram at this x-coordinate
+						%xtick={-1,0,1},
+            %xticklabels={-1,0,+1},
+            yticklabels=\empty
+            ]
+           \addplot[domain=-1.5:5, green!35!black, thick,smooth] 
+              {1-exp(-(x-1))/(1+exp(-(x-1)))} node [pos=0.5,pin={315:$f'_+$}] {}; 
+            \addplot[domain=-5:1.5, red!35!black,thick,smooth] 
+              {1-exp(-(x+1))/(1+exp(-(x+1)))} node [pos=0.4,pin={135:$f'_-$}] {}; 
+							%\node at (axis cs:1,0.5) {P3};
+   \end{axis}
+   \end{tikzpicture}}
+	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=1$}
+	\label{fig:fprime}
+\end{subfigure}
+	\end{tabular}
+\end{figure}
+
+
+Let $h(v) = -v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}$. In the following, we establish that  $h(v)$ is an even function, i.e., $h(v) = h(-v)$.
+\begin{align*}
+h(v) =& -v + 2\epsilon\ln\left(e^{\frac{v}{\epsilon}} \dfrac{1+e^{-\frac{v}{\epsilon}}}{2}\right)\\
+=& -v + 2\epsilon \dfrac{v}{\epsilon}  + 2\epsilon\ln\dfrac{1+e^{-\frac{v}{\epsilon}}}{2}\\
+= & h(-v).
+\end{align*}
+Plugging the above in \eqref{eq:lbfvdiffM}, we obtain
+$$ M = \epsilon\left(-1 + 2\epsilon\ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}\right).$$
+From the foregoing, when $xv<0$, $\epsilon<\dfrac{1}{4\ln 2}$,  we have
 \begin{align*}
 f_v(x)-f_v(x_v^*) >\epsilon\left( -1 +2\epsilon \ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}  \right)> \dfrac{\epsilon}{2}.
 \end{align*}
