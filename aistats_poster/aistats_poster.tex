@@ -191,10 +191,36 @@ Uncontrolled noise:  $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2 \delta^{-2}
 %----------------------------------------------------------------------------------------
 
 %----------------------------------------------------------------------------------------
+%	GRADIENT
+%----------------------------------------------------------------------------------------
+
+\headerbox{Gradient Estimates}{name=gradient,column=1,span = 2, below=oracles}{
+\begin{multicols}{2}
+Two-sided Differences -- Noisy Feedback\\[0.5ex]
+$
+	G_i = \frac{1}{2\delta} \left\lbrace \left( f(x+\delta e_i)+\xi_i^+\right) - \left( f(x-\delta e_i)+\xi_i^- \right) \right\rbrace
+	$\\[0.5ex]
+	where $i=1,\cdots,d$.
+	
+	Assumption: $\EE{\xi^\pm}=0$, $\EE{(\xi^\pm)^2}\leq \sigma^2<+\infty$.
+	
+	Note: $G_i = g_i+\frac{\xi_i^+ - \xi_i^-}{2\delta}$, $\EE{G_i}=g_i$. Hence:
+
+	\textbf{\color{red}bias}:  $ \norm{\EE{G}-\nabla f(x)} = O(\sqrt{d}\delta^2)$ \\
+	 \textbf{\color{red}second moment}: $ \EE{G_i^2}=g_i^2+\frac{2\sigma^2}{4\delta^2}$\\
+	 \vspace{-1.4ex}
+	 \[ \EE{\norm{G}^2}=\norm{g}^2+O(\dfrac{d}{\delta^2})\].
+	
+	  
+\end{multicols}
+}
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
 %	UPPER BOUND
 %----------------------------------------------------------------------------------------
 
-\headerbox{Upper Bound}{name=upper_bound,column=1, below=oracles}{
+\headerbox{Upper Bound}{name=upper_bound,column=1, below=gradient}{
 
 \textbf{Theorem 1}: 
 Consider the Mirror Descent algorithm with a $(c_1,c_2)$, $(p,q)$ polynomial oracle, $\alpha$-strongly convex regularizer $\cR$.
@@ -224,7 +250,7 @@ First holds iff \color{red}$q=0$\color{black}. Second holds iff \color{red}$p\ge
 \textit{Uncontrolled noise}: \\
 under smoothness $p=q=2$. \\
 For $\F_{L,\mu}$ we get $O(n^{-1/2})$ as Hazan and Levy (2014).\\
-For $\F_{L,0}$ we get $O(n^{-1/3})$ as Saha and Tewari (2011).
+For $\F_{L,0}$ we get $O(n^{-1/3})$ as Saha and Tewari (2011).\\[0.7ex]
 
 \textit{Controlled noise}: \\
 under smoothness $p=2$, $q=0$.\\
@@ -238,7 +264,7 @@ For $\F_{L,0}$ we get $O(n^{-1/2})$ as Duchi et al (2015).
 %	LOWER BOUND
 %----------------------------------------------------------------------------------------
 
-\headerbox{Lower Bound}{name=lower_bound,column=2, below=oracles}{
+\headerbox{Lower Bound}{name=lower_bound,column=2, below=gradient}{
 
 \textbf{Theorem 2}: 
 $\cK\subset \R^d$ convex, closed, with  $\{+1,-1\}^d\subset \cK$, $n$ large enough.
@@ -269,7 +295,7 @@ The lower bound for $\F_{L,0}$ is tight, for $\F_{L,1}$ it is weak.
 \headerbox{Conclusions}{name=conclusions,column=2, below=lower_bound}{
 To get the optimal $O(n^{-1/2})$ rate for $\F_{L,0}$  with uncontrolled noise,
 one of the following must be done:
-\begin{enumerate}
+\begin{enumerate}\compresslist
 \item An oracle with $q=0$ (constant second moment bound) must be designed.
 \item 
 \sout{An algorithm that makes better use of the gradient estimates must be designed.}
