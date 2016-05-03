@@ -1,4 +1,4 @@
-%!TEX root =  bgo-cam-ready.tex
+%!TEX root =  bgo-opt-ml-nips.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 
 %%%%%%%%%%%%%%%%%%%% Added for arxiv report %%%%%%%%%%%%%%%%%%%%%
@@ -7,7 +7,7 @@
 \usepackage[english]{babel}
 \usepackage{authblk}
 \usepackage{times}
-\usepackage[margin=1in]{geometry}
+%\usepackage[margin=1in]{geometry}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -20,7 +20,7 @@
 \usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{algorithm}
-\usepackage[numbers]{natbib}
+\usepackage{natbib}
 \usepackage[noend]{algpseudocode}
 \usepackage{url}
 \usepackage{bm}
@@ -32,19 +32,9 @@
 \usepackage{hhline}
 \usepackage{paralist}
 \usepackage{xspace}
-\usepackage{sidecap}
 
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{makecell}
-\usetikzlibrary{positioning,arrows.meta,shapes,calc,patterns,fit,decorations}
-\usepgfplotslibrary{fillbetween}
-\pgfplotsset{compat=1.11}
-
+%\usepackage[textsize=tiny]{todonotes}
 \usepackage[disable]{todonotes}
-%\usepackage{todonotes}
 \newcommand{\todoc}[2][]{\xspace\todo[color=red!20!white,size=\tiny,#1]{Cs: #2}}
 \newcommand{\todox}[2][]{\xspace\todo[color=orange!20!white,size=\tiny,#1]{X: #2}}
 \newcommand{\todoa}[2][]{\xspace\todo[color=blue!20!white,size=\tiny,#1]{A: #2}}
@@ -69,7 +59,7 @@
 % and author as they appear in the properties of the PDF document.
 % Use the "hyperref" package
 % N.B. HYPERREF MUST BE THE SECOND TO LAST PACKAGE LOADED; ADD ADDITIONAL PKGS ABOVE
-\usepackage[pdftex,letterpaper=true,pagebackref=false]{hyperref} % with basic options
+\usepackage[pdftex,letterpaper=true,pagebackref=false,pdfborder={0 0 0}]{hyperref} % with basic options
 		% N.B. pagebackref=true provides links back from the References to the body text. This can cause trouble for printing.
 \hypersetup{
     plainpages=false,       % needed if Roman numbers in frontpages
@@ -94,8 +84,6 @@
 }
 % N.B. CLEVEREF MUST BE LOADED; AFTER HYPERREF
 \usepackage[capitalize]{cleveref}
-\newtheorem{ass}{Assumption}
-\crefname{ass}{Assumption}{Assumptions}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\cE}{\mathcal{E}}
@@ -115,8 +103,6 @@
 \DeclareMathOperator{\argmax}{argmax}
 \DeclareMathOperator{\interior}{int}
 \DeclareMathOperator{\dom}{dom}
-\DeclareMathOperator{\esssup}{ess\,sup}
-\DeclareMathOperator{\essup}{ess\,sup}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 \newcommand{\DR}{D_{\mathcal{R}}}
 
@@ -133,12 +119,8 @@
 \newcommand{\G}{\mathcal{G}}
 \renewcommand{\O}{\mathcal{O}}
 \newcommand{\D}{\mathcal{D}}
-\newcommand{\cD}{\mathcal{D}}
 \newcommand{\K}{\mathcal{K}}
 \newcommand{\cR}{\mathcal{R}}
-
-\newcommand{\noise}{\psi}
-\newcommand{\noiseCap}{\Psi}
 
 \newcommand{\dnorm}[1]{\norm{#1}_*} % Dual norm
 \def\<{\left\langle} % Angle brackets

@@ -47,8 +47,90 @@ f''_v(x) = \dfrac{2e^{-\frac{x-v}{\epsilon}} }{\left(  1+e^{-\frac{x-v}{\epsilon
 \end{align*}
 % we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-Clearly, $f_v$ is $\frac{1}{2}$-smooth and minimized at $x^*_v = v$.
-When $xv<0$, $\epsilon<\dfrac{1}{4\ln 2}$, due to the monotony, we have
+Clearly, $f_v$ is $\frac{1}{2}$-smooth and minimized at $x^*_v = v$, with $f_v(v) = 2 \epsilon^2 \ln 2$.
+
+We now lower-bound the difference $f_v(x)-f_v(x_v^*)$ as follows:
+\begin{align}
+M:=&\,\, \min_{x:xv<0} f_v(x) - f_v(v) \label{eq:lbfvdiffM}\\
+ = & \,\, f_v(0) - f_v(v) \label{eq:lbfvdiff}\\
+= &\,\, \epsilon\left(-v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}\right).\label{eq:lbfvdiff2}
+\end{align}
+The equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. As illustrated in Figure \ref{fig:lbfvdiff}, $\min_{x:xv<0} f_v(x)$ is achieved at $x=0$ due to monotonicity of $f_v$. A similar argument works for $v=-1$ as well. 
+%This can also be seen from the plot of $f_+$ to the left of $+1$ and of $f_-$ to the right of $-1$ in Figure \ref{fig:lbfvdiff}. 
+
+ \begin{figure}
+   \centering
+	\begin{tabular}{cc}
+	  \begin{subfigure}[b]{0.5\textwidth}
+ \centering
+   \scalebox{0.8}{\begin{tikzpicture}
+   \begin{axis}[width=9cm,height=5cm,
+          %  grid = major,         
+            axis y line=middle,
+            axis x line=bottom,
+						xlabel={$x$},
+						every axis x label/.style={at={(current axis.right of origin)},anchor=west},
+						%x label style={at={(4,-0.1)}},
+						%ylabel={$f_v$},
+           % grid style={dashed, gray!30},
+            %xmin=-3,     % start the diagram at this x-coordinate
+            %xmax=3,    % end   the diagram at this x-coordinate
+						ymax=5,
+						xtick={-1,0,1},
+            xticklabels={-1,0,+1},
+            yticklabels=\empty
+            ]
+           \addplot[domain=-2.75:5, green!35!black, thick,smooth] 
+              {x-1 + 2*ln(1+exp(-(x-1)))} node [pos=0.9,pin={135:$f_+$}] {} node [pos=0.1,pin={85:{\makecell{\scriptsize decreasing\\\scriptsize when $x\!<\!0$}}}] {}; 
+            \addplot[domain=-5:2.75, red!35!black,thick,smooth] 
+              {x+1 + 2*ln(1+exp(-(x+1)))} node [pos=0.1,pin={45:$f_-$}] {} node [pos=0.615,pin={5:\makecell{\scriptsize$\min\limits_{x<0} f_+(x)$}}] {}; 
+   \end{axis}
+   \end{tikzpicture}}
+	\caption{Plot of $f_+$ and $f_-$ with $\epsilon=1$}
+\label{fig:lbfvdiff}
+	  \end{subfigure}
+	&
+	  \begin{subfigure}[b]{0.5\textwidth}
+ \centering
+   \scalebox{0.8}{\begin{tikzpicture}
+   \begin{axis}[width=9cm,height=5cm,
+          %  grid = major,         
+            axis y line=middle,
+            axis x line=bottom,
+						xlabel={$x$},
+						every axis x label/.style={at={(current axis.right of origin)},anchor=west},
+						%x label style={at={(4,-0.1)}},
+						%ylabel={$f_v$},
+           % grid style={dashed, gray!30},
+            %xmin=-3,     % start the diagram at this x-coordinate
+            %xmax=3,    % end   the diagram at this x-coordinate
+						%xtick={-1,0,1},
+            %xticklabels={-1,0,+1},
+            yticklabels=\empty
+            ]
+           \addplot[domain=-1.5:5, green!35!black, thick,smooth] 
+              {1-exp(-(x-1))/(1+exp(-(x-1)))} node [pos=0.5,pin={315:$f'_+$}] {}; 
+            \addplot[domain=-5:1.5, red!35!black,thick,smooth] 
+              {1-exp(-(x+1))/(1+exp(-(x+1)))} node [pos=0.4,pin={135:$f'_-$}] {}; 
+							%\node at (axis cs:1,0.5) {P3};
+   \end{axis}
+   \end{tikzpicture}}
+	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=1$}
+	\label{fig:fprime}
+\end{subfigure}
+	\end{tabular}
+\end{figure}
+
+
+Let $h(v) = -v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}$. In the following, we establish that  $h(v)$ is an even function, i.e., $h(v) = h(-v)$.
+\begin{align*}
+h(v) =& -v + 2\epsilon\ln\left(e^{\frac{v}{\epsilon}} \dfrac{1+e^{-\frac{v}{\epsilon}}}{2}\right)\\
+=& -v + 2\epsilon \dfrac{v}{\epsilon}  + 2\epsilon\ln\dfrac{1+e^{-\frac{v}{\epsilon}}}{2}\\
+= & h(-v).
+\end{align*}
+Plugging the above in \eqref{eq:lbfvdiffM}, we obtain
+$$ M = \epsilon\left(-1 + 2\epsilon\ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}\right).$$
+From the foregoing, when $xv<0$, $\epsilon<\dfrac{1}{4\ln 2}$,  we have
 \begin{align*}
 f_v(x)-f_v(x_v^*) >\epsilon\left( -1 +2\epsilon \ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}  \right)> \dfrac{\epsilon}{2}.
 \end{align*}
@@ -56,7 +138,7 @@ Hence,
 %Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
 \begin{align}
   f_v(x) - f_v(x^*_v)
-  \ge \dfrac{\epsilon}{2}  \indic{x v  < 0}. \label{eq:main:fv-lb-main}
+  \ge \dfrac{\epsilon}{2}  \indic{x v  < 0}. \label{eq:fv-lb}
 \end{align}
 % Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
 We will consider the oracles $\gamma_v$ defined as 
@@ -175,31 +257,36 @@ Observe that $\max_{\delta> 0} (\epsilon - C_1 \delta^p)^2_+ \delta^q = \max_{\d
 In other words, minimizer $\delta^*$ of \eqref{eq:final-lower-bd} can never be in the zero arm of the positive part function, i.e., $(\epsilon - C_1 \delta^p)_+ $, and hence we minimize \eqref{eq:final-lower-bd} by replacing the positive part with $(\epsilon - C_1 \delta^p)$ and imposing the condition $\epsilon/C_1 \ge \delta^p>0$.
 
 Defining $z=p/q$, we obtain
-\[
-\delta^*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p}
-\]
+\begin{align}
+\delta^*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p} \text{ as long as }\epsilon<\frac{2z+1}{C_1^{2z-1}(z+1)^z}. \label{eq:deltastar}
+\end{align}
 \todoc[inline]{Now, I added some stupid upper bound in the oracle definition for $\delta$ ($\delta\le 1$) Thus we should verify that this holds. Actually, $1$ was an arbitrary choice. But we needed an upper bound on $\delta$, or we cannot handle constrained problems in any way. I think we will be ok, but
 maybe there will be a condition that $n$ should be ``big enough''. Brr.
 Prashanth: I have incorporated this constraint in lb bounds - pl. see condition after Theorem 3.}
 \todoa[inline]{Where is the condition on $\delta<1$ used? I actually added the large enough $n$ condition and removed $q\ge 2$.}
-as long as $\epsilon<\frac{2z+1}{C_1^{2z-1}(z+1)^z}$ (note that $\epsilon/C_1 \ge {\delta^*}^p$),
-and for any choice of $\delta$, the following lower bound for the minimax error:
+The condition on $\epsilon$ above can be inferred from the constraint $\epsilon/C_1 \ge {\delta^*}^p$.
+
+From the foregoing, we have the following lower bound on the minimax error $\Delta_n^{(1)*}$ for any choice of $\delta$:
 \[
 \Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{K_1}{2+\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
 \]
  
-Plugging in $\epsilon = \left(\dfrac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$ we see that the conditions on $\epsilon$ are satisfied for large enough $n$, and for such $n$ we obtain
+Plugging in $\epsilon = \left(\dfrac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, we see that the conditions on $\epsilon$ are satisfied for large enough $n$, and for such $n$ we obtain
 \begin{align}
 \Delta_n^{(1)*} \ge \dfrac{2p+q}{8p+2q}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}}.
 \label{eq:lb-pq}
 \end{align}
-The conditions on $n$ given in the theorem statement can be inferred from (i) the requirement that $\epsilon<\frac{2z+1}{C_1^{2z-1}(z+1)^z}$ (ii) $\delta \le 1$ in the oracle definition and (iii) the optimal choice of $\epsilon$ above.
+The conditions on $n$ for the above bound to hold are:
+\begin{align}
+\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right).
+\end{align}
+The above conditions on $n$ can be inferred from (i) the requirement on  $\epsilon$ in \eqref{eq:deltastar}, (ii) assumption $\delta \le 1$ in Definition \ref{def:oracle1},  and (iii) the optimal choice of $\epsilon$ above.
 
-Now, when $q=2$ and $p=1$, this simplifies to
+Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq} simplifies to
 \[
 \Delta_n^{(1)*} \ge \dfrac{ (4C_1^2C_2)^{1/4}}{3\sqrt{3}} n^{-1/4}, \text{ for } \epsilon=\sqrt{2/3}C_1^{1/2}C_2^{1/4} n^{-1/4}.
 \]
-On the other hand, for $p=q=2$, we get
+On the other hand, for $p=q=2$, we obtain
 \[
 \Delta_n^{(1)*} \ge  \frac{9}{10}\left(\frac{C_1 C_2}{100}\right)^{1/3} n^{-1/3} \text{ for } \epsilon=3\left(\frac{C_1 C_2}{100}\right)^{1/3}n^{-1/3}.
 \]
@@ -307,21 +394,21 @@ while the inequality \eqref{eq:dlb} follows from the fact that each infimum term
 
 % Using the one-dimensional minimax error $\Delta_n^{*}$, we obtain
 % \[\Delta_n^* \ge d \Delta_n^{*}.\]
-\paragraph{Rates:}\ \\
-General $p, q >0$:
+\paragraph{Derivation of rates:}\ \\
+Plugging the bound derived in \eqref{eq:lb-pq} for $1$-dimensional setting into the bound in \eqref{eq:dlb}, we obtain the following result for any $p, q >0$:
 \begin{align}
 \Delta_n^{(d)*} \ge  \dfrac{2p+q}{8p+2q}\sqrt{d}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}} \text{ for } 
 \epsilon = \dfrac{1}{\sqrt{d}}\left(\dfrac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
 \label{eq:lb-pq-d}
 \end{align}
 
-Case $p=1$ and $q=2$:
+The above bound simplifies to the following for the case where $p=1$ and $q=2$:
 \begin{align*}
 % \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
 \Delta_n^{(d)*}  \ge& \dfrac{ (4C_1^2C_2)^{1/4}}{3\sqrt{3}} d^{1/2}n^{-1/4}.
 \end{align*}
 
-Case $p=q=2$:
+On the other hand, for the case $p=q=2$, we obtain
 \begin{align*}
 % \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
 \Delta_n^{(d)*}  \ge& \frac{9}{10}\left(\frac{C_1 C_2}{100}\right)^{1/3} d^{1/2}n^{-1/3}.
@@ -394,12 +481,14 @@ Substituting the above bound into \eqref{eq:pinskersc}, we obtain
 
 
 \paragraph{Derivation of the rates uniformly for all $\delta$:}
-Replacing the positive part function in \eqref{eq:final-lower-bd-sc} and optimizing $\delta$, we obtain the following:
-\[
-\delta^*=\left(\frac{\nu q}{2C_1(p+q/2)}\right)^{1/p}
-\]
-as long as $\nu<\frac{2z+1}{C_1^{2z-1}(z+1)^z}$, with $z=p/q$ (note that $\epsilon/C_1 \ge {\delta^*}^p$),
-and for any choice of $\delta$, the following lower bound for the minimax error:
+As in the proof of the lower bound for $\F_{L,0}(\K)$, we replace the positive part function in \eqref{eq:final-lower-bd-sc} and optimize over $\delta$ to obtain the following:
+\begin{align}
+\delta^*=\left(\frac{\nu q}{2C_1(p+q/2)}\right)^{1/p} \text{ as long as }\nu<\frac{2z+1}{C_1^{2z-1}(z+1)^z},
+\label{eq:deltastar-sc}
+\end{align}
+where $z=p/q$. Recall that we require $\nu/C_1 \ge {\delta^*}^p$, which results in the condition on $\nu$ above.
+
+From the above, we have the following lower bound for the minimax error $\Delta_n^{(1)*}$ for any choice of $\delta$:
 % and for any choice of $\delta$, the minimax error $\Delta_n^{*}$ satisfies
 \[
 \Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \sqrt{n}  K_1 \nu^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
@@ -409,14 +498,17 @@ and for any choice of $\delta$, the following lower bound for the minimax error:
 Plugging in $\nu = \left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, we obtain
 \begin{align}
 \Delta_n^{(1)*} \ge \dfrac{1}{4}\left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}}.
-\label{eq:lb-pq}
+\label{eq:lb-pq-sc}
 \end{align}
+The above bound holds for $n$ such that 
+$$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right).$$
+As in the proof of the lower bound for $\F_{L,0}(\K)$, the first condition on $n$ above is due to the assumption that $\delta \le 1$ in Definition \ref{def:oracle1}, while the second condition is due to the constraint on $\nu$ in \eqref{eq:deltastar-sc}.
 
-Now, when $q=2$ and $p=1$, this simplifies to
+Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq-sc} simplifies to
 \[
 \Delta_n^{(1)*} \ge \dfrac{C_1 C_2}{2} n^{-1/2}, \text{ for } \nu = 2C_1C_2 n^{-1/2}.
 \]
-On the other hand, for $p=q=2$, we get
+On the other hand, for $p=q=2$, we obtain
 \[
 \Delta_n^{(1)*} \ge  \frac{9}{4}\left(\frac{C_1 C_2^2}{16}\right)^{1/3} n^{-2/3} \text{ for } \nu=\frac{9}{2}\left(\frac{C_1 C_2^2}{16}\right)^{1/3}n^{-2/3}.
 \]
