@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{Bandit Problems}{7}{0}{1}
+\beamer@sectionintoc {2}{Gradient Estimation}{51}{0}{2}
+\beamer@sectionintoc {3}{New Oracle Model}{75}{0}{3}
+\beamer@sectionintoc {4}{Results}{76}{0}{4}
