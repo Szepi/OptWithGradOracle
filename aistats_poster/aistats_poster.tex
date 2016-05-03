@@ -18,10 +18,10 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[landscape,a0paper,fontscale=0.285]{baposter} % Adjust the font scale/size here
+\documentclass[portrait,a0paper,fontscale=0.285]{baposter} % Adjust the font scale/size here
 
 \usepackage{graphicx} % Required for including images
-\usepackage{wrapfig}
+\usepackage{macros}
 \graphicspath{{figures/}} % Directory in which figures are stored
 
 \usepackage{amsmath} % For typesetting math
@@ -39,15 +39,7 @@
 \usepackage{tikz} % Required for flow chart
 \usetikzlibrary{shapes,arrows} % Tikz libraries required for the flow chart in the template
 
-\newcommand{\compresslist}{ % Define a command to reduce spacing within itemize/enumerate environments, this is used right after \begin{itemize} or \begin{enumerate}
-\setlength{\itemsep}{1pt}
-\setlength{\parskip}{0pt}
-\setlength{\parsep}{0pt}
-}
 
-\definecolor{lightblue}{rgb}{0.145,0.6666,1} % Defines the color used for content box headers
-
-\input{commands}
 
 \begin{document}
 
@@ -78,11 +70,11 @@ linewidth=2pt % Width of the border lines around content boxes
 {}
 {\bf\textsc{(Bandit) Convex Optimization with\\ Biased Noisy Gradient Oracles}\vspace{0.2em}} % Poster title
 { Xiaowei  Hu, Prashanth L A, Andr\'as Gy\"orgy, Csaba Szepesv\'ari } % Author names and institution
-{\includegraphics[height=3em]{u-of-alberta-logo.pdf}
+{\includegraphics[height=2em]{u-of-alberta-logo.pdf}
 \hspace{12pt}
-\includegraphics[height=3em]{clark.png}
+\includegraphics[height=2em]{clark.png}
 \hspace{12pt}
-\includegraphics[height=3em]{icl.png}} % Second university/lab logo on the right
+\includegraphics[height=2em]{icl.png}} % Second university/lab logo on the right
 
 
 
@@ -90,22 +82,61 @@ linewidth=2pt % Width of the border lines around content boxes
 %	PROBLEMS
 %----------------------------------------------------------------------------------------
 
-\headerbox{Convex Optimization}{name=problems,column=0,row=0}{
+\headerbox{Convex Optimization}
+{name=problems,column=0,row=0}{
 
-\begin{wrapfigure}{r}{0.4\textwidth} %this figure will be at the right
-    \centering
-    \includegraphics[width=\linewidth]{interaction.pdf}
-\end{wrapfigure}
-
-Assume $f$ is convex (smooth etc). Find a near-minimizer of $f$ using $n>0$ queries.
+\begin{tabular}[b]{cc}
+\begin{minipage}{0.5\textwidth}
+\includegraphics[width=\linewidth]{Interaction} 
+\end{minipage} &
+\begin{minipage}{0.4\textwidth}
+Assume $f$ convex (and smooth etc)\\
+{\color{red!80!black} Goal:} Find a near-minimizer of $f$ using $n>0$ queries!
 \\
-Bandit feedback $\equiv$ zeroth-order information
-\\
-How fast can the optimization error
-$\Delta_n = \EE{f(X_n) }- \inf_{x\in \cK} f(x)$
-decrease with $n$?
 
-%\vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
+\end{minipage} 
+\end{tabular}
+ \textbf{How fast can the optimization error}\\[1.5ex]
+		$\bm{\Delta_n = \EE{f(X_n) }- \inf_{x\in \cK} f(x)}$\\[1.5ex]
+\textbf{decrease with $n$?}
+%\vspace{-5ex}
+}
+%----------------------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+%	SUBCLASSES
+%----------------------------------------------------------------------------------------
+
+\headerbox{Subclasses of Problems}{name=subclasses,column=0, below = problems}{
+\begin{center}
+\includegraphics[width=0.9\textwidth]{entropy-16-06338f2-1024}
+\end{center}
+
+\textbf{Curviness} (deviation from linearity): 
+	\begin{align*}
+	D_f(x,y)\doteq f(x)- \left\{ f(y) + \ip{\nabla f(y),x-y} \right\}.
+	\end{align*}
+	
+	Smoothness: 
+	$
+	D_f(x,y) \le \frac{L}{2} \norm{x-y}^2\,.
+	$
+	
+	Strong convexity:
+	$
+	D_f(x,y) \ge \frac{\mu}{2} \norm{x-y}^2\,.
+	$
+	\\[1ex]
+	
+	\textbf{Noisy} Bandit Feedback:
+	
+	Recall: $y = f(x) + \xi$, $\EE{y} = \EE{F(x,\xi)}$.
+	\begin{itemize}
+	\item[(A1)] \textbf{\textit{``Uncontrolled noise''}}: $F(x,\xi)$ can be obtained at any point. 
+	\item[(A2)] \textbf{\textit{``Controlled noise''}}: $\xi$  can be kept fixed between queries. 
+	\end{itemize}
+	
 }
 %----------------------------------------------------------------------------------------
 
@@ -113,20 +144,122 @@ decrease with $n$?
 %	STATE-OF-THE-ART
 %----------------------------------------------------------------------------------------
 
-\headerbox{State of the Art}{name=stateoftheart,column=0,below=problems}{
+\headerbox{State of the Art}{name=stateoftheart,column=0,below=subclasses}{
+Controlled Noise: $\Delta_n \leq C\sqrt{d^2/n}$.
 
+Optimal! Let's talk about the uncontrolled case.
+\\[1ex]
 Ellipsoid method and relatives:
-
-\begin{itemize}\compresslist
-\item  Agarwal et al. (2013) --  $\sqrt{d^{33}/n}$.
-\item Liang et al. (2014) -- $\sqrt{d^{14}/n}$.
+\begin{itemize}
+\item  Agarwal et al. (2013) --  $\color{blue}\sqrt{d^{33}/n}$.
+\item Liang et al. (2014) -- $\color{blue}\sqrt{d^{14}/n}$.
 \end{itemize}
 
+Gradient methods:
+\begin{itemize}
+\item Convex: $\color{blue}\left( d^2/n \right)^{1/4}$.
+\item Smooth: $\color{blue}\left( d^2/n \right)^{1/3}$.
+\item Smooth + Strongly Convex: $\color{red}\sqrt{d^2/n}$
+\end{itemize}
 
-%\vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
+Lower Bound: $\color{red}\sqrt{d^2/n}$\\[0.5ex]
+
+ \large \textbf{Big Gaps: Can we do better using a ``clever" gradient method?}
 }
 %----------------------------------------------------------------------------------------
 
+%----------------------------------------------------------------------------------------
+%	ORACLES
+%----------------------------------------------------------------------------------------
+
+\headerbox{Gradient Estimation Oracles}{name=oracles,column=1,span = 2}{
+\begin{center}
+\includegraphics[width=0.8\textwidth]{oracle0}
+
+
+1. \textbf{Bias}: $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $; \quad and  \quad
+2. \textbf{Second moment}: $\EE{\norm{ G  }_*^2} \le c_2(\delta)$.\\[1ex]
+
+Polynomial oracle: $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$.
+
+Controlled noise: $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2$.
+\qquad
+Uncontrolled noise:  $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2 \delta^{-2}$.
+\end{center}
+}
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	UPPER BOUND
+%----------------------------------------------------------------------------------------
+
+\headerbox{Upper Bound}{name=upper_bound,column=1, below=oracles}{
+
+\textbf{Theorem 1}: 
+Consider the Mirror Descent algorithm with a $(c_1,c_2)$, $(p,q)$ polynomial oracle, $\alpha$-strongly convex regularizer $\cR$.
+Then:
+
+\begin{center}
+\tikz[baseline]{
+            \node[trapezium,trapezium left angle=90,
+  trapezium right angle=90, fill=green!20,anchor=base] (t1)
+            {\makecell{
+            $
+\Delta_n(\F_{L,0},\mathrm{MD},c_1,c_2 ) 
+= O( n^{- \frac{p}{2p+q} } )
+$\\[0.7ex]
+$
+\Delta_n(\F_{L,\mu},\mathrm{MD},c_1,c_2 ) 
+= O( n^{- \frac{p}{p+q} } )
+$
+}};}	
+\end{center}
+
+
+\textbf{Can we get an \color{red}{$n^{-1/2}$} \color{black}rate?}\\
+\textbf{Yes}, if $p/(2p+q)\ge 1/2$ vs. $p/(p+q)\ge 1/2$.\\
+First holds iff \color{red}$q=0$\color{black}. Second holds iff \color{red}$p\ge q$\color{black}.\\
+
+\textit{Uncontrolled noise}: \\
+under smoothness $p=q=2$. \\
+For $\F_{L,\mu}$ we get $O(n^{-1/2})$ as Hazan and Levy (2014).\\
+For $\F_{L,0}$ we get $O(n^{-1/3})$ as Saha and Tewari (2011).
+
+\textit{Controlled noise}: \\
+under smoothness $p=2$, $q=0$.\\
+For $\F_{L,\mu}$ we get $O(1/n)$ as Nesterov (2011).\\
+For $\F_{L,0}$ we get $O(n^{-1/2})$ as Duchi et al (2015).
+
+}
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	LOWER BOUND
+%----------------------------------------------------------------------------------------
+
+\headerbox{Lower Bound}{name=lower_bound,column=2, below=oracles}{
+
+\textbf{Theorem 2}: 
+$\cK\subset \R^d$ convex, closed, with  $\{+1,-1\}^d\subset \cK$, $n$ large enough.
+For any algorithm $\mathrm{A}$ that observes $n$ random elements from a  $(p,q)$ polynomial oracle, we have
+\begin{center}
+\tikz[baseline]{
+            \node[trapezium,trapezium left angle=90,
+  trapezium right angle=90, fill=green!20,anchor=base] (t1)
+            {\makecell{
+            $
+\Delta_n(\F_{L,0},\mathrm{A},c_1,c_2 ) = \Omega( n^{-\frac{p}{2p+q}})
+$\\[0.7ex]
+$
+\Delta_n(\F_{L,1},\mathrm{A},c_1,c_2 )  = \Omega(  n^{-\frac{2p}{2p+q}})
+$
+}};}	
+\end{center}
+
+The lower bound for $\F_{L,0}$ is tight, for $\F_{L,1}$ it is weak.
+
+}
+%----------------------------------------------------------------------------------------
 
 \end{poster}
 
