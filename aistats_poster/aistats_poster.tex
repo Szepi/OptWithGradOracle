@@ -21,6 +21,7 @@
 \documentclass[portrait,a0paper,fontscale=0.285]{baposter} % Adjust the font scale/size here
 
 \usepackage{graphicx} % Required for including images
+\usepackage[normalem]{ulem}
 \usepackage{macros}
 \graphicspath{{figures/}} % Directory in which figures are stored
 
@@ -183,7 +184,7 @@ Lower Bound: $\color{red}\sqrt{d^2/n}$\\[0.5ex]
 Polynomial oracle: $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$.
 
 Controlled noise: $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2$.
-\qquad
+\quad
 Uncontrolled noise:  $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2 \delta^{-2}$.
 \end{center}
 }
@@ -257,6 +258,23 @@ $
 \end{center}
 
 The lower bound for $\F_{L,0}$ is tight, for $\F_{L,1}$ it is weak.
+
+}
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSION
+%----------------------------------------------------------------------------------------
+
+\headerbox{Conclusions}{name=conclusions,column=2, below=lower_bound}{
+To get the optimal $O(n^{-1/2})$ rate for $\F_{L,0}$  with uncontrolled noise,
+one of the following must be done:
+\begin{enumerate}
+\item An oracle with $q=0$ (constant second moment bound) must be designed.
+\item 
+\sout{An algorithm that makes better use of the gradient estimates must be designed.}
+\item Some extra properties of gradient estimates must be exploited beyond bias/variance.
+\end{enumerate}
 
 }
 %----------------------------------------------------------------------------------------
