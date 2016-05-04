@@ -19,10 +19,14 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{tikz}
 \usepackage{bm}
 \usetikzlibrary{shapes,positioning,arrows,calc,patterns, backgrounds}
 \usepackage{pgfplots}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.10}
 
 \renewcommand{\arraystretch}{1.5}
 
@@ -93,6 +97,11 @@
 \newcommand{\Y}{\mathbf{Y}}
 \newcommand{\ETA}{\mathbf{\eta}}
 \newcommand{\bPhi}{\mathbf{\Phi}}
+
+\newcommand{\A}{\mathcal{A}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\dkl}[2]{D_{\rm kl}\left({#1} |\!| {#2} \right)}
+\newcommand{\tvnorm}[1]{\norm{#1}_{\rm TV}}
 
 %\renewtheorem{definition}[thm]{Definition}
 %\theoremstyle{definition}
