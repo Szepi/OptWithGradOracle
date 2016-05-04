@@ -242,27 +242,31 @@ From the foregoing, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and
 The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
 
 Now, observe that 
-$\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)_+\}^2 \delta^q = \max_{\delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 
+$\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)_+\}^2 \delta^q = \max_{(\epsilon/C_1)^{1/p}>\delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 
 In other words, the maximizer $\delta_*$ of \eqref{eq:supdelta} can never be in the zero arm of the positive part 
 function $(\epsilon - C_1 \delta^p)_+$,
 and hence we maximize \eqref{eq:supdelta} by replacing the positive part with $(\epsilon - C_1 \delta^p)$ and imposing the condition $\epsilon/C_1 \ge \delta^p>0$.
-Defining $z=p/q$, we obtain
+Defining $z=p/q$, 
+we obtain
 \begin{align}
 \delta_*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p} \text{ as long as }\epsilon<\frac{2z+1}{C_1^{2z-1}(z+1)^z}. \label{eq:deltastar}
 \end{align}
 \todoc[inline]{
-I could not get this. 
+Here is the calculation to get this:
 I defined $u = \delta^q$, writing $(\epsilon-C_1 \delta^p)^2 \delta^q = (\epsilon-C_1 u^z)^2 u 
 = \epsilon^2 u- 2C_1 \epsilon u^{z+1} + C_1^2 u^{2z+1}
 = :f(u)$.
 The first order optimality criterion is
 $0 = f'(u) = C_1^2(2z+1) (u^z)^2 - 2 C_1 (z+1) \epsilon u^z + \epsilon^2$, from which I get
-$(u^z)_{1,2} = \frac{2C_1(z+1)\epsilon \pm 2 C_1 z \epsilon}{2C_1^2(2z+1)}$.
-I believe the minimizer is the larger of these two ($f$ first increases, then decreases, then increases).
-From this, I get
-$u^z = \epsilon/C_1$, and $\delta = (u^z)^{1/p} = (\epsilon/C_1)^{1/p}$.
-I did not correct the rest besides minor editorial changes.}
-
+$(u^z)_{1,2} = \frac{2C_1(z+1)\epsilon \pm 2 C_1 z \epsilon}{2C_1^2(2z+1)}$,
+that is $u^z_1 = \frac{\epsilon }{2C_1 (2z+1)}$, $u^z_2 = \frac{\epsilon}{C_1}$.
+Note that at the end-points of the interval $[0,(\epsilon/C_1)^{1/z}]$
+the function $f$ equals zero, while inside the interval it takes on positive values.
+We see that the larger endpoint of this interval is $u_2$. Hence, the function must have a 
+unique maximum in this interval at $u_1$. 
+Thus,  $\delta_* = u_1^{1/q}$, i.e., $\delta_* = ( \frac{\epsilon }{2C_1 (2z+1)})^{1/p}$.
+The condition $\delta_*\le 1$ gives $2z+1\ge 1$m which holds no matter the values of $p,q$.
+}
 Plugging \eqref{eq:supdelta} into \eqref{eq:dklchain}, we obtain
 \begin{align}
 \dkl{P_{+}}{P_{-}} \le \dfrac{2n}{C_2} (\epsilon-C_1\delta_*^p)_+^2 \delta_*^q.
