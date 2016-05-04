@@ -5,15 +5,26 @@
 %\usepackage{palatino}
 %\usepackage[mathcal]{euscript}
 %\usepackage[mathbf,mathcal]{euler}
-\usepackage{mathbbol}
+%\usepackage{mathbbol}
 \usepackage{multicol}
-\usepackage{todonotes}
+\usepackage[disable]{todonotes}
 
 %\usefonttheme{serif}
 %\usefonttheme[onlymath]{serif}
 
 \input{BeamerCommands}
 \input{Commands}
+
+% tikz includes
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows,shapes,calc,patterns,snakes}
+% For every picture that defines or uses external nodes, you'll have to
+% apply the 'remember picture' style. To avoid some typing, we'll apply
+% the style to all pictures.
+\tikzstyle{every picture}+=[remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+\everymath{\displaystyle}
+% end of tikz includes %%%%%%
 
 \title{(Bandit) Convex Optimization with\\
  Biased Noisy Gradient Oracles}
@@ -30,7 +41,10 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 \includegraphics[scale=0.3]{figs/u-of-alberta-logo}
  }
 %\author{James Neufeld}
-\author{Csaba Szepesv\'ari}
+\author{Csaba Szepesv\'ari\\
+Joint work with
+Xiaowei Hu, L.A. Prashanth, and Andr\'as Gy\"orgy
+}
 %\date{February 13, 2014}
 %\date{May 23, 2014}
 %\date{June 7, 2014}
@@ -106,19 +120,17 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 
 \begin{frame}
 	\maketitle
-	\vspace*{-0.4in}
+	\vspace*{-0.2in}
 	\begin{center}
           Gatsby Seminar 
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\if0
 \begin{frame}
 \frametitle{Summary}
 
-\uncover<+->{
-    Questions to be answered:}
     \bi
     \item \alert{Why} should we care? 
     \item \alert{What} are the unique challenges? 
@@ -127,7 +139,7 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
     \bigskip
     
 \end{frame}
-
+\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\section{Introduction}
@@ -136,8 +148,19 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 \end{frame}
 
 
+\frame{
+	\frametitle{Expectation Management}
+	\bi
+	\item \Large
+	80\% review (long history!)
+	\bigskip
+	\item \Large
+	20\% new
+	\ei
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Bandit Problems}
+\section{Convex Bandit Optimization}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Bandit problems:
@@ -151,11 +174,11 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 \frame{
 	\frametitle{Convex Optimization with Noisy Bandit Feedback}
 	\bcol[c]
-	\col
+	\col[0.5\textwidth]
 	\bc
 	\includegraphics[width=\textwidth]{figs/Interaction}
 	\ec
-	\col
+	\col[0.45\textwidth]
 %	\begin{block}<+->{Goal}
 	\alert{Goal}\\
 	Assume $f$ convex (smooth etc).\\
@@ -172,11 +195,13 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 %	Why ``bandit''? ``Bandit theory'' \\
 	% Why bandit?
 	\begin{block}<+->{Main Question}
-		How fast can the optimization error
+	\bc
+		How fast can/will/should the optimization error
 		$
 		\Delta_n = \EE{f(X_n) }- \inf_{x\in \cK} f(x)
 		$
 		 decrease with $n$?
+	\ec		 
 	\end{block}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,23 +215,30 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 	\col[0.55\textwidth]
 	\bi
 	\item Distribute memory in between jobs
-	\item Maximize success: $\max_x f(x)$
-	\item Linear constraints: $\sum_i x_i = 1$
-	\item Concave objective: Convex combination of resources not worse than what randomization gives.
+	\item Maximize success: $\max_{x\in \cK} f(x)$
+	\item Linear constraints: $\cK = \cset{ x\in [0,\infty)^d}{\sum_i x_i = 1}$
+	\item Concave objective $f$: 
+	Convex combination of resources not worse than what randomization gives.
 	\ei
 	\ecol
+	\uncover<+->{The only way to learn about $f$ is by trying different configurations.}
+	\uncover<+->{Feedback: $f(x) + \mathrm{noise}$ for $x$ tried. ``Bandit'' feedback.}\\
+	\uncover<+->{Goal is to find the best configuration quickly.}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
 	\frametitle{Why Bandit Feedback?}
+	\setlength\itemsep{1em}
 	\bi
 	\item No other choice
 		\bi
+		\setlength\itemsep{0.5em}
 		\item Controlling an unknown system
 		\item Simulation optimization: 
 			\bi
+			\setlength\itemsep{0.5em}
 			\item
 				$f(x) = \EE{ F(x,\xi) }$ --- $\xi$: simulation noise
 			\item $F(x,\xi)$ is the output of a simulation;
@@ -216,10 +248,12 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 	\ei
 	\bigskip
 	\bi
+			\setlength\itemsep{0.5em}
 	\item By choice: 
 		\bi
+			\setlength\itemsep{0.5em}
 		\item Gradient is too expensive/complicated to compute
-		\item ((Can this be justified?))
+	  \item (Can this be justified?)  %%%%%%%%GYA: ???????
 		\ei
 	\ei
 }
@@ -230,36 +264,44 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 	\bcol[c]
 	\col
 	\bc
-	\includegraphics[width=\textwidth]{figs/Problems}
+	\uncover<+->{
+	\begin{minipage}[t]{0.9\textwidth}
+		Deviation from linearity, or\\
+		``curviness'':
+		\begin{align*}
+		& D_f(w||v)\doteq\\
+		& f(w)- \left\{ f(v) + \ip{\nabla f(v),w-v} \right\}.
+		\end{align*}
+	\end{minipage}}
 	\ec
 	\col
 	\includegraphics[width=\textwidth]{figs/entropy-16-06338f2-1024}
 	\ecol
-	\bi
-	\item Curviness (deviation from linearity): 
-	\begin{align*}
-	D_f(x,y)\doteq f(x)- \left\{ f(y) + \ip{\nabla f(y),x-y} \right\}.
-	\end{align*}
-	\ei
-	\bcol[c]
-	\col[0.7\textwidth]
+	
+	\bcol[t]
+	\col[0.6\textwidth]
 	\bi
 	\item
 	Smoothness: 
 	$\qquad
-	D_f(x,y) \le \frac{L}{2} \norm{x-y}^2\,.
+	D_f(x||y) \le \frac{L}{2} \norm{x-y}^2\,.
 	$
 	\item
 	Strong convexity:
-	$
-	D_f(x,y) \ge \frac{\mu}{2} \norm{x-y}^2\,.
+	$\qquad
+	D_f(x||y) \ge \frac{\mu}{2} \norm{x-y}^2\,.
 	$
 	\ei
-	\col[0.3\textwidth]
-	\begin{block}{}
+	\col[0.4\textwidth]
+	\figincol{
+	\includegraphics[width=\textwidth]<4->{figs/Problems}}
+	\ecol
+
+	\putatUR{40mm}{126mm}{-1mm}{
+	\begin{block}<5->{}
 		$\cK \subset \R^d$ convex, closed, non-empty.
 	\end{block}
-	\ecol
+	}
 
 }
 
@@ -272,49 +314,79 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 	
 	\bcol[b]
 	\col[0.65\textwidth]
-	\begin{block}{Ellipsoid Method \citep{Shor70}}
+	\begin{block}<2->{Ellipsoid Method \citep{Shor70}}
 	\bi
-	\item
+	\item<3->   %%%%%%GYA: Delta nincs definialva
 	$\Delta_n^{\mathcal{E},d} = C\exp(-\frac{n}{d^2})$ {\footnotesize \citep{NeYu83}}	
-	\item
+	\item<4->
 	Matching lower bound when $d$ small and $n$ large.\\
-	\uncover<+->{$\ldots$ but}
-			\item Each update takes $O(d^2)$ MADDs (prohibitive when $d$ large).
-			\item Suboptimal for $d/n^2 \gg 1$:
+	\uncover<5->{$\ldots$ but}
+			\item<6-> Each update takes $O(d^2)$ MADDs (prohibitive when $d$ large).
+			\item<7-> Suboptimal for $d/n^2 \gg 1$:
+                          %%%GYA: d/n^2 javitva
 			 $\lim_{d\to\infty} \Delta_n^{\mathcal{E},d} = \Omega(1)$, while
 			  $\Delta_n^* = \Theta(1/\sqrt{n})$.
 	\ei
 	\end{block}
 	\col[0.35\textwidth]
-	\includegraphics[width=\textwidth]{figs/Ellipsoid_2}
+	\includegraphics<2->[width=\textwidth]{figs/Ellipsoid_2}
 	\ecol
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
 	\frametitle{Convex Optimization 101: Gradient Methods}
-	Think: ``$d$ large''. Update complexity is $O(d)$.
-	\bi
-	\item Subgradient method: Optimal for convex problems:
-	 \[\Delta_n = O(\sqrt{1/n}).\]
-	\centering No dependence on $d$!
-	\bigskip
-	\item Gradient method + momentum term $\equiv$\\
-	$\qquad$ accelerated gradient method
+
+\centerline{
+	        \tikz[baseline]{
+            \node[fill=blue!20,anchor=base] (t1)
+            {Think: ``$d$ large''. Update complexity is $O(d)$.};}	}
+
+
+{\color{darkgreen}Subgradient method: Optimal for convex problems:}
+\begin{align*}
+	        \tikz[baseline]{
+            \node[fill=red!20,anchor=base] (t1)
+            {$\Delta_n = O(\sqrt{1/n})$.};}	
+\end{align*}	
+	\centerline{ No dependence on $d$!}  %%%GYA: tenyleg?
+
+\vspace{1ex}
+	
+{\color{darkgreen}Gradient method  + momentum term}\\ 
+	$\equiv$ \alert{accelerated} gradient method
 	\citep{nesterov2004introductory}.
 	\todoc[inline]{Requires knowledge of $L$, $\mu$?}
 	\bi
-	\item Optimal for smooth convex problems: 
-	\[ \Delta_n = O(L/n^2).	\]
-	\item Optimal for strongly convex, smooth problems:
-	\[ \Delta_n = \exp(- \tfrac{n}{ \sqrt{L/\mu} } ). \]
-	\ei
-	\ei
+	\item Optimal for \alert{smooth convex problems}, $\cF_{L,0}$: 
+	\begin{align*}
+		        \tikz[baseline]{
+            \node[fill=brown!20,anchor=base] (t1)
+            {$\Delta_n = O(L/n^2)$.};}	
+						\end{align*}
+	\item Optimal for \alert{strongly convex, smooth problems}, $\cF_{L,\mu}$:
+	\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {$\Delta_n = \exp(- \tfrac{n}{ \sqrt{L/\mu} } )$.};}	
+						 %%%GYA: O() missing?
+						\end{align*}
+						\ei
 }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The State-of-the-Art for Noisy Bandit Convex Optimization}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Outline}
+\tableofcontents[currentsection]
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-	\frametitle{Noisy Bandit Feedback}
+	\frametitle{Results under Noisy Bandit Feedback}
 	Recall: $f(x) = \EE{ F(x,\xi) }$.
 
 	\bigskip
@@ -337,12 +409,16 @@ Reinforcement Learning and Artificial Intelligence (RLAI) Group\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-	\frametitle{Controlled Noise}
+	\frametitle{Controlled Noise -- Smooth Case}
 
 	\bcol
 	\col[0.1\textwidth]
 	\col[0.9\textwidth]
-	\uncover<+->{Gradient method: }
+	\uncover<+->{Simple story!}
+	\bigskip
+	\bigskip
+
+	\uncover<+->{Gradient method}
 	\bigskip
 	\bigskip
 	
@@ -398,55 +474,161 @@ Lower bound: $\sqrt{d^2/n}$  \citep{shamir2012complexity}.
 \putatBR{40mm}{124mm}{92mm}{
 \begin{block}<+->{}
 \uncover<.->{Can we do better?}
-\uncover<+->{$\ldots$ using a ``clever'' gradient method?}
+\uncover<+->{$\ldots$ using a ``clever'' gradient method maybe?}
 \end{block}
 }
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\bc
-	\Large Where does the gradient come from in the gradient methods?
-\ec	
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Gradient Estimation}
+\section{How are Gradients Estimated?}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \frame{
 	\frametitle{Gradient Estimation -- Noise-free Feedback}
 	
-	Kiefer-Wolfowitz
-	$g_i = \frac{1}{\delta} \left( f(x+\delta e_i) - f(x) \right)$, 
-		$i=1,\dots,d$.
+	Finite-differences {\footnotesize \citep{KiWo52}}:
+		\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=red!20,anchor=base] (t1)
+            {$g_i = \frac{1}{\delta} \left( f(x+\delta e_i) - f(x) \right)\,,\quad i=1,\dots,d\,.$};}	
+						\end{align*}		
+	
+	\bigskip
 	
 	Taylor-series expansion:
-	\[
-	f(x+ \delta e_i)  = f(x) + \delta\, \nabla f(x) e_i + \delta^2\, e_i^\top \nabla^2 f(x) e_i +  O(\delta^3).
-	\]
+	\begin{align*}
+	f(x+ \delta e_i)  &= f(x) + \delta\, \nabla f(x) e_i + \delta^2\, e_i^\top \nabla^2 f(x) e_i +  O(\delta^3).
+	%f(x\alert{-} \delta e_i)  &= f(x) \alert{-} \delta\, \nabla f(x) e_i + \delta^2\, e_i^\top \nabla^2 f(x) e_i +  O(\delta^3).
+	\end{align*}
+
+	\bigskip
 	
-	Needs $O(d+1)$ queries. 
+		\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {Accuracy: $\norm{ g - \nabla f(x) }_2 = O( \sqrt{d}\, \delta )$.};}	
+						\end{align*}		
 	
-	Accuracy: $\norm{ g - \nabla f(x) }_2 = O( \sqrt{d}\, \delta )$.
-					$\norm{ g - \nabla f(x) }_\infty = O(  \delta )$.
+%					$\norm{ g - \nabla f(x) }_\infty = O(  \delta )$.
 	
-	Improvement: $g_i = \frac{1}{2\delta} \left( f(x+\delta e_i) - f(x-\delta e_i) \right)$\\
-	-- cancels $O(\delta^2)$ in the TSE.
+	\bigskip
+	\bigskip
+	
+\onslide<2->{\color{violet} Needs $d+1$ queries.} \tikz[na]\node [coordinate] (n1) {};	
+
+        \begin{tikzpicture}[overlay]
+        \path[->]<2-> (n1) edge [bend right] ($(t1)+(2,-0.4)$);
+			\end{tikzpicture} 
+	
+	
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame{
+	\frametitle{Two-sided Differences}	
+
+	Improved estimate: 
+			\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {$g_i = \frac{1}{2\delta} \left( f(x+\delta e_i) - f(x-\delta e_i) \right),\quad i=1,\dots,d.$};}	
+						\end{align*}		
+
+	Taylor-series expansions:
+	\begin{align*}
+	f(x+ \delta e_i)  &= f(x) + \delta\, \nabla f(x) e_i + \delta^2\, e_i^\top \nabla^2 f(x) e_i +  O(\delta^3).\\
+	f(x\alert{-} \delta e_i)  &= f(x) \alert{-} \delta\, \nabla f(x) e_i + \delta^2\, e_i^\top \nabla^2 f(x) e_i +  O(\delta^3).
+	\end{align*}
+
+	\bigskip
+
+		\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {Accuracy: $\norm{ g - \nabla f(x) }_2 = O(\sqrt{d} \delta^2 )$.};}	
+						\end{align*}		
+	
+%					$\norm{ g - \nabla f(x) }_\infty = O(  \delta )$.
+	
+	\bigskip
+	\bigskip
+	
+\onslide<2->{\color{violet} Needs $2d$ queries.} \tikz[na]\node [coordinate] (n1) {};	
+
+        \begin{tikzpicture}[overlay]
+        \path[->]<2-> (n1) edge [bend right] ($(t1)+(2,-0.4)$);
+			\end{tikzpicture} 
 		
-	Accuracy: $\norm{ g - \nabla f(x) }_2 = O(\sqrt{d} \delta^2 )$.
-	
 	\todoc[inline]{Noisy feedback case}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+	\frametitle{Two-sided Differences -- Noisy Feedback}	
+\begin{small}
+	\uncover<+->{
+	
+	Improved estimate: 
+			\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=magenta!20,anchor=base] (t1)
+            {$G_i = \frac{1}{2\delta} \left\{ f(x+\delta e_i) + \xi^+_i- (f(x-\delta e_i)+\xi^-_i) \right\},\quad i=1,\dots,d.$};}	
+						\end{align*}		
+}
+
+%	Taylor-series expansions:
+%	\begin{align*}
+%	f(x+ \delta e_i)  &= f(x) + \delta\, \nabla f(x) e_i + \delta^2\, e_i^\top \nabla^2 f(x) e_i +  O(\delta^3).\\
+%	f(x\alert{-} \delta e_i)  &= f(x) \alert{-} \delta\, \nabla f(x) e_i + \delta^2\, e_i^\top \nabla^2 f(x) e_i +  O(\delta^3).
+%	\end{align*}
+	
+	\uncover<+->{ 
+	Assumption: $\EE{ \xi^{\pm} } = 0$, $\EE{ (\xi^{\pm}) } \le \sigma^2 <+\infty$.}
+		
+	\uncover<+->{ $\EE{ G_i } = g_i$.}
+	\uncover<+->{  Hence
+				\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {$\norm{ \EE{G} - \nabla f(x) }_2 = O(\sqrt{d} \delta^2 )\,.$  $\longleftarrow$ \textbf{bias}};}	
+						\end{align*}}		
+	
+	\uncover<+->{ \alert{Second moment}: $\EE{ \norm{G}_2^2 } = ?$}
+	
+	\uncover<+->{ $G_i = g_i + \frac{\xi^+_i-\xi^-_i}{2\delta}$}
+	\uncover<+->{, hence
+							$\EE{G_i^2} = g_i^2 + \frac{2\sigma^2}{4 \delta^2} = g_i^2 + \frac{\sigma^2}{2\delta^2}$
+	} 
+	\uncover<+->{ and
+					\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=blue!20,anchor=base] (t1)
+            {$	\EE{ \norm{G}_2^2 } = \norm{g}_2^2 + O\left( \frac{d}{\alert{\delta^2}} \right)\,.$};}	
+						\end{align*}		
+	}
+\end{small}	
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-	\frametitle{Gradient Estimation -- Randomization}
+	\frametitle{Randomization (Noise-Free Bandit Feedback)}
 	
-	Number of queries should not scale with $d$.
+	\uncover<+->{Can we reduce the number of queries?}
 	
-	Idea: Randomize! $I \sim p(\cdot)$ a positive pmf on $\{1,\dots,d\}$.
+	\uncover<+->{Idea: \alert{ Randomize! }
+	$I \sim p(\cdot)$ a positive pmf on $\{1,\dots,d\}$.}
 	
-	Choose
+	\uncover<+->{Choose
 	\begin{align*}
 	G_i &= \frac{1}{p(i)} \, \frac{f(x+\delta e_I)-f(x-\delta e_I)}{2\delta} \,e_{I,i}\\
 	&=
@@ -454,66 +636,78 @@ Lower bound: $\sqrt{d^2/n}$  \citep{shamir2012complexity}.
 		\frac{1}{p(I)} \, \frac{f(x+\delta e_I)-f(x-\delta e_I)}{2\delta},  & I= i\,;\\
 		0, & \text{otherwise}\,.
 	\end{cases}
-	\end{align*}
-	\alert{Only 2-queries, regardless of $d$!}
+	\end{align*}}
 	
-	$\EE{G_i} = g_i$! Hence, $\norm{\EE{ G } - \nabla f(x)}_2 = O( \sqrt{d} \delta^2 )$.
-	\alert{``Bias''}
+	\uncover<+->{
+	\alert{Only 2-queries, regardless of $d$!}}
 	
-	\alert{``Variance''}? $\Var{G} := \EE{ \norm{ G - \EE{G} }_2^2 }$.  $\quad \Rightarrow \quad$
-	$\Var{G} = \EE{ \norm{G}_2^2 } - \norm{ \EE{G} }_2^2$.\\
-	Second term is controlled as $\delta\to 0$. 
-	How about $\EE{ \norm{G}_2^2 }?$
+	\uncover<+->{$\EE{G_i} = g_i$! }
+	\uncover<+->{Hence, $\norm{\EE{ G } - \nabla f(x)}_2 = O( \sqrt{d} \delta^2 )$.}
+	
+	\bigskip
+	\uncover<+->{Second moment?}
+%	\alert{``Variance''}? $\Var{G} := \EE{ \norm{ G - \EE{G} }_2^2 }$.  $\quad \Rightarrow \quad$
+%	$\Var{G} = \EE{ \norm{G}_2^2 } - \norm{ \EE{G} }_2^2$.\\
+%	Second term is controlled as $\delta\to 0$. 
+%	How about $\EE{ \norm{G}_2^2 }?$
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
 	\frametitle{Second Moment from Randomization}
+	\uncover<+->{
 	\begin{align*}
 	G_i &= \frac{1}{p(i)} \, \frac{f(x+\delta e_I)-f(x-\delta e_I)}{2\delta} \,e_{I,i}
-	\end{align*}
+	\end{align*}}
 	
+	\uncover<+->{
 	Taylor-series expansion:	
 	\begin{align*}
 	f(x+ \delta e_i)  &= f(x) + \delta\, \nabla f(x) e_i + \delta^2\, e_i^\top \nabla^2 f(x) e_i +  O(\delta^3),\\
 	f(x- \delta e_i)  &= f(x) - \delta\, \nabla f(x) e_i + \delta^2\, e_i^\top \nabla^2 f(x) e_i +  O(\delta^3).
 	\end{align*}	
+	}
+	\uncover<+->{
 	\begin{align*}
 	 G_i^2 & = \frac{\one{I=i}}{p^2(i)} 
 		\frac{(\delta f'_i(x) + c_3(\delta))^2}{4 \delta^2} 
-		=
+		= %%GYA
 	 \frac{\one{I=i}}{p^2(i)} 
-		\frac{(\delta^2 (f_i'(x) )^2+ c_4(\delta)}{ \delta^2} 		\\
+		\frac{(\delta^2 (f_i'(x) )^2+ c_4(\delta))}{ \delta^2} 		\\
 		&=
 	 \frac{\one{I=i}}{p^2(i)} 
 		\left\{ ( f'_i(x) )^2+ O(\delta^2) \right\}
-	\end{align*}
+	\end{align*}}
 	
+	\uncover<+->{
 	Hence, $\EE{ G_i^2} = O(1/p(i))$, so at best $\EE{ \norm{G}_2^2 } = O( d^2 )$. 
-	Hmm..
+	Hmm..}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
 	\frametitle{Noisy Bandit Feedback}
 
+	\uncover<+->{
 	\begin{align*}
 	\tilde{G}_i &= \frac{1}{p(i)} \, \frac{(f(x+\delta e_I)+\xi^+)-(f(x-\delta e_I)+\xi^-)}{2\delta} \,e_{I,i}
-	\end{align*}
+	\end{align*}}
 	
+	\uncover<+->{
 	Hence,
-	$\tilde{G}_i= \frac{\one{I=i}}{p(i)} \frac{ \xi^+-\xi^- }{2 \delta} + G_i$
+	$\tilde{G}_i= \frac{\one{I=i}}{p(i)} \frac{ \xi^+-\xi^- }{2 \delta} + G_i$}
+	\uncover<+->{
 	and
 	\begin{align*}
 	\EE{\tilde{G}_i} &= \EE{ G_i}\,,\\
 	 \EE{ \tilde{G}_i^2 } &= \frac{1}{p(i)} \frac{ \EE{ (\xi^+-\xi^-)^2} }{ 4 \delta^2 } + \EE{ G_i^2 }\,,
-	\end{align*}	
+	\end{align*}	}
+	\uncover<+->{
 	so
 	\begin{align*}
-	\norm{\EE{ \tilde{G} }_2 - \nabla f(x) }_2 &= O( \sqrt{d} \delta^2 )\,,\\
-	\EE{ \norm{\tilde{G} }_2^2 } & = O( d^2(1 + 1/\delta^{2} ) )\,.  \qquad \text{ \alert{harsh!}}
-	\end{align*}
-
+	\norm{\EE{ \tilde{G} }_2 - \nabla f(x) }_2 &= O( \alert{\sqrt{d} \delta^2} )\,,\\
+	\EE{ \norm{\tilde{G} }_2^2 } & = O( d^2(1 + 1/\alert{\delta^{2}} ) )\,.  \qquad \text{ \alert{harsh!}}
+	\end{align*}}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -523,14 +717,19 @@ Lower bound: $\sqrt{d^2/n}$  \citep{shamir2012complexity}.
 	
 	\bi
 	\item Noise-free observations (or controlled noise):
+	\bigskip		
 		\bi
 		\item Bias:	 $\qquad \qquad \quad O(\delta^2)$
+	\bigskip		
 		\item Second-moment: $O(1)$
 		\ei
+	\bigskip		
 	\item Noisy observations (a.k.a. uncontrolled noise):
 		\bi
+	\bigskip		
 		\item Bias: $\qquad \qquad \quad O(\delta^2)$
-		\item Second moment: $O(\delta^{-2})$
+	\bigskip		
+		\item Second moment: $O(\delta^{\alert{-2}})$
 		\ei
 	\ei
 	
@@ -543,24 +742,34 @@ Lower bound: $\sqrt{d^2/n}$  \citep{shamir2012complexity}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
 	\frametitle{Other Methods}
-	General two-point estimate:
-	\begin{align*}
-	G = \frac{ (f(x+U)+\xi^+) - (f(x-U)+\xi^-)}{2\delta} V\,.
-	\end{align*}
-	Choose $U,V$ such that $\EE{ V U^\top  } = I$, $\EE{ V } = 0$.
+	\uncover<+->{General two-point estimate:
+	
+			\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {$G = \frac{ (f(x+U)+\xi^+) - (f(x-U)+\xi^-)}{2\delta} V\,.$};}	
+						\end{align*}		
+	}
+	\uncover<+->{
+	Choose $U,V$ such that $\EE{ V U^\top  } = I$, $\EE{ V } = 0$.}
 
+	\uncover<+->{
 	One-point estimate!
-	\begin{align*}
-	G = \frac{ (f(x+U)+\xi^+) }{\delta} V\,.
-	\end{align*}
-	Choose $U,V$ such that $\EE{ V U^\top  } = I$, $\EE{ V } = 0$.
-	\uncover<+->{??}\\
+			\begin{align*}
+			        \tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {$G = \frac{ (f(x+U)+\xi^+) }{\delta} V\,.$};}	
+						\end{align*}		
+}
+	\uncover<+->{
+	Choose $U,V$ such that $\EE{ V U^\top  } = I$, $\EE{ V } = 0$.}
+	\uncover<+->{Works??}\\
 	\uncover<+->{$\EE{G} = \EE{ G - \frac{f(x)}{\delta} V } = \EE{\frac{ (f(x+U)+\xi^+)-f(x) }{\delta} V}$.}
 	
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-	\frametitle{Zoo of Gradient Estimation Methods}
+	\frametitle{``Zoo'' of Gradient Estimation Methods}
 	\bi
 	\item $U \sim \delta\, \cN(0,I)$, 
 	         $V = \delta^{-1}\, U$
@@ -581,6 +790,7 @@ Lower bound: $\sqrt{d^2/n}$  \citep{shamir2012complexity}.
 			 \item
 			  SPSA by \cite{spall1992multivariate}.
 			 \ei
+	\item $\dots$			 
 	\ei
 	
 	\uncover<+->{
@@ -592,41 +802,15 @@ Lower bound: $\sqrt{d^2/n}$  \citep{shamir2012complexity}.
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-	\frametitle{Known Results}
-		
-	
-%In their seminal work \citet{NeYu83} consider two approaches to this problem: Methods that try to construct gradient information and methods that avoid gradient estimation and rather use  geometric principles (the ellipsoid method, essentially). While methods in the second class make the error decay at the $O(1/\sqrt{n})$ rate,  the error scales extremely poorly with the number of optimization variables $d$.
-
-Lower bound: $\sqrt{d^2/n}$  \citep{shamir2012complexity}.
-
-Ellipsoid:\\
-   \citet{NeYu83} -- ??\\
-  \citet{AgFoHsuKaRa13:SIAM} --  $\sqrt{\alert{d^{33}}/n}$\;,\\
- \citet{liang2014zeroth} -- $\sqrt{\alert{d^{14}}/n}$.
- 
-\bigskip
- 
-Gradient:\\
-	Smooth + SOC: \citep{HaLe14:SOC} -- $\sqrt{d^2/n}$;\\	
-	Smooth: \citep{saha2011improved} -- $O(\alert{n^{1/3}})$;\\ 
-	Convex: $O(n^{1/4})$. \todoc[inline]{Who?}
-
-\bigskip
-
-Controlled noise + gradient:\\
-	\citet{Ne11:TR}	,
-	\citet{duchi2015optimal}: $\sqrt{d^2/n}$.
-
-\bc
-\alert{Can we do better, e.g., in the smooth case,} \\
-\alert{with the current gradient estimators?}
-\ec
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{New Oracle Model}
+\section{New Oracle Model: Noisy, Biased Oracles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
@@ -638,18 +822,23 @@ Controlled noise + gradient:\\
 	\ec	
 	
 
-\begin{enumerate}
+\begin{enumerate}[<+->]
 \item Bias: $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $; and
 \item Second moment: $\EE{\norm{ G  }_*^2} \le c_2(\delta)$.
 \end{enumerate}
 
-\bc
-Controlled noise: $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2$.
 
-Uncontrolled noise:  $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2 \delta^{-2}$.
+\bc
+	\uncover<+->{
+Controlled noise: $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2$.}
+
+	\uncover<+->{
+Uncontrolled noise:  $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2 \delta^{-2}$.}
 
 \bigskip 
-Polynomial oracle: $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$.
+	\uncover<+->{
+Polynomial oracle: $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$.}
+%%%GYA: mention what matters is p/q
 
 \ec
 
@@ -657,15 +846,44 @@ Polynomial oracle: $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$
 
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Results}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-	\frametitle{Upper Bounds}
-Algorithm: Mirror descent \citep{NeYu83}.
+	\frametitle{Upper Bound: Algorithm}
+
+\begin{block}{Mirror descent \citep{NeYu83}}
+\begin{algorithmic}
+    \State {\bf Input:}  Closed convex set $\cK$, regularization function $\mathcal{R}:\mathbb{R}^d\to \mathbb{R}$, tolerance parameter $\delta$, learning rates $\{\eta_t\}_{t=1}^{n-1}$.
+%     In round $t=1, 2, \cdots, n-1$:
+\State Initialize $X_1\in \cK$ arbitrarily.
+\For{$t=1, 2, \cdots, n-1$}	
+	\State Query the oracle at $X_t$.
+	\State Receive $G_t$.
+	\State Update
+	$$
+	X_{t+1}=\argmin_{x\in \mathcal{K}}\left[ \eta_{t} \ip{G_t,x}+D_{\mathcal{R}}(x,X_t) \right] \,.
+	$$
+\EndFor
+\State {\bf Return:} $\hat{X}_n = \frac{1}{n}\sum_{t=1}^n X_t \,.$
+\end{algorithmic}
+\end{block}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Upper Bound}
 
 \begin{theorem}[\textit{\textbf{Upper bound}}]
-Consider MD with a $(c_1,c_2)$, $(p,q)$ polynomial oracle, $\alpha$ SOC regularizer $\cR$.
+Consider MD with a $(p,q)$-order polynomial oracle, $\alpha$ SOC regularizer $\cR$.
 Then:
 \begin{align*}
 \Delta_n(\F_{L,0},\mathrm{MD},c_1,c_2 ) &
@@ -682,8 +900,9 @@ Then:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-	\frametitle{Specific Rates}
-Recall:
+	\frametitle{Is This Any Good?}
+\uncover<+->{
+Recall:\vspace*{-0.2in}
 \begin{align*}
 \Delta_n(\F_{L,0},\mathrm{MD},c_1,c_2 ) &
 = O( n^{- \frac{p}{2p+q} } )\\
@@ -692,32 +911,70 @@ Recall:
 = O( n^{- \frac{p}{p+q} } )\,.
 %\le K_2\left(\dfrac{C_1^{\frac{q}{p}} C_2}{ n}\right)^{\frac{p}{p+q}},
 \end{align*}
+}
 
 \bigskip
 
-$n^{-1/2}$ rate: $p/(2p+q)\ge 1/2$ vs. $p/(p+q)\ge 1/2$.\\
+\uncover<+->{
+Can get an $n^{-1/2}$ rate?} \\
+\uncover<+->{
+Yes, if $p/(2p+q)\ge 1/2$ vs. $p/(p+q)\ge 1/2$.}\\
+\uncover<+->{
 First holds iff $q=0$. Second holds iff $p\ge q$.\\
+}
+}
+\frame{
+	\frametitle{Is This Any Good?}
+\uncover<+->{
+Recall:\vspace*{-0.2in}
+\begin{align*}
+\Delta_n(\F_{L,0},\mathrm{MD},c_1,c_2 ) &
+= O( n^{- \frac{p}{2p+q} } )\\
+% \le K_1\left(\dfrac{D {C_1^{\frac{q}{p}} C_2}}{ n}\right)^{\frac{p}{2p+q}},\\
+\Delta_n(\F_{L,\mu},\mathrm{MD},c_1,c_2 ) &
+= O( n^{- \frac{p}{p+q} } )\,.
+%\le K_2\left(\dfrac{C_1^{\frac{q}{p}} C_2}{ n}\right)^{\frac{p}{p+q}},
+\end{align*}
+}
 
 \bigskip
 
-Uncontrolled noise: $p=q=2$. \\
-For $\F_{L,\mu}$ we get $O(n^{-1/2})$ as \citet{HaLe14:SOC}.\\
-For $\F_{L,0}$ we get $O(n^{-1/3})$ as \citet{saha2011improved}.
+\uncover<+->{
+\alert{Uncontrolled noise}; under smoothness, $p=q=2$.} \\
+\uncover<+->{
+\tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {For $\F_{L,\mu}$ we get $O(\alert{n^{-1/2}})$ as \citet{HaLe14:SOC}.};}	
+}\\[1ex]
+\uncover<+->{
+\tikz[baseline]{
+            \node[fill=red!20,anchor=base] (t1)
+            {For $\F_{L,0}$ we get $O(n^{-1/3})$ as \citet{saha2011improved}.};}	
+}
 
 \bigskip
 
-Controlled noise: $p=2$, $q=0$.\\
-For $\F_{L,\mu}$ we get $O(1/n)$ as 
-	\citet{Ne11:TR}	.\\
-For $\F_{L,0}$ we get $O(n^{-1/2})$ as	
-	\citet{duchi2015optimal}.
+\uncover<+->{
+\alert{Controlled noise}: under smoothness, $p=2$, $q=0$.}\\
+\uncover<+->{
+\tikz[baseline]{
+            \node[fill=blue!20,anchor=base] (t1)
+            {For $\F_{L,\mu}$ we get $O(\alert{n^{-1}})$ as 
+	\citet{Ne11:TR}.};}	
+}\\
+\uncover<+->{
+\tikz[baseline]{
+            \node[fill=brown!20,anchor=base] (t1)
+            {For $\F_{L,0}$ we get $O(\alert{n^{-1/2}})$ as	
+	\citet{duchi2015optimal}.};}	
+}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-	\frametitle{Lower Bound}
+	\frametitle{Could We Have Done Better?}
 
-
+\uncover<+->{
 \begin{theorem}[\textit{\textbf{Lower bound}}]
 \label{thm:lb-convex}
 $\cK\subset \R^d$ convex, closed, with  $\{+1,-1\}^d\subset \cK$, $n$ large enough.
@@ -727,7 +984,10 @@ For any algorithm $\mathrm{A}$ that observes $n$ random elements from a  $(p,q)$
 \Delta_n(\F_{L,0},\mathrm{A},c_1,c_2 ) &= \Omega( n^{-\frac{p}{2p+q}}),\\
 \Delta_n(\F_{L,1},\mathrm{A},c_1,c_2 ) & = \Omega(  n^{-\frac{\alert{2}p}{2p+q}})\,.
 \end{align*}
-\end{theorem}
+\vspace*{-0.2in}
+\end{theorem}}
+
+\uncover<+->{
 Compare with 
 \begin{align*}
 \Delta_n(\F_{L,0},\mathrm{MD},c_1,c_2 ) &
@@ -739,22 +999,56 @@ Compare with
 \end{align*}
 (The lower bound for $\F_{L,0}$ is tight, for $\F_{L,1}$ it is weak.)
 }
+
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-	\frametitle{A Corollary for Smooth Convex Optimization with Noisy Bandit Feedback}
-\begin{Corollary}
+	\frametitle{Lower Bound Idea}
+	\bc
+	\vspace*{-0.3in}
+	\includegraphics[height=\textheight]{figs/lb1}
+	\ec
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+	\frametitle{Conclusion}
+\begin{Corollary}	
 To get the optimal $O(n^{-1/2})$ rate for $\F_{L,0}$  with uncontrolled noise,
+with a low-complexity algorithm,
 one of the following must be done:
 \begin{enumerate}
 \item An oracle with $q=0$ (constant second moment bound) must be designed.
 \item 
 \sout{An algorithm that makes better use of the gradient estimates must be designed.}
 \item Some extra properties of gradient estimates must be exploited beyond bias/variance.
+\item Design a non-gradient algorithm. 
 \end{enumerate}
 \end{Corollary}	
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\frame{
+	\frametitle{Big Picture}
+	\bi
+	\item Noisy Bandit Convex 	Optimization
+	\bigskip
+	\item Controlled noise: Pretty well understood
+	\bigskip
+	\item Linear case: Pretty well understood
+	\bigskip
+	\item Uncontrolled noise: Not much is known about low complexity, optimal algorithms!
+	\bigskip
+	\item Fascinating results on regret minimization in the online setting
+	\bigskip
+	\ei
+}
 \if0
 \frame{
 	\frametitle{}	
@@ -811,7 +1105,7 @@ Ellipsoid method
 %	\bibliography{biblio,allbib,shortconfs,../thebib}
 %	\bibliography{allbib,shortconfs,../thebib}
 %\bibliography{allbib,shortconfs}
-\bibliography{allbib,shortconfs,main}
+\bibliography{allbib,main}
 %	\bibliography{../thebib}
 %	\end{multicols}
 \end{frame}

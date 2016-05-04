@@ -50,10 +50,10 @@ In particular, this is true because any random querying algorithm can be seen as
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-Let
+For $v\in \{\pm 1\}$ let
 \begin{align*}
-f_+(x) :=  \epsilon\left( x-1\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-1}{\epsilon}}  \right)
-\text{ and } f_-(x) := \epsilon\left( x+1\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x+1}{\epsilon}}  \right), \,\, x \in \cK\,.
+f_v(x) :=  \epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)\,, \qquad x\in \K\,.
+%\text{ and } f_-(x) := \epsilon\left( x+1\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x+1}{\epsilon}}  \right), \,\, x \in \cK\,.
 \end{align*}
 In what follows, we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
 These functions, with the choice $\epsilon=0.1$, are shown in \cref{fig:lbfvdiff}.
@@ -128,21 +128,43 @@ M:=&\,\, \min_{x:xv<0} f_v(x) - f_v(v) \nonumber \\
             %xmax=3,    % end   the diagram at this x-coordinate
 						%xtick={-1,0,1},
             %xticklabels={-1,0,+1},
-            yticklabels=\empty
+            yticklabels=\empty,
+%            samples=200
             ]
            \addplot[domain=-5:5, green!35!black, thick,smooth] 
               {0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))} node [pos=0.59,pin={0:$f'_+$}] {}; 
             \addplot[domain=-5:5, green!35!black, thick,dashed] 
-              {0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))+0.05} ; 
+              {
+              (x<0)*
+               (0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))+0.05)
+               +
+               (x>=0)*min(
+	               0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))-0.05,
+    		           0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))+0.05
+               ) 
+              } ;  % dashed green 
             \addplot[domain=-5:5, red!35!black,thick,smooth] 
               {0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))} node [pos=0.4,pin={135:$f'_-$}] {}; 
               \addplot[domain=-5:5, red!35!black,thick,dashed] 
-              {0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))-0.05};
+              {
+              (x>0)*
+              (0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))-0.05)
+              +
+              (x<=0)*max(
+	               0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))-0.05,
+    		           0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))+0.05
+              )
+              };
 							%\node at (axis cs:1,0.5) {P3};
    \end{axis}
    \end{tikzpicture}}
-	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=0.1$. The dashed lines show
-	$f_v'-v\epsilon$, for $v\in \{\pm 1\}$.}
+	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=0.1$. 
+	The dashed lines show
+	$\overline{\gamma}_v(\cdot,\delta)$ for $C_1\delta^p=\epsilon$, 
+	$v\in \{\pm 1\}$.
+	\todoc[inline]{For the final version, uncomment the line that increases
+	the resolution above (look for samples=$\dots$).
+	}}
 	\label{fig:fprime}
 \end{subfigure}
 	\end{tabular}
@@ -171,24 +193,56 @@ Hence,
   \ge \dfrac{\epsilon}{2}  \indic{x v  < 0}. \label{eq:fv-lb}
 \end{align}
 % Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
-We will consider the oracles $\gamma_v$ defined as \todoc{There was a sign mistake here, oh my!}
+We will consider the oracles $\gamma_v$ defined by \todoc{There was a sign mistake here, oh my!}
 \begin{align}
  \gamma_v(x,\delta)
- 	 = 
-	 \underbrace{
-	 f_v(x)
-%	\epsilon \,\dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} 
- 	+ v\, \min(\epsilon,C_1 \delta^p)}_{\overline{\gamma}_v(x,\delta)} + \xi_\delta, \label{eq:main:oracle-1d}
+ 	 = \overline{\gamma}_v(x,\delta)+ \xi_\delta, \label{eq:main:oracle-1d}
 \end{align}
 where $\xi_\delta \sim \normal(0,\frac{C_2}{\delta^q})$
-and we abbreviate $\overline{\gamma}_{f_v}$ as $\overline{\gamma}_v$.
+and it remains to define $\overline{\gamma}_v$.
+The idea is to shift $f_-'$ and $f_+'$ towards each other, with the shift depending on the allowed bias $c_1(\delta) = C_1\delta^p$.
+In particular, since $f_+'\le f_-'$, $f_+'$ is shifted up, while $f_-'$ is shifted down. 
+However, the shifted up version of $f_+'$ is clipped for positive $x$ so that it never goes above the 
+shifted down version of $f_-'$, cf. \cref{fig:fprime}.
+ By moving the curves towards each other, algorithms which rely on the oracles
+will have an increasingly harder time (depending on the size of the shift) to distinguish whether the function optimized is $f_+$ or $f_-$. Since
+\begin{align*}
+0\le f_-'(x) - f_+'(x) \le \sup_{x} f_-'(x) - \inf_x f_+'(x) = 2\epsilon\,,
+\end{align*}
+we don't allow shifts larger than $\epsilon$ (so no crossing over happens), leading to the following formal definitions:
+\begin{align*}
+\overline{\gamma}_+(x,\delta) = 
+	\begin{cases}
+	f_+'(x) + \min(\epsilon,C_1\delta^p)\,, & \text{if } x<0\,; \\
+	\min(f_+'(x) + \min(\epsilon,C_1\delta^p), & \\
+	\quad\quad f_-'(x) - \min(\epsilon,C_1\delta^p))\,, & \text{otherwise}\,,
+	\end{cases}
+\end{align*}
+and
+\begin{align*}
+\overline{\gamma}_-(x,\delta) = 
+	\begin{cases}
+	f_-'(x) - \min(\epsilon,C_1\delta^p)\,, & \text{if } x>0\,; \\
+	\max(f_-'(x) - \min(\epsilon,C_1\delta^p), & \\
+	\quad\quad f_+'(x) + \min(\epsilon,C_1\delta^p))\,, & \text{otherwise}\,.
+	\end{cases}
+\end{align*}
 % ; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$)  to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
-The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
-Note that the curve of $\overline{\gamma}_+(\cdot,\delta)$ is obtained by shifting $f_+(\cdot)$ up,
-while that of $\overline{\gamma}_-(\cdot,\delta)$ is obtained by shifting $f_-(\cdot)$ down, 
-thus moving these curves ``towards each other'' (note that $f_-\ge f_+$).
-Thus makes it harder to figure out whether $v=+1$ or $v=-1$ based on alone
-the observations coming from $\gamma_+$ and $\gamma_-$ than if no shifting was applied (cf. \cref{fig:fprime}).
+We claim that this oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$. The variance condition is trivial.
+To see that $c_1(\delta) = C_1\delta^p$ works, 
+notice that $\gamma_v(x,\delta) = -\gamma_{-v}(-x,\delta)$ and $f_v'(x) = -f_{-v}'(x)$. Thus,
+$|\overline{\gamma}_+(x,\delta)-f_+'(x)| = |\overline{\gamma}_-(-x,\delta)-f_-'(-x)|$, hence it suffices to consider $v=+1$.
+Fixing $x$, $\delta$, $\epsilon$, 
+we will write $f_v'$ in place of $f_v'(x)$ and $\overline{\gamma}_v$ for $\overline{\gamma}_v(x,\delta)$. 
+We also let $c=\min(\epsilon,C_1\delta^p)$.
+Thus, our goal is to show $|\overline{\gamma}_+-f_+'|\le c$.
+When $\overline{\gamma}_+= f_+' + c$, the difference in question is clearly bounded by $c$. 
+The remaining case has two subcases: When $\overline{\gamma}_+ \ge f_+'$, 
+$|\overline{\gamma}_+-f_+'| = \overline{\gamma}_+-f_+' = \min(f_+'+c,f_-'-c)-f_+' \le f_+' + c - f_+'\le c$.
+Finally, when $\overline{\gamma}_+>f_+'$ and $\overline{\gamma}_+=f_-'+c$,
+$|\overline{\gamma}_+-f_+'| = f_+' - \gamma_+  = f_+'-f_-'+c \le c$, where the last inequality
+follows since $f_+'\le f_-'$.
+Thus, $\gamma_v$ is indeed an oracle with the required properties.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 The minimax error \eqref{eq:minimaxerrdef} is lower bounded by
@@ -243,41 +297,28 @@ Thus, we have
 \end{align*}
 as the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$.
 
-It remains to upper bound the numerator. For $(x,\delta)\in \R\times (0,1]$, let
-$a = f_+(x)$, $b=f_-(x)$, $c= C_1 \delta^p$, 
-so that $\Delta = |\gamma_-(x,\delta)-\gamma_+(x,\delta)| = | (b-\min(\epsilon,c)) -  (a+ \min(\epsilon,c)) |
-= |b-a - 2\min(\epsilon,c)|$.
-Now, note that 
-%$f_+'(x) - f_-'(x) = -2\epsilon$ and hence
+It remains to upper bound the numerator. For $(x,\delta)\in \R\times (0,1]$, first note that $\gamma_+(x,\delta)\le \gamma_-(x,\delta)$. Hence,
 \begin{align*}
-0 \le f_-'(x) - f_+'(x) \le 2\,\epsilon \,\dfrac{e^{1/\epsilon}-1}{e^{1/\epsilon}+1} < 2\epsilon \,,
+|\gamma_+(x,\delta)-\gamma_-(x,\delta)|
+& =  \gamma_-(x,\delta) - \gamma_+(x,\delta) \\
+& < \sup_x \gamma_-(x,\delta) - \inf_x \gamma_+(x,\delta) \\
+& = \lim_{x\to\infty} \gamma_-(x,\delta) - \lim_{x\to-\infty} \gamma_+(x,\delta) \\
+& = \epsilon - (\epsilon \wedge C_1\delta^p) - (-\epsilon + (\epsilon \wedge C_1\delta^p))\\
+& = 2\epsilon - 2(\epsilon \wedge C_1\delta^p)\\
+& \le 2(\epsilon - C_1\delta^p)_+\,, \numberthis \label{eq:gdiff-ub}
 \end{align*}
-cf. \cref{fig:fprime}, hence $0\le b-a <2\epsilon$. 
-We consider two cases based on whether $c>\epsilon$.
-When $c>\epsilon$, from the foregoing we see that $\Delta = 2\epsilon-(b-a)\le 2\epsilon$. ETC ETC.
-On the other hand, if $c\le \epsilon$, $\Delta = |b-a+2c|$.
-\todoc[inline]{BUG BELOW}
+where $a\wedge b = \min(a,b)$ and $(u)_+ = \max(u,0)$ is the positive part of $u$.
 
-Therefore,
-\begin{align}
- |\overline{\gamma}_+(x,\delta) - \overline{\gamma}_-(x,\delta)| 
- = | f'_+(x) - \min(\epsilon,C_1 \delta^p - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | 
- < 2 (\epsilon - C_1 \delta^p)_+\,,
- \label{eq:gdiff-ub}
-\end{align}
-where $(u)_+ = \max(u,0)$ denotes the positive part of $u\in \R$.
 %where $\delta(g_{1:t-1})$ is the tolerance parameter chosen by $\A$, based on the observations $g_{1:t-1}$. 
 From the foregoing, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and $\delta_t^{\A} = \delta^{\A}_t(g_{1:t-1})$ (effectively fixing $g_{1:t-1}$ for this step),
 \begin{align}
 \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}
-& =\dfrac{(\overline{\gamma}_{+}(x_t^{\A},\delta_t^{\A}) - \overline{\gamma}_{-}(x_t^{\A},\delta_t^{\A}))^2}{2 c_2(\delta^{\A}_t)}
-				\label{eq:dkgauss1}\\
+%& =\dfrac{(\overline{\gamma}_{+}(x_t^{\A},\delta_t^{\A}) - \overline{\gamma}_{-}(x_t^{\A},\delta_t^{\A}))^2}{2 c_2(\delta^{\A}_t)}
+%				\label{eq:dkgauss1}\\
 & < \dfrac{2\{(\epsilon-C_1(\delta^{\A}_t)^p)_+\}^2\,(\delta^{\A}_t)^q}{C_2}\label{eq:dkgauss}\\
 & \le  \sup_{\delta>0} \dfrac{2\{(\epsilon-C_1\delta^p)_+\}^2\,\delta^q}{C_2} \label{eq:supdelta}\,.
 \end{align}
-The equality \eqref{eq:dkgauss1} follows from the fact that 
-
-, while inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
+where inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
 
 Now, observe that 
 $\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)_+\}^2 \delta^q = \max_{(\epsilon/C_1)^{1/p}>\delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 

@@ -1,5 +1,7 @@
-\beamer@endinputifotherversion {3.33pt}
-\beamer@sectionintoc {1}{Bandit Problems}{7}{0}{1}
-\beamer@sectionintoc {2}{Gradient Estimation}{51}{0}{2}
-\beamer@sectionintoc {3}{New Oracle Model}{75}{0}{3}
-\beamer@sectionintoc {4}{Results}{76}{0}{4}
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Convex Bandit Optimization}{5}{0}{1}
+\beamer@sectionintoc {2}{The State-of-the-Art for Noisy Bandit Convex Optimization}{37}{0}{2}
+\beamer@sectionintoc {3}{How are Gradients Estimated?}{55}{0}{3}
+\beamer@sectionintoc {4}{New Oracle Model: Noisy, Biased Oracles}{107}{0}{4}
+\beamer@sectionintoc {5}{Results}{113}{0}{5}
+\beamer@sectionintoc {6}{Conclusion}{130}{0}{6}
