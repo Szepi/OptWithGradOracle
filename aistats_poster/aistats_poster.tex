@@ -196,20 +196,47 @@ Uncontrolled noise:  $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2 \delta^{-2}
 
 \headerbox{Gradient Estimates}{name=gradient,column=1,span = 2, below=oracles}{
 \begin{multicols}{2}
-Two-sided Differences -- Noisy Feedback\\[0.5ex]
+Two-sided Differences -- Noisy Feedback:\\[0.5ex]
 $
 	G_i = \frac{1}{2\delta} \left\lbrace \left( f(x+\delta e_i)+\xi_i^+\right) - \left( f(x-\delta e_i)+\xi_i^- \right) \right\rbrace
 	$\\[0.5ex]
 	where $i=1,\cdots,d$.
 	
-	Assumption: $\EE{\xi^\pm}=0$, $\EE{(\xi^\pm)^2}\leq \sigma^2<+\infty$.
+	Assumption: $\EE{\xi^\pm}=0$, $\EE{(\xi^\pm)^2}\leq \sigma^2$.
 	
 	Note: $G_i = g_i+\frac{\xi_i^+ - \xi_i^-}{2\delta}$, $\EE{G_i}=g_i$. Hence:
 
-	\textbf{\color{red}bias}:  $ \norm{\EE{G}-\nabla f(x)} = O(\sqrt{d}\delta^2)$ \\
+	\textbf{\color{red}bias}:  $ \norm{\EE{G}-\nabla f(x)} = O(\sqrt{d}\color{red}\delta^2\color{black})$ \\
 	 \textbf{\color{red}second moment}: $ \EE{G_i^2}=g_i^2+\frac{2\sigma^2}{4\delta^2}$\\
-	 \vspace{-1.4ex}
-	 \[ \EE{\norm{G}^2}=\norm{g}^2+O(\dfrac{d}{\delta^2})\].
+	 \textit{Controlled}: $\EE{\norm{G}^2}=\norm{g}^2$.\\
+	 \textit{Uncontrolled}:  $\EE{\norm{G}^2}=\norm{g}^2+O(\dfrac{d}{\color{red}\delta^2})$.
+	 
+	 
+	 General two-point \& one-point estimates:
+	 \begin{center}
+\tikz[baseline]{
+            \node[trapezium,trapezium left angle=90,
+  trapezium right angle=90, fill=yellow!20,anchor=base] (t1)
+            {\makecell{
+$
+G = \frac{ (f(x+U)+\xi^+) - (f(x-U)+\xi^-)}{2\delta} V
+$\\[0.7ex]
+$
+G = \frac{ (f(x+U)+\xi^+) }{\delta} V
+$
+}};}	
+\end{center}
+	Choose $U,V$ such that $\EE{ V U^\top  } = I$, $\EE{ V } = 0$.
+	
+	\begin{itemize} \compresslist
+	\item $U \sim \delta\, \cN(0,I)$, 
+	         $V = \delta^{-1}\, U$
+	\item $U \sim \delta\, \mathrm{Unif}(\mathbb{S}_d)$, 
+			 $V =d \delta^{-1}\,  U$
+    \item $U_i \sim \delta\, \mathrm{Rademacher}(\pm 1)$, 
+			 $V = \delta^{-1} \,U$
+	 \item $\cdots$
+	\end{itemize}
 	
 	  
 \end{multicols}
