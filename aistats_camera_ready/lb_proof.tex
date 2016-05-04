@@ -18,7 +18,9 @@ a random gradient estimate $G = m(x) + \xi$ with some map $m: \cK \to \R$,
 where $\xi$ is standard normal with variance $c_2(\delta):= C_2 \delta^{-q}$, satisfying the variance requirement.%
 \footnote{The argument presented below is not hard to extend to the case when all observations are from a bounded set,
 but the extension is left to the reader.}
-The map $m$, which, by slightly abusing notation, we will also denote by $\gamma$ in what follows, will be chosen based on $f$ to satisfy the requirement on the bias. The $Y$ value returned by the oracles is made equal to $x$.
+The map $m$, which, by slightly abusing notation, will be chosen based on $f$ and $\delta$ to satisfy the requirement on the bias. 
+We  use $\overline{\gamma}_f(x,\delta) = m(x)$ to emphasize this.
+The $Y$ value returned by the oracles is made equal to $x$.
 
 
 For now, fix any $(c_1,c_2)$ Type-I oracle $\gamma$ with the above properties and an algorithm $\A$.
@@ -34,9 +36,9 @@ where
 p_{\A,\gamma}(g_{1:n}, v) 
 &= \dfrac{1}{2} \bigg(p_{\A,\gamma}(g_n \mid g_{1:n-1})
 		\cdot \ldots \cdot p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \cdot \ldots \cdot p_{\A,\gamma}(g_1)\bigg)\\
-&=  \dfrac{1}{2} \bigg( p_{\N}(g_n - \gamma(x_n^{\A}(g_{1:n-1})),c_2(\delta_n^{\A}(g_{1:n-1}))) \cdot
+&=  \dfrac{1}{2} \bigg( p_{\N}(g_n - \overline{\gamma}(x_n^{\A}(g_{1:n-1})),c_2(\delta_n^{\A}(g_{1:n-1}))) \cdot
 %  &\times p_{\normal(0,\sigma^2)}(g_{n-1} - \gamma(\A_n(g_{1:n-2}))) \times \ldots \\
-									 \ldots \cdot  p_{\N}(g_1 - \gamma(x_1^{\A}),c_2(\delta_1^{\A}))\bigg),
+									 \ldots \cdot  p_{\N}(g_1 - \overline{\gamma}(x_1^{\A}),c_2(\delta_1^{\A}))\bigg),
 \end{align*}
 where $v\in\{-1,1\}$, $p_{\N}(\cdot,\sigma^2)$ is the density function of a $\normal(0,\sigma^2)$ random variable,
 and $x_t^{\A}$ ($\delta_t^{\A}$) denotes the map from the algorithm's past observations
@@ -139,7 +141,8 @@ M:=&\,\, \min_{x:xv<0} f_v(x) - f_v(v) \nonumber \\
 							%\node at (axis cs:1,0.5) {P3};
    \end{axis}
    \end{tikzpicture}}
-	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=0.1$}
+	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=0.1$. The dashed lines show
+	$f_v'-v\epsilon$, for $v\in \{\pm 1\}$.}
 	\label{fig:fprime}
 \end{subfigure}
 	\end{tabular}
@@ -170,9 +173,10 @@ Hence,
 % Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
 We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
- \gamma_v(x,\delta) = \epsilon \,\dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} - v\, \min(\epsilon,C_1 \delta^p) + \xi_\delta, \label{eq:main:oracle-1d}
+ \gamma_v(x,\delta) = \underbrace{\epsilon \,\dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} - v\, \min(\epsilon,C_1 \delta^p)}_{\overline{\gamma}_v(x,\delta)} + \xi_\delta, \label{eq:main:oracle-1d}
 \end{align}
-where $\xi_\delta \sim \normal(0,\frac{C_2}{\delta^q})$.
+where $\xi_\delta \sim \normal(0,\frac{C_2}{\delta^q})$
+and we abbreviate $\overline{\gamma}_{f_v}$ as $\overline{\gamma}_v$.
 % ; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$)  to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
 The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -217,8 +221,10 @@ Then, by the chain rule for KL-divergences, we have
 \label{eq:dklchain}
 &\dkl{P_{+}}{P_{-}}= \sum_{t=1}^n \int_{\R^{t-1}} \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})} d P_{+}^t( g_{1:t-1}).
 \end{align}
-By the oracle's definition, $G_t \sim  \normal(\gamma_{+}(x^{\cA}_t(G_{1:t-1})),c_2(\delta^{\A}(G_{1:t-1})))$, i.e., 
-$P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with mean $\cA_t(g_{1:t-1})$ and variance $c_2(\delta^{\A}(G_{1:t-1}))$.
+By the oracle's definition on $V=+1$ we have
+$G_t \sim  \normal(\overline{\gamma}_{+}(x^{\cA}_t(G_{1:t-1}),\delta^{\A}(G_{1:t-1}))),c_2(\delta^{\A}(G_{1:t-1})))$, i.e., 
+$P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with mean 
+$\overline{\gamma}_{+}(x^{\cA}_t(G_{1:t-1}),\delta^{\A}(G_{1:t-1}))$ and variance $c_2(\delta^{\A}(G_{1:t-1}))$.
 %, where $A(g_{1:t-1})$ denotes the point chosen by the algorithm given observations $g_1,\ldots, g_{t-1}$ and $\gamma_{+}$ is the gradient oracle defined earlier. 
 Observe that, for any $x\in \R$, 
 %$f_+'(x) - f_-'(x) = -2\epsilon$ and hence
@@ -228,7 +234,7 @@ Observe that, for any $x\in \R$,
 cf. \cref{fig:fprime}.
 Therefore,
 \begin{align}
- |\gamma_+(x,\delta) - \gamma_-(x,\delta)| 
+ |\overline{\gamma}_+(x,\delta) - \overline{\gamma}_-(x,\delta)| 
  = | f'_+(x) - \min(\epsilon,C_1 \delta^p - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | 
  < 2 (\epsilon - C_1 \delta^p)_+\,,
  \label{eq:gdiff-ub}
@@ -238,7 +244,7 @@ where $(u)_+ = \max(u,0)$ denotes the positive part of $u\in \R$.
 From the foregoing, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and $\delta_t^{\A} = \delta^{\A}_t(g_{1:t-1})$ (effectively fixing $g_{1:t-1}$ for this step),
 \begin{align}
 \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}
-& =\dfrac{(\gamma_{+}(x_t^{\A},\delta_t^{\A}) - \gamma_{-}(x_t^{\A},\delta_t^{\A}))^2}{2 c_2(\delta^{\A}_t)}
+& =\dfrac{(\overline{\gamma}_{+}(x_t^{\A},\delta_t^{\A}) - \overline{\gamma}_{-}(x_t^{\A},\delta_t^{\A}))^2}{2 c_2(\delta^{\A}_t)}
 				\label{eq:dkgauss1}\\
 & < \dfrac{2\{(\epsilon-C_1(\delta^{\A}_t)^p)_+\}^2\,(\delta^{\A}_t)^q}{C_2}\label{eq:dkgauss}\\
 & \le  \sup_{\delta>0} \dfrac{2\{(\epsilon-C_1\delta^p)_+\}^2\,\delta^q}{C_2} \label{eq:supdelta}\,.
@@ -246,27 +252,31 @@ From the foregoing, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and
 The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
 
 Now, observe that 
-$\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)_+\}^2 \delta^q = \max_{\delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 
+$\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)_+\}^2 \delta^q = \max_{(\epsilon/C_1)^{1/p}>\delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 
 In other words, the maximizer $\delta_*$ of \eqref{eq:supdelta} can never be in the zero arm of the positive part 
 function $(\epsilon - C_1 \delta^p)_+$,
 and hence we maximize \eqref{eq:supdelta} by replacing the positive part with $(\epsilon - C_1 \delta^p)$ and imposing the condition $\epsilon/C_1 \ge \delta^p>0$.
-Defining $z=p/q$, we obtain
+Defining $z=p/q$, 
+we obtain
 \begin{align}
 \delta_*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p} \text{ as long as }\epsilon<\frac{2z+1}{C_1^{2z-1}(z+1)^z}. \label{eq:deltastar}
 \end{align}
 \todoc[inline]{
-I could not get this. 
+Here is the calculation to get this:
 I defined $u = \delta^q$, writing $(\epsilon-C_1 \delta^p)^2 \delta^q = (\epsilon-C_1 u^z)^2 u 
 = \epsilon^2 u- 2C_1 \epsilon u^{z+1} + C_1^2 u^{2z+1}
 = :f(u)$.
 The first order optimality criterion is
 $0 = f'(u) = C_1^2(2z+1) (u^z)^2 - 2 C_1 (z+1) \epsilon u^z + \epsilon^2$, from which I get
-$(u^z)_{1,2} = \frac{2C_1(z+1)\epsilon \pm 2 C_1 z \epsilon}{2C_1^2(2z+1)}$.
-I believe the minimizer is the larger of these two ($f$ first increases, then decreases, then increases).
-From this, I get
-$u^z = \epsilon/C_1$, and $\delta = (u^z)^{1/p} = (\epsilon/C_1)^{1/p}$.
-I did not correct the rest besides minor editorial changes.}
-
+$(u^z)_{1,2} = \frac{2C_1(z+1)\epsilon \pm 2 C_1 z \epsilon}{2C_1^2(2z+1)}$,
+that is $u^z_1 = \frac{\epsilon }{2C_1 (2z+1)}$, $u^z_2 = \frac{\epsilon}{C_1}$.
+Note that at the end-points of the interval $[0,(\epsilon/C_1)^{1/z}]$
+the function $f$ equals zero, while inside the interval it takes on positive values.
+We see that the larger endpoint of this interval is $u_2$. Hence, the function must have a 
+unique maximum in this interval at $u_1$. 
+Thus,  $\delta_* = u_1^{1/q}$, i.e., $\delta_* = ( \frac{\epsilon }{2C_1 (2z+1)})^{1/p}$.
+The condition $\delta_*\le 1$ gives $2z+1\ge 1$m which holds no matter the values of $p,q$.
+}
 Plugging \eqref{eq:supdelta} into \eqref{eq:dklchain}, we obtain
 \begin{align}
 \dkl{P_{+}}{P_{-}} \le \dfrac{2n}{C_2} (\epsilon-C_1\delta_*^p)_+^2 \delta_*^q.
