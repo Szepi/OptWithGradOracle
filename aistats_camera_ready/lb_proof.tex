@@ -1,4 +1,4 @@
-%!TEX root =  bgo_camera_ready.tex
+%!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \subsection{Proof of Theorem \ref{thm:lb-convex} for convex + smooth function class $\F_{L,0}(\K)$}
@@ -75,18 +75,18 @@ The equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. 
            % grid style={dashed, gray!30},
             %xmin=-3,     % start the diagram at this x-coordinate
             %xmax=3,    % end   the diagram at this x-coordinate
-						ymax=5,
+						ymax=0.5,
 						xtick={-1,0,1},
             xticklabels={-1,0,+1},
             yticklabels=\empty
             ]
            \addplot[domain=-2.75:5, green!35!black, thick,smooth] 
-              {x-1 + 2*ln(1+exp(-(x-1)))} node [pos=0.9,pin={135:$f_+$}] {} node [pos=0.1,pin={85:{\makecell{\scriptsize decreasing\\\scriptsize when $x\!<\!0$}}}] {}; 
+              {0.1*(x-1) + 2*0.01*ln(1+exp(-10*(x-1)))} node [pos=0.9,pin={135:$f_+$}] {} node [pos=0.1,pin={85:{\makecell{\scriptsize decreasing\\\scriptsize when $x\!<\!0$}}}] {}; 
             \addplot[domain=-5:2.75, red!35!black,thick,smooth] 
-              {x+1 + 2*ln(1+exp(-(x+1)))} node [pos=0.1,pin={45:$f_-$}] {} node [pos=0.615,pin={5:\makecell{\scriptsize$\min\limits_{x<0} f_+(x)$}}] {}; 
+              {0.1*(x+1) + 2*0.01*ln(1+exp(-10*(x+1)))} node [pos=0.1,pin={45:$f_-$}] {} node [pos=0.615,pin={5:\makecell{\scriptsize$\min\limits_{x<0} f_+(x)$}}] {}; 
    \end{axis}
    \end{tikzpicture}}
-	\caption{Plot of $f_+$ and $f_-$ with $\epsilon=1$}
+	\caption{Plot of $f_+$ and $f_-$ with $\epsilon=0.1$}
 \label{fig:lbfvdiff}
 	  \end{subfigure}
 	&
@@ -108,14 +108,14 @@ The equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. 
             %xticklabels={-1,0,+1},
             yticklabels=\empty
             ]
-           \addplot[domain=-1.5:5, green!35!black, thick,smooth] 
-              {1-exp(-(x-1))/(1+exp(-(x-1)))} node [pos=0.5,pin={315:$f'_+$}] {}; 
-            \addplot[domain=-5:1.5, red!35!black,thick,smooth] 
-              {1-exp(-(x+1))/(1+exp(-(x+1)))} node [pos=0.4,pin={135:$f'_-$}] {}; 
+           \addplot[domain=-5:5, green!35!black, thick,smooth] 
+              {0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))} node [pos=0.59,pin={0:$f'_+$}] {}; 
+            \addplot[domain=-5:5, red!35!black,thick,smooth] 
+              {0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))} node [pos=0.4,pin={135:$f'_-$}] {}; 
 							%\node at (axis cs:1,0.5) {P3};
    \end{axis}
    \end{tikzpicture}}
-	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=1$}
+	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=0.1$}
 	\label{fig:fprime}
 \end{subfigure}
 	\end{tabular}
