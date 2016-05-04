@@ -51,12 +51,12 @@ colspacing=1em, % Column spacing
 bgColorOne=white, % Background color for the gradient on the left side of the poster
 bgColorTwo=white, % Background color for the gradient on the right side of the poster
 borderColor=green, % Border color
-headerColorOne=olive, % Background color for the header in the content boxes (left side)
-headerColorTwo=green, % Background color for the header in the content boxes (right side)
+headerColorOne=green!40!black, % Background color for the header in the content boxes (left side)
+headerColorTwo=olive, % Background color for the header in the content boxes (right side)
 headerFontColor=white, % Text color for the header text in the content boxes
 boxColorOne=white, % Background color of the content boxes
 textborder=roundedleft, % Format of the border around content boxes, can be: none, bars, coils, triangles, rectangle, rounded, roundedsmall, roundedright or faded
-eyecatcher=true, % Set to false for ignoring the left logo in the title and move the title left
+eyecatcher=false, % Set to false for ignoring the left logo in the title and move the title left
 headerheight=0.1\textheight, % Height of the header
 headershape=roundedright, % Specify the rounded corner in the content box headers, can be: rectangle, small-rounded, roundedright, roundedleft or rounded
 headerfont=\Large\bf\textsc, % Large, bold and sans serif font in the headers of content boxes
@@ -69,13 +69,11 @@ linewidth=2pt % Width of the border lines around content boxes
 %
 %{\includegraphics[height=4em]{u-of-alberta-logo.pdf}} % First university/lab logo on the left
 {}
-{\bf\textsc{(Bandit) Convex Optimization with\\ Biased Noisy Gradient Oracles}\vspace{0.2em}} % Poster title
+{\bf\textsc{(Bandit) Convex Optimization with\\ Biased Noisy Gradient Oracles}\vspace{0.5em}} % Poster title
 { Xiaowei  Hu, Prashanth L A, Andr\'as Gy\"orgy, Csaba Szepesv\'ari } % Author names and institution
-{\includegraphics[height=2em]{u-of-alberta-logo.pdf}
-\hspace{12pt}
-\includegraphics[height=2em]{clark.png}
-\hspace{12pt}
-\includegraphics[height=2em]{icl.png}} % Second university/lab logo on the right
+{
+\includegraphics[width=19em]{logo.pdf}
+} % Second university/lab logo on the right
 
 
 
@@ -166,9 +164,17 @@ Gradient methods:
 \item Smooth + Strongly Convex: $\color{red}\sqrt{d^2/n}$
 \end{itemize}
 
-Lower Bound: $\color{red}\sqrt{d^2/n}$\\[0.5ex]
-
- \large \textbf{Big Gaps: Can we do better using a ``clever" gradient method?}
+Lower Bound: $\color{red}\sqrt{d^2/n}$
+\begin{center}
+\tikz[baseline]{
+            \node[trapezium,trapezium left angle=90,
+  trapezium right angle=90, fill=orange!10,anchor=base] (t1)
+            {\makecell{
+\large \textbf{Big Gaps: Can we do better}\\
+\large \textbf{using a ``clever" gradient method?}
+}};}	
+\end{center}
+ 
 }
 %----------------------------------------------------------------------------------------
 
@@ -368,7 +374,7 @@ Define $\F_{L,0}$ comprised of $f_+$ and $f_-$.
 
 \begin{center}
 \begin{tikzpicture}
-   \begin{axis}[width=7cm,height=4cm,
+   \begin{axis}[width=7cm,height=4.5cm,
           %  grid = major,         
             axis y line=middle,
             axis x line=middle,
