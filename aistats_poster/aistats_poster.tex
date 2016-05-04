@@ -51,8 +51,8 @@ colspacing=1em, % Column spacing
 bgColorOne=white, % Background color for the gradient on the left side of the poster
 bgColorTwo=white, % Background color for the gradient on the right side of the poster
 borderColor=green, % Border color
-headerColorOne=green!40!black, % Background color for the header in the content boxes (left side)
-headerColorTwo=olive, % Background color for the header in the content boxes (right side)
+headerColorOne=green!30!black, % Background color for the header in the content boxes (left side)
+headerColorTwo=green!30!black, % Background color for the header in the content boxes (right side)
 headerFontColor=white, % Text color for the header text in the content boxes
 boxColorOne=white, % Background color of the content boxes
 textborder=roundedleft, % Format of the border around content boxes, can be: none, bars, coils, triangles, rectangle, rounded, roundedsmall, roundedright or faded
@@ -374,22 +374,37 @@ Define $\F_{L,0}$ comprised of $f_+$ and $f_-$.
 
 \begin{center}
 \begin{tikzpicture}
-   \begin{axis}[width=7cm,height=4.5cm,
+   \begin{axis}[width=9cm,height=4.2cm,
           %  grid = major,         
             axis y line=middle,
             axis x line=middle,
 						xlabel={$x$},
 						every axis x label/.style={at={(current axis.right of origin)},anchor=west},
             yticklabels=\empty
+            samples = 100000
             ]
            \addplot[domain=-5:5, green!35!black, thick,smooth] 
               {0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))} node [pos=0.59,pin={0:$f'_+$}] {}; 
             \addplot[domain=-5:5, green!35!black, thick,dashed] 
-              {0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))+0.05} ; 
+              {
+              (x<0)*
+              (0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))+0.05)
+              +
+              (x>0)*
+              min(0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))-0.05,
+              0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))+0.05)
+              } ; 
             \addplot[domain=-5:5, red!35!black,thick,smooth] 
               {0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))} node [pos=0.4,pin={135:$f'_-$}] {}; 
               \addplot[domain=-5:5, red!35!black,thick,dashed] 
-              {0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))-0.05};
+              {
+              (x>0)*
+              (0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))-0.05)
+              +
+              (x<0)*
+              max(0.1*(1-exp(-10*(x+1)))/(1+exp(-10*(x+1)))-0.05,
+              0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))+0.05)
+              };
    \end{axis}
    \end{tikzpicture}
 \end{center}
