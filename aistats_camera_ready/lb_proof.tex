@@ -3,59 +3,79 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \subsection{Proof of Theorem \ref{thm:lb-convex} for convex + smooth function class $\F_{L,0}(\K)$}
 \label{sec:appendix-lbconvex}
+\todoc{We should also mention that the proof is based on ideas from XXYY.}
+We will use a novel technique that will allow us to  reduce the $d$-dimensional case to the $1$-dimensional case (see later).
+Thus, we start with the one-dimensional case.
+
 \paragraph{Proof in one dimension:}
-For brevity, let $\Delta_n^{*}$ denote the minimax error $\Delta_n^*(\F, c_1,c_2)$ for the case of $1$-dimensional function family $\F$.
-The proof uses only $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK$ to $\R$ (i.e., the oracles do not have memory).
-Fix a  $(c_1,c_2)$ Type-I oracle $\gamma$ and an algorithm $\A$.
-We restrict the class of oracles to those that return a random gradient estimate $G = m(x) + \xi$ with some map $m: \cK \to \R$,
-where $\xi$ is standard normal with variance $\sigma^2 = C_2 \delta^{-q}$, satisfying the variance requirement. 
+As the section title suggests, we have $\F = \F_{L,0}(\K)$, where 
+by the assumption of the theorem, $L\ge 1/2$ and $\K$ is convex and $[-1,1]\subset \K$.
+For brevity, we let $\Delta_n^{*}$ denote the minimax error $\Delta_n^*(\F, c_1,c_2)$ for the case of $1$-dimensional function family $\F$.
+
+The proof uses $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK\times (0,1]$ to $\R$, i.e., the oracles do not have memory.
+In particular, we restrict the class of oracles to those that on input $(x,\delta)$ return 
+a random gradient estimate $G = m(x) + \xi$ with some map $m: \cK \to \R$,
+where $\xi$ is standard normal with variance $c_2(\delta):= C_2 \delta^{-q}$, satisfying the variance requirement.%
+\footnote{The argument presented below is not hard to extend to the case when all observations are from a bounded set,
+but the extension is left to the reader.}
 The map $m$, which, by slightly abusing notation, we will also denote by $\gamma$ in what follows, will be chosen based on $f$ to satisfy the requirement on the bias. The $Y$ value returned by the oracles is made equal to $x$.
 
-Let $\delta$ denote the tolerance parameter chosen by $\A$.
-Define the probability space $(\Omega, \B, P_{\A,\gamma})$, 
-where $\Omega = \R^n\times \{-1,1\}$, $\B$ is the associated Borel sigma algebra. 
-Further, the probability measure $P_{\A,\gamma} := p_{\A,\gamma} d(\lambda \times m)$, 
+
+For now, fix any $(c_1,c_2)$ Type-I oracle $\gamma$ with the above properties and an algorithm $\A$.
+%Let $\delta$ denote the tolerance parameter chosen by $\A$.
+Consider the probability space $(\Omega, \B, P_{\A,\gamma})$, 
+where $\Omega = \R^n\times \{-1,1\}$, $\B$ is the associated Borel sigma algebra
+and $P_{\A,\gamma}$ is defined by $P_{\A,\gamma} := p_{\A,\gamma} d(\lambda \times m)$, 
+where
 	$\lambda$ is the Lebesgue measure on $\R^n$, 
 	$m$ is the counting measure on $\{-1,1\}$ and 
-	$p_{\A,\gamma}$ is the density function defined as
+	$p_{\A,\gamma}$ is the density function defined by
 \begin{align*}
-p_{\A,\gamma}(g_{1:n}, v) = &\dfrac{1}{2} \bigg(p_{\A,\gamma}(g_n \mid g_{1:n-1})\times \dots \times p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \ldots p_{\A,\gamma}(g_1)\bigg)\\
- = & \dfrac{1}{2} \bigg( p_{\N}(g_n - \gamma(\A_n(g_{1:n-1}))) \cdot
+p_{\A,\gamma}(g_{1:n}, v) 
+&= \dfrac{1}{2} \bigg(p_{\A,\gamma}(g_n \mid g_{1:n-1})
+		\cdot \ldots \cdot p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \cdot \ldots \cdot p_{\A,\gamma}(g_1)\bigg)\\
+&=  \dfrac{1}{2} \bigg( p_{\N}(g_n - \gamma(x_n^{\A}(g_{1:n-1})),c_2(\delta_n^{\A}(g_{1:n-1}))) \cdot
 %  &\times p_{\normal(0,\sigma^2)}(g_{n-1} - \gamma(\A_n(g_{1:n-2}))) \times \ldots \\
- \ldots \cdot  p_{\N}(g_1 - \gamma(\A_1))\bigg),
+									 \ldots \cdot  p_{\N}(g_1 - \gamma(x_1^{\A}),c_2(\delta_1^{\A}))\bigg),
 \end{align*}
-where $v\in\{-1,1\}$, $p_{\N}$ is the density of a $\normal(0,\sigma^2)$ random variable,
-and $\cA_t$ denotes the map from the algorithm's past observations
-that picks the point that is sent to the oracle in round $t$.
-It is enough to consider algorithms that are deterministic functions of past observations, without any loss of generality. This is because any random querying algorithm can be seen as a randomization over deterministic querying strategy.
+where $v\in\{-1,1\}$, $p_{\N}(\cdot,\sigma^2)$ is the density function of a $\normal(0,\sigma^2)$ random variable,
+and $x_t^{\A}$ ($\delta_t^{\A}$) denotes the map from the algorithm's past observations
+that picks the point (respectively, accuracy parameter $\delta$), which are sent to the oracle in round $t$.
+By Yao's principle, without loss of generality, 
+it is enough to consider algorithms that are deterministic functions of past observations.
+In particular, this is true because any random querying algorithm can be seen as a randomization over deterministic querying strategies. \todoc{Cite source?}
 % \todoc{Enough to consider deterministic algorithms}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-By assumption,  $\{f_+, f_-\}\subset \F$, with 
+Let
 \begin{align*}
 f_+(x) :=  \epsilon\left( x-1\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-1}{\epsilon}}  \right)
-\text{ and } f_-(x) := \epsilon\left( x+1\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x+1}{\epsilon}}  \right), \,\, x \in \cK\,;
+\text{ and } f_-(x) := \epsilon\left( x+1\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x+1}{\epsilon}}  \right), \,\, x \in \cK\,.
 \end{align*}
-we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+In what follows, we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
+These functions, with the choice $\epsilon=0.1$, are shown in \cref{fig:lbfvdiff}.
 
+We will now show that $\{f_+, f_-\}\subset \F$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 The first and second order derivatives of $f_v$ are
 \begin{align*}
-f'_v(x) &=\epsilon \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} ,\,\,
-f''_v(x) = \dfrac{2e^{-\frac{x-v}{\epsilon}} }{\left(  1+e^{-\frac{x-v}{\epsilon}}\right)^2}  .
+f'_v(x) &=\epsilon\, \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} \,, \qquad \qquad
+f''_v(x) = \dfrac{2e^{-\frac{x-v}{\epsilon}} }{\left(  1+e^{-\frac{x-v}{\epsilon}}\right)^2}  \,.
 \end{align*}
 % we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-Clearly, $f_v$ is $\frac{1}{2}$-smooth and minimized at $x^*_v = v$, with $f_v(v) = 2 \epsilon^2 \ln 2$.
+From this we see that $f_v$ is $\frac{1}{2}$-smooth, thus $f_v\in \F$.
 
-We now lower-bound the difference $f_v(x)-f_v(x_v^*)$ as follows:
+Further, it is also obvious that $f_v$ is minimized at $x^*_v = v$, with $f_v(v) = 2 \epsilon^2 \ln 2$.
+We claim that if $x$ has the opposite sign of $v$, the difference $f_v(x)-f_v(x_v^*)$ is ``large''.
+Indeed, we have
 \begin{align}
-M:=&\,\, \min_{x:xv<0} f_v(x) - f_v(v) \label{eq:lbfvdiffM}\\
- = & \,\, f_v(0) - f_v(v) \label{eq:lbfvdiff}\\
-= &\,\, \epsilon\left(-v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}\right).\label{eq:lbfvdiff2}
+M:=&\,\, \min_{x:xv<0} f_v(x) - f_v(v) \nonumber \\
+ = & \,\, f_v(0) - f_v(v)  & (v f_v \text{ is decreasing on }\{x\,:\, xv<0\}\text{, cf. \cref{fig:lbfvdiff}}) \nonumber \\
+= &\,\, \epsilon\left(-v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}\right). \nonumber %\label{eq:lbfvdiff2}
 \end{align}
-The equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. As illustrated in Figure \ref{fig:lbfvdiff}, $\min_{x:xv<0} f_v(x)$ is achieved at $x=0$ due to monotonicity of $f_v$. A similar argument works for $v=-1$ as well. 
+%Above, the equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. As illustrated in Figure \ref{fig:lbfvdiff}, $\min_{x:xv<0} f_v(x)$ is achieved at $x=0$ due to monotonicity of $f_v$. A similar argument works for $v=-1$ as well. 
 %This can also be seen from the plot of $f_+$ to the left of $+1$ and of $f_-$ to the right of $-1$ in Figure \ref{fig:lbfvdiff}. 
 
  \begin{figure}
@@ -122,14 +142,17 @@ The equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. 
 \end{figure}
 
 
-Let $h(v) = -v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}$. In the following, we establish that  $h(v)$ is an even function, i.e., $h(v) = h(-v)$.
+Let $h(v) = -v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}$.
+A simple algebra shows that $h$ is an even function, i.e., $h(v) = h(-v)$. Indeed,
 \begin{align*}
-h(v) =& -v + 2\epsilon\ln\left(e^{\frac{v}{\epsilon}} \dfrac{1+e^{-\frac{v}{\epsilon}}}{2}\right)\\
-=& -v + 2\epsilon \dfrac{v}{\epsilon}  + 2\epsilon\ln\dfrac{1+e^{-\frac{v}{\epsilon}}}{2}\\
-= & h(-v).
+h(v) = -v + 2\,\epsilon\,\ln\left(e^{\frac{v}{\epsilon}} \dfrac{1+e^{-\frac{v}{\epsilon}}}{2}\right)
+= -v + 2\,\epsilon\, \dfrac{v}{\epsilon}  + 2\,\epsilon\,\ln\dfrac{1+e^{-\frac{v}{\epsilon}}}{2}
+=  h(-v)\,.
 \end{align*}
-Plugging the above in \eqref{eq:lbfvdiffM}, we obtain
-$$ M = \epsilon\left(-1 + 2\epsilon\ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}\right).$$
+Specifically, $h(1) = h(-1)$ and thus
+\begin{align*}
+M = \epsilon\left(-1 + 2\epsilon\ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}\right)\,.
+\end{align*}
 From the foregoing, when $xv<0$, $\epsilon<\dfrac{1}{4\ln 2}$,  we have
 \begin{align*}
 f_v(x)-f_v(x_v^*) >\epsilon\left( -1 +2\epsilon \ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}  \right)> \dfrac{\epsilon}{2}.
@@ -143,9 +166,9 @@ Hence,
 % Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
 We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
- \gamma_v(x) = \epsilon \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} - v\, \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:main:oracle-1d}
+ \gamma_v(x,\delta) = \epsilon \,\dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} - v\, \min(\epsilon,C_1 \delta^p) + \xi_\delta, \label{eq:main:oracle-1d}
 \end{align}
-where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$.
+where $\xi_\delta \sim \normal(0,\frac{C_2}{\delta^q})$.
 % ; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$)  to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
 The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -161,7 +184,8 @@ The minimax error \eqref{eq:minimaxerrdef} is lower bounded by
 where the expectation is w.r.t. the distribution $\P:= \dfrac{1}{2} \left(P_{\A, \gamma_+} \indic{v=+1} + P_{\A, \gamma_-}\indic{v=-1}\right)$ and $V: \Omega \to \{\pm 1 \}$ is defined by $V(g_{1:n},v) = v$.%
 \footnote{Here, we are slightly abusing the notation as $\P$ depends on $\A$, but the dependence is suppressed.
 In what follows, we will define several other distributions derived from $\P$, which will all depend on $\A$, but
-for brevity this dependence will also be suppressed.}
+for brevity this dependence will also be suppressed.
+The point where the dependence on $\A$ is eliminated will be called to the reader's attention.}
 %Here $\gamma_v$  is the oracle for $f_v$, for $v=+1,-1$ and is defined by $\gamma_v(x) = \epsilon(x-v) + v C_1 \delta^p$. 
 Define $\P_{+}(\cdot) := \P(\cdot\mid V=1)$, $\P_{-}(\cdot) := \P(\cdot\mid
 V=-1)$. 
@@ -181,7 +205,7 @@ Further, the inequality in \eqref{eq:lecam} follows from the definition of total
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-Define $G_t$ to be the $t$th observation of $\A$: $G_t:\Omega \to \R$, with $G_t( g_{1:n}, v) = g_t$.
+Define $G_t$ to be the $t$th observation of $\A$. Thus, $G_t:\Omega \to \R$, with $G_t( g_{1:n}, v) = g_t$.
 Let $P_+^t(g_1,\dots,g_t)$ denote the joint distribution of $G_1,\dots,G_t$ conditioned on $V=+1$.
 Let $P_{+}^t(\cdot\mid g_1,\ldots,g_{t-1})$ denote the distribution of $G_t$ conditional on $V=+1$ and $G_1=g_1,\ldots,G_{t-1}=g_{t-1}$. Define  $P_{-j}^t(\cdot\mid g_1,\ldots,g_{t-1})$ in a similar fashion.
 Then, by the chain rule for KL-divergences, we have
@@ -189,40 +213,66 @@ Then, by the chain rule for KL-divergences, we have
 \label{eq:dklchain}
 &\dkl{P_{+}}{P_{-}}= \sum_{t=1}^n \int_{\R^{t-1}} \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})} d P_{+}^t( g_{1:t-1}).
 \end{align}
-By the oracle's definition, $G_t \sim  \normal(\gamma_{+}(\cA_t(G_{1:t-1})),\sigma^2)$. Hence, 
-$P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with the mean $\cA_t(g_{1:t-1})$ and variance $\sigma^2$.
+By the oracle's definition, $G_t \sim  \normal(\gamma_{+}(x^{\cA}_t(G_{1:t-1})),c_2(\delta^{\A}(G_{1:t-1})))$, i.e., 
+$P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with mean $\cA_t(g_{1:t-1})$ and variance $c_2(\delta^{\A}(G_{1:t-1}))$.
 %, where $A(g_{1:t-1})$ denotes the point chosen by the algorithm given observations $g_1,\ldots, g_{t-1}$ and $\gamma_{+}$ is the gradient oracle defined earlier. 
 Observe that, for any $x\in \R$, 
 %$f_+'(x) - f_-'(x) = -2\epsilon$ and hence
 \begin{align*}
-0 \le f_-'(x) - f_+'(x) \le 2\epsilon \dfrac{e^{1/\epsilon}-1}{e^{1/\epsilon}+1} < 2\epsilon .
+0 \le f_-'(x) - f_+'(x) \le 2\,\epsilon \,\dfrac{e^{1/\epsilon}-1}{e^{1/\epsilon}+1} < 2\epsilon \,,
 \end{align*}
+cf. \cref{fig:fprime}.
 Therefore,
 \begin{align}
- |\gamma_+(x) - \gamma_-(x)| 
-& = | f'_+(x) - \min(\epsilon,C_1 \delta(g_{1:t-1})^p - (f'_-(x)+\min(\epsilon,C_1 \delta(g_{1:t-1})^p)) | \nonumber \\
-& < 2 (\epsilon - C_1 \delta(g_{1:t-1})^p)_+\,,
+ |\gamma_+(x,\delta) - \gamma_-(x,\delta)| 
+ = | f'_+(x) - \min(\epsilon,C_1 \delta^p - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | 
+ < 2 (\epsilon - C_1 \delta^p)_+\,,
  \label{eq:gdiff-ub}
 \end{align}
-where $\delta(g_{1:t-1})$ is the tolerance parameter chosen by $\A$, based on the observations $g_{1:t-1}$. Further, $(\epsilon - C_1 \delta(g_{1:t-1})^p)_+ = \max(\epsilon - C_1 \delta(g_{1:t-1})^p,0)$. 
-From the foregoing, 
+where $(u)_+ = \max(u,0)$ denotes the positive part of $u\in \R$.
+%where $\delta(g_{1:t-1})$ is the tolerance parameter chosen by $\A$, based on the observations $g_{1:t-1}$. 
+From the foregoing, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and $\delta_t^{\A} = \delta^{\A}_t(g_{1:t-1})$ (effectively fixing $g_{1:t-1}$ for this step),
 \begin{align}
-\dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\le&\dfrac{(\gamma_{+}(A(g_{1:t-1})) - \gamma_{-}(A(g_{1:t-1})))^2}{2 C_2\delta^{-q}}\label{eq:dkgauss1}\\
-<& \dfrac{2(\epsilon-C_1\delta(g_{1:t-1})^p)_+^2\delta(g_{1:t-1})^q}{C_2}\label{eq:dkgauss}\\
- \le & \max_{\delta>0} \dfrac{2(\epsilon-C_1\delta^p)_+^2\delta^q}{C_2}
+\dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}
+& =\dfrac{(\gamma_{+}(x_t^{\A},\delta_t^{\A}) - \gamma_{-}(x_t^{\A},\delta_t^{\A}))^2}{2 c_2(\delta^{\A}_t)}
+				\label{eq:dkgauss1}\\
+& < \dfrac{2\{(\epsilon-C_1(\delta^{\A}_t)^p)_+\}^2\,(\delta^{\A}_t)^q}{C_2}\label{eq:dkgauss}\\
+& \le  \sup_{\delta>0} \dfrac{2\{(\epsilon-C_1\delta^p)_+\}^2\,\delta^q}{C_2} \label{eq:supdelta}\,.
 \end{align}
-The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while the equality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}.
+The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
 
-Plugging \eqref{eq:dkgauss} into \eqref{eq:dklchain}, we obtain
+Now, observe that 
+$\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)_+\}^2 \delta^q = \max_{\delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 
+In other words, the maximizer $\delta_*$ of \eqref{eq:supdelta} can never be in the zero arm of the positive part 
+function $(\epsilon - C_1 \delta^p)_+$,
+and hence we maximize \eqref{eq:supdelta} by replacing the positive part with $(\epsilon - C_1 \delta^p)$ and imposing the condition $\epsilon/C_1 \ge \delta^p>0$.
+Defining $z=p/q$, we obtain
 \begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{2n}{C_2} \max_{\delta>0} (\epsilon-C_1\delta^p)_+^2 \delta^q.
+\delta_*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p} \text{ as long as }\epsilon<\frac{2z+1}{C_1^{2z-1}(z+1)^z}. \label{eq:deltastar}
+\end{align}
+\todoc[inline]{
+I could not get this. 
+I defined $u = \delta^q$, writing $(\epsilon-C_1 \delta^p)^2 \delta^q = (\epsilon-C_1 u^z)^2 u 
+= \epsilon^2 u- 2C_1 \epsilon u^{z+1} + C_1^2 u^{2z+1}
+= :f(u)$.
+The first order optimality criterion is
+$0 = f'(u) = C_1^2(2z+1) (u^z)^2 - 2 C_1 (z+1) \epsilon u^z + \epsilon^2$, from which I get
+$(u^z)_{1,2} = \frac{2C_1(z+1)\epsilon \pm 2 C_1 z \epsilon}{2C_1^2(2z+1)}$.
+I believe the minimizer is the larger of these two ($f$ first increases, then decreases, then increases).
+From this, I get
+$u^z = \epsilon/C_1$, and $\delta = (u^z)^{1/p} = (\epsilon/C_1)^{1/p}$.
+I did not correct the rest besides minor editorial changes.}
+
+Plugging \eqref{eq:supdelta} into \eqref{eq:dklchain}, we obtain
+\begin{align}
+\dkl{P_{+}}{P_{-}} \le \dfrac{2n}{C_2} (\epsilon-C_1\delta_*^p)_+^2 \delta_*^q.
 \end{align}
 Note that the above bound holds uniformly over all algorithms $\A$. 
 Substituting the above bound into \eqref{eq:pinsker}, we obtain 
 \begin{align}
  \Delta_n^{*}
   \ge & \dfrac{\epsilon}{2} \left(1 - \sqrt{
-    n}  \dfrac{\max_{\delta>0} (\epsilon-C_1\delta^p)_+\delta^{q/2}}{C_2}
+    n}  \dfrac{ (\epsilon-C_1\delta_*^p)_+\delta_*^{q/2}}{C_2}
   \right)\label{eq:final-lower-bd}
 \end{align}
 
@@ -253,20 +303,10 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 % \]
 
 \paragraph{Derivation of the rates uniformly for all $\delta$:}
-Observe that $\max_{\delta> 0} (\epsilon - C_1 \delta^p)^2_+ \delta^q = \max_{\delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 
-In other words, minimizer $\delta^*$ of \eqref{eq:final-lower-bd} can never be in the zero arm of the positive part function, i.e., $(\epsilon - C_1 \delta^p)_+ $, and hence we minimize \eqref{eq:final-lower-bd} by replacing the positive part with $(\epsilon - C_1 \delta^p)$ and imposing the condition $\epsilon/C_1 \ge \delta^p>0$.
 
-Defining $z=p/q$, we obtain
-\begin{align}
-\delta^*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p} \text{ as long as }\epsilon<\frac{2z+1}{C_1^{2z-1}(z+1)^z}. \label{eq:deltastar}
-\end{align}
-\todoc[inline]{Now, I added some stupid upper bound in the oracle definition for $\delta$ ($\delta\le 1$) Thus we should verify that this holds. Actually, $1$ was an arbitrary choice. But we needed an upper bound on $\delta$, or we cannot handle constrained problems in any way. I think we will be ok, but
-maybe there will be a condition that $n$ should be ``big enough''. Brr.
-Prashanth: I have incorporated this constraint in lb bounds - pl. see condition after Theorem 3.}
-\todoa[inline]{Where is the condition on $\delta<1$ used? I actually added the large enough $n$ condition and removed $q\ge 2$.}
 The condition on $\epsilon$ above can be inferred from the constraint $\epsilon/C_1 \ge {\delta^*}^p$.
 
-From the foregoing, we have the following lower bound on the minimax error $\Delta_n^{(1)*}$ for any choice of $\delta$:
+From the foregoing, we have the following lower bound on the minimax error $\Delta_n^{(1)*}$:
 \[
 \Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{K_1}{2+\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
 \]
@@ -421,6 +461,10 @@ On the other hand, for the case $p=q=2$, we obtain
 \subsection{Proof of Theorem \ref{thm:lb-convex} for strongly convex + smooth function class $\F_{L,1}(\K)$}
 \label{sec:appendix-lbscconvex}
 We follow the notational convention used earlier for convex functions in one dimension. 
+\todoc{This proof needs to be updated to allow the algorithm choose $\delta$, the same way, as was done for the smooth case.
+The oracle also takes two parameters, as there, etc.
+In general, this text is too rough (typos, etc.).
+Read the other proof carefully and change this proof to reflect closely the other one. Don't make it longer, just correct the slight imprecisions.}
 
 We consider functions $f_v$, for any $v \in \{-\nu,+\nu\}$, defined as
 By assumption,  $\{f_+, f_-\}\subset \F$, with 
