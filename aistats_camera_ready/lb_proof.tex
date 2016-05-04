@@ -7,78 +7,64 @@
 We will use a novel technique that will allow us to  reduce the $d$-dimensional case to the $1$-dimensional case (see later).
 Thus, we start with the one-dimensional case.
 
-\paragraph{Proof in one dimension:}
-As the section title suggests, we have $\F = \F_{L,0}(\K)$, where 
-by the assumption of the theorem, $L\ge 1/2$ and $\K$ is convex and $[-1,1]\subset \K$.
-For brevity, we let $\Delta_n^{*}$ denote the minimax error $\Delta_n^*(\F, c_1,c_2)$ for the case of $1$-dimensional function family $\F$.
+\paragraph{Proof in one dimension:} 
+As the section title suggests, we here prove the theorem for $\F = \F_{L,0}(\K)$, where 
+by the assumptions of the theorem, $L\ge 1/2$ and $\K$ is convex and $[-1,1]\subset \K$.
+For brevity, let $\Delta_n^{*}$ denote the minimax error $\Delta_n^*(\F, c_1,c_2)$. 
+Throughout the proof, a $d$-dimensional normal distribution with mean $\mu$ and covariance matrix $\Sigma$ is denoted by $\normal(\mu, \Sigma)$.
 
-The proof uses $(c_1,c_2)$ Type-I oracles $\gamma$ that map $\cK\times (0,1]$ to $\R$, i.e., the oracles do not have memory.
+We follow the standard proof technique of lower bounds: We define two functions $f_+, f_- \in \F$ with associated type-I gradient oracles $\gamma_+,\gamma_-$ such that the expected error of any deterministic algorithm can be bounded from below for the case when the environment is chosen uniformly at random from $\{(f_+,\gamma_+),(f_-,\gamma_-)\}$. By Yao's minimax principle\todoa{add reference}, the same lower bound applied to the minimax error $\Delta_n^{*}$ (for all, possibly randomized algorithms).
+
+The proof uses $(c_1,c_2)$ type-I oracles $\gamma: \cK\times (0,1] \to \R$, i.e., the oracles do not have memory.
 In particular, we restrict the class of oracles to those that on input $(x,\delta)$ return 
-a random gradient estimate $G = m(x) + \xi$ with some map $m: \cK \to \R$,
-where $\xi$ is standard normal with variance $c_2(\delta):= C_2 \delta^{-q}$, satisfying the variance requirement.%
+a random gradient estimate $G(x,\delta) = \overline{\gamma}(x) + \xi$ with some map $\og: \cK \to \R$,
+where $\xi$ is a zero-mean normal random variable with variance $c_2(\delta):= C_2 \delta^{-q}$, satisfying the variance requirement, and drawn independently every time the oracle is queried.%
 \footnote{The argument presented below is not hard to extend to the case when all observations are from a bounded set,
-but the extension is left to the reader.}
-The map $m$, which, by slightly abusing notation, will be chosen based on $f$ and $\delta$ to satisfy the requirement on the bias. 
-We  use $\overline{\gamma}_f(x,\delta) = m(x)$ to emphasize this.
-The $Y$ value returned by the oracles is made equal to $x$.
+but this extension is left to the reader.}
+The map $\og$, which, by slightly abusing notation, will be chosen based on $f$ and $\delta$ to satisfy the requirement on the bias. 
+We  use $\overline{\gamma}_f(x,\delta) = \og(x)$ to emphasize this. The $Y$ value returned by the oracles is made equal to $x$.
 
-
-For now, fix any $(c_1,c_2)$ Type-I oracle $\gamma$ with the above properties and an algorithm $\A$.
-%Let $\delta$ denote the tolerance parameter chosen by $\A$.
-Consider the probability space $(\Omega, \B, P_{\A,\gamma})$, 
-where $\Omega = \R^n\times \{-1,1\}$, $\B$ is the associated Borel sigma algebra
-and $P_{\A,\gamma}$ is defined by $P_{\A,\gamma} := p_{\A,\gamma} d(\lambda \times m)$, 
-where
-	$\lambda$ is the Lebesgue measure on $\R^n$, 
-	$m$ is the counting measure on $\{-1,1\}$ and 
-	$p_{\A,\gamma}$ is the density function defined by
+Next we define the two target functions and their associated oracles. With a slight abuse of notation, we will use interchangeably the subscripts $+$ ($-$) and $+1$ ($-1$) for any quantities corresponding to these two environments, e.g., $f_+$ and $f_{+1}$ ($f_-$ and $f_{-1}$).
+For $v \in \{-1,+1\}$, let
 \begin{align*}
-p_{\A,\gamma}(g_{1:n}, v) 
-&= \dfrac{1}{2} \bigg(p_{\A,\gamma}(g_n \mid g_{1:n-1})
-		\cdot \ldots \cdot p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \cdot \ldots \cdot p_{\A,\gamma}(g_1)\bigg)\\
-&=  \dfrac{1}{2} \bigg( p_{\N}(g_n - \overline{\gamma}(x_n^{\A}(g_{1:n-1})),c_2(\delta_n^{\A}(g_{1:n-1}))) \cdot
-%  &\times p_{\normal(0,\sigma^2)}(g_{n-1} - \gamma(\A_n(g_{1:n-2}))) \times \ldots \\
-									 \ldots \cdot  p_{\N}(g_1 - \overline{\gamma}(x_1^{\A}),c_2(\delta_1^{\A}))\bigg),
+f_v(x) :=  \epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)
+%\text{ and } f_-(x) := \epsilon\left( x+1\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x+1}{\epsilon}}  \right), 
+\,\, x \in \cK\,.
 \end{align*}
-where $v\in\{-1,1\}$, $p_{\N}(\cdot,\sigma^2)$ is the density function of a $\normal(0,\sigma^2)$ random variable,
-and $x_t^{\A}$ ($\delta_t^{\A}$) denotes the map from the algorithm's past observations
-that picks the point (respectively, accuracy parameter $\delta$), which are sent to the oracle in round $t$.
-By Yao's principle, without loss of generality, 
-it is enough to consider algorithms that are deterministic functions of past observations.
-In particular, this is true because any random querying algorithm can be seen as a randomization over deterministic querying strategies. \todoc{Cite source?}
-% \todoc{Enough to consider deterministic algorithms}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-Let
+%In what follows, we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
+These functions, with the choice $\epsilon=0.1$, are shown in \cref{fig:lbfvdiff}. The first and second derivatives of $f_v$ are
 \begin{align*}
-f_+(x) :=  \epsilon\left( x-1\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-1}{\epsilon}}  \right)
-\text{ and } f_-(x) := \epsilon\left( x+1\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x+1}{\epsilon}}  \right), \,\, x \in \cK\,.
-\end{align*}
-In what follows, we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
-These functions, with the choice $\epsilon=0.1$, are shown in \cref{fig:lbfvdiff}.
-
-We will now show that $\{f_+, f_-\}\subset \F$.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-The first and second order derivatives of $f_v$ are
-\begin{align*}
-f'_v(x) &=\epsilon\, \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} \,, \qquad \qquad
+f'_v(x) &=\epsilon\, \dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} \,, \qquad \text{ and } \qquad
 f''_v(x) = \dfrac{2e^{-\frac{x-v}{\epsilon}} }{\left(  1+e^{-\frac{x-v}{\epsilon}}\right)^2}  \,.
 \end{align*}
 % we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-From this we see that $f_v$ is $\frac{1}{2}$-smooth, thus $f_v\in \F$.
+It is easy to see that $0 \le f''(x) \le 1/2$; thus $f_v$ is $\frac{1}{2}$-smooth, and so $f_v\in \F$.
 
-Further, it is also obvious that $f_v$ is minimized at $x^*_v = v$, with $f_v(v) = 2 \epsilon^2 \ln 2$.
-We claim that if $x$ has the opposite sign of $v$, the difference $f_v(x)-f_v(x_v^*)$ is ``large''.
-Indeed, we have
-\begin{align}
-M:=&\,\, \min_{x:xv<0} f_v(x) - f_v(v) \nonumber \\
- = & \,\, f_v(0) - f_v(v)  & (v f_v \text{ is decreasing on }\{x\,:\, xv<0\}\text{, cf. \cref{fig:lbfvdiff}}) \nonumber \\
-= &\,\, \epsilon\left(-v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}\right). \nonumber %\label{eq:lbfvdiff2}
-\end{align}
-%Above, the equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. As illustrated in Figure \ref{fig:lbfvdiff}, $\min_{x:xv<0} f_v(x)$ is achieved at $x=0$ due to monotonicity of $f_v$. A similar argument works for $v=-1$ as well. 
-%This can also be seen from the plot of $f_+$ to the left of $+1$ and of $f_-$ to the right of $-1$ in Figure \ref{fig:lbfvdiff}. 
+For $f_v, v\in\{-1,+1\}$, the gradient oracle we consider is defined as $\gamma_v(x,\delta)=\og_v(x,\delta)+\xi_\delta$ with $\xi_\delta \sim \normal(0,\frac{C_2}{\delta^q})$ selected independently for every query, where $\og_v$ is a biased estimate of the gradient $f'_v$. The derivatives of $f_+$ and $f_-$ are shown in \cref{fig:lbfvdiff}; we define the bias of $\og_v$ to make the gradients more similar:
+%making it challenging for any algorithm to distinguish $f_+$ and $f_-$ based on observations from $\gamma_+$ or $\gamma_-$, respectively:
+\begin{align*}
+\overline{\gamma}_+(x,\delta) = 
+	\begin{cases}
+	f_+'(x) + \min(\epsilon,C_1\delta^p)\,, & \text{if } x<0\,; \\
+	\min\big\{f_+'(x) + \min(\epsilon,C_1\delta^p), f_-'(x) - \min(\epsilon,C_1\delta^p)\big\}\,, & \text{otherwise}\,,
+	\end{cases}
+\end{align*}
+and
+\begin{align*}
+\overline{\gamma}_-(x,\delta) = 
+	\begin{cases}
+	f_-'(x) - \min(\epsilon,C_1\delta^p)\,, & \text{if } x>0\,; \\
+	\max\big\{f_-'(x) - \min(\epsilon,C_1\delta^p), f_+'(x) + \min(\epsilon,C_1\delta^p)\big\}\,, & \text{otherwise}\,.
+	\end{cases}
+\end{align*}
+Basically, $f'_v(x)$ is replaced with $f_v'(x) + v \min(\epsilon,C_1\delta^p)$ but the latter is cut off by the value of the other estimate for $vx>0$.
+The oracles $\gamma_v$ is indeed a $(c_1,c_2)$ type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
+Note that the curve of $\overline{\gamma}_+(\cdot,\delta)$ is obtained by shifting $f_+(\cdot)$ up,
+while that of $\overline{\gamma}_-(\cdot,\delta)$ is obtained by shifting $f_-(\cdot)$ down, 
+thus moving these curves ``towards each other'' (note that $f_-\ge f_+$).
+Indeed, this makes it harder to figure out whether $v=+1$ or $v=-1$ based on alone
+the observations coming from $\gamma_+$ and $\gamma_-$ than if no shifting was applied (cf. \cref{fig:fprime}).
 
  \begin{figure}
    \centering
@@ -149,8 +135,18 @@ M:=&\,\, \min_{x:xv<0} f_v(x) - f_v(v) \nonumber \\
 \end{figure}
 
 
+Next we will see how this affects the achievable error for any algorithm. It is obvious that $f_v$ is minimized at $x^*_v = v$, with $f_v(v) = 2 \epsilon^2 \ln 2$.
+We claim that if $x$ has the opposite sign of $v$, the difference $f_v(x)-f_v(x_v^*)$ is ``large''.
+Since $v f_v$ is decreasing on $\{x\,:\, xv \le 0\}$, we have
+\begin{align*}
+M_v :=&\,\, \min_{x:xv \le 0} f_v(x) - f_v(v) 
+=   f_v(0) - f_v(v)  
+=  \epsilon\left(-v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}\right). \nonumber %\label{eq:lbfvdiff2}
+\end{align*}
+%Above, the equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. As illustrated in Figure \ref{fig:lbfvdiff}, $\min_{x:xv<0} f_v(x)$ is achieved at $x=0$ due to monotonicity of $f_v$. A similar argument works for $v=-1$ as well. 
+%This can also be seen from the plot of $f_+$ to the left of $+1$ and of $f_-$ to the right of $-1$ in Figure \ref{fig:lbfvdiff}. 
 Let $h(v) = -v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}$.
-A simple algebra shows that $h$ is an even function, i.e., $h(v) = h(-v)$. Indeed,
+Simple algebra shows that $h$ is an even function, that is, $h(v) = h(-v)$. Indeed,
 \begin{align*}
 h(v) = -v + 2\,\epsilon\,\ln\left(e^{\frac{v}{\epsilon}} \dfrac{1+e^{-\frac{v}{\epsilon}}}{2}\right)
 = -v + 2\,\epsilon\, \dfrac{v}{\epsilon}  + 2\,\epsilon\,\ln\dfrac{1+e^{-\frac{v}{\epsilon}}}{2}
@@ -158,11 +154,11 @@ h(v) = -v + 2\,\epsilon\,\ln\left(e^{\frac{v}{\epsilon}} \dfrac{1+e^{-\frac{v}{\
 \end{align*}
 Specifically, $h(1) = h(-1)$ and thus
 \begin{align*}
-M = \epsilon\left(-1 + 2\epsilon\ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}\right)\,.
+M_+= M_- = \epsilon\left(-1 + 2\epsilon\ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}\right)\,.
 \end{align*}
-From the foregoing, when $xv<0$, $\epsilon<\dfrac{1}{4\ln 2}$,  we have
+From the foregoing, when $xv \le 0$ and $\epsilon<\dfrac{1}{4\ln 2}$,  we have
 \begin{align*}
-f_v(x)-f_v(x_v^*) >\epsilon\left( -1 +2\epsilon \ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}  \right)> \dfrac{\epsilon}{2}.
+f_v(x)-f_v(x_v^*) \ge \epsilon\left( -1 +2\epsilon \ln\dfrac{1+e^{\frac{1}{\epsilon}}}{2}  \right)> \dfrac{\epsilon}{2}.
 \end{align*}
 Hence,
 %Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
@@ -183,13 +179,39 @@ We will consider the oracles $\gamma_v$ defined as \todoc{There was a sign mista
 where $\xi_\delta \sim \normal(0,\frac{C_2}{\delta^q})$
 and we abbreviate $\overline{\gamma}_{f_v}$ as $\overline{\gamma}_v$.
 % ; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$)  to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
-The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
-Note that the curve of $\overline{\gamma}_+(\cdot,\delta)$ is obtained by shifting $f_+(\cdot)$ up,
-while that of $\overline{\gamma}_-(\cdot,\delta)$ is obtained by shifting $f_-(\cdot)$ down, 
-thus moving these curves ``towards each other'' (note that $f_-\ge f_+$).
-Thus makes it harder to figure out whether $v=+1$ or $v=-1$ based on alone
-the observations coming from $\gamma_+$ and $\gamma_-$ than if no shifting was applied (cf. \cref{fig:fprime}).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+
+
+For now, fix any $(c_1,c_2)$ type-I oracle $\gamma$ with the above properties and an algorithm $\A$.
+%Let $\delta$ denote the tolerance parameter chosen by $\A$.
+Consider the probability space $(\Omega, \B, P_{\A,\gamma})$, 
+where $\Omega = \R^n\times \{-1,1\}$, $\B$ is the associated Borel sigma algebra
+and $P_{\A,\gamma}$ is defined by $P_{\A,\gamma} := p_{\A,\gamma} d(\lambda \times m)$, 
+where
+	$\lambda$ is the Lebesgue measure on $\R^n$, 
+	$m$ is the counting measure on $\{-1,1\}$ and 
+	$p_{\A,\gamma}$ is the density function defined by
+\begin{align*}
+p_{\A,\gamma}(g_{1:n}, v) 
+&= \dfrac{1}{2} \bigg(p_{\A,\gamma}(g_n \mid g_{1:n-1})
+		\cdot \ldots \cdot p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \cdot \ldots \cdot p_{\A,\gamma}(g_1)\bigg)\\
+&=  \dfrac{1}{2} \bigg( p_{\N}(g_n - \overline{\gamma}(x_n^{\A}(g_{1:n-1})),c_2(\delta_n^{\A}(g_{1:n-1}))) \cdot
+%  &\times p_{\normal(0,\sigma^2)}(g_{n-1} - \gamma(\A_n(g_{1:n-2}))) \times \ldots \\
+									 \ldots \cdot  p_{\N}(g_1 - \overline{\gamma}(x_1^{\A}),c_2(\delta_1^{\A}))\bigg),
+\end{align*}
+where $v\in\{-1,1\}$, $p_{\N}(\cdot,\sigma^2)$ is the density function of a $\normal(0,\sigma^2)$ random variable,
+and $x_t^{\A}$ ($\delta_t^{\A}$) denotes the map from the algorithm's past observations
+that picks the point (respectively, accuracy parameter $\delta$), which are sent to the oracle in round $t$.
+By Yao's principle, without loss of generality, 
+it is enough to consider algorithms that are deterministic functions of past observations.
+In particular, this is true because any random querying algorithm can be seen as a randomization over deterministic querying strategies. \todoc{Cite source?}
+% \todoc{Enough to consider deterministic algorithms}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
 
 The minimax error \eqref{eq:minimaxerrdef} is lower bounded by
 %\footnote{$f_{+1} \equiv f_+$ and $f_{-1}\equiv f_-$.}:
@@ -393,7 +415,7 @@ $e_i$ is the $i$th unit vector in the standard Euclidean base,
 $\gamma_{v_i}^{(i)} = 
 \epsilon \dfrac{1-e^{-\frac{x_i-v_i}{\epsilon}}}{1+e^{-\frac{x_i-v_i}{\epsilon}}} - v\, \frac{C_1 \delta^p}{\sqrt{d}}  + \xi_i
 $, where $\xi_i \sim \normal(0,\frac{C_2}{d\delta^q})$. 
-It is evident that the $\gamma$ is a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
+It is evident that the $\gamma$ is a $(c_1,c_2)$ type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 
 Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$, which is composed of $f_v$s, as defined above. We have
 \begin{align*}
@@ -529,7 +551,7 @@ We will consider the oracles $\gamma_v$ defined as
 \end{align}
 where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
 to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
-The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
+The oracle is indeed a $(c_1,c_2)$ type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 Using arguments similar to those in the proof of lower bound for convex functions, we obtain
