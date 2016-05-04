@@ -171,14 +171,24 @@ Hence,
   \ge \dfrac{\epsilon}{2}  \indic{x v  < 0}. \label{eq:fv-lb}
 \end{align}
 % Similarly,   $f_-(x) - f_-(x^*_-) \ge  \dfrac{\epsilon}{2}  \indic{x  >0}$.
-We will consider the oracles $\gamma_v$ defined as 
+We will consider the oracles $\gamma_v$ defined as \todoc{There was a sign mistake here, oh my!}
 \begin{align}
- \gamma_v(x,\delta) = \underbrace{\epsilon \,\dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} - v\, \min(\epsilon,C_1 \delta^p)}_{\overline{\gamma}_v(x,\delta)} + \xi_\delta, \label{eq:main:oracle-1d}
+ \gamma_v(x,\delta)
+ 	 = 
+	 \underbrace{
+	 f_v(x)
+%	\epsilon \,\dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} 
+ 	+ v\, \min(\epsilon,C_1 \delta^p)}_{\overline{\gamma}_v(x,\delta)} + \xi_\delta, \label{eq:main:oracle-1d}
 \end{align}
 where $\xi_\delta \sim \normal(0,\frac{C_2}{\delta^q})$
 and we abbreviate $\overline{\gamma}_{f_v}$ as $\overline{\gamma}_v$.
 % ; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$)  to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
 The oracle is indeed a $(c_1,c_2)$ Type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$.
+Note that the curve of $\overline{\gamma}_+(\cdot,\delta)$ is obtained by shifting $f_+(\cdot)$ up,
+while that of $\overline{\gamma}_-(\cdot,\delta)$ is obtained by shifting $f_-(\cdot)$ down, 
+thus moving these curves ``towards each other'' (note that $f_-\ge f_+$).
+Thus makes it harder to figure out whether $v=+1$ or $v=-1$ based on alone
+the observations coming from $\gamma_+$ and $\gamma_-$ than if no shifting was applied (cf. \cref{fig:fprime}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 The minimax error \eqref{eq:minimaxerrdef} is lower bounded by
@@ -226,12 +236,28 @@ $G_t \sim  \normal(\overline{\gamma}_{+}(x^{\cA}_t(G_{1:t-1}),\delta^{\A}(G_{1:t
 $P_{+}^t(\cdot\mid g_{1:t-1})$ is the normal distribution with mean 
 $\overline{\gamma}_{+}(x^{\cA}_t(G_{1:t-1}),\delta^{\A}(G_{1:t-1}))$ and variance $c_2(\delta^{\A}(G_{1:t-1}))$.
 %, where $A(g_{1:t-1})$ denotes the point chosen by the algorithm given observations $g_1,\ldots, g_{t-1}$ and $\gamma_{+}$ is the gradient oracle defined earlier. 
-Observe that, for any $x\in \R$, 
+Thus, we have
+\begin{align*}
+\dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}
+& =\dfrac{(\overline{\gamma}_{+}(x_t^{\A},\delta_t^{\A}) - \overline{\gamma}_{-}(x_t^{\A},\delta_t^{\A}))^2}{2 c_2(\delta^{\A}_t)}\,,
+\end{align*}
+as the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$.
+
+It remains to upper bound the numerator. For $(x,\delta)\in \R\times (0,1]$, let
+$a = f_+(x)$, $b=f_-(x)$, $c= C_1 \delta^p$, 
+so that $\Delta = |\gamma_-(x,\delta)-\gamma_+(x,\delta)| = | (b-\min(\epsilon,c)) -  (a+ \min(\epsilon,c)) |
+= |b-a - 2\min(\epsilon,c)|$.
+Now, note that 
 %$f_+'(x) - f_-'(x) = -2\epsilon$ and hence
 \begin{align*}
 0 \le f_-'(x) - f_+'(x) \le 2\,\epsilon \,\dfrac{e^{1/\epsilon}-1}{e^{1/\epsilon}+1} < 2\epsilon \,,
 \end{align*}
-cf. \cref{fig:fprime}.
+cf. \cref{fig:fprime}, hence $0\le b-a <2\epsilon$. 
+We consider two cases based on whether $c>\epsilon$.
+When $c>\epsilon$, from the foregoing we see that $\Delta = 2\epsilon-(b-a)\le 2\epsilon$. ETC ETC.
+On the other hand, if $c\le \epsilon$, $\Delta = |b-a+2c|$.
+\todoc[inline]{BUG BELOW}
+
 Therefore,
 \begin{align}
  |\overline{\gamma}_+(x,\delta) - \overline{\gamma}_-(x,\delta)| 
@@ -249,7 +275,9 @@ From the foregoing, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and
 & < \dfrac{2\{(\epsilon-C_1(\delta^{\A}_t)^p)_+\}^2\,(\delta^{\A}_t)^q}{C_2}\label{eq:dkgauss}\\
 & \le  \sup_{\delta>0} \dfrac{2\{(\epsilon-C_1\delta^p)_+\}^2\,\delta^q}{C_2} \label{eq:supdelta}\,.
 \end{align}
-The equality \eqref{eq:dkgauss1} follows from the fact that the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$, while inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
+The equality \eqref{eq:dkgauss1} follows from the fact that 
+
+, while inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
 
 Now, observe that 
 $\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)_+\}^2 \delta^q = \max_{(\epsilon/C_1)^{1/p}>\delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 
@@ -497,7 +525,7 @@ By the definition of $f_v$, we have
 \end{align}
 We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
- \gamma_v(x) = \epsilon(x-v) - \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
+ \gamma_v(x) = \epsilon(x-v) + \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
 \end{align}
 where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
 to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
