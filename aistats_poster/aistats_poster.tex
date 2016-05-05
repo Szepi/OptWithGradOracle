@@ -40,7 +40,8 @@
 \usepackage{tikz} % Required for flow chart
 \usetikzlibrary{shapes,arrows} % Tikz libraries required for the flow chart in the template
 
-
+%\usepackage[round]{natbib}   % omit 'round' option if you prefer square brackets
+%\bibliographystyle{plainnat}
 
 \begin{document}
 
@@ -133,7 +134,7 @@ Assume $f$ convex (and smooth etc)\\
 \vspace{1ex}
 	\textbf{Noisy} Bandit Feedback:
 	
-	Recall: $y = f(x) + \xi$, $\EE{y} = \EE{F(x,\xi)}$.
+	Recall: $Y = F(X,\xi)$, $\EE{Y} = f(x)$.
 	\begin{itemize}\compresslist
 	\item[(A1)] \textbf{\textit{\color{blue}``Uncontrolled noise''}}: $F(x,\xi)$ can be obtained at any point. 
 	\item[(A2)] \textbf{\textit{\color{blue}``Controlled noise''}}: $\xi$  can be kept fixed between queries. 
@@ -147,24 +148,28 @@ Assume $f$ convex (and smooth etc)\\
 %----------------------------------------------------------------------------------------
 
 \headerbox{State of the Art}{name=state_of_the_art,column=0,below=subclasses}{
-Controlled Noise: $\Delta_n \leq C\sqrt{d^2/n}$.
+We know the rate $\Delta_n =\tilde{O}(\sqrt{1/n}) $, but it is non-constructive. {\tiny \cite{BubeckDKP15}}
 
-Optimal! Let's talk about the uncontrolled case.
-\\[1ex]
+\textbf{\textit{\color{blue}Controlled Noise}}: $\Delta_n \leq C\sqrt{d^2/n}$. {\tiny \cite{duchi2015optimal}}
+
+\textbf{\textit{\color{blue}Uncontrolled Noise}}:\\
 Ellipsoid method and relatives:
 \begin{itemize}\compresslist
-\item  Agarwal et al. (2013) --  $\color{blue}\sqrt{d^{33}/n}$.
-\item Liang et al. (2014) -- $\color{blue}\sqrt{d^{14}/n}$.
+\item  $\color{blue}\sqrt{d^{33}/n}$.  {\tiny \cite{AgFoHsuKaRa13:SIAM}}
+\item  $\color{blue}\sqrt{d^{14}/n}$.  {\tiny \cite{liang2014zeroth}}
 \end{itemize}
 
-Gradient methods:
+``Gradient" methods:
 \begin{itemize}\compresslist
-\item Convex: $\color{blue}\left( d^2/n \right)^{1/4}$.
-\item Smooth: $\color{blue}\left( d^2/n \right)^{1/3}$.
-\item Smooth + Strongly Convex: $\color{red}\sqrt{d^2/n}$
+\item \textbf{Convex}: $\color{blue}\left( d^2/n \right)^{1/4}$.
+			{\tiny \cite{flaxman2005online}}
+\item \textbf{Smooth}: $\color{blue}\left( d^2/n \right)^{1/3}$.
+			{\tiny \cite{saha2011improved}}
+\item Smooth + SOC: $\color{red}\sqrt{d^2/n}$.
+			{\tiny \cite{HaLe14:SOC}}
 \end{itemize}
 
-Lower Bound: $\color{red}\sqrt{d^2/n}$
+Lower Bound: $\color{red}\sqrt{d^2/n}$. {\tiny \cite{shamir2012complexity}}
 \begin{center}
 \tikz[baseline]{
             \node[trapezium,trapezium left angle=90,
@@ -182,7 +187,7 @@ Lower Bound: $\color{red}\sqrt{d^2/n}$
 %	ORACLES
 %----------------------------------------------------------------------------------------
 
-\headerbox{Gradient Estimation Oracles}{name=oracles,column=1,span = 2}{
+\headerbox{Oracle Model}{name=oracles,column=1,span = 2}{
 \begin{center}
 \includegraphics[width=0.8\textwidth]{oracle0}
 
@@ -246,7 +251,7 @@ $
 			 $V = \delta^{-1} \,U$
 	\end{itemize}
 	\vspace{-1ex}
-	\textbf{Does it matter which of these we select?\\ Not really:}\\
+	\textbf{Does it matter which of these we select?\\ Not really:} when $f\in \mathcal{C}^3$\\
 	Bias: $O(\delta^2)$, second moment: $O(1)$ or $O(\delta^{-2})$.
 	  
 \end{multicols}
@@ -283,7 +288,6 @@ $
 \textbf{Can we get an \color{red}{$n^{-1/2}$} \color{black}rate?}\\
 \textbf{Yes}, if $p/(2p+q)\ge 1/2$ vs. $p/(p+q)\ge 1/2$.\\
 First holds iff \color{red}$q=0$\color{black}. Second holds iff \color{red}$p\ge q$\color{black}.\\
-
 %\textit{Uncontrolled noise}: \\
 %under smoothness $p=q=2$. \\
 %For $\F_{L,\mu}$ we get $O(n^{-1/2})$ as Hazan and Levy (2014).\\
@@ -293,14 +297,16 @@ First holds iff \color{red}$q=0$\color{black}. Second holds iff \color{red}$p\ge
 %under smoothness $p=2$, $q=0$.\\
 %For $\F_{L,\mu}$ we get $O(1/n)$ as Nesterov (2011).\\
 %For $\F_{L,0}$ we get $O(n^{-1/2})$ as Duchi et al (2015).
-Recover state-of-the-art results:
+\vspace{-2ex}
 \begin{center}
 \begin{tabular}{l l l}
 \toprule
- & $\F_{L,\mu}$ & $\F_{L,0}$\\
+  &{$\F_{L,\mu}$} & {$\F_{L,0}$}\\
 \midrule
-\textit{Uncontrolled noise} & $O(n^{-1/2})$ & $O(n^{-1/3})$ \\
-\textit{Controlled noise} & $O(1/n)$ & $O(n^{-1/2})$ \\
+{\small\textit{Uncontrolled noise}}& \multirow{2}{*}{$O(n^{-1/2})$} &\multirow{2}{*}{$O(n^{-1/3})$}  \\
+ \footnotesize$(p=2, q=2)$  &  &   \\
+{\small\textit{Controlled noise}}& \multirow{2}{*}{$O(1/n)$} &\multirow{2}{*}{$O(n^{-1/2})$}  \\
+ \footnotesize$(p=2, q=0)$  &  &   \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -315,7 +321,7 @@ Recover state-of-the-art results:
 \headerbox{Lower Bound}{name=lower_bound,column=2, below=gradient}{
 
 \textbf{Theorem 2}: 
-$\cK\subset \R^d$ convex, closed, with  $\{+1,-1\}^d\subset \cK$, $n$ large enough.
+$\cK\subset \R^d$ convex, closed, with  $\{+1,-1\}^d\subset \cK$.
 For any algorithm $\mathrm{A}$ that observes $n$ random elements from a  $(p,q)$ polynomial oracle, we have
 \begin{center}
 \tikz[baseline]{
@@ -331,12 +337,12 @@ $
 }};}	
 \end{center}
 
-The lower bound for $\F_{L,0}$ is tight, for $\F_{L,1}$ it is weak.\\[1ex]
+The lower bound for $\F_{L,0}$ is tight, for $\F_{L,1}$ it is loose.\\[0.5ex]
 
 \textbf{\textsc{Idea:}} \\
 Construct two loss functions, whose noisy gradient estimates are so close that they can NOT be distinguished.\\
 
-Choose the convex relaxation of $\epsilon \left| x-v \right|$ for $v \in \{-1,+1\}$:
+Choose the smooth approximation of $\epsilon \left| x-v \right|$ for $v \in \{-1,+1\}$:
 \begin{align*}
 f_v(x) :=\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)\,,
 \end{align*}
@@ -350,10 +356,10 @@ which is $0.5$-smooth.
 
 \headerbox{Proof Sketch}{name=proof,column=0, below=state_of_the_art,span=2}{
 \begin{multicols}{2}
-Define $\F_{L,0}$ comprised of $f_+$ and $f_-$.
+Notice that  $f_+$, $f_- \in \F_{L,0}$. 
 \begin{center}
 \begin{tikzpicture}
-   \begin{axis}[width=7cm,height=3.5cm,
+   \begin{axis}[width=7cm,height=3cm,
           %  grid = major,         
             axis y line=middle,
             axis x line=bottom,
@@ -365,16 +371,16 @@ Define $\F_{L,0}$ comprised of $f_+$ and $f_-$.
             yticklabels=\empty
             ]
            \addplot[domain=-2.75:5, green!35!black, thick,smooth] 
-              {0.1*(x-1) + 2*0.01*ln(1+exp(-10*(x-1)))} node [pos=0.9,pin={135:$f_+$}] {} ; 
+              {0.1*(x-1) + 2*0.01*ln(1+exp(-10*(x-1)))}  ; 
             \addplot[domain=-5:2.75, red!35!black,thick,smooth] 
-              {0.1*(x+1) + 2*0.01*ln(1+exp(-10*(x+1)))} node [pos=0.1,pin={45:$f_-$}] {} ; 
+              {0.1*(x+1) + 2*0.01*ln(1+exp(-10*(x+1)))}  ; 
    \end{axis}
    \end{tikzpicture}
 \end{center}
 
 \begin{center}
 \begin{tikzpicture}
-   \begin{axis}[width=9cm,height=4.2cm,
+   \begin{axis}[width=7cm,height=3.5cm,
           %  grid = major,         
             axis y line=middle,
             axis x line=middle,
@@ -384,7 +390,7 @@ Define $\F_{L,0}$ comprised of $f_+$ and $f_-$.
             samples = 100000
             ]
            \addplot[domain=-5:5, green!35!black, thick,smooth] 
-              {0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))} node [pos=0.59,pin={0:$f'_+$}] {}; 
+              {0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))} node [pos=0.59,pin={350:$f'_+$}] {}; 
             \addplot[domain=-5:5, green!35!black, thick,dashed] 
               {
               (x<0)*
@@ -408,16 +414,23 @@ Define $\F_{L,0}$ comprised of $f_+$ and $f_-$.
    \end{axis}
    \end{tikzpicture}
 \end{center}
-The noisy oracle $\gamma_v$ (dashed line) shifts the gradient (smooth line) by $c_1(\delta)$,  defined as
+The noisy oracle (dashed line) shifts the gradient (smooth line) with a bias.\\
+Denote $b=\min\left(\epsilon,C_1\delta^p\right)$. Define
+%\begin{align*}
+% \gamma_v(x,\delta) = \epsilon \,\dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} + v\, \min(\epsilon,C_1 \delta^p) + \xi_\delta.
+%\end{align*}
 \begin{align*}
- \gamma_v(x,\delta) = \epsilon \,\dfrac{1-e^{-\frac{x-v}{\epsilon}}}{1+e^{-\frac{x-v}{\epsilon}}} + v\, \min(\epsilon,C_1 \delta^p) + \xi_\delta.
+\gamma_+(x,\delta)&=
+			\begin{cases}
+               f'_+(x)+b &x\leq 0\\
+               \min \left( f'_+(x)+b, f'_-(x)-b \right) &x>0 
+            \end{cases}\\            
+\gamma_-(x,\delta)&=-\gamma_+(-x,\delta) \,.
 \end{align*}
 We get
 $
 \left| \gamma_+(x,\delta)-\gamma_-(x,\delta)\right|<2(\epsilon-C_1\delta^p)_+ 
-$.
-
-The minimax error $\Delta_n^{*}$ is lower bounded by 
+$. 
 \begin{align*}
 \Delta_n^{*}  \ge & \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \\
   \ge &\dfrac{\epsilon}{2} \left(1 - \sqrt{
@@ -448,5 +461,8 @@ one of the following must be done:
 %----------------------------------------------------------------------------------------
 
 \end{poster}
+
+\bibliographystyle{apalike} 
+\bibliography{main}
 
 \end{document}
