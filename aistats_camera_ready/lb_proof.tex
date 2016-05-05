@@ -335,7 +335,7 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 \begin{align}
  \Delta_n^{*}
   \ge & \dfrac{\epsilon}{2} \left(1 - \sqrt{
-    n}  \dfrac{ (\epsilon-C_1\delta_*^p)^+\delta_*^{q/2}}{C_2}
+    n}  \dfrac{ (\epsilon-C_1\delta_*^p)^+\delta_*^{q/2}}{\sqrt{C_2}}
   \right)\label{eq:final-lower-bd}
 \end{align}
 
@@ -366,30 +366,36 @@ Substituting the above bound into \eqref{eq:pinsker}, we obtain
 % \]
 
 \paragraph{Derivation of the rates uniformly for all $\delta$:}
-From the above, given $\epsilon \le C_1$, we have the following lower bound on the minimax error $\Delta_n^{(1)*}$:
+From the above, given $\epsilon \le C_1$, we have the following lower bound on the minimax error $\Delta_n^{*}$:
 \[
-\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{K_1}{2+\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
+\Delta_n^* \ge \frac{\epsilon}{2}\left(1-\sqrt{n} K_1 \epsilon^{\frac{2p+q}{2p}}\right),
+\text{ where } K_1= \frac{2p}{\sqrt{C_2}(2p+q)}\left(\frac{q}{C_1(2p+q)}\right)^{\frac{q}{2p}}~.
 \]
+%\[
+%\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{K_1}{2+\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
+%\]
  
-Plugging in $\epsilon = \left(\dfrac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, we see that the conditions on $\epsilon$ are satisfied for large enough $n$, and for such $n$ we obtain
-\begin{align}
-\Delta_n^{(1)*} \ge \dfrac{2p+q}{8p+2q}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}}.
+Again, letting $z=p/q$ and plugging in $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}}=
+C_1 (2z+1)\left(\frac{C_2}{n C_1^2(4 z+1)^2}\right)^{\frac{z}{2z+1}}$, we see that \begin{align}
+\Delta_n^* \ge \dfrac{\left(2z+1\right)^2}{2\left(4z+1\right)^{\tfrac{4z+1}{2z+1}}}C_2^{\tfrac{z}{2z+1}} C_1^{\frac{1}{2z+1}} n^{-\tfrac{z}{2z+1}}
 \label{eq:lb-pq}
 \end{align}
-The conditions on $n$ for the above bound to hold are:
-\begin{align}
-\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right).
-\end{align}
-The above conditions on $n$ can be inferred from (i) the requirement on  $\epsilon$ in \eqref{eq:deltastar}, (ii) assumption $\delta \le 1$ in Definition \ref{def:oracle1},  and (iii) the optimal choice of $\epsilon$ above.
+as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
+%The conditions on $n$ for the above bound to hold are:
+%\begin{align}
+%\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right).
+%\end{align}
+%The above conditions on $n$ can be inferred from (i) the requirement on  $\epsilon$ in \eqref{eq:deltastar}, (ii) assumption $\delta \le 1$ in Definition \ref{def:oracle1},  and (iii) the optimal choice of $\epsilon$ above.
 
 Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq} simplifies to
 \[
-\Delta_n^{(1)*} \ge \dfrac{ (4C_1^2C_2)^{1/4}}{3\sqrt{3}} n^{-1/4}, \text{ for } \epsilon=\sqrt{2/3}C_1^{1/2}C_2^{1/4} n^{-1/4}.
+\Delta_n^{*} \ge \dfrac{ 2(C_1^2C_2)^{1/4}}{3\sqrt{3}} n^{-1/4}, \text{ for } n \ge \frac{2C_2}{9 C_1^2}~.
 \]
 On the other hand, for $p=q=2$, we obtain
 \[
-\Delta_n^{(1)*} \ge  \frac{9}{10}\left(\frac{C_1 C_2}{100}\right)^{1/3} n^{-1/3} \text{ for } \epsilon=3\left(\frac{C_1 C_2}{100}\right)^{1/3}n^{-1/3}.
+\Delta_n^{(1)*} \ge  \frac{9}{10}\left(\frac{C_1 C_2}{25}\right)^{1/3} n^{-1/3} \text{ for } n \ge \frac{27 C_2}{25 C_1^2}~.
 \]
+\todoa[inline]{This is where I stopped. The results are not used below and not copied to the theorem before somebody checks them. Some multiple of 2 difference to the previous version...}
 
 
 
