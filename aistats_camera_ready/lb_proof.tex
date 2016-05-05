@@ -3,17 +3,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \subsection{Proof of Theorem \ref{thm:lb-convex} for convex + smooth function class $\F_{L,0}(\K)$}
 \label{sec:appendix-lbconvex}
-\todoc{We should also mention that the proof is based on ideas from XXYY.}
 We will use a novel technique that will allow us to  reduce the $d$-dimensional case to the $1$-dimensional case (see later).
 Thus, we start with the one-dimensional case.
 
 \paragraph{Proof in one dimension:} 
 As the section title suggests, we here prove the theorem for $\F = \F_{L,0}(\K)$, where 
-by the assumptions of the theorem, $L\ge 1/2$ and $\K$ is convex and $[-1,1]\subset \K$.
+by the assumptions of the theorem, $L\ge 1/2$, $\K$ is convex and $[-1,1]\subset \K$.
 For brevity, let $\Delta_n^{*}$ denote the minimax error $\Delta_n^*(\F, c_1,c_2)$. 
 Throughout the proof, a $d$-dimensional normal distribution with mean $\mu$ and covariance matrix $\Sigma$ is denoted by $\normal(\mu, \Sigma)$.
 
-We follow the standard proof technique of lower bounds: We define two functions $f_+, f_- \in \F$ with associated type-I gradient oracles $\gamma_+,\gamma_-$ such that the expected error of any deterministic algorithm can be bounded from below for the case when the environment is chosen uniformly at random from $\{(f_+,\gamma_+),(f_-,\gamma_-)\}$. By Yao's principle\todoa{add reference}, the same lower bound applied to the minimax error $\Delta_n^{*}$ (for all, possibly randomized algorithms).
+We follow the standard proof technique of lower bounds: We define two functions $f_+, f_- \in \F$ with associated type-I gradient oracles $\gamma_+,\gamma_-$ such that the expected error of any deterministic algorithm can be bounded from below for the case when the environment is chosen uniformly at random from $\{(f_+,\gamma_+),(f_-,\gamma_-)\}$. By Yao's principle
+\citep{Yao77:FOCS}, the same lower bound applies to the minimax error $\Delta_n^{*}$ even when randomized algorithms are also allowed.
 
 The proof uses $(c_1,c_2)$ type-I oracles $\gamma: \cK\times (0,1] \to \R$, i.e., the oracles do not have memory.
 In particular, we restrict the class of oracles to those that on input $(x,\delta)$ return 
