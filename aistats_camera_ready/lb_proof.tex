@@ -139,11 +139,11 @@ Thus, $\gamma_v$ is indeed an oracle with the required properties.
 						%xtick={-1,0,1},
             %xticklabels={-1,0,+1},
             yticklabels=\empty,
-%            samples=200
+            samples=200
             ]
            \addplot[domain=-5:5, green!35!black, thick,smooth] 
               {0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))} node [pos=0.59,pin={0:$f'_+$}] {}; 
-            \addplot[domain=-5:5, green!35!black, thick,dashed] 
+            \addplot[domain=-5:5, green!35!black, thick,dashed, smooth] 
               {
               (x<0)*
                (0.1*(1-exp(-10*(x-1)))/(1+exp(-10*(x-1)))+0.05)
