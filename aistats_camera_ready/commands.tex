@@ -43,8 +43,20 @@
 \usepgfplotslibrary{fillbetween}
 \pgfplotsset{compat=1.10}
 
+%%% Added by Prashanth: the following two lines are used to make compilation faster with tikz. Each tikzfigure will become a seprate tex job and the figures get stored in a sub-folder named tikz. 
+%%%% Dont forget to add --shell-escape(or -enable-write18 if you are using MikTeX) to the pdflatex commandline
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/]
+%%%%%%%%%%
+
 %\usepackage[disable]{todonotes}
 \usepackage{todonotes}
+%%% Added by Prashanth: The tikz externalize business to speed up compilation is incompatible with todonotes, unless we add the following workaround that disables tikz-externalize in todo definition
+\makeatletter
+\renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
+\makeatother
+%%%%%%%%%%%
+
 \newcommand{\todoc}[2][]{\xspace\todo[color=red!20!white,size=\tiny,#1]{Cs: #2}}
 \newcommand{\todox}[2][]{\xspace\todo[color=orange!20!white,size=\tiny,#1]{X: #2}}
 \newcommand{\todoa}[2][]{\xspace\todo[color=blue!20!white,size=\tiny,#1]{A: #2}}
