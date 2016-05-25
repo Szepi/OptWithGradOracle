@@ -390,7 +390,7 @@ where $K_1= \frac{2p}{\sqrt{C_2}(2p+q)}\left(\frac{q}{C_1(2p+q)}\right)^{\frac{q
  
 By choosing $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}}$, we see that 
 \begin{align}
-\Delta_n^* \ge \frac{2p+q}{2(4p+q)}\left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}} = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}C_1^{\frac{q}{2p+q}} C_2^{\tfrac{p}{2p+q}}  n^{-\tfrac{p}{2p+q}} \,.
+\Delta_n^* \ge \frac{2p+q}{2(4p+q)}\left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}} = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}C_1^{\frac{q}{2p+q}} C_2^{\frac{p}{2p+q}}  n^{-\tfrac{p}{2p+q}} \,.
 \label{eq:lb-pq}
 \end{align}
 %as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
@@ -651,24 +651,23 @@ The oracle also takes two parameters, as there, etc.
 In general, this text is too rough (typos, etc.).
 Read the other proof carefully and change this proof to reflect closely the other one. Don't make it longer, just correct the slight imprecisions.}
 
-We consider functions $f_v$, for any $v \in \{-\nu,+\nu\}$, defined as
-By assumption,  $\{f_+, f_-\}\subset \F$, with 
+We consider functions $f_v$, for $v \in \{-1,+1\}$, defined as
 \begin{align*}
-  f_v(x) := \dfrac{1}{2} x^2 - v x \,\, x \in \cK\,;
+  f_v(x) := \dfrac{1}{2} x^2 - v\epsilon x \,\, x \in \cK\,.
 \end{align*}
-we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+\nu}$ (resp., $f_{-\nu}$).
+By assumption,  $\{f_+, f_-\}\subset \F$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-Clearly, $f_v$ is minimized at $x^*_v = v$.
+Clearly, $f_v$ is minimized at $x^*_v = v\epsilon$.
 By the definition of $f_v$, we have
 %Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
 \begin{align}
   f_v(x) - f_v(x^*_v)
-\ge  \dfrac{\nu^2}{2}  \indic{x v  < 0}. \label{eq:fv-lb-sc}
+\ge  \dfrac{\epsilon^2}{2}  \indic{x v  < 0}. \label{eq:fv-lb-sc}
 \end{align}
 We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
- \gamma_v(x) = \epsilon(x-v) + \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
+ \gamma_v(x) = x-v\epsilon + v \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
 \end{align}
 where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
 to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
@@ -678,33 +677,34 @@ The oracle is indeed a $(c_1,c_2)$ type-I oracle, with $c_1(\delta)=C_1\delta^p$
 Using arguments similar to those in the proof of lower bound for convex functions, we obtain
 \begin{align}
 \Delta_n^{*} %\nonumber\\
-  \ge  &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinskersc}
+  \ge  &\inf_{\A} \dfrac{\epsilon^2 }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinskersc}
 \end{align}
-Note that $P_+$ (resp. $P_-$) is $\P$ conditioned on the event $V=+\nu$ (resp. $V=-\nu$), since $v$ takes values in $\{+\nu,-\nu\}$. The conditioning in the earlier proof for convex function was on $V=+1$ for $P_+$ as $v$ there was taking values $\{+1,-1\}$.
+Note that $P_+$ (resp. $P_-$) is $\P$ conditioned on the event $V=+1$ (resp. $V=-1$).
+%, since $v$ takes values in $\{+\nu,-\nu\}$. The conditioning in the earlier proof for convex function was on $V=+1$ for $P_+$ as $v$ there was taking values $\{+1,-1\}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2v$ and hence
+Observe that, for any $x\in \R$, $f_-'(x) - f_+'(x) = 2\epsilon$ and hence
 \begin{align}
  |\gamma_+(x) - \gamma_-(x)| 
-& = | f'_+(x) - \min(v,C_1 \delta^p) - (f'_-(x)+\min(v,C_1 \delta^p)) | \nonumber \\
-& = 2 (\nu - C_1 \delta^p)_+.
+& = | f'_+(x) - \min(\epsilon,C_1 \delta^p) - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | \nonumber \\
+& = 2 (\epsilon - C_1 \delta^p)_+.
  \label{eq:gdiff-ub-sc}
 \end{align}
 From the foregoing, 
 \begin{align}
  \MoveEqLeft \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\nonumber\\
- \le & \dfrac{2(\nu-C_1\delta^p)_+^2\delta^q}{C_2},\label{eq:dkgausssc}
+ \le & \dfrac{2(\epsilon-C_1\delta_t^p)_+^2\delta_t^q}{C_2},\label{eq:dkgausssc}
 \end{align}
 where the inequality \eqref{eq:dkgausssc} follows from \eqref{eq:gdiff-ub-sc}.
 Thus, we obtain
 \begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\nu-C_1\delta^p)_+^2 \delta^q}{C_2}.
+\dkl{P_{+}}{P_{-}} \le\sup_{\delta>0} \dfrac{2n(\epsilon-C_1\delta^p)_+^2 \delta^q}{C_2}.
 \end{align}
 Substituting the above bound into \eqref{eq:pinskersc}, we obtain 
 \begin{align}
  \Delta_n^{*}
-  \ge & \dfrac{\nu^2}{2} \left(1 - \sqrt{
-    n}  \dfrac{(\nu-C_1\delta^p)_+\delta^{q/2}}{C_2}
+  \ge & \dfrac{\epsilon^2}{2} \left(1 - \sqrt{
+    n}  \sup_{\delta>0}\dfrac{(\epsilon-C_1\delta^p)_+\delta^{q/2}}{C_2}
   \right)\label{eq:final-lower-bd-sc}
 \end{align}
 
@@ -712,34 +712,34 @@ Substituting the above bound into \eqref{eq:pinskersc}, we obtain
 \paragraph{Derivation of the rates uniformly for all $\delta$:}
 As in the proof of the lower bound for $\F_{L,0}(\K)$, we replace the positive part function in \eqref{eq:final-lower-bd-sc} and optimize over $\delta$ to obtain the following:
 \begin{align}
-\delta^*=\left(\frac{\nu q}{2C_1(p+q/2)}\right)^{1/p} \text{ as long as }\nu<\frac{2z+1}{C_1^{2z-1}(z+1)^z},
+\delta^*=\left(\frac{ \epsilon q}{C_1(2p+q)}\right)^{1/p}\,.
 \label{eq:deltastar-sc}
 \end{align}
-where $z=p/q$. Recall that we require $\nu/C_1 \ge {\delta^*}^p$, which results in the condition on $\nu$ above.
+%where $z=p/q$. Recall that we require $\nu/C_1 \ge {\delta^*}^p$, which results in the condition on $\nu$ above.
 
 From the above, we have the following lower bound for the minimax error $\Delta_n^{(1)*}$ for any choice of $\delta$:
 % and for any choice of $\delta$, the minimax error $\Delta_n^{*}$ satisfies
 \[
-\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \sqrt{n}  K_1 \nu^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
+\Delta_n^{(1)*} \ge \dfrac{\epsilon^2}{2} \left(1 - \sqrt{n}  K_1 \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{p}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
 \]
 
 
-Plugging in $\nu = \left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, we obtain
+Plugging in $\epsilon = \left(\dfrac{4p}{(6p+q)\sqrt{n} K_1} \right)^{\frac{2p}{2p+q}}$, we obtain
 \begin{align}
-\Delta_n^{(1)*} \ge \dfrac{1}{4}\left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}}.
+\Delta_n^{(1)*} \ge 2^{\frac{2p-q}{2p+q}}\left( \frac{2p+q}{6p+q} \right)^{\frac{6p+q}{2p+q}}\left( \frac{2p+q}{q} \right)^{\frac{2q}{2p+q}} C_1^{\frac{2q}{2p+q}}C_2^{\frac{2p}{2p+q}} n^{-\frac{2p}{2p+q}}.
 \label{eq:lb-pq-sc}
 \end{align}
-The above bound holds for $n$ such that 
-$$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right).$$
-As in the proof of the lower bound for $\F_{L,0}(\K)$, the first condition on $n$ above is due to the assumption that $\delta \le 1$ in Definition \ref{def:oracle1}, while the second condition is due to the constraint on $\nu$ in \eqref{eq:deltastar-sc}.
+%The above bound holds for $n$ such that 
+%$$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right).$$
+%As in the proof of the lower bound for $\F_{L,0}(\K)$, the first condition on $n$ above is due to the assumption that $\delta \le 1$ in Definition \ref{def:oracle1}, while the second condition is due to the constraint on $\nu$ in \eqref{eq:deltastar-sc}.
 
 Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq-sc} simplifies to
 \[
-\Delta_n^{(1)*} \ge \dfrac{C_1 C_2}{2} n^{-1/2}, \text{ for } \nu = 2C_1C_2 n^{-1/2}.
+\Delta_n^{(1)*} \ge \frac{1}{2} C_1 C_2^{1/2} n^{-1/2}.
 \]
 On the other hand, for $p=q=2$, we obtain
 \[
-\Delta_n^{(1)*} \ge  \frac{9}{4}\left(\frac{C_1 C_2^2}{16}\right)^{1/3} n^{-2/3} \text{ for } \nu=\frac{9}{2}\left(\frac{C_1 C_2^2}{16}\right)^{1/3}n^{-2/3}.
+\Delta_n^{(1)*} \ge 27(\frac{2}{7^7})^{\frac{1}{3}} C_1^{2/3}C_2^{2/3} n^{-2/3} .
 \]
 
 
@@ -747,22 +747,23 @@ On the other hand, for $p=q=2$, we obtain
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Generalization to $d$ dimensions:}
-The proof in $d$ dimensions for strongly convex functions follows in similar fashion as that for the case of convex functions and we obtain the following rates:\\
-General $p, q >0$:
+The proof in $d$ dimensions for strongly convex functions is the same as that for the case of convex functions and we obtain the following rate for
+general $p, q >0$:
 \begin{align}
-\Delta_n^{(d)*} \ge \dfrac{1}{4} d^{\frac{-2p}{(2p+q)}} \left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}} \text{ for } 
-\nu = d^{\frac{-(4p+q)}{(2p+q)}}\left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
+\Delta_n^{(d)*} \ge \Delta_n^{(1)*} \,.
+%\dfrac{1}{4} d^{\frac{-2p}{(2p+q)}} \left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}} \text{ for } 
+%\nu = d^{\frac{-(4p+q)}{(2p+q)}}\left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
 \label{eq:lb-pq-d}
 \end{align}
 
-Case $p=1$ and $q=2$:
-\begin{align*}
-% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
-\Delta_n^{(d)*}  \ge& \dfrac{C_1 C_2}{2} n^{-1/2} d^{-1/2}.
-\end{align*}
-
-Case $p=q=2$:
-\begin{align*}
-% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
-\Delta_n^{(d)*}  \ge& \frac{9}{4}\left(\frac{C_1^2 C_2^4}{16}\right)^{1/3} n^{-2/3} d^{-2/3}.
-\end{align*}
+%Case $p=1$ and $q=2$:
+%\begin{align*}
+%% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
+%\Delta_n^{(d)*}  \ge& \dfrac{C_1 C_2}{2} n^{-1/2} d^{-1/2}.
+%\end{align*}
+%
+%Case $p=q=2$:
+%\begin{align*}
+%% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
+%\Delta_n^{(d)*}  \ge& \frac{9}{4}\left(\frac{C_1^2 C_2^4}{16}\right)^{1/3} n^{-2/3} d^{-2/3}.
+%\end{align*}

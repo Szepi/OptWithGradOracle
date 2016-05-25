@@ -15,10 +15,10 @@
 % \rowcolor{gray!20}
  & \textbf{Upper bound} & \textbf{Lower bound} & \textbf{Upper bound} & \textbf{Lower bound}\\
  \midrule
-\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2}{d n}\right)^{1/2}$} \\[0.5ex]
+\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{ n}\right)^{1/2}$} \\[0.5ex]
  ($p=1$, $q=2$) & & & &\\\midrule
 %%%%%%%%%%%%%%%%%%%
-\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 }{d n}\right)^{2/3}$}\\[1.4ex]
+\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 }{ n}\right)^{2/3}$}\\[1.4ex]
  ($p=2$, $q=2$) & & & &\\
   %\midrule
  %\textbf{No bias or variance} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\left(\dfrac{d^2}{n}\right)^{1/2}$}  \\[0.5ex]
@@ -151,9 +151,9 @@ where $K_1 = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\f
 \textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth) with $L\ge 1$:}
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
-\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge \dfrac{1}{4}  \left(\dfrac{1}{2 K_1 \sqrt {d n}}\right)^{\frac{2p}{p+\frac{q}{2}}}, 
+\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge K_2 C_1^{\frac{2q}{2p+q}}C_2^{\frac{2p}{2p+q}} n^{-\frac{2p}{2p+q}}, 
 \]
-where $K_1$ is the same as before.
+where $K_2 = 2^{\frac{2p-q}{2p+q}} \frac{(2p+q)^3}{q^{\frac{2q}{2p+q}}(6p+q)^{\frac{6p+q}{2p+q}}} $.
 \end{theorem}
 %The condition connecting the problem parameters is that $n$ should be large enough so that\\
 %\begin{inparaenum}[\bfseries (i)]
