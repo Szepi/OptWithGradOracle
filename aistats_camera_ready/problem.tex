@@ -14,11 +14,12 @@ A function $f$ is $\mu$-strongly convex w.r.t.\  a \emph{function} $\cR$
  %$f(x) \le f(y) + \ip{\nabla f(y), y-x} +
 $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x,y \in \K$.
  This latter condition is equivalent to that $\nabla f$ is $L$-Lipschitz \citep[Theorem~2.1.5]{nesterov2004introductory}.
- \todoc{Add citation}
- We let $\F_{L,\mu}(\K)$ denote the class of functions that are $\mu$-strongly convex and $L$-smooth on the set $\K$.
- The set of $L$-smooth functions is thus $\F_{L,0}(\K)$. Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t.\  $\cR$. \todoc{Are these $L$-smooth w.r.t. $\cR$? This is a bit confusing.}
+% \todoc{Add citation}
+ We let $\F_{L,\mu, \cR}(\K)$ denote the class of functions that are $\mu$-strongly convex w.r.t. $\cR$ and $L$-smooth w.r.t. some norm $\norm{\cdot}$ on the set $\K$.
+ The set of convex and $L$-smooth functions is thus $\F_{L,0}(\K)$. 
+ %Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t.\  $\cR$. \todoc{Are these $L$-smooth w.r.t. $\cR$? This is a bit confusing.}
 % We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions. 
- \todoc{I am pretty sure $\normal(0, I)$ is not used in the main text, hence commenting it out. We will need to define it for the full version!!!}
+% \todoc{I am pretty sure $\normal(0, I)$ is not used in the main text, hence commenting it out. We will need to define it for the full version!!!}
 
 \begin{figure}
 \begin{center}
@@ -42,9 +43,8 @@ of the gradient of the loss function $f$
 To control the bias and the variance, the algorithm can choose a \emph{tolerance parameter} $\delta_t>0$
 (in particular, we allow the algorithms to choose the tolerance parameter sequentially).
 A smaller $\delta_t$ results in a smaller ``bias'' (for the precise meaning of bias, we will consider two definitions below), while typically with a smaller $\delta_t$, the ``variance'' of the gradient estimate increases.
-The algorithm also receives a point $Y_t\in \cK$,\footnote{For simplicity, in some cases we allow $f$ to be defined outside of $\K$ and allow $Y_t$ to be in a small vicinity of $\K$.} which is guaranteed to be in the $\delta_t$-vicinity of $X_t$.
-While this point is not relevant in the optimization setting, in the online learning setting,
-in round $t$ the algorithm suffers the loss $f_t(Y_t)$.
+Notice that in the online BCO setting, the algorithm suffers the loss $f_t(Y_t)$ in round $t$, where $Y_t\in \cK$\footnote{For simplicity, in some cases we allow $f$ to be defined outside of $\K$ and allow $Y_t$ to be in a small vicinity of $\K$.} is guaranteed to be in the $\delta_t$-vicinity of $X_t$.
+%While this point is not relevant in the optimization setting, in the online learning setting,
 The goal in the online BCO setting is to keep the expected \emph{regret},
 	$R_n =\EE{ \sum_{t=1}^n f_t(Y_t)} - \inf_{x\in \cK} \sum_{t=1}^n f_t(x)$,
 small.
@@ -62,7 +62,7 @@ $\lim_{\delta\to  0} c_1(\delta)=0$ and $\lim_{\delta\to 0} c_2(\delta)=+\infty$
 Typical choices for $c_1,c_2$ are $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2\delta^{-q}$ with $p,q>0$.
 Our type-I oracles are defined as follows:
 %The relationship between these oracles will be studied in \cref{sec:orrel}.
-\todoc{$Y$ should be removed completely, and added only when online learning is considered.}
+%\todoc{$Y$ should be removed completely, and added only when online learning is considered.}
 \vspace{-0.2cm}
 \begin{definition}[$(c_1,c_2)$ type-I  oracle]
 \label{def:oracle1}

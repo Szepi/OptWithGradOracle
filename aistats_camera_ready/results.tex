@@ -98,7 +98,7 @@ can be bounded as
 % \begin{align*}
  \[
  \Delta_{\F_{L,0},n}^*(c_1,c_2)\!\le \!
- \frac{R_{\F_{L,0},n}^*(c_1,c_2)}{n}\!=\! O\!\!\left(\!\!\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{\sqrt{n}}\right)^{\!\!\frac{p}{p+\frac{q}{2}}}\!\right)\,,
+ \frac{R_{\F_{L,0},n}^*(c_1,c_2)}{n}\!=\! O\!\!\left(\!\!\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{n}\right)^{\!\!\frac{p}{2p+q}}\!\right)\,,
 \vspace{-0.3cm}
  \]
  %\end{align*}
@@ -117,11 +117,12 @@ $
 the regret and the minimax error satisfy
 \begin{align*}
 \lefteqn{\Delta_{\F_{L,\mu,\cR},n}^*(c_1,c_2) } \\
-& \le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} =  O\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{\sqrt{n}} \right)^{\!\!\frac{2p}{p+q}} \right).
+& \le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} =  O\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\frac{p}{p+q}} \right).
 \vspace{-0.5cm}
 \end{align*}
 \end{theorem}
 \todoc[inline]{So what is hidden in $O(\cdot)$?}
+\todox[inline]{Terms of $p$, $q$, $\alpha$, $L$, $\mu$, $\frac{1}{n}$, $\log n$ are hidden. Detailed results can be found in appendix.}
 %\begin{proof}
 %See \cref{sec:appendix-md}.
 %\end{proof}
@@ -142,11 +143,10 @@ Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ typ
 \textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth) with $L\ge \frac12$:}
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?} 
 \[
-%R_{\F_{L,0},n}^{*}(c_1,c_2) \ge
- \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge \dfrac{2p+q}{8p+2q}\sqrt{d}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}},
+ \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge K_1\sqrt{d}C_1^{\frac{q}{2p+q}} C_2^{\frac{p}{2p+q}}  n^{-\tfrac{p}{2p+q}},
 \]
-%where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
-where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
+where $K_1 = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}$.
+%where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 
 \textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth) with $L\ge 1$:}
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
@@ -155,17 +155,17 @@ where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac
 \]
 where $K_1$ is the same as before.
 \end{theorem}
-The condition connecting the problem parameters is that $n$ should be large enough so that\\
-\begin{inparaenum}[\bfseries (i)]
-\item 
-$\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right)$ with $z=(p/q)$ for $\F_{L,0}(\K)$; and\\
-\item 
-$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right)$  for $\F_{L,1}(\K)$.
-\end{inparaenum}
-% where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
-%\begin{proof}
-% See Section \ref{sec:appendix-lb-proof}.
-%\end{proof}
+%The condition connecting the problem parameters is that $n$ should be large enough so that\\
+%\begin{inparaenum}[\bfseries (i)]
+%\item 
+%$\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right)$ with $z=(p/q)$ for $\F_{L,0}(\K)$; and\\
+%\item 
+%$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right)$  for $\F_{L,1}(\K)$.
+%\end{inparaenum}
+%% where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
+%%\begin{proof}
+%% See Section \ref{sec:appendix-lb-proof}.
+%%\end{proof}
 
 By continuity, the above claim can be extended to cover the case of $q=0$ (constant variance). 
 For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ (no bias) leads to an $\Omega(d/\sqrt{n})$ lower bound. The proof of the lower bound is obtained in the usual way by presenting a family of functions and a type-I oracle such that any algorithm suffers at least the stated error on one of the functions. In particular, for $\F_{L,0}$ with $L\ge 1/2$ we use

@@ -299,12 +299,12 @@ It remains to upper bound the numerator. For $(x,\delta)\in \R\times (0,1]$, fir
 & =  \gamma_-(x,\delta) - \gamma_+(x,\delta) \\
 & < \sup_x \gamma_-(x,\delta) - \inf_x \gamma_+(x,\delta) \\
 & = \lim_{x\to\infty} \gamma_-(x,\delta) - \lim_{x\to-\infty} \gamma_+(x,\delta) \\
-& = \epsilon - \min\{\epsilon, C_1\delta^p\} - (-\epsilon + \min\{\epsilon \wedge C_1\delta^p\})\\
-& = 2\epsilon - 2\min\{\epsilon, C_1\delta^p\}\\
+& = \epsilon - \epsilon\wedge C_1\delta^p - (-\epsilon + \epsilon \wedge C_1\delta^p)\\
+& = 2\epsilon - 2\epsilon \wedge C_1\delta^p\\
 & \le 2(\epsilon - C_1\delta^p)^+\,, \numberthis \label{eq:gdiff-ub}
 \end{align*}
 where $(u)^+ = \max(u,0)$ is the positive part of $u$.
-\todoc{I believe you don't want $(u)_+$, which is the standard notation, because it collides with or use of $+$ and $-$ as an index.  Is this really such a big issue? I have a slight preference for $(u)_+$. But fine. If you are determined, just take out this note.}
+%\todoc{I believe you don't want $(u)_+$, which is the standard notation, because it collides with or use of $+$ and $-$ as an index.  Is this really such a big issue? I have a slight preference for $(u)_+$. But fine. If you are determined, just take out this note.}
 
 %where $\delta(g_{1:t-1})$ is the tolerance parameter chosen by $\A$, based on the observations $g_{1:t-1}$. 
 From the above, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and $\delta_t^{\A} = \delta^{\A}_t(g_{1:t-1})$ (effectively fixing $g_{1:t-1}$ for this step),
@@ -318,31 +318,30 @@ From the above, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and $\d
 where inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
 
 Now, observe that 
-$\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)^+\}^2 \delta^q = \max_{(\epsilon/C_1)^{1/p} \ge \delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 
-Defining $z=p/q$, 
+$\sup_{\delta> 0} \{(\epsilon - C_1 \delta^p)^+\}^2 \delta^q = \sup_{(\epsilon/C_1)^{1/p} \ge \delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$,
 we obtain
 \begin{align}
-\delta_*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p}~. % \text{ as long as }\epsilon<\frac{2z+1}{C_1^{2z-1}(z+1)^z}. \label{eq:deltastar}
+\delta_*=\left(\frac{\epsilon q}{C_1(2p+q)}\right)^{1/p}. \label{eq:deltastar}
 \end{align}
-\todoc[inline]{
-Here is the calculation to get this:
-I defined $u = \delta^q$, writing $(\epsilon-C_1 \delta^p)^2 \delta^q = (\epsilon-C_1 u^z)^2 u 
-= \epsilon^2 u- 2C_1 \epsilon u^{z+1} + C_1^2 u^{2z+1}
-= :f(u)$.
-The first order optimality criterion is
-$0 = f'(u) = C_1^2(2z+1) (u^z)^2 - 2 C_1 (z+1) \epsilon u^z + \epsilon^2$, from which I get
-$(u^z)_{1,2} = \frac{2C_1(z+1)\epsilon \pm 2 C_1 z \epsilon}{2C_1^2(2z+1)}$,
-that is $u^z_1 = \frac{\epsilon }{C_1 (2z+1)}$, $u^z_2 = \frac{\epsilon}{C_1}$.
-Note that at the end-points of the interval $[0,(\epsilon/C_1)^{1/z}]$
-the function $f$ equals zero, while inside the interval it takes on positive values.
-We see that the larger endpoint of this interval is $u_2$. Hence, the function must have a 
-unique maximum in this interval at $u_1$. 
-Thus,  $\delta_* = u_1^{1/q}$, i.e., $\delta_* = ( \frac{\epsilon }{C_1 (2z+1)})^{1/p}$.
-The condition $\delta_*\le (\epsilon/C_1)^{1/p}$ gives $2z+1\ge 1$, which holds no matter the values of $p,q$.
-Therefore, 
- $\{(\epsilon-C_1 \delta_*^p)^+\}^2 \delta_*^q = (\epsilon-C_1 \delta_*^p)^2 \delta_*^q$.
-}
-Here the condition $\delta_* \le 1$ is satisfied if $ \epsilon \le C_1$, which will hold by our choice of $\epsilon$.
+%\todoc[inline]{
+%Here is the calculation to get this:
+%I defined $u = \delta^q$, writing $(\epsilon-C_1 \delta^p)^2 \delta^q = (\epsilon-C_1 u^z)^2 u 
+%= \epsilon^2 u- 2C_1 \epsilon u^{z+1} + C_1^2 u^{2z+1}
+%= :f(u)$.
+%The first order optimality criterion is
+%$0 = f'(u) = C_1^2(2z+1) (u^z)^2 - 2 C_1 (z+1) \epsilon u^z + \epsilon^2$, from which I get
+%$(u^z)_{1,2} = \frac{2C_1(z+1)\epsilon \pm 2 C_1 z \epsilon}{2C_1^2(2z+1)}$,
+%that is $u^z_1 = \frac{\epsilon }{C_1 (2z+1)}$, $u^z_2 = \frac{\epsilon}{C_1}$.
+%Note that at the end-points of the interval $[0,(\epsilon/C_1)^{1/z}]$
+%the function $f$ equals zero, while inside the interval it takes on positive values.
+%We see that the larger endpoint of this interval is $u_2$. Hence, the function must have a 
+%unique maximum in this interval at $u_1$. 
+%Thus,  $\delta_* = u_1^{1/q}$, i.e., $\delta_* = ( \frac{\epsilon }{C_1 (2z+1)})^{1/p}$.
+%The condition $\delta_*\le (\epsilon/C_1)^{1/p}$ gives $2z+1\ge 1$, which holds no matter the values of $p,q$.
+%Therefore, 
+% $\{(\epsilon-C_1 \delta_*^p)^+\}^2 \delta_*^q = (\epsilon-C_1 \delta_*^p)^2 \delta_*^q$.
+%}
+%Here the condition $\delta_* \le 1$ is satisfied if $ \epsilon \le C_1$, which will hold by our choice of $\epsilon$.
 Note that $C_1\delta_*^p\le \epsilon$, hence
 $\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)^+\}^2 \delta^q =  (\epsilon-C_1 \delta_*^p)^2 \delta_*^q$.
 Plugging \eqref{eq:supdelta} into \eqref{eq:dklchain} and using this last observation we obtain
@@ -353,11 +352,13 @@ Note that the above bound holds uniformly over all algorithms $\A$.
 Substituting the above bound into \eqref{eq:pinsker}, we obtain 
 \begin{align}
  \Delta_n^{*}
-  \ge & \dfrac{\epsilon}{2} \left(1 - \sqrt{
+  \ge  \dfrac{\epsilon}{2} \left(1 - \sqrt{
     n}  \dfrac{ (\epsilon-C_1\delta_*^p)\delta_*^{q/2}}{\sqrt{C_2}}
-  \right)\,,\label{eq:final-lower-bd}
+  \right)
+  = \frac{\epsilon}{2}\left(1-\sqrt{n} K_1 \epsilon^{\frac{2p+q}{2p}}\right)\,,\label{eq:final-lower-bd}
 \end{align}
-where we used again that $C_1 \delta_*^p\le \epsilon$.
+where $K_1= \frac{2p}{\sqrt{C_2}(2p+q)}\left(\frac{q}{C_1(2p+q)}\right)^{\frac{q}{2p}}$.
+%where we used again that $C_1 \delta_*^p\le \epsilon$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \paragraph{Derivations of rates:}
 %  Optimizing over $\epsilon$ in \eqref{eq:final-lower-bd}, we get
@@ -384,22 +385,15 @@ where we used again that $C_1 \delta_*^p\le \epsilon$.
 % \delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^{*} \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
 % \]
 
-\paragraph{Derivation of the rates uniformly for all $\delta$:}
-From the above, given $\epsilon \le C_1$, we have the following lower bound on the minimax error $\Delta_n^{*}$:
-\[
-\Delta_n^* \ge \frac{\epsilon}{2}\left(1-\sqrt{n} K_1 \epsilon^{\frac{2p+q}{2p}}\right),
-\text{ where } K_1= \frac{2p}{\sqrt{C_2}(2p+q)}\left(\frac{q}{C_1(2p+q)}\right)^{\frac{q}{2p}}~.
-\]
-%\[
-%\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{K_1}{2+\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
-%\]
+%\paragraph{Derivation of the rates uniformly for all $\delta$:}
+%From the above, given $\epsilon \le C_1$, we have the following lower bound on the minimax error $\Delta_n^{*}$:
  
-Again, letting $z=p/q$ and plugging in $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}}=
-C_1 (2z+1)\left(\frac{C_2}{n C_1^2(4 z+1)^2}\right)^{\frac{z}{2z+1}}$, we see that \begin{align}
-\Delta_n^* \ge \dfrac{\left(2z+1\right)^2}{2\left(4z+1\right)^{\tfrac{4z+1}{2z+1}}}C_2^{\tfrac{z}{2z+1}} C_1^{\frac{1}{2z+1}} n^{-\tfrac{z}{2z+1}}
+By choosing $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}}$, we see that 
+\begin{align}
+\Delta_n^* \ge \frac{2p+q}{2(4p+q)}\left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}} = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}C_1^{\frac{q}{2p+q}} C_2^{\tfrac{p}{2p+q}}  n^{-\tfrac{p}{2p+q}} \,.
 \label{eq:lb-pq}
 \end{align}
-as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
+%as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
 \todoc{So the condition on $n$ really comes from $\delta_*\le 1$, which was quite an ad hoc requirement, in the context of this proof. In a constraint optimization problem, we need something like this, but for unconstrained problems we could allow arbitrary $\delta$ and then this condition could be removed. This may be worth noting!}
 %The conditions on $n$ for the above bound to hold are:
 %\begin{align}
@@ -410,11 +404,11 @@ as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
 Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq} simplifies to \todoc{I edited the lower bound on $n$. It was 
 $\frac{2C_2}{9 C_1^2}$.}
 \[
-\Delta_n^{*} \ge \dfrac{ 2(C_1^2C_2)^{1/4}}{3\sqrt{3}} n^{-1/4}, \text{ for } n \ge \frac{16C_2}{9 C_1^2}~.
+\Delta_n^{*} \ge \dfrac{ 2}{3\sqrt{3}} C_1^{1/2}C_2^{1/4} n^{-1/4} \,.
 \]
 On the other hand, for $p=q=2$, we obtain 
 \[
-\Delta_n^{(1)*} \ge  \frac{9}{10}\left(\frac{C_1 C_2}{25}\right)^{1/3} n^{-1/3} \text{ for } n \ge \frac{27 C_2}{25 C_1^2}~.
+\Delta_n^{(1)*} \ge  \frac{9}{10}\left(\frac{1}{25}\right)^{1/3}C_1^{1/3}C_2^{1/3} n^{-1/3}\,.
 \]
 \todoa[inline]{This is where I stopped. The results are not used below and not copied to the theorem before somebody checks them. Some multiple of 2 difference to the previous version...}
 \todoc[inline]{I also stopped here for now. The results can be copied once my single change above is verified.}
@@ -629,8 +623,7 @@ while the inequality \eqref{eq:dlb} follows from the fact that each infimum term
 \paragraph{Derivation of rates:}\ \\
 Plugging the bound derived in \eqref{eq:lb-pq} for $1$-dimensional setting into the bound in \eqref{eq:dlb}, we obtain the following result for any $p, q >0$:
 \begin{align}
-\Delta_n^{(d)*} \ge  \dfrac{2p+q}{8p+2q}\sqrt{d}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}} \text{ for } 
-\epsilon = \dfrac{1}{\sqrt{d}}\left(\dfrac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
+\Delta_n^{(d)*} \ge  \sqrt{d}\Delta_n^{*} .
 \label{eq:lb-pq-d}
 \end{align}
 

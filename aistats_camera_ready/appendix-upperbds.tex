@@ -7,20 +7,20 @@ The lemma and its proof can be found below.
 By the discussion in \cref{sec:problem}, we have $\Delta^*_{\F,n}(c_1,c_2) \le R^*_{\F,n}(c_1,c_2)/n$ by Jensen's inequality, so it is enough to bound the regret for the online case.
 From the bias condition in \cref{def:oracle2}, we get
 \begin{align*}
- \EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x \in \cK}\sum_{t=1}^n f_t(x) }
+ \frac{1}{n} \EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x \in \cK}\sum_{t=1}^n f_t(x) }
  \le \frac{1}{n}\EE{ \sum_{t=1}^n \tilde{f}_t(X_t) - \inf_{x \in \cK}\sum_{t=1}^n \tilde{f}_t(x) } +2C_1 \delta^p
  \,.
 \end{align*}
 
-Given $\overline{G}_t=\EE{G_t} = \nabla \tilde{f}_t(X_t)$, where $\tilde{f}_t\in \cF_{L,0}$ is convex and smooth,
+Given $\overline{G}_t=\EE{G_t} = \nabla \tilde{f}(X_t)$, where $\tilde{f}\in \cF_{L,0}$ is convex and smooth,
 the result immediately follows by applying \cref{lem:ub} to $\tilde{f}$.
 Substituting
 %\todox{This may be confusing... since we are using type-II oracle, $\beta_t$ is actually 0.}
  $\beta_t = 0$, $\sigma^2_t = C_2 \delta^{-q}$, $a_t=a t^r$ for some $0<r<1$, respectively, we obtain
  \begin{align}
 \MoveEqLeft
-\EE{ \sum_{t=1}^n f(_t\hat X_n) - \inf_{x \in \cK} \sum_{t=1}^n f_t(x)} \nonumber \\
-&\le \frac{1}{n}\left(\EE{f_1(X_1)-\inf_{x \in \cK}f(x)}+\frac{DL}{\alpha}  \right) %\nonumber
+\frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} \nonumber \\
+&\le \frac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}+\frac{DL}{\alpha}  \right) %\nonumber
 +\frac{Da}{\alpha} n^{r-1}+\dfrac{C_2 \delta^{-q}}{2a(1-r)}n^{-r}+ (2+\dfrac{2}{n})C_1\delta^p \,.
 \label{eq:ubToBeOpt}
  \end{align}
@@ -35,7 +35,7 @@ Substituting
  When $\tilde{f}_t \in \cF_{L,\mu, \cR}$ is $L$-smooth and $\mu$-strongly convex, similarly, we obtain
  \begin{align*}
  \MoveEqLeft
- \E[f(\hat X_n) - \inf_{x \in \cK} f(x)] -\dfrac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}\right)\\
+\frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} -\frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)}\\
 &\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 \delta^{-q}}{\alpha \mu n} \sum_{t=1}^{n-1}\dfrac{1}{t-\dfrac{2L}{\alpha \mu}}\\
 &\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 }{\alpha \mu}\delta^{-q} \dfrac{\log n+1+\alpha \mu/(\alpha \mu-2L)}{n}\\
 &\le K_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}\,.

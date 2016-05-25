@@ -37,8 +37,10 @@ estimation oracles of the type our framework captures
 (earlier work of \citet{Chen88:LB-AoS} considered a related lower bound on the converge of the iterate instead of the function value).
 
 Note that our oracle model does not capture the full strength of the gradient estimates used in previous work, but it fully describes the properties of the estimates that \emph{so far have been used in their analysis}.
-As a consequence, our lower bounds show that the known minimax regret of $\sqrt{T}$ \citep{BubeckDKP15,BuEl15}
-of online and stochastic bandit convex optimization\todoa{add reference to stochastic} cannot be shown to hold
+As a consequence, our lower bounds show that the known minimax regret of $\sqrt{T}$ \citep{BubeckDKP15,BuEl15,shamir2012complexity}
+of online and stochastic bandit convex optimization
+%\todoa{add reference to stochastic} 
+cannot be shown to hold
 for any algorithm that uses current gradient estimation procedures, unless the proof exploited finer properties
 of the gradient estimators than used in prior works. In particular,
 our lower bounds even invalidate the claimed (weaker) upper bound of \citet{DeElKo15}.
