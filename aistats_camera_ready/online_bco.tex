@@ -5,8 +5,11 @@ This problem is also called online convex optimization with one-point feedback.
 A slightly different problem is obtained if we allow the learner to choose multiple points in every round, at which points the function $f_t$ is observed. The loss is suffered at $X_t$. The points where the function is observed (``observation points'' for short) may or may not be tied to $X_t$. One possibility is that $X_t$ is one of the observation points.  
 Another possibility is that $X_t$ is the average of the observation points (e.g., \citet{AgDeXi10}). Yet another possibility is that there is no relationship between them. 
 
-The oracle constructions from the previous section also apply to the online BCO setting, except that one cannot employ two-point feedback as the functions change in each round.  \todoc{Here we should actually introduce $Y$ etc.}
-This rules out the controlled noise case, where one can employ two function valuations and cancel out the noise. Thus, for the online BCO setting, one should consider type-I (and II) oracles with $c_1(\delta) = C_1 \delta^p$ and $c_2(\delta) = C_2\delta^{-q}$ with $p=q=2$.
+The oracle constructions from the previous section also apply to the online BCO setting
+where the algorithm is evaluated at $Y_t$, though in this case 
+one cannot employ two-point feedback as the functions change between rounds. 
+This also rules out the controlled noise case. 
+Thus, for the online BCO setting, one should consider type-I (and II) oracles with $c_1(\delta) = C_1 \delta^p$ and $c_2(\delta) = C_2\delta^{-q}$ with $p=q=2$.
 For these type of oracles, the results from Theorem \ref{thm:lb-convex} give the following result: 
 \begin{theorem}\label{thm:aaa}
 Let $\cF_{L,0}$ be the space of convex, $L$-smooth functions over a convex non-empty domain $\K$.

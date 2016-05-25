@@ -117,12 +117,13 @@ $
 the regret and the minimax error satisfy
 \begin{align*}
 \lefteqn{\Delta_{\F_{L,\mu,\cR},n}^*(c_1,c_2) } \\
-& \le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} =  O\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\frac{p}{p+q}} \right).
+& \le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} =  \tilde{O}\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\frac{p}{p+q}} \right)\,.
 \vspace{-0.5cm}
 \end{align*}
+In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$.%
+\footnote{In the second bound, $\tilde{O}(f(n))$ denotes $O(\log(n) f(n))$.}
 \end{theorem}
-\todoc[inline]{So what is hidden in $O(\cdot)$?}
-\todox[inline]{Terms of $p$, $q$, $\alpha$, $L$, $\mu$, $\frac{1}{n}$, $\log n$ are hidden. Detailed results can be found in appendix.}
+\todoc{Need to introduce $\tilde{O}$}
 %\begin{proof}
 %See \cref{sec:appendix-md}.
 %\end{proof}
@@ -133,7 +134,6 @@ Filling the gap is left for future work.
 \label{thm:lb-convex}
 Let $n>0$ be an integer, $p,q>0$, $C_1,C_2>0$, 
 $\cK\subset \R^d$ convex, closed, with  $[+1,-1]^d\subset \cK$.
-Assume that $n$ is large enough (the exact condition is given after the theorem). \todoc{Maybe in the appendix.}
 %For any $v \in \{+1,-1\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where
 %$f^{(i)}_{v_i}(x_i) := \dfrac{\epsilon}{2} (x_i - v_i)^2$, for $i=1,\ldots,d$.
 %Consider the space of functions $\F:= \{f_v \mid v  \in \{+1,-1\}^d\}$, with $\epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, where \\$K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$. 

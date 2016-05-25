@@ -80,7 +80,8 @@ we bound $\E\left\| G - \E G\right\|^2$ as follows:
 + 4 \E \left(\left\| V \right\|_*^2 \right)\left( \dfrac{f(x+\delta U) }{\delta} \right)^2  \label{eq:h31} \\
 & \le  \frac{C_2}{\delta^2}\,, \nonumber \label{eq:h41}
 \end{align}
-where $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+B_0\right)$, with $B_0 = \sup_{x\in \D} f(x)$.
+where $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+B_0^2\right)$, where
+$\sigma_\xi^2 = \essup \EE{\xi^2|V}$ and $B_0 = \sup_{x\in \D} f(x)$.
 The equality in \eqref{eq:h31} follows from $\EE{ \xi \,|\, V } = 0$.
 
 Therefore, for $f \in \C^3$, $\gamma$ defined by \eqref{eq:one-point} is a $(C_1\delta^2, C_2/\delta^2)$ type-I oracle.
@@ -97,11 +98,12 @@ Then,  given $\EE{VU^\top}=I$, $\EE{V}=0$, we obtain
 \begin{align}
 \norm{ \EE{ G } - \nabla f(x) }_*
 &= \norm{ \EE{\frac{f(x + \delta U)}{\delta}V}-\EE{VU^\top \nabla f(X)}  }_*\nonumber\\
-&=\norm{ \EE{V\left( \frac{f(x + \delta U)}{\delta}- -U^\top \nabla f(X)\right)}  }_*\nonumber\\
+&=\norm{ \EE{V\left( \frac{f(x + \delta U)}{\delta}-U^\top \nabla f(X)\right)}  }_*\nonumber\\
 &= \norm{ \EE{V\left( \phi(x,\delta,U)+\dfrac{f(x)}{\delta} \right)}  }_*\nonumber\\
 &=\norm{ \EE{V\phi(x,\delta,U)} }_*\nonumber\\
-&\le C_1 \,\, \delta\,, \text{ where } C_1 = \dfrac{L}{2}\EE{\norm{V}_*\norm{U}^2}. \label{eq:c1onepoint}
+&\le C_1 \,\, \delta\,, \label{eq:c1onepoint}
 \end{align}
+  where $C_1 = \dfrac{L}{2}\EE{\norm{V}_*\norm{U}^2}$.
 The claim regarding the variance of $G$ follows in a similar manner as in Case 1, i.e., $f \in \C^3$.
 
 Therefore, for $f$ convex and $L$-smooth, $\gamma$ defined by \eqref{eq:one-point} is a $(C_1\delta, C_2/\delta^2)$ type-I oracle, where $C_1$ is given by \eqref{eq:c1onepoint} and $C_2$ as defined in Case 1.
@@ -138,6 +140,8 @@ Therefore, for $f$ convex and $L$-smooth, $\gamma$ defined by \eqref{eq:one-poin
 %  \le \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2],
 % \end{align*}
 % and the claim for the bias follows by setting $c_1(\delta)= \frac{\delta L}{2} \E[ \dnorm{V} \norm{U}^2]$.
+
+
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
