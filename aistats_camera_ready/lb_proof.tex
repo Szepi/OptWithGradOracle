@@ -173,10 +173,7 @@ Thus, $\gamma_v$ is indeed an oracle with the required properties.
 	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=0.1$. 
 	The dashed lines show
 	$\overline{\gamma}_v(\cdot,\delta)$ for $C_1\delta^p=\epsilon$, 
-	$v\in \{\pm 1\}$.
-	\todoc[inline]{For the final version, uncomment the line that increases
-	the resolution above (look for samples=$\dots$).
-	}}
+	$v\in \{\pm 1\}$.}
 	\label{fig:fprime}
 \end{subfigure}
 	\end{tabular}
@@ -299,12 +296,12 @@ It remains to upper bound the numerator. For $(x,\delta)\in \R\times (0,1]$, fir
 & =  \gamma_-(x,\delta) - \gamma_+(x,\delta) \\
 & < \sup_x \gamma_-(x,\delta) - \inf_x \gamma_+(x,\delta) \\
 & = \lim_{x\to\infty} \gamma_-(x,\delta) - \lim_{x\to-\infty} \gamma_+(x,\delta) \\
-& = \epsilon - \min\{\epsilon, C_1\delta^p\} - (-\epsilon + \min\{\epsilon \wedge C_1\delta^p\})\\
-& = 2\epsilon - 2\min\{\epsilon, C_1\delta^p\}\\
+& = \epsilon - \epsilon\wedge C_1\delta^p - (-\epsilon + \epsilon \wedge C_1\delta^p)\\
+& = 2\epsilon - 2\epsilon \wedge C_1\delta^p\\
 & \le 2(\epsilon - C_1\delta^p)^+\,, \numberthis \label{eq:gdiff-ub}
 \end{align*}
 where $(u)^+ = \max(u,0)$ is the positive part of $u$.
-\todoc{I believe you don't want $(u)_+$, which is the standard notation, because it collides with or use of $+$ and $-$ as an index.  Is this really such a big issue? I have a slight preference for $(u)_+$. But fine. If you are determined, just take out this note.}
+%\todoc{I believe you don't want $(u)_+$, which is the standard notation, because it collides with or use of $+$ and $-$ as an index.  Is this really such a big issue? I have a slight preference for $(u)_+$. But fine. If you are determined, just take out this note.}
 
 %where $\delta(g_{1:t-1})$ is the tolerance parameter chosen by $\A$, based on the observations $g_{1:t-1}$. 
 From the above, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and $\delta_t^{\A} = \delta^{\A}_t(g_{1:t-1})$ (effectively fixing $g_{1:t-1}$ for this step),
@@ -318,31 +315,29 @@ From the above, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and $\d
 where inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
 
 Now, observe that 
-$\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)^+\}^2 \delta^q = \max_{(\epsilon/C_1)^{1/p} \ge \delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. 
-Defining $z=p/q$, 
-we obtain
+$\sup_{\delta> 0} \{(\epsilon - C_1 \delta^p)^+\}^2 \delta^q = \sup_{(\epsilon/C_1)^{1/p} \ge \delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. From this we obtain
 \begin{align}
-\delta_*=\left(\frac{\epsilon q}{2C_1(p+q/2)}\right)^{1/p}~. % \text{ as long as }\epsilon<\frac{2z+1}{C_1^{2z-1}(z+1)^z}. \label{eq:deltastar}
+\delta_*=\left(\frac{\epsilon q}{C_1(2p+q)}\right)^{1/p}. \label{eq:deltastar}
 \end{align}
-\todoc[inline]{
-Here is the calculation to get this:
-I defined $u = \delta^q$, writing $(\epsilon-C_1 \delta^p)^2 \delta^q = (\epsilon-C_1 u^z)^2 u 
-= \epsilon^2 u- 2C_1 \epsilon u^{z+1} + C_1^2 u^{2z+1}
-= :f(u)$.
-The first order optimality criterion is
-$0 = f'(u) = C_1^2(2z+1) (u^z)^2 - 2 C_1 (z+1) \epsilon u^z + \epsilon^2$, from which I get
-$(u^z)_{1,2} = \frac{2C_1(z+1)\epsilon \pm 2 C_1 z \epsilon}{2C_1^2(2z+1)}$,
-that is $u^z_1 = \frac{\epsilon }{C_1 (2z+1)}$, $u^z_2 = \frac{\epsilon}{C_1}$.
-Note that at the end-points of the interval $[0,(\epsilon/C_1)^{1/z}]$
-the function $f$ equals zero, while inside the interval it takes on positive values.
-We see that the larger endpoint of this interval is $u_2$. Hence, the function must have a 
-unique maximum in this interval at $u_1$. 
-Thus,  $\delta_* = u_1^{1/q}$, i.e., $\delta_* = ( \frac{\epsilon }{C_1 (2z+1)})^{1/p}$.
-The condition $\delta_*\le (\epsilon/C_1)^{1/p}$ gives $2z+1\ge 1$, which holds no matter the values of $p,q$.
-Therefore, 
- $\{(\epsilon-C_1 \delta_*^p)^+\}^2 \delta_*^q = (\epsilon-C_1 \delta_*^p)^2 \delta_*^q$.
-}
-Here the condition $\delta_* \le 1$ is satisfied if $ \epsilon \le C_1$, which will hold by our choice of $\epsilon$.
+%\todoc[inline]{
+%Here is the calculation to get this:
+%I defined $u = \delta^q$, writing $(\epsilon-C_1 \delta^p)^2 \delta^q = (\epsilon-C_1 u^z)^2 u 
+%= \epsilon^2 u- 2C_1 \epsilon u^{z+1} + C_1^2 u^{2z+1}
+%= :f(u)$.
+%The first order optimality criterion is
+%$0 = f'(u) = C_1^2(2z+1) (u^z)^2 - 2 C_1 (z+1) \epsilon u^z + \epsilon^2$, from which I get
+%$(u^z)_{1,2} = \frac{2C_1(z+1)\epsilon \pm 2 C_1 z \epsilon}{2C_1^2(2z+1)}$,
+%that is $u^z_1 = \frac{\epsilon }{C_1 (2z+1)}$, $u^z_2 = \frac{\epsilon}{C_1}$.
+%Note that at the end-points of the interval $[0,(\epsilon/C_1)^{1/z}]$
+%the function $f$ equals zero, while inside the interval it takes on positive values.
+%We see that the larger endpoint of this interval is $u_2$. Hence, the function must have a 
+%unique maximum in this interval at $u_1$. 
+%Thus,  $\delta_* = u_1^{1/q}$, i.e., $\delta_* = ( \frac{\epsilon }{C_1 (2z+1)})^{1/p}$.
+%The condition $\delta_*\le (\epsilon/C_1)^{1/p}$ gives $2z+1\ge 1$, which holds no matter the values of $p,q$.
+%Therefore, 
+% $\{(\epsilon-C_1 \delta_*^p)^+\}^2 \delta_*^q = (\epsilon-C_1 \delta_*^p)^2 \delta_*^q$.
+%}
+%Here the condition $\delta_* \le 1$ is satisfied if $ \epsilon \le C_1$, which will hold by our choice of $\epsilon$.
 Note that $C_1\delta_*^p\le \epsilon$, hence
 $\max_{\delta> 0} \{(\epsilon - C_1 \delta^p)^+\}^2 \delta^q =  (\epsilon-C_1 \delta_*^p)^2 \delta_*^q$.
 Plugging \eqref{eq:supdelta} into \eqref{eq:dklchain} and using this last observation we obtain
@@ -352,12 +347,14 @@ Plugging \eqref{eq:supdelta} into \eqref{eq:dklchain} and using this last observ
 Note that the above bound holds uniformly over all algorithms $\A$. 
 Substituting the above bound into \eqref{eq:pinsker}, we obtain 
 \begin{align}
- \Delta_n^{*}
-  \ge & \dfrac{\epsilon}{2} \left(1 - \sqrt{
+\Delta_n^{*}
+  \ge  \dfrac{\epsilon}{2} \left(1 - \sqrt{
     n}  \dfrac{ (\epsilon-C_1\delta_*^p)\delta_*^{q/2}}{\sqrt{C_2}}
-  \right)\,,\label{eq:final-lower-bd}
+  \right)
+  = \frac{\epsilon}{2}\left(1-\sqrt{n} K_1 \epsilon^{\frac{2p+q}{2p}}\right)\,,\label{eq:final-lower-bd}
 \end{align}
-where we used again that $C_1 \delta_*^p\le \epsilon$.
+where $K_1= \frac{2p}{\sqrt{C_2}(2p+q)}\left(\frac{q}{C_1(2p+q)}\right)^{\frac{q}{2p}}$.
+%where we used again that $C_1 \delta_*^p\le \epsilon$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \paragraph{Derivations of rates:}
 %  Optimizing over $\epsilon$ in \eqref{eq:final-lower-bd}, we get
@@ -384,23 +381,15 @@ where we used again that $C_1 \delta_*^p\le \epsilon$.
 % \delta^*= \left(\dfrac{C_2}{2C_1}\right)^{\frac{1}{3}}\dfrac{1}{n^{\frac{1}{6}}} \text{ and } \Delta_n^{*} \ge \left(\dfrac{C_1^{\frac{1}{3}}C_2^{\frac{2}{3}}}{4\, 2^{\frac{1}{3}}}\right)\dfrac{1}{n^{\frac{1}{3}}}.
 % \]
 
-\paragraph{Derivation of the rates uniformly for all $\delta$:}
-From the above, given $\epsilon \le C_1$, we have the following lower bound on the minimax error $\Delta_n^{*}$:
-\[
-\Delta_n^* \ge \frac{\epsilon}{2}\left(1-\sqrt{n} K_1 \epsilon^{\frac{2p+q}{2p}}\right),
-\text{ where } K_1= \frac{2p}{\sqrt{C_2}(2p+q)}\left(\frac{q}{C_1(2p+q)}\right)^{\frac{q}{2p}}~.
-\]
-%\[
-%\Delta_n^{(1)*} \ge \dfrac{\epsilon}{2} \left(1 - \sqrt{n}  \dfrac{K_1}{2+\frac{q}{2p}} \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
-%\]
+%\paragraph{Derivation of the rates uniformly for all $\delta$:}
+%From the above, given $\epsilon \le C_1$, we have the following lower bound on the minimax error $\Delta_n^{*}$:
  
-Again, letting $z=p/q$ and plugging in $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}}=
-C_1 (2z+1)\left(\frac{C_2}{n C_1^2(4 z+1)^2}\right)^{\frac{z}{2z+1}}$, we see that \begin{align}
-\Delta_n^* \ge \dfrac{\left(2z+1\right)^2}{2\left(4z+1\right)^{\tfrac{4z+1}{2z+1}}}C_2^{\tfrac{z}{2z+1}} C_1^{\frac{1}{2z+1}} n^{-\tfrac{z}{2z+1}}
+By choosing $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}}$, we see that 
+\begin{align}
+\Delta_n^* \ge \frac{2p+q}{2(4p+q)}\left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}} = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}C_1^{\frac{q}{2p+q}} C_2^{\frac{p}{2p+q}}  n^{-\tfrac{p}{2p+q}} \,.
 \label{eq:lb-pq}
 \end{align}
-as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
-\todoc{So the condition on $n$ really comes from $\delta_*\le 1$, which was quite an ad hoc requirement, in the context of this proof. In a constraint optimization problem, we need something like this, but for unconstrained problems we could allow arbitrary $\delta$ and then this condition could be removed. This may be worth noting!}
+%as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
 %The conditions on $n$ for the above bound to hold are:
 %\begin{align}
 %\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right).
@@ -409,11 +398,11 @@ as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
 
 Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq} simplifies to 
 \[
-\Delta_n^{*} \ge \dfrac{ 2(C_1^2C_2)^{1/4}}{3\sqrt{3}} n^{-1/4} \text{ for } n \ge \frac{16C_2}{9 C_1^2}~.
+\Delta_n^{*} \ge \dfrac{ 2}{3\sqrt{3}} C_1^{1/2}C_2^{1/4} n^{-1/4} \,.
 \]
 On the other hand, for $p=q=2$, we obtain 
 \[
-\Delta_n^{(1)*} \ge  \frac{9}{10}\left(\frac{C_1 C_2}{25}\right)^{1/3} n^{-1/3} \text{ for } n \ge \frac{27 C_2}{25 C_1^2}~.
+\Delta_n^{*} \ge  \frac{9}{10}\left(\frac{1}{25}\right)^{1/3}C_1^{1/3}C_2^{1/3} n^{-1/3}\,.
 \]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -424,19 +413,19 @@ To prove the $d$-dimensional result, we introduce a new device which allows us t
 The main idea is to use separable $d$-dimensional functions and oracles and show that if there exists an algorithm with a small loss for a rich set of separable functions and oracles, then there exists good one dimensional algorithms for the one-dimensional components of the functions and oracles.
 
 This device works as follows: 
-For $1\le i \le d$, let $V_i$, $\cK_i$ be nonempty sets, $\cK_i\subset \R$
-and for each $v\in V$, let $f_v^{(i)}: \cK_i \to \R$ 
+For $1\le i \le d$, let $\cK_i \subset \R$ be nonempty sets, 
+and for each $v\in V := \{\pm 1\}^d$, let $f_v^{(i)}: \cK_i \to \R$ 
 (later we will use $V_i=\{\pm 1\}$ and $f_v^{(i)}$ will be the functions constructed for the $1$-dimensional case with $\{-1,+1\}\subset \cK_i\subset \R$).
-Without the loss of generality, we assume that $\inf_{x\in \cK} f_v^{(i)}(x) = 0$, so that the optimization error of the algorithm producing $\hat{X}_n$  as the output is $f_v^{(i)}(\hat{X}_n)$.
-Further, let $\gamma_v^{(i)}$ be the gradient oracle that the algorithms can use when 
+Without the loss of generality, we assume that $\inf_{x\in \cK_i} f_v^{(i)}(x) = 0$, so that the optimization error of the algorithm producing $\hat{X}_n$  as the output is $f_v^{(i)}(\hat{X}_n)$.
+Further, let $\gamma_v^{(i)}$ be a gradient oracle that the algorithms can use when 
 the function to be optimized is $f_v^{(i)}$. 
 
 Let $\cK = \times_{i=1}^d \cK_i$ and for $v = (v_1,\dots,v_d) \in V:= \times_{i=1}^d V_i$ (with a slight abuse of notation), let $f_v: \cK \to \R$ be defined by
-\begin{align*}
-f_v(x) = \sum_{i=1}^d f_{v_i}(x), \qquad x\in \cK\,.
-\end{align*}
-We also defined a
-$\gamma_v$  $d$-dimensional oracle as follows: The oracle  is obtained from ``composing'' the $d$ $1$-dimensional oracles, $(\gamma_{v_i}^{(i)})_{i}$.
+\begin{align}
+f_v(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \qquad x\in \cK\,. \label{eq:sepfdef}
+\end{align}
+We also define a $\gamma_v$  $d$-dimensional oracle as follows: 
+The oracle  is obtained from ``composing'' the $d$ $1$-dimensional oracles, $(\gamma_{v_i}^{(i)})_{i}$.
 In particular, the $i$-th component of the response of $\gamma_v$ 
 given the history of queries $(x_{t},\delta_{t},\dots,x_1,\delta_1)\in (\cK \times [0,1))^t$
 is defined as the response of $\gamma^{(i)}_{v_i}$ 
@@ -444,6 +433,14 @@ given the history of queries $(x_{t,i},\delta_{t},\dots,x_{1,i},\delta_1)\in (\c
 This definition is so far unclear about the randomization of the oracles. 
 In fact, it turns out that the one-dimensional oracles can even use the same randomization (i.e.,
 their output can depend on the same single uniformly distributed random variable $U$), but they could also use separate randomization: Our argument will not depend on this.
+\newcommand{\sep}{\mathrm{sep}}
+If $\Gamma^{(i)}(f_{v_i}^{(i)},c_1,c_2)$ 
+denotes a non-empty set of $(c_1,c_2)$ type-I oracles for objective function $f^{(i)}_{v_i}:\cK_i \to \R$,
+then we shall denote by $\Gamma_\sep(f_v,c_1,c_2)$ the set of oracles for function $f_v$ 
+as defined in the previous paragraph.
+We also define $\cF_\sep = \{ f\,: \, f(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), x\in \cK, v_i\in V_i \}$.
+Note that when $\norm{\cdot} = \norm{\cdot}_2$ is used in the definition of type-I oracles then
+$\Gamma_\sep(f_v,c_1/d^{1/2},c_2/d) \subset \Gamma(f_v,c_1,c_2)$.
 
 Let an algorithm $\A$ interact with an oracle $\gamma$.
 We will denote the distribution of the output $\hat{X}_n$ of $\A$
@@ -477,8 +474,7 @@ In fact,  $\tL^{A}_i$ depends on $v$ because the algorithm $\A$ uses the $d$-dim
 
 \begin{lemma}[``Cross-talk'' does not help in separable problems]
 \label{lemma:sep}
-Let $V= \times_{i=1}^d V_i$, $(f_v)_{v\in V}$, $(\gamma_v)_{v\in V}$ be separable, $\A$ any $d$-dimensional algorithm. Then
-for any algorithm $\A$, there exist  $d$ one-dimensional algorithms, $\A_i^*$, $1\le i \le d$
+Let $V= \times_{i=1}^d V_i$, $(f_v)_{v\in V}$, $(\gamma_v)_{v\in V}$ be separable, $\A$ any $d$-dimensional algorithm. Then there exist  $d$ one-dimensional algorithms, $\A_i^*$, $1\le i \le d$
 such that 
 \begin{align}
 \label{eq:onedimlb}
@@ -562,46 +558,68 @@ Thus,
 which was the claim to be proven.
 \end{proof}
 
+Now, let 
+\[
+\cF^{(i)} = \{f_{v_i} \,:\, v_i\in V_i\}, \qquad i=1,\dots,d
+\] and define
+\[
+\Delta_n^{(d)*} = \Delta_n( \cF_\sep, c_1, c_2 )\,.
+\]
+The next result follows easily from the previous lemma:
+\begin{lemma}
+\label{lem:sep2}
+Let $\norm{\cdot} =\norm{\cdot}_2$ in the definition of the type-I oracles.
+%Let $\inf_{x\in \cK_i} f_{v_i}^{(i)}(x) = 0$. 
+Then, we have that \[\Delta_n^{(d)*} \ge \sum_{i=1}^d \Delta_n^*(\cF^{(i)},c_1/d^{1/2},c_2/d)\,.\]
+\end{lemma}
+\begin{proof}
+By our earlier remark, $\Gamma_\sep(f_v,c_1/d^{1/2},c_2/d) \subset \Gamma(f,c_1,c_2)$. Hence,
+\begin{align*}
+\Delta_n^{(d)*} 
+	& = \inf_{\cA} \sup_{v\in V} \sup_{\gamma \in \Gamma(f_v,c_1,c_2)} \Delta^{\cA}_n(f_v,\gamma) 
+	 \ge \inf_{\cA} \sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/d^{1/2},c_2/d)} \Delta^{\cA}_n(f_v,\gamma)\,.
+	 \numberthis
+	 \label{eq:ddimtoonedim1}
+\end{align*}
+For each $i=1,\dots,d$, pick $\gamma_{v_i}^{(i)}\in \Gamma(f_{v_i},c_1/d^{1/2},c_2/d)$ such that 
+$\Delta_n^*(\cF^{(i)},c_1/d^{1/2},c_2/d) = \inf_{\cA} \sup_{v_i\in V_i} \Delta_n^{\cA}(f_{v_i},\gamma_{v_i}^{(i)})$.
+For $v \in V$, let $\gamma_v \in \Gamma_\sep(f_v,c_1/d^{1/2},c_2/d)$ be the oracle whose ``components'' are 
+$\gamma_{v_i}^{(i)}$, $i=1,\dots,d$.
+Now, by \cref{lemma:sep},
+\begin{align*}
+\sup_{v\in V} \Delta^{\cA}_n(f_v,\gamma_v)
+\ge
+\sum_{i=1}^d \inf_{\cA} \sup_{v_i\in V_i} \Delta^{\cA}_n(f_{v_i}^{(i)},\gamma_{v_i}^{(i)})
+=
+\sum_{i=1}^d  \Delta_n^*(\cF^{(i)},c_1/d^{1/2},c_2/d)\,.
+\end{align*}
+This, together with 
+$\sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/d^{1/2},c_2/d)} \Delta^{\cA}_n(f_v,\gamma)
+\ge \sup_{v\in V} \Delta^{\cA}_n(f_v,\gamma_v)$
+and \eqref{eq:ddimtoonedim1} gives the desired result.
+\end{proof}
+
 \paragraph{Main proof:}
 Let $\cK \subset \R^d$, such that $\times_i \cK_i \subset \cK$, $\{\pm 1 \} \subset \cK_i \subset \R$,
 $\F_d = \F_{L,0}(\K)$, where recall that $L\ge 1/2$.
-Define $f_v$ for any $v\in V:=\times_i V_i := \{-1,+1\}^d$ as follows: For any $x \in \cK$, 
-\begin{align*}
-  f_v(x) :=& \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \,\,  \text{ where }
-  f^{(i)}_{v_i}(x_i) := \epsilon\left( x_i-v_i\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x_i-v_i}{\epsilon}}  \right),  \,\, \text{ for } i=1,\ldots,d\,,
-\end{align*}
+ For any $1\le i \le d$, $x_i \in \cK_i$, 
+\begin{align}
+\label{eq:smoothddim}
+%  f_v(x) :=& \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \,\,  \text{ where }
+  f^{(i)}_{v_i}(x_i) := \epsilon\left( x_i-v_i\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x_i-v_i}{\epsilon}}  \right)\,.
+\end{align}
 i.e., $f^{(i)}_{v_i}$ is like in the one-dimensional lower bound proof (cf.~\eqref{eq:fvdef}).
 Note that $f_v \in \F_d$ since $f_v$ is separable, so its Hessian is diagonal and from our earlier calculation
 we know that
 $0\le \frac{\partial^2}{\partial x_i^2} f^{(i)}_{v_i}(x_i) \le 1/2$.
-Let $\gamma^{(i)}_{v_i}$ be the  $(C_1 \delta^p,C_2 \delta^{-q})$ type-I, 
-one-dimensional oracle constructed beforehand for $f^{(i)}_{v_i}$:
-$\gamma^{(i)}_{v_i}$ is memoryless and for input $(x_i,\delta)\in \cK_i \times [0,1)$, it returns
-$\og_{v_i}(x_i,\delta/d^{1/(2p)})+\xi_{i}(\delta)$, where $\xi_i(\delta) \sim \normal(0, C_2/(d\delta^q))$ and
-$\og_{v_i}$ is defined by \eqref{eq:og1} and \eqref{eq:og2}, for $v_i=+1$ and $v_i=-1$, respectively.
-Here, we assume that all oracles use independent random noise. \todoc{Actually, this does not matter it seems. This is a bit weird.}
-
-The bias of $\gamma_v$, the composition of these oracles, in each dimension is at most
-$C_1 (\delta/d^{1/(2p)})^p = C_1 \delta^p/d^{1/2}$. Hence, for $\norm{\cdot} = \norm{\cdot}_2$,
-\todoc{Move to condition!?}
-the bias of $\gamma_v$ is at most $c_1(\delta):=C_1 \delta^p$, while the ``variance'' is $\EE{ \sum_i \xi_i^2(\delta) } = c_2(\delta):= C_2/\delta^q$. Thus, $\gamma_v$ is a $(c_1,c_2)$ type-I oracle.
-We also note in passing that for any $i$, $\gamma^{(i)}_{v_i}$ is a $(C_1 \delta^p/d^{1/2},C_2/(d\delta^q))$ type-I oracle.
-
-Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$. Let $\F_1 = \{ f^{(1)}_{+1},  f^{(1)}_{+1} \}$.
-As it was noted above,
-$f_v\in \F_d$ for any $v\in \{\pm 1\}^d$.
-Hence, with the notation introduced before the lemma,
+Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$. 
+Let $\F^{(i)} = \{ f^{(i)}_{-1},  f^{(i)}_{+1} \}$.
+As it was noted above, $f_v\in \F_d$ for any $v\in \{\pm 1\}^d$.
+Hence, by~\cref{lem:sep2}, 
 \begin{align*}
- \Delta_n^{(d)*} \ge& \inf_\A  \sup_{v\in \{\pm 1 \}^d}\sum_{i=1}^d \tilde{L}^{\A}_i(v)\\ 
- & \ge \inf_{\A_1} \max_{v_1\in \{\pm 1\}} L_1^{\A_1}(v_1) + \dots + 
- 			\inf_{A_d} \max_{v_d\in \{\pm 1 \}} L_d^{\A_d}(v_d) \\
-%             \ge & \inf_{\A_1^*} L_1(v^*) + \ldots + \inf_{\A_d^*} L_d(v^*) \label{eq:splitA}\\
-               & \ge d \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right)\,, 
+ \Delta_n^{(d)*} &\ge \sum_{i=1}^d \Delta_n^{*}\left(\F^{(i)},\frac{C_1}{\sqrt{d}}\, \delta^p, \frac{C_2}{d} \delta^{-q}\right)\,.
                \numberthis \label{eq:dlb}
 \end{align*}
-where the second inequality follows from \cref{lemma:sep}, while the last inequality follows from the definition of $\Delta_n^*$ and that 
-$\gamma^{(i)}_{v_i}$, used in the definition of $L_i^{\cA_i}$, is a $(C_1 \delta^p/d^{1/2},C_2/(d\delta^q))$ type-I oracle.
-\todoc[inline]{I fixed the $d$ dim. proof up to this point.}
 
 % Fix an $i$ and consider the loss $L_i(v)$.
 % We now argue that, since $f_v$ is separable, any algorithm $\A$ that uses information in dimensions other than $i$ in the gradient samples of the oracle, can be replaced by $d$ algorithms $\A_1^*$, $\dots$, $\A_d^*$ such that $\A_i^*$ is only using information for dimension $i$ and is only predicting the $i$th coordinate at the end, and the sum of losses they incur is utmost that of $\A$ in the worst-case.
@@ -625,8 +643,7 @@ while the inequality \eqref{eq:dlb} follows from the fact that each infimum term
 \paragraph{Derivation of rates:}\ \\
 Plugging the bound derived in \eqref{eq:lb-pq} for $1$-dimensional setting into the bound in \eqref{eq:dlb}, we obtain the following result for any $p, q >0$:
 \begin{align}
-\Delta_n^{(d)*} \ge  \dfrac{2p+q}{8p+2q}\sqrt{d}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}} \text{ for } 
-\epsilon = \dfrac{1}{\sqrt{d}}\left(\dfrac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
+\Delta_n^{(d)*} \ge  \sqrt{d}\Delta_n^{*} .
 \label{eq:lb-pq-d}
 \end{align}
 
@@ -646,32 +663,28 @@ On the other hand, for the case $p=q=2$, we obtain
 %%% TeX-master: "bgo"
 %%% End: 
 
-\subsection{Proof of Theorem \ref{thm:lb-convex} for strongly convex + smooth function class $\F_{L,1}(\K)$}
+\subsection{Proof of Theorem \ref{thm:lb-convex} for strongly convex + smooth function class $\F_{L,1}(\K)$.}
 \label{sec:appendix-lbscconvex}
 We follow the notational convention used earlier for convex functions in one dimension. 
-\todoc{This proof needs to be updated to allow the algorithm choose $\delta$, the same way, as was done for the smooth case.
-The oracle also takes two parameters, as there, etc.
-In general, this text is too rough (typos, etc.).
-Read the other proof carefully and change this proof to reflect closely the other one. Don't make it longer, just correct the slight imprecisions.}
-
-We consider functions $f_v$, for any $v \in \{-\nu,+\nu\}$, defined as
-By assumption,  $\{f_+, f_-\}\subset \F$, with 
-\begin{align*}
-  f_v(x) := \dfrac{1}{2} x^2 - v x \,\, x \in \cK\,;
-\end{align*}
-we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+\nu}$ (resp., $f_{-\nu}$).
+Let $\F = \F_{L,1}(\K)$, where $L\ge 1$ and $\K$  includes $\pm 1$.
+We consider functions $f_v$, for $v \in \{-1,+1\}$, defined as
+\begin{align}
+  f_v(x) := \dfrac{1}{2} x^2 - v\epsilon x \,,\quad x \in \cK\,.
+  \label{eq:socfdef}
+\end{align}
+It is easy to see that $\{f_+, f_-\}\subset \F$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-Clearly, $f_v$ is minimized at $x^*_v = v$.
+Clearly, $f_v$ is minimized at $x^*_v = v\epsilon$.
 By the definition of $f_v$, we have
 %Using the fact that $f_+$ and $f_-$ are strongly convex with associated constant $\left(\dfrac{\epsilon}{2}\right)$, we obtain
 \begin{align}
   f_v(x) - f_v(x^*_v)
-\ge  \dfrac{\nu^2}{2}  \indic{x v  < 0}. \label{eq:fv-lb-sc}
+\ge  \dfrac{\epsilon^2}{2}  \indic{x v  < 0}. \label{eq:fv-lb-sc}
 \end{align}
 We will consider the oracles $\gamma_v$ defined as 
 \begin{align}
- \gamma_v(x) = \epsilon(x-v) + \sign(v)\, \min(v,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
+ \gamma_v(x) = x-v\epsilon + v \min(\epsilon,C_1 \delta^p) + \xi, \label{eq:oracle-1d}
 \end{align}
 where $\xi \sim \normal(0,\frac{C_2}{\delta^q})$; as with $f_v$, we will also use $\gamma_{+}$ ($\gamma_-$) 
 to denote $\gamma_{+1}$ (resp., $\gamma_{-1}$).
@@ -680,69 +693,74 @@ The oracle is indeed a $(c_1,c_2)$ type-I oracle, with $c_1(\delta)=C_1\delta^p$
 
 Using arguments similar to those in the proof of lower bound for convex functions, we obtain
 \begin{align}
-\Delta_n^{*} %\nonumber\\
-  \ge  &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinskersc}
+\Delta_n^{(1)*}:=\Delta_n^{*} %\nonumber\\
+  \ge  &\inf_{\A} \dfrac{\epsilon^2 }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinskersc}
 \end{align}
-Note that $P_+$ (resp. $P_-$) is $\P$ conditioned on the event $V=+\nu$ (resp. $V=-\nu$), since $v$ takes values in $\{+\nu,-\nu\}$. The conditioning in the earlier proof for convex function was on $V=+1$ for $P_+$ as $v$ there was taking values $\{+1,-1\}$.
+Note that $P_+$ (resp. $P_-$) is $\P$ conditioned on the event $V=+1$ (resp. $V=-1$).
+%, since $v$ takes values in $\{+\nu,-\nu\}$. The conditioning in the earlier proof for convex function was on $V=+1$ for $P_+$ as $v$ there was taking values $\{+1,-1\}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-Observe that, for any $x\in \R$, $f_+'(x) - f_-'(x) = 2v$ and hence
+Observe that, for any $x\in \R$, $f_-'(x) - f_+'(x) = 2\epsilon$ and hence
 \begin{align}
  |\gamma_+(x) - \gamma_-(x)| 
-& = | f'_+(x) - \min(v,C_1 \delta^p) - (f'_-(x)+\min(v,C_1 \delta^p)) | \nonumber \\
-& = 2 (\nu - C_1 \delta^p)_+.
+& = | f'_+(x) - \min(\epsilon,C_1 \delta^p) - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | 
+ = 2 (\epsilon - C_1 \delta^p)^+.
  \label{eq:gdiff-ub-sc}
 \end{align}
 From the foregoing, 
 \begin{align}
- \MoveEqLeft \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}\nonumber\\
- \le & \dfrac{2(\nu-C_1\delta^p)_+^2\delta^q}{C_2},\label{eq:dkgausssc}
+ \MoveEqLeft \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}
+ \le  \dfrac{2\{(\epsilon-C_1\delta_t^p)^+\}^2\delta_t^q}{{C_2}},\label{eq:dkgausssc}
 \end{align}
 where the inequality \eqref{eq:dkgausssc} follows from \eqref{eq:gdiff-ub-sc}.
 Thus, we obtain
 \begin{align}
-\dkl{P_{+}}{P_{-}} \le \dfrac{2n(\nu-C_1\delta^p)_+^2 \delta^q}{C_2}.
+\dkl{P_{+}}{P_{-}} \le 2n \sup_{\delta>0} \dfrac{\{(\epsilon-C_1\delta^p)^+\}^2 \delta^q}{C_2}.
+\label{eq:kluboundsc}
 \end{align}
 Substituting the above bound into \eqref{eq:pinskersc}, we obtain 
 \begin{align}
- \Delta_n^{*}
-  \ge & \dfrac{\nu^2}{2} \left(1 - \sqrt{
-    n}  \dfrac{(\nu-C_1\delta^p)_+\delta^{q/2}}{C_2}
-  \right)\label{eq:final-lower-bd-sc}
+ \Delta_n^{(1)*}
+  \ge & \dfrac{\epsilon^2}{2} \left(1 - \sqrt{
+    n}  \sup_{\delta>0}\dfrac{(\epsilon-C_1\delta^p)^+\delta^{q/2}}{\sqrt{C_2}}
+  \right)\,.\label{eq:final-lower-bd-sc}
 \end{align}
 
 
 \paragraph{Derivation of the rates uniformly for all $\delta$:}
-As in the proof of the lower bound for $\F_{L,0}(\K)$, we replace the positive part function in \eqref{eq:final-lower-bd-sc} and optimize over $\delta$ to obtain the following:
+As in the proof of the lower bound for $\F_{L,0}(\K)$, we replace the positive part function in \eqref{eq:final-lower-bd-sc} and optimize over $\delta$ to obtain
+that the right-hand side of~\eqref{eq:kluboundsc} is optimized by
 \begin{align}
-\delta^*=\left(\frac{\nu q}{2C_1(p+q/2)}\right)^{1/p} \text{ as long as }\nu<\frac{2z+1}{C_1^{2z-1}(z+1)^z},
+\delta_*=\left(\frac{ \epsilon q}{C_1(2p+q)}\right)^{1/p}\,.
 \label{eq:deltastar-sc}
 \end{align}
-where $z=p/q$. Recall that we require $\nu/C_1 \ge {\delta^*}^p$, which results in the condition on $\nu$ above.
+%where $z=p/q$. Recall that we require $\nu/C_1 \ge {\delta^*}^p$, which results in the condition on $\nu$ above.
 
-From the above, we have the following lower bound for the minimax error $\Delta_n^{(1)*}$ for any choice of $\delta$:
+From the above, we have 
 % and for any choice of $\delta$, the minimax error $\Delta_n^{*}$ satisfies
 \[
-\Delta_n^{(1)*} \ge \dfrac{\nu^2}{2} \left(1 - \sqrt{n}  K_1 \nu^{\frac{p+\tfrac{q}{2}}{p}}\right), \text{ where } K_1 = \dfrac{p}{C_2(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}.
+\Delta_n^{(1)*} \ge \dfrac{\epsilon^2}{2} \left(1 - \sqrt{
+    n}  \dfrac{ (\epsilon-C_1\delta_*^p)\delta_*^{q/2}}{\sqrt{C_2}}
+  \right)= \dfrac{\epsilon^2}{2} \left(1 - \sqrt{n}  K_1 \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)\,, 
 \]
+ where $K_1 = \dfrac{p}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 
-
-Plugging in $\nu = \left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, we obtain
+Plugging in $\epsilon = \left(\dfrac{4p}{(6p+q)\sqrt{n} K_1} \right)^{\frac{2p}{2p+q}}$, we obtain
 \begin{align}
-\Delta_n^{(1)*} \ge \dfrac{1}{4}\left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}}.
+\Delta_n^{(1)*} \ge 2^{\frac{2p-q}{2p+q}} \frac{(2p+q)^3}{q^{\frac{2q}{2p+q}}(6p+q)^{\frac{6p+q}{2p+q}}}  C_1^{\frac{2q}{2p+q}}C_2^{\frac{2p}{2p+q}} n^{-\frac{2p}{2p+q}}.
 \label{eq:lb-pq-sc}
 \end{align}
-The above bound holds for $n$ such that 
-$$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right).$$
-As in the proof of the lower bound for $\F_{L,0}(\K)$, the first condition on $n$ above is due to the assumption that $\delta \le 1$ in Definition \ref{def:oracle1}, while the second condition is due to the constraint on $\nu$ in \eqref{eq:deltastar-sc}.
+%The above bound holds for $n$ such that 
+%$$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right).$$
+%As in the proof of the lower bound for $\F_{L,0}(\K)$, the first condition on $n$ above is due to the assumption that $\delta \le 1$ in Definition \ref{def:oracle1}, while the second condition is due to the constraint on $\nu$ in \eqref{eq:deltastar-sc}.
 
 Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq-sc} simplifies to
 \[
-\Delta_n^{(1)*} \ge \dfrac{C_1 C_2}{2} n^{-1/2}, \text{ for } \nu = 2C_1C_2 n^{-1/2}.
+\Delta_n^{(1)*} \ge \frac{1}{2} C_1 C_2^{1/2} n^{-1/2}.
 \]
 On the other hand, for $p=q=2$, we obtain
 \[
-\Delta_n^{(1)*} \ge  \frac{9}{4}\left(\frac{C_1 C_2^2}{16}\right)^{1/3} n^{-2/3} \text{ for } \nu=\frac{9}{2}\left(\frac{C_1 C_2^2}{16}\right)^{1/3}n^{-2/3}.
+\Delta_n^{(1)*} \ge 27\left(\frac{2}{7^7}\right)^{\frac{1}{3}} C_1^{2/3}C_2^{2/3} n^{-2/3} .
 \]
 
 
@@ -750,22 +768,28 @@ On the other hand, for $p=q=2$, we obtain
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph{Generalization to $d$ dimensions:}
-The proof in $d$ dimensions for strongly convex functions follows in similar fashion as that for the case of convex functions and we obtain the following rates:\\
-General $p, q >0$:
+Recall that in this result, $\norm{\cdot} = \norm{\cdot}_2$.
+The proof in $d$ dimensions for strongly convex functions is the same as that for the case of smooth convex functions
+with the difference that we use~\eqref{eq:socfdef} in defining the functions $f^{(i)}_{v_i}$.
+Then, for any $v\in \{\pm 1 \}^d$, $f_v\in \F_{L,1}(\cK)$. Indeed, $f_v(x) = \sum_{i=1}^d f^{(i)}(x_i)$,
+hence $\nabla^2 f_v(x) =  I_{d\times d}$, where $I_{d\times d}$ is the $d\times d$ identity matrix.
+Thus, $\lambda_{\min}(\nabla^2 f_v(x)) = \lambda_{\max}(\nabla^2 f_v(x)) = 1$.
+From~\eqref{eq:dlb} and~\eqref{eq:lb-pq-sc} we get
 \begin{align}
-\Delta_n^{(d)*} \ge \dfrac{1}{4} d^{\frac{-2p}{(2p+q)}} \left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}} \text{ for } 
-\nu = d^{\frac{-(4p+q)}{(2p+q)}}\left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
+\Delta_n^{(d)*} \ge \Delta_n^{(1)*} \,.
+%\dfrac{1}{4} d^{\frac{-2p}{(2p+q)}} \left(\dfrac{1}{2 K_1 \sqrt n}\right)^{\frac{2p}{p+\frac{q}{2}}} \text{ for } 
+%\nu = d^{\frac{-(4p+q)}{(2p+q)}}\left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
 \label{eq:lb-pq-d}
 \end{align}
 
-Case $p=1$ and $q=2$:
-\begin{align*}
-% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
-\Delta_n^{(d)*}  \ge& \dfrac{C_1 C_2}{2} n^{-1/2} d^{-1/2}.
-\end{align*}
-
-Case $p=q=2$:
-\begin{align*}
-% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
-\Delta_n^{(d)*}  \ge& \frac{9}{4}\left(\frac{C_1^2 C_2^4}{16}\right)^{1/3} n^{-2/3} d^{-2/3}.
-\end{align*}
+%Case $p=1$ and $q=2$:
+%\begin{align*}
+%% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
+%\Delta_n^{(d)*}  \ge& \dfrac{C_1 C_2}{2} n^{-1/2} d^{-1/2}.
+%\end{align*}
+%
+%Case $p=q=2$:
+%\begin{align*}
+%% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
+%\Delta_n^{(d)*}  \ge& \frac{9}{4}\left(\frac{C_1^2 C_2^4}{16}\right)^{1/3} n^{-2/3} d^{-2/3}.
+%\end{align*}

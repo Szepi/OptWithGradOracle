@@ -76,8 +76,6 @@ When the functions are defined over $\K$ only and $\K$ is bounded, the above con
 In this case, the best approach perhaps is to use Dikin ellipsoids to construct the oracles, as done by \citet{HaLe14:SOC}.
 
 The next proposition, whose proof is based on ideas from \citet{spall1992multivariate}\todoa{add citation for the convex case} shows that the above one-point gradient estimator leads to a type-I (and, hence, also type-II) oracle.
-\todoc[inline]{We had: ``under slightly stronger assumptions.'' Stronger than what? Add back if we add this info.}
-
 \begin{proposition}
 \label{prop:grad-onepoint}
 Let \cref{ass:gradbasic} hold and let $\gamma$ be the one-point feedback oracle defined in \eqref{eq:one-point}.
@@ -89,9 +87,6 @@ Then, in the uncontrolled noise case, $\gamma$ is a $(c_1(\delta),c_2(\delta))$ 
 $C_2=4 \EE{\norm{V}_*^2}\left( \essup \E[\xi^2|V]+\sup_{x\in\D} f^2(x)\right)$, and $C_1 =
 \frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$ when $f \in \F_{L,0}$ and  
 $C_1 = \tfrac{B_3}{6} \EE{ \norm{V}_* \norm{U}^3 }$ for  $f \in \C^3$ where $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }_T$ where $\norm{\cdot}_T$ denotes the implied norm for rank-3 tensors.%
-\todoc{I replaced $\sup_V$ with $\esssup$ which is what we need. I assume the appendix will need to be updated.}
-\todoc{It is not very clear which entries this proposition gives.}
-% \todoc{Add the convex+smooth case}
 \end{proposition}
 %\begin{proof}
 %See Section \ref{sec:appendix-grad}.
@@ -99,11 +94,10 @@ $C_1 = \tfrac{B_3}{6} \EE{ \norm{V}_* \norm{U}^3 }$ for  $f \in \C^3$ where $B_3
 
 %\paragraph{One-point feedback with smoothing}
 Another possibility is to use the so-called smoothing technique
-\citep{PoTsy90,flaxman2005online,HaLe14:SOC}\todoa{ Cs: Is this correct?}
+\citep{PoTsy90,flaxman2005online,HaLe14:SOC}\todoa{ Cs: Is this correct?} \todoc{Yes, they all use this smoothing technique.}
 to obtain type-II oracles. Following the analysis in \citet{flaxman2005online}, one gets the 
 following result, which improves the bias of the previous result from $O(\delta)$ to $O(\delta^2)$ in the smooth+convex case:
 %This uses the same estimates as above, but with a different analysis, yielding improved oracles for the smooth and convex case: 
-\todoc{I fixed this last sentence. Now I think it makes sense.}
 \begin{proposition}
 \label{prop:flaxman} Let \cref{ass:gradbasic} hold and let $\gamma$ be the one-point feedback oracle defined in \eqref{eq:one-point}.
 Define
@@ -163,11 +157,15 @@ The other two options are either the controlled noise  setting of \eqref{eq:cont
 \textbf{Noise }$\bm{ \rightarrow}$ & \textbf{Controlled } & \textbf{Uncontrolled } \\
 \textbf{Function } &(see~\eqref{eq:controlled})&(see~\eqref{eq:noiseass})\\
 $\bm{\downarrow}$ &&\\\midrule
-\multirow{3}{*}{\textbf{Convex + Smooth}} & \multirow{3}{*}{$(C_1 \delta, C_2)$} & %\multirow{2}{*}
-{Prop~\ref{prop:grad-onepoint}: $(C_1\delta, \frac{C_2}{\delta^2}) $}\\
+\multirow{3}{*}{\textbf{Convex + Smooth}} 
+	& \multirow{3}{*}{$(C_1 \delta, C_2)$} 
+	& %\multirow{2}{*}
+		{Props~\ref{prop:grad-onepoint},\ref{prop:grad-spsa}: $(C_1\delta, \frac{C_2}{\delta^2}) $}\\
 && \\
  &&{Prop~\ref{prop:flaxman}: $(C'_1\delta^2, \frac{C_2}{\delta^2}) $}\\\midrule
-\multirow{2}{*}{$\bm{f \in \C^3}$} & \multirow{2}{*}{$(C_1 \delta^2, \frac{C_2}{\delta^2})$} & \multirow{2}{*}{$(C_1 \delta^2, \frac{C_2}{\delta^2})$} \\
+\multirow{2}{*}{$\bm{f \in \C^3}$} 
+	& \multirow{2}{*}{$(C_1 \delta^2, \frac{C_2}{\delta^2})$} 
+	& \multirow{2}{*}{Props~\ref{prop:grad-onepoint},\ref{prop:grad-spsa}: $(C_1 \delta^2, \frac{C_2}{\delta^2})$} \\
  &&\\\bottomrule
 \end{tabular}
 \caption{Gradient oracles for different function classes and noise categories. %Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$, with 
@@ -292,7 +290,7 @@ When $\norm{\cdot}$ is the $2$-norm, $C_1 = O(d^2)$
 
 
 \subsection{Achievable Results for Stochastic BCO}
-We now consider stochastic BCO with $L$-smooth functions over a convex, closed non-empty domain $\K$. \todoc{Check that $K$ is always assumed to be closed. Otherwise the optimum may not belong to $K$.}\todoa{Duchi et al (2015) assumes closed functions.}
+We now consider stochastic BCO with $L$-smooth functions over a convex, closed non-empty domain $\K$. 
 Let $\cF$ denote the set of these functions.
 \citet{duchi2015optimal} proves that the minimax expected optimization error
 for the functions $\cF$ with uncontrolled noise is lower bounded by $\Omega(n^{-1/2})$. \todoc{We should sort out dimension dependences later.}
@@ -339,14 +337,12 @@ A finite time lower bound for stochastic, smooth BCO is presented by  \citet{Che
 convex functions on the real line. When applied to our setting in the uncontrolled noise case, his results imply that $\EE{ |\hat{X}_n - x^* |}$, that is, the distance of the estimate to the optimum, is at least $\Omega(n^{-1/3})$. 
 Note that this is larger than the error achieved by the algorithms of \citet{liang2014zeroth,BubeckDKP15,BuEl15}, but the apparent contradiction is easily resolved by noticing the difference in their error measure: distance to the optimum vs. error in the function value (in particular, compressing the range of functions makes locating the minimizer harder).
  \citet{PoTsy90}, who also considered distance to optimum, proved that mirror descent with gradient estimation achieves asymptotically optimal rates for functions that enjoy high order smoothness.
-
 %While the lower bound is stated for $r$-smooth functions with $r$ odd (these are functions $f$ with $\norm{f^{(r)}}_{\infty}\le L$), and $r$ greater than one, careful checking of the results show that nor $r>1$, neither that $r$ must be odd is ever used in the proof.
 %Hence, the result holds for $r\ge 2$.
 %The lower bound presented for a given value of $r$ takes the form $\Omega( n^{ -(r-1)/(2r)} )$. For $r=2$ (which approximately corresponds to the smooth case), we get $\Omega(n^{-1/4})$, while for $r=3$ (which is ``almost'' the same as $f\in \C^3$), one gets $\Omega(n^{-1/3})$.
 %While the second bound matches the bound in \cref{thm:aaab}, the first one is larger, and both bounds are larger than the error achieved by
 %the algorithm of \cite{liang2014zeroth,BubeckDKP15,BuEl15}. The resolution of the apparent contradiction is that the lower bounds of \citet{Chen88:LB-AoS} concern distance to the optimum (i.e., $\EE{ \norm{\hat{X}_n - x^* }}$), while the optimization error is defined in terms of the objective function gap $\EE{ f(\hat{X}_n) -f( x^*)}$.
 %Similar results are obtained by \citet{PoTsy90}, who also considered distance to the optimum and proved that mirror descent with gradient estimation achieves asymptotically optimal rates for these settings.
-
 \todoc{Cite all the other papers, summarizing what they achieve. }
 
 %%% Local Variables:

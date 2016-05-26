@@ -15,10 +15,10 @@
 % \rowcolor{gray!20}
  & \textbf{Upper bound} & \textbf{Lower bound} & \textbf{Upper bound} & \textbf{Lower bound}\\
  \midrule
-\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2^2}{d n}\right)^{1/2}$} \\[0.5ex]
+\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{ n}\right)^{1/2}$} \\[0.5ex]
  ($p=1$, $q=2$) & & & &\\\midrule
 %%%%%%%%%%%%%%%%%%%
-\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2^2 }{d n}\right)^{2/3}$}\\[1.4ex]
+\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 }{ n}\right)^{2/3}$}\\[1.4ex]
  ($p=2$, $q=2$) & & & &\\
   %\midrule
  %\textbf{No bias or variance} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\left(\dfrac{d^2}{n}\right)^{1/2}$}  \\[0.5ex]
@@ -81,8 +81,7 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 \label{thm:ub}
 Consider the class $\F_{L,0}$ of convex, $L$-smooth functions on the bounded, convex domain $\cK\ne \emptyset$, $\cK \subset \R^d$.
 % let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
-Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.%
-\footnote{For $A\subset \mathbb{R}^d$, $A^\circ$ denotes the interior of $A$.}
+Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.
 For any $(c_1,c_2)$ type-II oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
  if \cref{alg} is run with $\eta_t = \alpha/(a_t+L)$ and
@@ -98,7 +97,7 @@ can be bounded as
 % \begin{align*}
  \[
  \Delta_{\F_{L,0},n}^*(c_1,c_2)\!\le \!
- \frac{R_{\F_{L,0},n}^*(c_1,c_2)}{n}\!=\! O\!\!\left(\!\!\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{\sqrt{n}}\right)^{\!\!\frac{p}{p+\frac{q}{2}}}\!\right)\,,
+ \frac{R_{\F_{L,0},n}^*(c_1,c_2)}{n}\!=\! O\!\!\left(\!\!\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{n}\right)^{\!\!\frac{p}{2p+q}}\!\right)\,,
 \vspace{-0.3cm}
  \]
  %\end{align*}
@@ -117,11 +116,12 @@ $
 the regret and the minimax error satisfy
 \begin{align*}
 \lefteqn{\Delta_{\F_{L,\mu,\cR},n}^*(c_1,c_2) } \\
-& \le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} =  O\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{\sqrt{n}} \right)^{\!\!\frac{2p}{p+q}} \right).
+& \le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} =  \tilde{O}\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\frac{p}{p+q}} \right)\,.
 \vspace{-0.5cm}
 \end{align*}
+In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$.%
+\footnote{In the second bound, $\tilde{O}(f(n))$ denotes $O(\log(n) f(n))$.}
 \end{theorem}
-\todoc[inline]{So what is hidden in $O(\cdot)$?}
 %\begin{proof}
 %See \cref{sec:appendix-md}.
 %\end{proof}
@@ -132,7 +132,6 @@ Filling the gap is left for future work.
 \label{thm:lb-convex}
 Let $n>0$ be an integer, $p,q>0$, $C_1,C_2>0$, 
 $\cK\subset \R^d$ convex, closed, with  $[+1,-1]^d\subset \cK$.
-Assume that $n$ is large enough (the exact condition is given after the theorem). \todoc{Maybe in the appendix.}
 %For any $v \in \{+1,-1\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where
 %$f^{(i)}_{v_i}(x_i) := \dfrac{\epsilon}{2} (x_i - v_i)^2$, for $i=1,\ldots,d$.
 %Consider the space of functions $\F:= \{f_v \mid v  \in \{+1,-1\}^d\}$, with $\epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, where \\$K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$. 
@@ -142,30 +141,29 @@ Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ typ
 \textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth) with $L\ge \frac12$:}
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?} 
 \[
-%R_{\F_{L,0},n}^{*}(c_1,c_2) \ge
- \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge \dfrac{2p+q}{8p+2q}\sqrt{d}\left(\dfrac{1}{ K_1 \sqrt n}\right)^{\frac{p}{p+\frac{q}{2}}},
+ \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge K_1\sqrt{d}\left(\dfrac{C_1^{\frac{q}{p}}C_2}{n}\right)^{\!\!\frac{p}{2p+q}},
 \]
-%where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
-where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
+where $K_1 = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}$.
+%where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 
 \textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth) with $L\ge 1$:}
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
-\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge \dfrac{1}{4}  \left(\dfrac{1}{2 K_1 \sqrt {d n}}\right)^{\frac{2p}{p+\frac{q}{2}}}, 
+\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge K_2 \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q/2}}, 
 \]
-where $K_1$ is the same as before.
+where $K_2 = 2^{\frac{2p-q}{2p+q}} \frac{(2p+q)^3}{q^{\frac{2q}{2p+q}}(6p+q)^{\frac{6p+q}{2p+q}}} $.
 \end{theorem}
-The condition connecting the problem parameters is that $n$ should be large enough so that\\
-\begin{inparaenum}[\bfseries (i)]
-\item 
-$\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right)$ with $z=(p/q)$ for $\F_{L,0}(\K)$; and\\
-\item 
-$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right)$  for $\F_{L,1}(\K)$.
-\end{inparaenum}
-% where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
-%\begin{proof}
-% See Section \ref{sec:appendix-lb-proof}.
-%\end{proof}
+%The condition connecting the problem parameters is that $n$ should be large enough so that\\
+%\begin{inparaenum}[\bfseries (i)]
+%\item 
+%$\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right)$ with $z=(p/q)$ for $\F_{L,0}(\K)$; and\\
+%\item 
+%$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right)$  for $\F_{L,1}(\K)$.
+%\end{inparaenum}
+%% where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
+%%\begin{proof}
+%% See Section \ref{sec:appendix-lb-proof}.
+%%\end{proof}
 
 By continuity, the above claim can be extended to cover the case of $q=0$ (constant variance). 
 For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ (no bias) leads to an $\Omega(d/\sqrt{n})$ lower bound. The proof of the lower bound is obtained in the usual way by presenting a family of functions and a type-I oracle such that any algorithm suffers at least the stated error on one of the functions. In particular, for $\F_{L,0}$ with $L\ge 1/2$ we use
@@ -179,9 +177,7 @@ $$\Delta_n^*(\mu \F, c_1,c_2) = \mu \Delta_n^*\left(\F, c_1/\mu,c_2/\mu^2\right)
 \end{remark}
 
 Table \ref{tab:oracles} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems~\ref{thm:ub} and~\ref{thm:lb-convex}.
-While it appears that for the strongly convex case the error becomes smaller with a larger dimension,
-in most applications $C_1, C_2$ will hide dimension dependent constants,
-and the lower bound actually increases with the dimension increasing.
+%While it appears that for the strongly convex case the error becomes smaller with a larger dimension, in most applications $C_1, C_2$ will hide dimension dependent constants, and the lower bound actually increases with the dimension increasing.
 Some specific examples will be discussed in the next section.
 % \begin{theorem}[\textit{Lower bound: Strongly convex}]
 % \label{thm:lb-strongly-convex}
