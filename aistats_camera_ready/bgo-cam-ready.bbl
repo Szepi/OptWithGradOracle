@@ -1,0 +1,202 @@
+\begin{thebibliography}{}
+
+\bibitem[Abernethy et~al., 2008]{AbHaRa08}
+Abernethy, J., Hazan, E., and Rakhlin, A. (2008).
+\newblock Competing in the dark: An efficient algorithm for bandit linear
+  optimization.
+\newblock In {\em COLT}, pages 263--274.
+
+\bibitem[Agarwal et~al., 2010]{AgDeXi10}
+Agarwal, A., Dekel, O., and Xiao, L. (2010).
+\newblock Optimal algorithms for online convex optimization with multi-point
+  bandit feedback.
+\newblock In {\em COLT}, pages 28--40.
+
+\bibitem[Agarwal et~al., 2013]{AgFoHsuKaRa13:SIAM}
+Agarwal, A., Foster, D.~P., Hsu, D., Kakade, S.~M., and Rakhlin, A. (2013).
+\newblock Stochastic convex optimization with bandit feedback.
+\newblock {\em SIAM Journal on Optimization}, 23(1):213--240.
+
+\bibitem[Baes, 2009]{Baes09}
+Baes, M. (2009).
+\newblock Estimate sequence methods: Extensions and approximations.
+\newblock Technical report, IFOR Internal report, ETH Zurich, Switzerland.
+
+\bibitem[Bhatnagar et~al., 2013]{bhatnagar-book}
+Bhatnagar, S., Prasad, H.~L., and Prashanth, L.~A. (2013).
+\newblock {\em Stochastic Recursive Algorithms for Optimization: Simultaneous
+  Perturbation Methods (Lecture Notes in Control and Information Sciences)},
+  volume 434.
+\newblock Springer.
+
+\bibitem[Bubeck, 2014]{Bu:Convex14}
+Bubeck, S. (2014).
+\newblock Theory of convex optimization for machine learning.
+\newblock Technical report, Microsoft Research.
+
+\bibitem[Bubeck et~al., 2015]{BubeckDKP15}
+Bubeck, S., Dekel, O., Koren, T., and Peres, Y. (2015).
+\newblock Bandit convex optimization: $o(\sqrt{T})$ regret in one dimension.
+\newblock In {\em COLT}, pages 266--278.
+
+\bibitem[Bubeck and Eldan, 2015]{BuEl15}
+Bubeck, S. and Eldan, R. (2015).
+\newblock Multi-scale exploration of convex functions and bandit convex
+  optimization.
+\newblock Technical report, Microsoft Research.
+
+\bibitem[Chen, 1988]{Chen88:LB-AoS}
+Chen, H. (1988).
+\newblock Lower rate of convergence for locating a maximum of a function.
+\newblock {\em The Annals of Statistics}, 16(3):1330--1334.
+
+\bibitem[d'Aspremont, 2008]{dAsp08}
+d'Aspremont, A. (2008).
+\newblock Smooth optimization with approximate gradient.
+\newblock {\em SIAM Journal on Optimization}, 19:1171--1183.
+
+\bibitem[Dekel et~al., 2015]{DeElKo15}
+Dekel, O., Eldan, R., and Koren, T. (2015).
+\newblock Bandit smooth convex optimization: Improving the bias-variance
+  tradeoff.
+\newblock In {\em NIPS}, pages 2926--2934.
+
+\bibitem[Dekel et~al., 2012]{Dekel:minibatch12}
+Dekel, O., Gilad-Bachrach, R., Shamir, O., and Xiao, L. (2012).
+\newblock Optimal distributed online prediction using mini-batches.
+\newblock {\em Journal of Machine Learning Research}, 13(1):165--202.
+
+\bibitem[Devolder et~al., 2014]{DeGliNe14}
+Devolder, O., Glineur, F., and Nesterov, Y. (2014).
+\newblock First-order methods of smooth convex optimization with inexact
+  oracle.
+\newblock {\em Mathematical Programming}, 146:37--75.
+
+\bibitem[Dippon, 2003]{Dip03:AoS}
+Dippon, J. (2003).
+\newblock Accelerated randomized stochastic optimization.
+\newblock {\em The Annals of Statistics}, 31(4):1260--1281.
+
+\bibitem[Duchi et~al., 2015]{duchi2015optimal}
+Duchi, J.~C., Jordan, M., Wainwright, M.~J., and Wibisono, A. (2015).
+\newblock Optimal rates for zero-order convex optimization: The power of two
+  function evaluations.
+\newblock {\em IEEE Transactions on Information Theory}, 61(5):2788--2806.
+
+\bibitem[Dvurechensky and Gasnikov, 2015]{DvoGa15}
+Dvurechensky, P. and Gasnikov, A. (2015).
+\newblock Stochastic intermediate gradient method: Convex and strongly convex
+  cases.
+\newblock arXiv:1411.2876.
+
+\bibitem[Flaxman et~al., 2005]{flaxman2005online}
+Flaxman, A.~D., Kalai, A.~T., and McMahan, H.~B. (2005).
+\newblock Online convex optimization in the bandit setting: gradient descent
+  without a gradient.
+\newblock In {\em SODA}, pages 385--394.
+
+\bibitem[Hazan and Levy, 2014]{HaLe14:SOC}
+Hazan, E. and Levy, K. (2014).
+\newblock Bandit convex optimization: Towards tight bounds.
+\newblock In {\em NIPS}, pages 784--792.
+
+\bibitem[Honorio, 2012]{Hon12}
+Honorio, J. (2012).
+\newblock Convergence rates of biased stochastic optimization for learning
+  sparse ising models.
+\newblock In {\em ICML}, pages 257--264, New York, NY, USA. Omnipress.
+
+\bibitem[Hu et~al., 2016]{HuPrGySz16long}
+Hu, X., L.A., P., Gy\"orgy, A., and Szepesv\'ari, C. (2016).
+\newblock ({B}andit) convex optimization with biased noisy gradient oracles.
+\newblock arXiv.
+
+\bibitem[Juditsky and Nemirovski, 2011]{JN11a}
+Juditsky, A. and Nemirovski, A. (2011).
+\newblock First-order methods for nonsmooth convex large-scale optimization, i:
+  General purpose methods.
+\newblock In Sra, S., Nowozin, S., and Wright, S., editors, {\em Optimization
+  for Machine Learning}, pages 121--147. MIT press.
+
+\bibitem[Katkovnik and Kulchitsky, 1972]{katkul}
+Katkovnik, V.~Y. and Kulchitsky, Y. (1972).
+\newblock Convergence of a class of random search algorithms.
+\newblock {\em Automation Remote Control}, 8:1321--1326.
+
+\bibitem[Kleinman et~al., 1999]{KlSpNa99}
+Kleinman, N.~L., Spall, J.~C., and Naiman, D.~Q. (1999).
+\newblock Simulation-based optimization with stochastic approximation using
+  common random numbers.
+\newblock {\em Management Science}, 45(11):1570--1578.
+
+\bibitem[Kushner and Clark, 1978]{kushcla}
+Kushner, H.~J. and Clark, D.~S. (1978).
+\newblock {\em Stochastic Approximation Methods for Constrained and
+  Unconstrained Systems}.
+\newblock Springer Verlag, New York.
+
+\bibitem[Liang et~al., 2014]{liang2014zeroth}
+Liang, T., Narayanan, H., and Rakhlin, A. (2014).
+\newblock On zeroth-order stochastic convex optimization via random walks.
+\newblock arXiv preprint1402.2667.
+
+\bibitem[Mahdavi, 2014]{MahdaviPhd:2014}
+Mahdavi, M. (2014).
+\newblock {\em Exploiting Smoothness in Statistical Learning, Sequential
+  Prediction, and Stochastic Optimization}.
+\newblock PhD thesis, Michigan State University.
+
+\bibitem[Nesterov, 2004]{nesterov2004introductory}
+Nesterov, Y. (2004).
+\newblock {\em Introductory lectures on convex optimization}, volume~87.
+\newblock Springer Science \& Business Media.
+
+\bibitem[Nesterov and Spokoiny, 2011]{Ne11:TR}
+Nesterov, Y. and Spokoiny, V. (2011).
+\newblock Random gradient-free minimization of convex functions.
+\newblock {\em Foundations of Computational Mathematics}, pages 1--40.
+
+\bibitem[Polyak and Tsybakov, 1990]{PoTsy90}
+Polyak, B. and Tsybakov, A. (1990).
+\newblock Optimal orders of accuracy for search algorithms of stochastic
+  optimization.
+\newblock {\em Problems in Information Transmission}, pages 126--133.
+
+\bibitem[Saha and Tewari, 2011]{saha2011improved}
+Saha, A. and Tewari, A. (2011).
+\newblock Improved regret guarantees for online smooth convex optimization with
+  bandit feedback.
+\newblock In {\em AISTATS}, pages 636--642.
+
+\newpage
+
+\bibitem[Schmidt et~al., 2011]{SchRoBa11}
+Schmidt, M.~W., Roux, N.~L., and Bach, F.~R. (2011).
+\newblock Convergence rates of inexact proximal-gradient methods for convex
+  optimization.
+\newblock In {\em NIPS}, pages 1458--1466.
+
+\bibitem[Shamir, 2012]{shamir2012complexity}
+Shamir, O. (2012).
+\newblock On the complexity of bandit and derivative-free stochastic convex
+  optimization.
+\newblock In {\em COLT}.
+
+\bibitem[Spall, 1992]{spall1992multivariate}
+Spall, J.~C. (1992).
+\newblock Multivariate stochastic approximation using a simultaneous
+  perturbation gradient approximation.
+\newblock {\em IEEE Transactions on Automatic Control}, 37(3):332--341.
+
+\bibitem[Spall, 1997]{spall1997one}
+Spall, J.~C. (1997).
+\newblock A one-measurement form of simultaneous perturbation stochastic
+  approximation.
+\newblock {\em Automatica}, 33(1):109--112.
+
+\bibitem[Yao, 1977]{Yao77:FOCS}
+Yao, A. C.~C. (1977).
+\newblock Probabilistic computations: Toward a unified measure of complexity.
+\newblock In {\em FOCS}, pages 222--227.
+
+\end{thebibliography}
