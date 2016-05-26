@@ -83,6 +83,7 @@ $\norm{x-Y}\le \delta$ almost surely (a.s.),
 \vspace{-0.1cm}
 \end{definition}
 The upper bound on $\delta$ is arbitrary: by changing the norm, any other value can also be accommodated. Also, the upper bound only matters when $\K$ is bounded and the functions in $\cF$ are defined only in a small vicinity of $\K$.
+\todoc[inline]{For precision, we should take conditional expectations given the past in the above definitions.}
 
 The second type of oracles considered is as follows:
 \begin{definition}[$(c_1,c_2)$ type-II  oracle]
@@ -99,10 +100,6 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 \end{enumerate}
 \vspace{-0.1cm}
 \end{definition}
-\todoc[inline]{
-We had this here:
-``This definition is most useful when $\tilde{f}$ is known to belong to $\cF$, too; however, we prefer to state these conditions separately.''
-But in the definition $\tilde{f}$ is required to belong to $\cF$, so I just removed this.}
 %An alternative to the bias condition for type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with%
 %\footnote{
 %This definition requires the function $f$ to be differentiable. When the functions in $f$ are not differentiable, it is possible
@@ -116,13 +113,15 @@ But in the definition $\tilde{f}$ is required to belong to $\cF$, so I just remo
 %
 Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
 though most often the oracles constructed in practice
-will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a fixed stochastic mapping.
+will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a fixed stochastic mapping.%
+\footnote{For oracles with memory, in the definition the expectation should be replaced with
+an expectation that is conditioned on the past.}
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
 Examples will be discussed in  \cref{sec:sbco}.
 We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
 
 
-Here, we will study the minimax regret in the online convex optimization setting, \todoc{BCO: I took it off as it was  confusing: What is ``bandit'' here?}
+Here, we will study the minimax regret in the online convex optimization setting, 
  while we study the minimax error in the stochastic convex optimization setting (sometimes, also called as the ``simple regret'').
 Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
 The \emph{minimax expected regret} for $(\cF,c_1,c_2)$ with type-I oracles is
@@ -147,7 +146,7 @@ and we use $R_n^{\cA}$ to denote the expected regret of $\cA$ (against $f_{1:n},
 The minimax regret for type-II oracles is defined analogously.
 % (in what follows we only define these quantities for type-I oracles, as the extension \todoc{Is extension the right word?}
 % to type-II oracles is immediate).
- \todoc{Do the oracles ``talk''?}
+
 
 In the stochastic BCO setting, the minimax error is defined through
 \begin{align}
@@ -158,9 +157,8 @@ In the stochastic BCO setting, the minimax error is defined through
 \end{align}
 where, again, $\cA$ ranges through all algorithms that interact with an oracle and
 $\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers
-after $n$ rounds of interaction with $f$ through $\gamma$ as described earlier.
+after $n$ rounds of interaction with $f$ through (a single) $\gamma$ as described earlier.
 The minimax error for type-II oracles is defined analogously.
-\todoc{Note about using only one oracle?}
 
 When the set $\K$ is bounded and the function set $\F$ is invariant to linear shifts, every $(c_1,c_2)$ type-I oracle is also an $(R c_1,c_2)$ type-II oracle,
 where $R = \sup_{x\in \K} \norm{x}$: simply consider $\tilde{f}(y) =  f(y) + (\EE{G}-\nabla f(x))\tr y $,
