@@ -402,7 +402,7 @@ Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq} simplifies to
 \]
 On the other hand, for $p=q=2$, we obtain 
 \[
-\Delta_n^{(1)*} \ge  \frac{9}{10}\left(\frac{1}{25}\right)^{1/3}C_1^{1/3}C_2^{1/3} n^{-1/3}\,.
+\Delta_n^{*} \ge  \frac{9}{10}\left(\frac{1}{25}\right)^{1/3}C_1^{1/3}C_2^{1/3} n^{-1/3}\,.
 \]
 \todoa[inline]{This is where I stopped. The results are not used below and not copied to the theorem before somebody checks them. Some multiple of 2 difference to the previous version...}
 \todoc[inline]{I also stopped here for now. The results can be copied once my single change above is verified.}
@@ -672,7 +672,7 @@ We follow the notational convention used earlier for convex functions in one dim
 Let $\F = \F_{L,1}(\K)$, where $L\ge 1$ and $\K$  includes $\pm 1$.
 We consider functions $f_v$, for $v \in \{-1,+1\}$, defined as
 \begin{align}
-  f_v(x) := \dfrac{1}{2} x^2 - v\epsilon x \,\, x \in \cK\,.
+  f_v(x) := \dfrac{1}{2} x^2 - v\epsilon x \,,\quad x \in \cK\,.
   \label{eq:socfdef}
 \end{align}
 It is easy to see that $\{f_+, f_-\}\subset \F$.
@@ -696,7 +696,7 @@ The oracle is indeed a $(c_1,c_2)$ type-I oracle, with $c_1(\delta)=C_1\delta^p$
 
 Using arguments similar to those in the proof of lower bound for convex functions, we obtain
 \begin{align}
-\Delta_n^{*} %\nonumber\\
+\Delta_n^{(1)*}:=\Delta_n^{*} %\nonumber\\
   \ge  &\inf_{\A} \dfrac{\epsilon^2 }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinskersc}
 \end{align}
 Note that $P_+$ (resp. $P_-$) is $\P$ conditioned on the event $V=+1$ (resp. $V=-1$).
@@ -707,25 +707,25 @@ Observe that, for any $x\in \R$, $f_-'(x) - f_+'(x) = 2\epsilon$ and hence
 \begin{align}
  |\gamma_+(x) - \gamma_-(x)| 
 & = | f'_+(x) - \min(\epsilon,C_1 \delta^p) - (f'_-(x)+\min(\epsilon,C_1 \delta^p)) | 
- = 2 (\epsilon - C_1 \delta^p)_+.
+ = 2 (\epsilon - C_1 \delta^p)^+.
  \label{eq:gdiff-ub-sc}
 \end{align}
 From the foregoing, 
 \begin{align}
  \MoveEqLeft \dkl{P_{+}^t(\cdot\mid g_{1:t-1})}{P_{-}^t(\cdot\mid g_{1:t-1})}
- \le  \dfrac{2(\epsilon-C_1\delta_t^p)_+^2\delta_t^q}{C_2},\label{eq:dkgausssc}
+ \le  \dfrac{2\{(\epsilon-C_1\delta_t^p)^+\}^2\delta_t^q}{{C_2}},\label{eq:dkgausssc}
 \end{align}
 where the inequality \eqref{eq:dkgausssc} follows from \eqref{eq:gdiff-ub-sc}.
 Thus, we obtain
 \begin{align}
-\dkl{P_{+}}{P_{-}} \le\sup_{\delta>0} \dfrac{2n(\epsilon-C_1\delta^p)_+^2 \delta^q}{C_2}.
+\dkl{P_{+}}{P_{-}} \le 2n \sup_{\delta>0} \dfrac{\{(\epsilon-C_1\delta^p)^+\}^2 \delta^q}{C_2}.
 \label{eq:kluboundsc}
 \end{align}
 Substituting the above bound into \eqref{eq:pinskersc}, we obtain 
 \begin{align}
- \Delta_n^{(1)*}:= \Delta_n^{*}
+ \Delta_n^{(1)*}
   \ge & \dfrac{\epsilon^2}{2} \left(1 - \sqrt{
-    n}  \sup_{\delta>0}\dfrac{(\epsilon-C_1\delta^p)_+\delta^{q/2}}{C_2}
+    n}  \sup_{\delta>0}\dfrac{(\epsilon-C_1\delta^p)^+\delta^{q/2}}{\sqrt{C_2}}
   \right)\,.\label{eq:final-lower-bd-sc}
 \end{align}
 
@@ -734,7 +734,7 @@ Substituting the above bound into \eqref{eq:pinskersc}, we obtain
 As in the proof of the lower bound for $\F_{L,0}(\K)$, we replace the positive part function in \eqref{eq:final-lower-bd-sc} and optimize over $\delta$ to obtain
 that the right-hand side of~\eqref{eq:kluboundsc} is optimized by
 \begin{align}
-\delta^*=\left(\frac{ \epsilon q}{C_1(2p+q)}\right)^{1/p}\,.
+\delta_*=\left(\frac{ \epsilon q}{C_1(2p+q)}\right)^{1/p}\,.
 \label{eq:deltastar-sc}
 \end{align}
 %where $z=p/q$. Recall that we require $\nu/C_1 \ge {\delta^*}^p$, which results in the condition on $\nu$ above.
@@ -742,7 +742,9 @@ that the right-hand side of~\eqref{eq:kluboundsc} is optimized by
 From the above, we have 
 % and for any choice of $\delta$, the minimax error $\Delta_n^{*}$ satisfies
 \[
-\Delta_n^{(1)*} \ge \dfrac{\epsilon^2}{2} \left(1 - \sqrt{n}  K_1 \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)\,, 
+\Delta_n^{(1)*} \ge \dfrac{\epsilon^2}{2} \left(1 - \sqrt{
+    n}  \dfrac{ (\epsilon-C_1\delta_*^p)\delta_*^{q/2}}{\sqrt{C_2}}
+  \right)= \dfrac{\epsilon^2}{2} \left(1 - \sqrt{n}  K_1 \epsilon^{\frac{p+\tfrac{q}{2}}{p}}\right)\,, 
 \]
  where $K_1 = \dfrac{p}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\dfrac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 
