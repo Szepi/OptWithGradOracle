@@ -426,15 +426,15 @@ For $1\le i \le d$, let $\cK_i \subset \R$ be nonempty sets,
 and for each $v\in V := \{\pm 1\}^d$, let $f_v^{(i)}: \cK_i \to \R$ 
 (later we will use $V_i=\{\pm 1\}$ and $f_v^{(i)}$ will be the functions constructed for the $1$-dimensional case with $\{-1,+1\}\subset \cK_i\subset \R$).
 Without the loss of generality, we assume that $\inf_{x\in \cK_i} f_v^{(i)}(x) = 0$, so that the optimization error of the algorithm producing $\hat{X}_n$  as the output is $f_v^{(i)}(\hat{X}_n)$.
-Further, let $\gamma_v^{(i)}$ be the gradient oracle that the algorithms can use when 
+Further, let $\gamma_v^{(i)}$ be a gradient oracle that the algorithms can use when 
 the function to be optimized is $f_v^{(i)}$. 
 
 Let $\cK = \times_{i=1}^d \cK_i$ and for $v = (v_1,\dots,v_d) \in V:= \times_{i=1}^d V_i$ (with a slight abuse of notation), let $f_v: \cK \to \R$ be defined by
-\begin{align*}
-f_v(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \qquad x\in \cK\,.
-\end{align*}
-We also defined a
-$\gamma_v$  $d$-dimensional oracle as follows: The oracle  is obtained from ``composing'' the $d$ $1$-dimensional oracles, $(\gamma_{v_i}^{(i)})_{i}$.
+\begin{align}
+f_v(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \qquad x\in \cK\,. \label{eq:sepfdef}
+\end{align}
+We also define a $\gamma_v$  $d$-dimensional oracle as follows: 
+The oracle  is obtained from ``composing'' the $d$ $1$-dimensional oracles, $(\gamma_{v_i}^{(i)})_{i}$.
 In particular, the $i$-th component of the response of $\gamma_v$ 
 given the history of queries $(x_{t},\delta_{t},\dots,x_1,\delta_1)\in (\cK \times [0,1))^t$
 is defined as the response of $\gamma^{(i)}_{v_i}$ 
@@ -442,6 +442,14 @@ given the history of queries $(x_{t,i},\delta_{t},\dots,x_{1,i},\delta_1)\in (\c
 This definition is so far unclear about the randomization of the oracles. 
 In fact, it turns out that the one-dimensional oracles can even use the same randomization (i.e.,
 their output can depend on the same single uniformly distributed random variable $U$), but they could also use separate randomization: Our argument will not depend on this.
+\newcommand{\sep}{\mathrm{sep}}
+If $\Gamma^{(i)}(f_{v_i}^{(i)},c_1,c_2)$ 
+denotes a non-empty set of $(c_1,c_2)$ type-I oracles for objective function $f^{(i)}_{v_i}:\cK_i \to \R$,
+then we shall denote by $\Gamma_\sep(f_v,c_1,c_2)$ the set of oracles for function $f_v$ 
+as defined in the previous paragraph.
+We also define $\cF_\sep = \{ f\,: \, f(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), x\in \cK, v_i\in V_i \}$.
+Note that when $\norm{\cdot} = \norm{\cdot}_2$ is used in the definition of type-I oracles then
+$\Gamma_\sep(f_v,c_1/d^{1/2},c_2/d) \subset \Gamma(f_v,c_1,c_2)$.
 
 Let an algorithm $\A$ interact with an oracle $\gamma$.
 We will denote the distribution of the output $\hat{X}_n$ of $\A$
@@ -557,6 +565,46 @@ Thus,
  = L^{\A}(\hat{v}^*) \le \max_{v\in V } L^{\A}(v)\,,
 \end{align*}
 which was the claim to be proven.
+\end{proof}
+
+Now, let 
+\[
+\cF^{(i)} = \{f_{v_i} \,:\, v_i\in V_i\}, \qquad i=1,\dots,d
+\] and define
+\[
+\Delta_n^{(d)*} = \Delta_n( \cF_\sep, c_1, c_2 )\,.
+\]
+The next result follows easily from the previous lemma:
+\begin{lemma}
+Let $\norm{\cdot} =\norm{\cdot}_2$ in the definition of the type-I oracles.
+%Let $\inf_{x\in \cK_i} f_{v_i}^{(i)}(x) = 0$. 
+Then, we have that $\Delta_n^{(d)*} \ge \sum_{i=1}^d \Delta_n^*(\cF^{(i)},c_1/d^{1/2},c_2/d)$.
+\end{lemma}
+\begin{proof}
+By our earlier remark, $\Gamma_\sep(f_v,c_1/d^{1/2},c_2/d) \subset \Gamma(f,c_1,c_2)$. Hence,
+\begin{align*}
+\Delta_n^{(d)*} 
+	& = \inf_{\cA} \sup_{v\in V} \sup_{\gamma \in \Gamma(f_v,c_1,c_2)} \Delta^{\cA}_n(f_v,\gamma) 
+	 \ge \inf_{\cA} \sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/d^{1/2},c_2/d)} \Delta^{\cA}_n(f_v,\gamma)\,.
+	 \numberthis
+	 \label{eq:ddimtoonedim1}
+\end{align*}
+For each $i=1,\dots,d$, pick $\gamma_{v_i}^{(i)}\in \Gamma(f_{v_i},c_1/d^{1/2},c_2/d)$ such that 
+$\Delta_n^*(\cF^{(i)},c_1/d^{1/2},c_2/d) = \inf_{\cA} \sup_{v_i\in V_i} \Delta_n^{\cA}(f_{v_i},\gamma_{v_i}^{(i)})$.
+For $v \in V$, let $\gamma_v \in \Gamma_\sep(f_v,c_1/d^{1/2},c_2/d)$ be the oracle whose ``components'' are 
+$\gamma_{v_i}^{(i)}$, $i=1,\dots,d$.
+Now, by \cref{lemma:sep},
+\begin{align*}
+\sup_{v\in V} \Delta^{\cA}_n(f_v,\gamma_v)
+\ge
+\sum_{i=1}^d \inf_{\cA} \sup_{v_i\in V_i} \Delta^{\cA}_n(f_{v_i}^{(i)},\gamma_{v_i}^{(i)})
+=
+\sum_{i=1}^d  \Delta_n^*(\cF^{(i)},c_1/d^{1/2},c_2/d)\,.
+\end{align*}
+This, together with 
+$\sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/d^{1/2},c_2/d)} \Delta^{\cA}_n(f_v,\gamma)
+\ge \sup_{v\in V} \Delta^{\cA}_n(f_v,\gamma_v)$
+and \eqref{eq:ddimtoonedim1} gives the desired result.
 \end{proof}
 
 \paragraph{Main proof:}
