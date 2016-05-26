@@ -422,8 +422,8 @@ To prove the $d$-dimensional result, we introduce a new device which allows us t
 The main idea is to use separable $d$-dimensional functions and oracles and show that if there exists an algorithm with a small loss for a rich set of separable functions and oracles, then there exists good one dimensional algorithms for the one-dimensional components of the functions and oracles.
 
 This device works as follows: 
-For $1\le i \le d$, let $V_i$, $\cK_i$ be nonempty sets, $\cK_i\subset \R$
-and for each $v\in V$, let $f_v^{(i)}: \cK_i \to \R$ 
+For $1\le i \le d$, let $\cK_i \subset \R$ be nonempty sets, 
+and for each $v\in V := \{\pm 1\}^d$, let $f_v^{(i)}: \cK_i \to \R$ 
 (later we will use $V_i=\{\pm 1\}$ and $f_v^{(i)}$ will be the functions constructed for the $1$-dimensional case with $\{-1,+1\}\subset \cK_i\subset \R$).
 Without the loss of generality, we assume that $\inf_{x\in \cK} f_v^{(i)}(x) = 0$, so that the optimization error of the algorithm producing $\hat{X}_n$  as the output is $f_v^{(i)}(\hat{X}_n)$.
 Further, let $\gamma_v^{(i)}$ be the gradient oracle that the algorithms can use when 
@@ -726,7 +726,7 @@ From the above, we have the following lower bound for the minimax error $\Delta_
 
 Plugging in $\epsilon = \left(\dfrac{4p}{(6p+q)\sqrt{n} K_1} \right)^{\frac{2p}{2p+q}}$, we obtain
 \begin{align}
-\Delta_n^{(1)*} \ge 2^{\frac{2p-q}{2p+q}}\left( \frac{2p+q}{6p+q} \right)^{\frac{6p+q}{2p+q}}\left( \frac{2p+q}{q} \right)^{\frac{2q}{2p+q}} C_1^{\frac{2q}{2p+q}}C_2^{\frac{2p}{2p+q}} n^{-\frac{2p}{2p+q}}.
+\Delta_n^{(1)*} \ge 2^{\frac{2p-q}{2p+q}} \frac{(2p+q)^3}{q^{\frac{2q}{2p+q}}(6p+q)^{\frac{6p+q}{2p+q}}}  C_1^{\frac{2q}{2p+q}}C_2^{\frac{2p}{2p+q}} n^{-\frac{2p}{2p+q}}.
 \label{eq:lb-pq-sc}
 \end{align}
 %The above bound holds for $n$ such that 

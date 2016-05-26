@@ -81,8 +81,7 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 \label{thm:ub}
 Consider the class $\F_{L,0}$ of convex, $L$-smooth functions on the bounded, convex domain $\cK\ne \emptyset$, $\cK \subset \R^d$.
 % let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
-Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.%
-\footnote{For $A\subset \mathbb{R}^d$, $A^\circ$ denotes the interior of $A$.}
+Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.
 For any $(c_1,c_2)$ type-II oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
  if \cref{alg} is run with $\eta_t = \alpha/(a_t+L)$ and
@@ -143,7 +142,7 @@ Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ typ
 \textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth) with $L\ge \frac12$:}
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?} 
 \[
- \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge K_1\sqrt{d}C_1^{\frac{q}{2p+q}} C_2^{\frac{p}{2p+q}}  n^{-\tfrac{p}{2p+q}},
+ \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge K_1\sqrt{d}\left(\dfrac{C_1^{\frac{q}{p}}C_2}{n}\right)^{\!\!\frac{p}{2p+q}},
 \]
 where $K_1 = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}$.
 %where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
@@ -151,7 +150,7 @@ where $K_1 = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\f
 \textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth) with $L\ge 1$:}
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
-\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge K_2 C_1^{\frac{2q}{2p+q}}C_2^{\frac{2p}{2p+q}} n^{-\frac{2p}{2p+q}}, 
+\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge K_2 \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q/2}}, 
 \]
 where $K_2 = 2^{\frac{2p-q}{2p+q}} \frac{(2p+q)^3}{q^{\frac{2q}{2p+q}}(6p+q)^{\frac{6p+q}{2p+q}}} $.
 \end{theorem}
