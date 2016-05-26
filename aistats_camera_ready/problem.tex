@@ -21,7 +21,8 @@ $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x \in \K \,, y \in \K^\circ$.
  This latter condition is equivalent to that $\nabla f$ is $L$-Lipschitz \citep[Theorem~2.1.5]{nesterov2004introductory}.
 % \todoc{Add citation}
  We let $\F_{L,\mu, \cR}(\K)$ denote the class of functions that are $\mu$-strongly convex w.r.t. $\cR$ and $L$-smooth w.r.t. some norm $\norm{\cdot}$ on the set $\K$.
- The set of convex and $L$-smooth functions is denoted by $\F_{L,0}(\K)$ (i.e., $\mu=0$ and $\cR$ can be arbitrary).
+We also let $\F_{L,\mu}(\K)$ be $\F_{L,\mu,\cR}(\cK)$ with $\cR(\cdot) = \frac12 \norm{\cdot}_2^2$.
+Then, the set of convex and $L$-smooth functions is  $\F_{L,0}(\K)$.
  %Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t.\  $\cR$. \todoc{Are these $L$-smooth w.r.t. $\cR$? This is a bit confusing.}
 % We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions. 
 % \todoc{I am pretty sure $\normal(0, I)$ is not used in the main text, hence commenting it out. We will need to define it for the full version!!!}
