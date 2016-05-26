@@ -425,13 +425,13 @@ This device works as follows:
 For $1\le i \le d$, let $V_i$, $\cK_i$ be nonempty sets, $\cK_i\subset \R$
 and for each $v\in V$, let $f_v^{(i)}: \cK_i \to \R$ 
 (later we will use $V_i=\{\pm 1\}$ and $f_v^{(i)}$ will be the functions constructed for the $1$-dimensional case with $\{-1,+1\}\subset \cK_i\subset \R$).
-Without the loss of generality, we assume that $\inf_{x\in \cK} f_v^{(i)}(x) = 0$, so that the optimization error of the algorithm producing $\hat{X}_n$  as the output is $f_v^{(i)}(\hat{X}_n)$.
+Without the loss of generality, we assume that $\inf_{x\in \cK_i} f_v^{(i)}(x) = 0$, so that the optimization error of the algorithm producing $\hat{X}_n$  as the output is $f_v^{(i)}(\hat{X}_n)$.
 Further, let $\gamma_v^{(i)}$ be the gradient oracle that the algorithms can use when 
 the function to be optimized is $f_v^{(i)}$. 
 
 Let $\cK = \times_{i=1}^d \cK_i$ and for $v = (v_1,\dots,v_d) \in V:= \times_{i=1}^d V_i$ (with a slight abuse of notation), let $f_v: \cK \to \R$ be defined by
 \begin{align*}
-f_v(x) = \sum_{i=1}^d f_{v_i}(x), \qquad x\in \cK\,.
+f_v(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \qquad x\in \cK\,.
 \end{align*}
 We also defined a
 $\gamma_v$  $d$-dimensional oracle as follows: The oracle  is obtained from ``composing'' the $d$ $1$-dimensional oracles, $(\gamma_{v_i}^{(i)})_{i}$.
@@ -475,8 +475,7 @@ In fact,  $\tL^{A}_i$ depends on $v$ because the algorithm $\A$ uses the $d$-dim
 
 \begin{lemma}[``Cross-talk'' does not help in separable problems]
 \label{lemma:sep}
-Let $V= \times_{i=1}^d V_i$, $(f_v)_{v\in V}$, $(\gamma_v)_{v\in V}$ be separable, $\A$ any $d$-dimensional algorithm. Then
-for any algorithm $\A$, there exist  $d$ one-dimensional algorithms, $\A_i^*$, $1\le i \le d$
+Let $V= \times_{i=1}^d V_i$, $(f_v)_{v\in V}$, $(\gamma_v)_{v\in V}$ be separable, $\A$ any $d$-dimensional algorithm. Then there exist  $d$ one-dimensional algorithms, $\A_i^*$, $1\le i \le d$
 such that 
 \begin{align}
 \label{eq:onedimlb}

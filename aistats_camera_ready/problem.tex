@@ -148,11 +148,11 @@ In the stochastic BCO setting, the minimax error is defined through
 \begin{align}
 \label{eq:minimaxerrdef}
 \Delta_{\F,n}^*(c_1,c_2)
-= \inf_{\cA} \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \Delta_n^{\cA}\,, %(f,\gamma)\,,
+= \inf_{\cA} \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \Delta_n^{\cA}(f,\gamma)\,, %(f,\gamma)\,,
 % \EE{ f(\hat{X}_n) } - \inf_{x\in \cK}  f(x)\,,
 \end{align}
-where, again, $\cA$ ranges through all algorithms that interact with the loss $f$ through $\gamma$ and
-$\Delta_n^{\cA}$ is the optimization error that $\cA$ suffers
+where, again, $\cA$ ranges through all algorithms that interact with an oracle and
+$\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers
 after $n$ rounds of interaction with $f$ through $\gamma$ as described earlier.
 The minimax error for type-II oracles is defined analogously.
 \todoc{Note about using only one oracle?}
