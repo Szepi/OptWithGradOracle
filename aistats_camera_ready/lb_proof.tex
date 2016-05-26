@@ -173,10 +173,7 @@ Thus, $\gamma_v$ is indeed an oracle with the required properties.
 	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=0.1$. 
 	The dashed lines show
 	$\overline{\gamma}_v(\cdot,\delta)$ for $C_1\delta^p=\epsilon$, 
-	$v\in \{\pm 1\}$.
-	\todoc[inline]{For the final version, uncomment the line that increases
-	the resolution above (look for samples=$\dots$).
-	}}
+	$v\in \{\pm 1\}$.}
 	\label{fig:fprime}
 \end{subfigure}
 	\end{tabular}
@@ -318,8 +315,7 @@ From the above, using the abbreviations $x_t^{\A} = x^{\A}_t(g_{1:t-1})$ and $\d
 where inequality \eqref{eq:dkgauss} follows from \eqref{eq:gdiff-ub}. Notice that the right-hand side of the above inequality does not depend on the algorithm anymore.
 
 Now, observe that 
-$\sup_{\delta> 0} \{(\epsilon - C_1 \delta^p)^+\}^2 \delta^q = \sup_{(\epsilon/C_1)^{1/p} \ge \delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$,
-we obtain
+$\sup_{\delta> 0} \{(\epsilon - C_1 \delta^p)^+\}^2 \delta^q = \sup_{(\epsilon/C_1)^{1/p} \ge \delta> 0} (\epsilon - C_1 \delta^p)^2 \delta^q$. From this we obtain
 \begin{align}
 \delta_*=\left(\frac{\epsilon q}{C_1(2p+q)}\right)^{1/p}. \label{eq:deltastar}
 \end{align}
@@ -394,15 +390,13 @@ By choosing $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2
 \label{eq:lb-pq}
 \end{align}
 %as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
-\todoc{So the condition on $n$ really comes from $\delta_*\le 1$, which was quite an ad hoc requirement, in the context of this proof. In a constraint optimization problem, we need something like this, but for unconstrained problems we could allow arbitrary $\delta$ and then this condition could be removed. This may be worth noting!}
 %The conditions on $n$ for the above bound to hold are:
 %\begin{align}
 %\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right).
 %\end{align}
 %The above conditions on $n$ can be inferred from (i) the requirement on  $\epsilon$ in \eqref{eq:deltastar}, (ii) assumption $\delta \le 1$ in Definition \ref{def:oracle1},  and (iii) the optimal choice of $\epsilon$ above.
 
-Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq} simplifies to \todoc{I edited the lower bound on $n$. It was 
-$\frac{2C_2}{9 C_1^2}$.}
+Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq} simplifies to 
 \[
 \Delta_n^{*} \ge \dfrac{ 2}{3\sqrt{3}} C_1^{1/2}C_2^{1/4} n^{-1/4} \,.
 \]
