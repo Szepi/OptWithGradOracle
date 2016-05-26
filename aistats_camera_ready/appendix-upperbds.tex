@@ -100,22 +100,18 @@ which is equivalent to the result by substituting the definition of Bregman dive
 \end{proof}
 
 \begin{proof}[\cref{lem:ub}]
-Denote $\hat{G}_t = \nabla f_t(X_t)$.
-From the smoothness and convexity of $f$ and using that $\mathcal{R}$ is strongly convex, we have
+Writing
+$\nabla f_t = (\nabla f_t-\overline G_t)  + \xi_t + G_t$ where $\xi_t = \overline G_t - G_t$ is the ``noise'',
+from the convexity of $f_t$ we obtain
 \begin{align}
-f_t(X_{t+1}) - f_t(x)
- &\le f_t(X_t) + \ip{ \hat{G}_t, X_{t+1}-X_t } + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \left\{ f_t(X_t) + \ip{ \hat{G}_t, x-X_t} \right\} \nonumber \\
- &= \ip{\hat{G}_t, X_{t+1} - x } +  \frac{L}{2} \norm{X_{t+1}-X_t}^2 \nonumber\\
- &\le \ip{\hat{G}_t,X_{t+1}-x} + \frac{L}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t)\,. \label{eq:mdsmoothnoisy1}
+f_t(X_{t}) - f_t(x) 
+ &\le \ip{\nabla f_t(X_t),X_{t}-x} \nonumber  \\
+&= \ip{(\nabla f_t-\overline G_t)  + \xi_t + G_t,X_t-x} \nonumber \\
+%& \le \norm{X_t-x}\norm{\nabla f_t-\overline G_t}_* + \ip{\xi_t,X_{t}-x} + \ip{ G_t, X_{t} - x }
+%&\le \beta_t \norm{X_{t+1}-x} + \\
+&\le \beta_t \sqrt{ \frac{2D}{\alpha} } + \ip{\xi_t,X_{t}-x} + \ip{ G_t, X_{t} - x } \,, \label{eq:mdsmoothnoisy1} 
 \end{align}
-Now write
-$\hat{G}_t = (\hat{G}_t-\overline G_t)  + \xi_t + G_t$ where $\xi_t = \overline G_t - G_t$ is the ``noise''.
-Hence,
-\begin{align*}
-\ip{\hat{G}_t,X_{t+1}-x}
-&\le \beta_t \norm{X_{t+1}-x} + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x }\\
-&\le \beta_t \sqrt{ \frac{2D}{\alpha} } + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x } \,.
-\end{align*}
+where in the last step we used the Cauchy-Schwarz inequality and the string convexity of $\mathcal{R}$. 
 After we plug this into~\eqref{eq:mdsmoothnoisy1},
 the plan is to take the conditional expectation of both sides w.r.t.\  $\F_{t}$.
 As $X_t$ is $\F_{t}$-measurable, and by the definition of $\xi_t$ and $\overline G_t$, $\EE{ \xi_t|\F_{t}} = 0$,
