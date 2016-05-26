@@ -49,8 +49,8 @@
 \tikzexternalize[prefix=tikz/]
 %%%%%%%%%%
 
-%\usepackage[disable]{todonotes}
-\usepackage{todonotes}
+\usepackage[disable]{todonotes}
+%\usepackage{todonotes}
 %%% Added by Prashanth: The tikz externalize business to speed up compilation is incompatible with todonotes, unless we add the following workaround that disables tikz-externalize in todo definition
 \makeatletter
 \renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
