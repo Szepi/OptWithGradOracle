@@ -50,32 +50,33 @@ $K_2^{p+q}=2^{q}\alpha^{-p}\mu^{-p}$.
 
 \begin{lemma}
 \label{lem:ub}
-Let $({\tilde{\cF}})_{t}$ be a filtration such that $X_t$ is ${\tilde{\cF}}_t$-measurable.
-Let $\overline G_t = \EE{G_t|{\tilde{\cF}}_t}$
+Let $({\cF}_t)_{t}$ be a filtration such that $X_t$ is ${{\cF}}_t$-measurable.
+Let $\overline G_t = \EE{G_t|{{\cF}}_t}$
 and assume that the nonnegative real-valued deterministic sequence $(\beta_t)_{1\le t\le n}$ is such that
-$\norm{\overline G_t - \nabla \tilde{f}(X_t)}_* \le \beta_t$ holds almost surely.
+$\norm{\overline G_t - \nabla {f}(X_t)}_* \le \beta_t$ holds almost surely.
 Further, assume that $D=\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y)$ and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing
-sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, if $\tilde{f}$ is $L$-smooth,
+sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, if ${f}$ is convex and $L$-smooth,
 \begin{align*}
-\EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }
-\le 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+
+\EE{ \sum_{t=1}^n {f}(X_t) - {f}(x) }
+\le 	 \EE{{f}(X_1)-{f}(x)}+
   \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t
  +\frac{D(a_{n-1}+L)}{\alpha} +
 	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,,
 \end{align*}
 where $\sigma_t^2 = \EE{ \norm{G_t-\overline G_t}_*^2}$ is the ``variance'' of $G_t$.
 
-If ${\tilde{f}}$ is also $\mu$-strongly convex w.r.t.\  $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$,
+If ${{f}}$ is also $\mu$-strongly convex w.r.t.\  $\mathcal{R}$, which is $\alpha$-strongly convex, $\alpha > \dfrac{2L}{\mu}$. Let $\eta_t = \dfrac{2}{\mu t}$, $a_t = \dfrac{\alpha \mu}{2}t-L > 0$,
 \begin{align*}
- \EE{ \sum_{t=1}^n \tilde{f}(X_t) - \tilde{f}(x) }
-\le 	 \EE{\tilde{f}(X_1)-\tilde{f}(x)}+
+ \EE{ \sum_{t=1}^n {f}(X_t) - {f}(x) }
+\le 	 \EE{{f}(X_1)-{f}(x)}+
  \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t
  +\sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,.
 \end{align*}
 \end{lemma}
 
 
-To simplify notation, in the following we call the loss function $f$, not $\tilde{f}$ as stated in \cref{lem:ub}. Before the proof, we introduce a well known bound on the instantaneous linearized regret of Mirror Descent.
+%To simplify notation, in the following we call the loss function $f$, not $\tilde{f}$ as stated in \cref{lem:ub}. 
+Before the proof, we introduce a well-known bound on the instantaneous linearized regret of Mirror Descent.
 \begin{lemma}
 \label{lem:mdlinregret}
 For any $x \in \cK$ and any $t \ge 1$,
@@ -101,13 +102,13 @@ which is equivalent to the result by substituting the definition of Bregman dive
 
 \begin{proof}[\cref{lem:ub}]
 Writing
-$\nabla f_t = (\nabla f_t-\overline G_t)  + \xi_t + G_t$ where $\xi_t = \overline G_t - G_t$ is the ``noise'',
-from the convexity of $f_t$ we obtain
+$\nabla f = (\nabla f-\overline G_t)  + \xi_t + G_t$ where $\xi_t = \overline G_t - G_t$ is the ``noise'',
+from the convexity of $f$ we obtain
 \begin{align}
-f_t(X_{t}) - f_t(x) 
- &\le \ip{\nabla f_t(X_t),X_{t}-x} \nonumber  \\
-&= \ip{(\nabla f_t-\overline G_t)  + \xi_t + G_t,X_t-x} \nonumber \\
-%& \le \norm{X_t-x}\norm{\nabla f_t-\overline G_t}_* + \ip{\xi_t,X_{t}-x} + \ip{ G_t, X_{t} - x }
+f(X_{t}) - f(x) 
+ &\le \ip{\nabla f(X_t),X_{t}-x} \nonumber  \\
+&= \ip{(\nabla f-\overline G_t)  + \xi_t + G_t,X_t-x} \nonumber \\
+%& \le \norm{X_t-x}\norm{\nabla f-\overline G_t}_* + \ip{\xi_t,X_{t}-x} + \ip{ G_t, X_{t} - x }
 %&\le \beta_t \norm{X_{t+1}-x} + \\
 &\le \beta_t \sqrt{ \frac{2D}{\alpha} } + \ip{\xi_t,X_{t}-x} + \ip{ G_t, X_{t} - x } \,, \label{eq:mdsmoothnoisy1} 
 \end{align}
@@ -132,7 +133,7 @@ Applying
 \cref{lem:mdlinregret}
 to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
 \begin{align*}
- \EE{f_t(X_{t+1}) - f_t(x) |\F_{t} }
+ \EE{f(X_{t+1}) - f(x) |\F_{t} }
 \le & \quad
  \beta_t \sqrt{ \frac{2D}{\alpha} }+
 \frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\F_{t}}+
@@ -142,14 +143,14 @@ to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
 Given $\sigma_t^2 = \EE{ \norm{\xi_t}_*^2}$,
 we will sum up these inequalities for $t=1,\dots,n-1$.
 To bound the right-hand side of the result, we use
-\begin{align*}
+\begin{align}
 \MoveEqLeft \sum_{t=1}^{n-1} \frac{1}{\eta_t} \left(\DR(x,X_t)-\DR(x,X_{t+1})\right)
- \\
+ \nonumber \\
 &= \DR(x,X_1) \frac{1}{\eta_1} + \DR(x,X_2) \left(\frac{1}{\eta_2}-\frac{1}{\eta_1}\right)
-+ \ldots+\DR(x,X_{n-1}) \left(\frac{1}{\eta_{n-1}} -\frac{1}{\eta_{n-2}}\right)- \frac{1}{\eta_{n-1}} \DR(x,X_n)\\
-& \le D \frac{1}{\eta_1} + D \sum_{t=2}^{n-1} \left(\frac1{\eta_{t}}-\frac1{\eta_{t-1}}\right)\\
-& = \frac{D}{\eta_{n-1}}\,.
-\end{align*}
++ \ldots+\DR(x,X_{n-1}) \left(\frac{1}{\eta_{n-1}} -\frac{1}{\eta_{n-2}}\right)- \frac{1}{\eta_{n-1}} \DR(x,X_n) \nonumber \\
+& \le D \frac{1}{\eta_1} + D \sum_{t=2}^{n-1} \left(\frac1{\eta_{t}}-\frac1{\eta_{t-1}}\right) \nonumber \\
+& = \frac{D}{\eta_{n-1}}\,.  \label{eq:div-telescope}
+\end{align}
 The inequality results from the fact that $\{\eta_t\}$ is non-increasing.
 Hence, by the tower rule,
 \begin{align*}
@@ -193,3 +194,27 @@ Given $\dfrac{1}{\eta_t}=\dfrac{\mu t}{2}=\dfrac{L+a_t}{\alpha}$, summing up the
 \end{align*}
 which finishes the proof.
 \end{proof}
+
+\subsection{Online optimization based on \citet{saha2011improved}}
+Assume that $\tf$ in the $(c_1,c_2)$ type-II oracle is convex with gradients bounded by $M$. 
+Instead of Lemma~\ref{lem:mdlinregret}, the prox-lemma states
+\[
+\ip{G_t,X_t-x} \le \frac{1}{\eta_t}(D_\cR(x,X_t)-D_\cR(x,X_{t+1})) + \eta_t \frac{\|G_t\|_*^2}{2\alpha}~.
+\]
+Using the linearization $\tf(X_t) - \tf(x) \le \ip{\Delta \tf_t,X_t-x} = \EE{\ip{ G_t,X_t-x}| \cF_t}$, summing up the bounds for all $t$, and applying \eqref{eq:div-telescope}, we get the standard mirror descent bounnd:
+\begin{align}
+\EE{\sum_{t=1}^n \tf_t(X_t)-\inf_{x \in \cK} \sum_{t=1}^n \tf_t(x)} 
+& \le \EE{\sum_{t=1}^n \ip{G_t,X_t-x}} \nonumber \\
+&\le \frac{D}{\eta_{n-1}} + \sum_{t=1}^n \eta_t \frac{\EE{\|G_t\|_*^2}}{2\alpha} \nonumber \\
+& \le \frac{D}{\eta_{n-1}}  + \sum_{t=1}^n \eta_t \frac{2M^2 + 2 c_2(\delta)^2}{2\alpha} 
+\label{eq:md-bound}
+\end{align}
+Moreover, 
+\begin{align*}
+\EE{\sum_{t=1}^n f_t(Y_t)} - \inf_{x \in \cK} \sum_{t=1}^n f_t(x)
+& \le \EE{\sum_{t=1}^n \tf_t(Y_t) }- \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x) + 2 n c_1(\delta) \\
+& \le \EE{\sum_{t=1}^n \tf_t(X_t)} - \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x) + 2 n c_1(\delta) + \delta n M \\
+& \le \frac{D}{\eta_{n-1}}  + \sum_{t=1}^n \eta_t \frac{2M^2 + 2 c_2(\delta)^2}{2\alpha} +  2 n c_1(\delta) + \delta n M
+\end{align*}
+Here we bound $\tf(Y_t)-\tf(X_t)$ by $O(\delta)$. \citet{saha2011improved} has a bound $O(\delta^2)$, using the special structure of $\tf$.
+
