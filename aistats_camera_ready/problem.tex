@@ -8,9 +8,10 @@ For $i\le j$ positive integers,
 
  We let $\| \cdot \|$ denote some norm on $\R^d$, whose dual is denoted by $\dnorm{\cdot}$. 
  Let $\K \subset \R^d$ be a non-empty closed convex  set. 
- Given the function $f:\K \to \R$ which is differentiable
+ Given the function $f:\K \to \R$ which is differentiable%
 \footnote{Here we assume the differentiablity for simplicity of definition, actually it is easy to generalize to non-differentiable functions by using sub-gradient.} 
-  in $\K^\circ$ \footnote{For $A\subset \mathbb{R}^d$, $A^\circ$ denotes the interior of $A$.},
+  in $\K^\circ$,%
+  \footnote{For $A\subset \mathbb{R}^d$, $A^\circ$ denotes the interior of $A$.}
  $f$ is said to be $\mu$-strongly convex w.r.t.\  $\| \cdot \|$  ($\mu\ge 0$) if
  $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x \in \K \,, y \in \K^\circ$.
 Similarly, $f$ is $\mu$-strongly convex w.r.t.\  a \emph{function} $\cR$
@@ -86,7 +87,7 @@ $\norm{x-Y}\le \delta$ almost surely (a.s.),
 The upper bound on $\delta$ is arbitrary: by changing the norm, any other value can also be accommodated. Also, the upper bound only matters when $\K$ is bounded and the functions in $\cF$ are defined only in a small vicinity of $\K$.
 \todoc[inline]{For precision, we should take conditional expectations given the past in the above definitions.}
 
-The second type of oracles considered is as follows:
+The second type of oracles considered is as follows: \todoa{Here we could distinguish between the class of $f$ and $\tf$: we basically do not need to assume anything about $f$ as long as $\tf$ belongs to a nice enough family.}
 \begin{definition}[$(c_1,c_2)$ type-II  oracle]
 \label{def:oracle2}
 We say that $\gamma$ is a  $(c_1,c_2)$ type-II oracle for $\cF$, if for any function $f\in \cF$,
