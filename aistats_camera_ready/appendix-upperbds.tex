@@ -196,7 +196,9 @@ which finishes the proof.
 \end{proof}
 
 \subsection{Online optimization based on \citet{saha2011improved}}
-Assume that $\tf$ in the $(c_1,c_2)$ type-II oracle is convex with gradients bounded by $M$. 
+Assume that $\tf$ in the $(c_1,c_2)$ type-II oracle is convex with gradients bounded by $M$. We also need that
+$\EE{\tf_t(Y_t)-\tf_t(X_t)} \le c_3(\delta) = N \delta^2$. This holds for the smooth case when $\EE{Y_t|\cF_t}=X_t$, since then
+$\EE{\tf_t(Y_t)-\tf_t(X_t)|\cF_t} \le \EE{\ip{\nabla \tf_t(X_t),Y_t-X_t}+\tfrac{L}{2}\|X_t-Y_t\|^2|\cF_t} \le L\delta^2/2$, where we used that $\EE{Y_t-X_t|\cF_t}=0$.
 Instead of Lemma~\ref{lem:mdlinregret}, the prox-lemma states
 \[
 \ip{G_t,X_t-x} \le \frac{1}{\eta_t}(D_\cR(x,X_t)-D_\cR(x,X_{t+1})) + \eta_t \frac{\|G_t\|_*^2}{2\alpha}~.
@@ -213,8 +215,8 @@ Moreover,
 \begin{align*}
 \EE{\sum_{t=1}^n f_t(Y_t)} - \inf_{x \in \cK} \sum_{t=1}^n f_t(x)
 & \le \EE{\sum_{t=1}^n \tf_t(Y_t) }- \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x) + 2 n c_1(\delta) \\
-& \le \EE{\sum_{t=1}^n \tf_t(X_t)} - \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x) + 2 n c_1(\delta) + \delta n M \\
-& \le \frac{D}{\eta_{n-1}}  + \sum_{t=1}^n \eta_t \frac{2M^2 + 2 c_2(\delta)^2}{2\alpha} +  2 n c_1(\delta) + \delta n M
+& \le \EE{\sum_{t=1}^n \tf_t(X_t)} - \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x) + 2 n c_1(\delta) + n c_3(\delta) \\
+& \le \frac{D}{\eta_{n-1}}  + \sum_{t=1}^n \eta_t \frac{2M^2 + 2 c_2(\delta)^2}{2\alpha} +  2 n c_1(\delta) + n c_3(\delta)~.
 \end{align*}
-Here we bound $\tf(Y_t)-\tf(X_t)$ by $O(\delta)$. \citet{saha2011improved} has a bound $O(\delta^2)$, using the special structure of $\tf$.
+This should recover the bound of \citet{saha2011improved}.
 
