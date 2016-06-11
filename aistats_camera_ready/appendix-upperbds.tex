@@ -21,7 +21,7 @@ Substituting
 \MoveEqLeft
 \frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} \nonumber \\
 &\le \frac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}+\frac{DL}{\alpha}  \right) %\nonumber
-+\frac{Da}{\alpha} n^{r-1}+\dfrac{C_2 \delta^{-q}}{2a(1-r)}n^{-r}+ (2+\dfrac{2}{n})C_1\delta^p \,.
++\frac{Da}{\alpha} n^{r-1}+\dfrac{C_2 \delta^{-q}}{2a(1-r)}n^{-r}+ \left(2+\dfrac{2}{n}\right)C_1\delta^p \,.
 \label{eq:ubToBeOpt}
  \end{align}
  Choosing $r = \frac{p+q}{2p+q}$, and $a$, $\delta$ as stated in \cref{thm:ub}, the last $3$ terms in \eqref{eq:ubToBeOpt} are optimized to
@@ -50,8 +50,8 @@ $K_2^{p+q}=2^{q}\alpha^{-p}\mu^{-p}$.
 
 \begin{lemma}
 \label{lem:ub}
-Let $({\cF}_t)_{t}$ be a filtration such that $X_t$ is ${{\cF}}_t$-measurable.
-Let $\overline G_t = \EE{G_t|{{\cF}}_t}$
+Let $({\cS}_t)_{t}$ be a filtration such that $X_t$ is ${{\cS}}_t$-measurable.
+Let $\overline G_t = \EE{G_t|{{\cS}}_t}$
 and assume that the nonnegative real-valued deterministic sequence $(\beta_t)_{1\le t\le n}$ is such that
 $\norm{\overline G_t - \nabla {f}(X_t)}_* \le \beta_t$ holds almost surely.
 Further, assume that $D=\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y)$ and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing
@@ -89,59 +89,61 @@ where $X_{t+1}$ is selected as in \cref{alg}.
 \end{lemma}
 \begin{proof}
 The point $X_{t+1}$ is the minimizer of
-$\Psi_{t+1}(x)=\eta_t \ip{G_t,x}+\DR(x,X_t)$ over $\cK$. The gradient of $\Psi_{t+1}(x)$ is
+$\Psi_{t+1}(x)=\eta_t \ip{G_t,x}+\DR(x,X_t)$ over $\cK$. Since the gradient of $\Psi_{t+1}(x)$ is
 \[
-\nabla \Psi_{t+1}(x) = \eta_t G_t + \nabla\mathcal{R}(x)-\nabla\mathcal{R}(X_t)\,.
+\nabla \Psi_{t+1}(x) = \eta_t G_t + \nabla\mathcal{R}(x)-\nabla\mathcal{R}(X_t),
 \]
-By the optimality condition, for any $x \in \cK$,
+by the optimality condition, for any $x \in \cK$,
 \[
 \ip{\eta_t G_t + \nabla\mathcal{R}(x)-\nabla\mathcal{R}(X_t), x-X_{t+1}}\ge 0 \,,
 \]
-which is equivalent to the result by substituting the definition of Bregman divergence $\DR$.
+which is equivalent to the result by substituting the definition of the Bregman divergence $\DR$.
 \end{proof}
 
 \begin{proof}[\cref{lem:ub}]
-Writing
-$\nabla f = (\nabla f-\overline G_t)  + \xi_t + G_t$ where $\xi_t = \overline G_t - G_t$ is the ``noise'',
-from the convexity of $f$ we obtain
+From the smoothness and convexity of $f$, and using the strong convexity of $\cR$, we get
 \begin{align}
-f(X_{t}) - f(x) 
- &\le \ip{\nabla f(X_t),X_{t}-x} \nonumber  \\
-&= \ip{(\nabla f-\overline G_t)  + \xi_t + G_t,X_t-x} \nonumber \\
-%& \le \norm{X_t-x}\norm{\nabla f-\overline G_t}_* + \ip{\xi_t,X_{t}-x} + \ip{ G_t, X_{t} - x }
-%&\le \beta_t \norm{X_{t+1}-x} + \\
-&\le \beta_t \sqrt{ \frac{2D}{\alpha} } + \ip{\xi_t,X_{t}-x} + \ip{ G_t, X_{t} - x } \,, \label{eq:mdsmoothnoisy1} 
+\lefteqn{f(X_{t+1}) - f(x)  } \nonumber \\
+& \le  f(X_t) + \ip{\nabla f(X_t), X_{t+1}-X_t} + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \big\{f(X_t) + \ip{\nabla f(X_t) , x- X_t} \big\}  \nonumber \\
+& = \ip{\nabla f(X_t), X_{t+1}-x} + \frac{L}{2}\norm{ X_{t+1} - X_t}^2 \nonumber \\
+& \le \ip{\nabla f(X_t), X_{t+1}-x} + \frac{L}{\alpha} D_{\cR}(X_{t+1},X_t)~. \label{eq:mdsmoothnoisy1}
 \end{align}
-where in the last step we used the Cauchy-Schwarz inequality and the string convexity of $\mathcal{R}$. 
-After we plug this into~\eqref{eq:mdsmoothnoisy1},
-the plan is to take the conditional expectation of both sides w.r.t.\  $\F_{t}$.
-As $X_t$ is $\F_{t}$-measurable, and by the definition of $\xi_t$ and $\overline G_t$, $\EE{ \xi_t|\F_{t}} = 0$,
+Writing
+$\nabla f (X_t) = (\nabla f(X_t)-\overline G_t)  + \xi_t + G_t$ where $\xi_t = \overline G_t - G_t$ is the ``noise'', and using the Cauchy-Schwartz inequality
+and the strong convexity of $\cR$,
+we obtain
+\begin{align*}
+\ip{\nabla f(X_{t}),X_{t+1}-x}
+ &= \ip{(\nabla f(X_t)-\overline G_t)  + \xi_t + G_t,X_{t+1}-x}  \nonumber \\
+ & \le \norm{X_t-x}\norm{\nabla f-\overline G_t}_* + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x } \nonumber \\
+%&\le \beta_t \norm{X_{t+1}-x} + \\
+&\le \beta_t \sqrt{ \frac{2D}{\alpha} } + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x }~.
+\end{align*}
+After plugging this into~\eqref{eq:mdsmoothnoisy1},
+the plan is to take the conditional expectation of both sides w.r.t.\  $\cS_{t}$.
+As $X_t$ is $\cS_{t}$-measurable and $\EE{ \xi_t|\cS_{t}} = 0$ by the definition of $\xi_t$ and $\overline G_t$,
 we have
 \begin{align*}
 \MoveEqLeft
-\EE{\ip{\xi_t, X_{t+1}-x}|\F_{t}} = \underbrace{\EE{\ip{\xi_t,X_{t}-x}|\F_{t}}}_{=0} + \EE{\ip{\xi_t,X_{t+1}-X_t}|\F_{t}} \,.
+\EE{\ip{\xi_t, X_{t+1}-x}|\cS_{t}} = \underbrace{\EE{\ip{\xi_t,X_{t}-x}|\cS_{t}}}_{=0} + \EE{\ip{\xi_t,X_{t+1}-X_t}|\cS_{t}} \,.
 \end{align*}
-We bound the second term inside the expectation from the Fenchel-Young inequality:
-\begin{align*}
-\ip{\xi_t,X_{t+1}-X_t} \le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + a_t \norm{X_{t+1}-X_t}^2\right)\,.
-\end{align*}
-Using again that $\mathcal{R}$ is $\alpha$-strongly convex, we get
+The second term inside the expectation can be bounded by the Fenchel-Young inequality and the strong convexity of $\cR$ as
 \[
-\ip{\xi_t,X_{t+1}-X_t} \le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + \frac{2a_t}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t) \right)\,.
+\ip{\xi_t,X_{t+1}-X_t} \le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + a_t \norm{X_{t+1}-X_t}^2\right)\,
+\le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + \frac{2a_t}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t) \right)\,.
 \]
 Applying
 \cref{lem:mdlinregret}
 to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
 \begin{align*}
- \EE{f(X_{t+1}) - f(x) |\F_{t} }
+ \EE{f(X_{t+1}) - f(x) |\cS_{t} }
 \le & \quad
  \beta_t \sqrt{ \frac{2D}{\alpha} }+
-\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\F_{t}}+
+\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\cS_{t}}+
 \frac{1}{\eta_t} \left(D_{\mathcal{R}}(x,X_t)-D_{\mathcal{R}}(x,X_{t+1})\right) \\&+
 \underbrace{\left(\frac{a_t+L}{\alpha}-\frac{1}{\eta_t}\right) D_{\mathcal{R}}(X_{t+1},X_t)}_{=0}\numberthis \label{eq:ubProofWithNoise} \,.
 \end{align*}
-Given $\sigma_t^2 = \EE{ \norm{\xi_t}_*^2}$,
-we will sum up these inequalities for $t=1,\dots,n-1$.
+Finally, we sum up these inequalities for $t=1,\dots,n-1$.
 To bound the right-hand side of the result, we use
 \begin{align}
 \MoveEqLeft \sum_{t=1}^{n-1} \frac{1}{\eta_t} \left(\DR(x,X_t)-\DR(x,X_{t+1})\right)
@@ -149,13 +151,13 @@ To bound the right-hand side of the result, we use
 &= \DR(x,X_1) \frac{1}{\eta_1} + \DR(x,X_2) \left(\frac{1}{\eta_2}-\frac{1}{\eta_1}\right)
 + \ldots+\DR(x,X_{n-1}) \left(\frac{1}{\eta_{n-1}} -\frac{1}{\eta_{n-2}}\right)- \frac{1}{\eta_{n-1}} \DR(x,X_n) \nonumber \\
 & \le D \frac{1}{\eta_1} + D \sum_{t=2}^{n-1} \left(\frac1{\eta_{t}}-\frac1{\eta_{t-1}}\right) \nonumber \\
-& = \frac{D}{\eta_{n-1}}\,.  \label{eq:div-telescope}
+& = \frac{D}{\eta_{n-1}}\,,  \label{eq:div-telescope}
 \end{align}
-The inequality results from the fact that $\{\eta_t\}$ is non-increasing.
-Hence, by the tower rule,
+where the inequality results from the fact that $\{\eta_t\}$ is non-increasing.
+Hence, by the tower rule, using $\sigma_t^2 = \EE{ \norm{\xi_t}_*^2}$,
 \begin{align*}
-\MoveEqLeft \EE{ \sum_{t=1}^n f(X_t) - f(x) }
-\le
+ \EE{ \sum_{t=1}^n f(X_t) - f(x) }
+& \le
   \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
 	   \frac{D}{\eta_{n-1}} +
 	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\\
@@ -169,26 +171,26 @@ When $f$ is $L$-smooth and $\mu$-strongly convex,  we can rewrite \eqref{eq:mdsm
 \begin{align*}
 \MoveEqLeft
 f(X_{t+1}) - f(x) \nonumber\\
- \le& f(X_t) + \ip{ \hat{G}_t, X_{t+1}-X_t } + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \left\{ f(X_t) + \ip{ \hat{G}_t, x-X_t}+\dfrac{\mu}{2}\DR(x, X_t) \right\} \nonumber \\
- =& \ip{\hat{G}_t, X_{t+1} - x } +  \frac{L}{2} \norm{X_{t+1}-X_t}^2-\dfrac{\mu}{2}\DR(x, X_t) \nonumber\\
- \le& \ip{\hat{G}_t,X_{t+1}-x} + \frac{L}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t)-\dfrac{\mu}{2}\DR(x, X_t)\,.
+ &\le f(X_t) + \ip{ \hat{G}_t, X_{t+1}-X_t } + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \left\{ f(X_t) + \ip{ \hat{G}_t, x-X_t}+\dfrac{\mu}{2}\DR(x, X_t) \right\} \nonumber \\
+ &= \ip{\hat{G}_t, X_{t+1} - x } +  \frac{L}{2} \norm{X_{t+1}-X_t}^2-\dfrac{\mu}{2}\DR(x, X_t) \nonumber\\
+ &\le \ip{\hat{G}_t,X_{t+1}-x} + \frac{L}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t)-\dfrac{\mu}{2}\DR(x, X_t)\,.
 \end{align*}
-Again, \eqref{eq:ubProofWithNoise} can be written as
+Now, similarly to \eqref{eq:ubProofWithNoise}, we  obtain
 \begin{align*}
-\MoveEqLeft \EE{f(X_{t+1}) - f(x) |\F_{t} }
-\le
+\EE{f(X_{t+1}) - f(x) |\cS_{t} }
+& \le
  \beta_t \sqrt{ \frac{2D}{\alpha} }+
-\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\F_{t}}\\
-&+{}\left(\dfrac{1}{\eta_t}-\dfrac{\mu}{2}  \right)\DR(x,X_t)-\dfrac{1}{\eta_t}\DR(x,X_{t+1})
+\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\cS_{t}}\\
+&\qquad +\left(\dfrac{1}{\eta_t}-\dfrac{\mu}{2}  \right)\DR(x,X_t)-\dfrac{1}{\eta_t}\DR(x,X_{t+1})
 +\left( \dfrac{L+a_t}{\alpha}-\dfrac{1}{\eta_t} \right)\DR(X_{t+1},X_t) \,.
 \end{align*}
-Given $\dfrac{1}{\eta_t}=\dfrac{\mu t}{2}=\dfrac{L+a_t}{\alpha}$, summing up theses inequalities for $t=1,2,\cdots, n-1$, we get
+Since $\dfrac{1}{\eta_t}=\dfrac{\mu t}{2}=\dfrac{L+a_t}{\alpha}$ by definition, summing up theses inequalities for $t=1,2,\ldots,n-1$, we get
 \begin{align*}
  \EE{ \sum_{t=1}^n f(X_t) - f(x) }
-\le&
+& \le
   \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
 	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}-\dfrac{1}{\eta_{n-1}}\DR(x,X_{n})\\
-\le&
+& \le
   \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
 	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,,
 \end{align*}
@@ -197,13 +199,13 @@ which finishes the proof.
 
 \subsection{Online optimization based on \citet{saha2011improved}}
 Assume that $\tf$ in the $(c_1,c_2)$ type-II oracle is convex with gradients bounded by $M$. We also need that
-$\EE{\tf_t(Y_t)-\tf_t(X_t)} \le c_3(\delta) = N \delta^2$. This holds for the smooth case when $\EE{Y_t|\cF_t}=X_t$, since then
-$\EE{\tf_t(Y_t)-\tf_t(X_t)|\cF_t} \le \EE{\ip{\nabla \tf_t(X_t),Y_t-X_t}+\tfrac{L}{2}\|X_t-Y_t\|^2|\cF_t} \le L\delta^2/2$, where we used that $\EE{Y_t-X_t|\cF_t}=0$.
+$\EE{\tf_t(Y_t)-\tf_t(X_t)} \le c_3(\delta) = N \delta^2$. This holds for the smooth case when $\EE{Y_t|\cS_t}=X_t$, since then
+$\EE{\tf_t(Y_t)-\tf_t(X_t)|\cS_t} \le \EE{\ip{\nabla \tf_t(X_t),Y_t-X_t}+\tfrac{L}{2}\|X_t-Y_t\|^2|\cS_t} \le L\delta^2/2$, where we used that $\EE{Y_t-X_t|\cS_t}=0$.
 Instead of Lemma~\ref{lem:mdlinregret}, the prox-lemma states
 \[
 \ip{G_t,X_t-x} \le \frac{1}{\eta_t}(D_\cR(x,X_t)-D_\cR(x,X_{t+1})) + \eta_t \frac{\|G_t\|_*^2}{2\alpha}~.
 \]
-Using the linearization $\tf(X_t) - \tf(x) \le \ip{\Delta \tf_t,X_t-x} = \EE{\ip{ G_t,X_t-x}| \cF_t}$, summing up the bounds for all $t$, and applying \eqref{eq:div-telescope}, we get the standard mirror descent bounnd:
+Using the linearization $\tf(X_t) - \tf(x) \le \ip{\nabla \tf_t,X_t-x} = \EE{\ip{ G_t,X_t-x}| \cS_t}$, summing up the bounds for all $t$, and applying \eqref{eq:div-telescope}, we get the standard mirror descent bounnd:
 \begin{align}
 \EE{\sum_{t=1}^n \tf_t(X_t)-\inf_{x \in \cK} \sum_{t=1}^n \tf_t(x)} 
 & \le \EE{\sum_{t=1}^n \ip{G_t,X_t-x}} \nonumber \\
