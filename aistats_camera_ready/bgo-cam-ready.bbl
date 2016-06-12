@@ -106,10 +106,12 @@ Honorio, J. (2012).
   sparse ising models.
 \newblock In {\em ICML}, pages 257--264, New York, NY, USA. Omnipress.
 
-\bibitem[Hu et~al., 2016]{HuPrGySz16long}
+\bibitem[Hu et~al., 2016]{HuPrGySz16}
 Hu, X., L.A., P., Gy\"orgy, A., and Szepesv\'ari, C. (2016).
 \newblock ({B}andit) convex optimization with biased noisy gradient oracles.
-\newblock arXiv.
+\newblock In {\em Proceedings of the Nineteenth International Conference on
+  Artificial Intelligence and Statistics, {AISTATS} 2016, Cadiz, Spain, May
+  9-11, 2016}, volume~41 of {\em JMLR: W \& CP}, page 819—828.
 
 \bibitem[Juditsky and Nemirovski, 2011]{JN11a}
 Juditsky, A. and Nemirovski, A. (2011).
@@ -167,8 +169,6 @@ Saha, A. and Tewari, A. (2011).
 \newblock Improved regret guarantees for online smooth convex optimization with
   bandit feedback.
 \newblock In {\em AISTATS}, pages 636--642.
-
-\newpage
 
 \bibitem[Schmidt et~al., 2011]{SchRoBa11}
 Schmidt, M.~W., Roux, N.~L., and Bach, F.~R. (2011).
