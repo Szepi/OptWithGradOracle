@@ -52,8 +52,8 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 \EndFor
 \State {\bf Return:} $\hat{X}_n = \frac{1}{n}\sum_{t=1}^n X_t \,.$
 \end{algorithmic}
-\caption{Mirror Descent with Type-I/II Oracle.}
-\label{alg}
+\caption{Mirror Descent with Type-I/II Oracle.
+\label{alg}}
 \end{algorithm}
 
 
@@ -92,13 +92,14 @@ For any $(c_1,c_2)$ type-II oracle
  \delta = \left( \tfrac{C_2}{4aC_1}\tfrac{2p+q}{p}\tfrac{n}{n+1}\right)^{\frac{1}{p+q}}n^{-\frac{1}{2p+q}} \,,$  where
  $a^{2p+q} =2^{q-p}\left( 2+\tfrac{q}{p} \right)^p\left(1+ \tfrac{1}{n} \right)^q \left( \tfrac{\alpha}{D} \right)^{p+q}C_1^q C_2^p $,
  $a_t = a t^{\frac{p+q}{2p+q}}$, for $t=1, 2, \cdots, n-1$,
-then  the regret and the minimax error %\eqref{eq:minimaxerrdef} 
+then  the the worst-case error (and hence the minimax error) is bounded as  %\eqref{eq:minimaxerrdef} 
 can be bounded as
 % \begin{align*}
  \[
- \Delta_{\F_{L,0},n}^*(c_1,c_2)\!\le \!
- \frac{R_{\F_{L,0},n}^*(c_1,c_2)}{n}\!=\! O\!\left(\!\!\left(\!\dfrac{DC_1^{\frac{q}{p}}C_2}{n}\!\right)^{\!\!\!\frac{p}{2p+q}}\!\right)\!\!,
-\vspace{-0.3cm}
+ \Delta_{\F_{L,0},n}^{MD}(c_1,c_2) 
+ %\frac{R_{\F_{L,0},n}^*(c_1,c_2)}{n}
+ = O\left(\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{n}\right)^{\frac{p}{2p+q}}\right),
+%\vspace{-0.3cm}
  \]
  %\end{align*}
  where $D=\sup_{x,y\in \cK} \DR(x,y)$.
@@ -113,11 +114,14 @@ $ and
 $
 \delta^{p+q} =  \tfrac{C_2\left( \log n+1+\tfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
 $
-the regret and the minimax error satisfy
+the worst-case error of \cref{alg} (and the minimax error) satisfies
 \begin{align*}
-\lefteqn{\Delta_{\F_{L,\mu,\cR},n}^*(c_1,c_2) } \\
-& \le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} =  \tilde{O}\!\left( \!\left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\!\!\frac{p}{p+q}} \right)\,.
-\vspace{-0.5cm}
+%\lefteqn{
+\Delta_{\F_{L,\mu,\cR},n}^{MD}(c_1,c_2) 
+%} \\
+& %\le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} 
+=  \tilde{O}\left( \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q}} \right)\,.
+%\vspace{-0.5cm}
 \end{align*}
 In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$.%
 \footnote{In the second bound, $\tilde{O}(f(n))$ denotes $O(\log(n) f(n))$.}
@@ -138,10 +142,10 @@ $\cK\subset \R^d$ convex, closed, with  $[+1,-1]^d\subset \cK$.
 Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ type-I oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$,
  the minimax error (and hence the regret) satisfies the following bounds:\\
-\textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth) with $L\ge \frac12$:}
+\textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth) w.r.t. the Euclidean norm $\|\cdot\|_2$ with $L\ge \frac12$:}
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?} 
 \[
- \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge K_1\sqrt{d}\left(\dfrac{C_1^{\frac{q}{p}}C_2}{n}\right)^{\!\!\frac{p}{2p+q}},
+ \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge K_1\sqrt{d}\left(\dfrac{C_1^{\frac{q}{p}}C_2}{n}\right)^{\frac{p}{2p+q}},
 \]
 where $K_1 = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}$.
 %where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.

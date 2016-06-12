@@ -120,20 +120,22 @@ will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a fi
 \footnote{For oracles with memory, in the definition the expectation should be replaced with
 an expectation that is conditioned on the past.}
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-Examples will be discussed in  \cref{sec:sbco}.
+Examples will be discussed in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., our methods work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
 We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
+
 
 
 Here, we will study the minimax regret in the online convex optimization setting, 
  while we study the minimax error in the stochastic convex optimization setting (sometimes, also called as the ``simple regret'').
 Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
-The \emph{minimax expected regret} for $(\cF,c_1,c_2)$ with type-I oracles is
+The \emph{wost case regret} of algorithm $\A$ interacting with $(c_1,c_2)$ type-I oracles for the function class $\F$ is
+
 \begin{align*}
 %\MoveEqLeft
-R_{\F,n}^*(c_1,c_2)
-&= \inf_{\cA} \sup_{f_{1:n}\in \cF^n}
+R_{\F,n}^\cA(c_1,c_2)
+&=  \sup_{f_{1:n}\in \cF^n}
 	\sup_{\substack{\gamma_t \in \Gamma_1(f_t,c_1,c_2)\\1\le t \le n
-	}} R_n^{\cA}\,, %(f_{1:n},\gamma_{1:n})
+	}} R_n^{\cA}(f_{1:n},\gamma_{1:n})
 %\label{eq:minimaxregdef}
 %\\
 %\MoveEqLeft
@@ -143,29 +145,37 @@ R_{\F,n}^*(c_1,c_2)
 %%%%%%& \qquad \qquad \qquad \qquad \qquad
 %-\inf_{x\in \cK} \sum_{t=1}^n f_t(x)\,,\\
 \end{align*}
+where $R_n^{\cA}(f_{1:n},\gamma_{1:n})$ denotes the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:n}$), and
+the \emph{minimax expected regret} for $(\cF,c_1,c_2)$ with type-I oracles is defined as
+\[
+R_{\F,n}^*(c_1,c_2) = \inf_{\cA} R_{\F,n}^\cA(c_1,c_2),
+\]
 where $\cA$ ranges through all algorithms that interact with the loss sequence  $f_{1:n}= (f_1,\dots,f_n)$
-through the oracles $\gamma_{1:n}$ (in round $t$, oracle $\gamma_t$ is used),
-and we use $R_n^{\cA}$ to denote the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:n}$).
+through the oracles $\gamma_{1:n}$ (in round $t$, oracle $\gamma_t$ is used).
 The minimax regret for type-II oracles is defined analogously.
 % (in what follows we only define these quantities for type-I oracles, as the extension \todoc{Is extension the right word?}
 % to type-II oracles is immediate).
 
 
-In the stochastic BCO setting, the minimax error is defined through
+In the stochastic BCO setting, the \emph{worst case error} is defined through
 \begin{align}
 \label{eq:minimaxerrdef}
-\Delta_{\F,n}^*(c_1,c_2)
-= \inf_{\cA} \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \Delta_n^{\cA}(f,\gamma)\,, %(f,\gamma)\,,
+\Delta_{\F,n}^\cA(c_1,c_2)
+= \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \Delta_n^{\cA}(f,\gamma)\,, %(f,\gamma)\,,
 % \EE{ f(\hat{X}_n) } - \inf_{x\in \cK}  f(x)\,,
 \end{align}
-where, again, $\cA$ ranges through all algorithms that interact with an oracle and
-$\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers
-after $n$ rounds of interaction with $f$ through (a single) $\gamma$ as described earlier.
+where $\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers
+after $n$ rounds of interaction with $f$ through (a single) $\gamma$ as described earlier, and the \emph{minimax error}
+is defined as
+\[
+\Delta_{\F,n}^*(c_1,c_2) =  \inf_{\cA} \Delta_{\F,n}^\cA(c_1,c_2),
+\]
+where, again, $\cA$ ranges through all algorithms that interact with $f$ through an oracle.
 The minimax error for type-II oracles is defined analogously.
 
 When the set $\K$ is bounded and the function set $\F$ is invariant to linear shifts, every $(c_1,c_2)$ type-I oracle is also an $(R c_1,c_2)$ type-II oracle,
 where $R = \sup_{x\in \K} \norm{x}$: simply consider $\tilde{f}(y) =  f(y) + (\EE{G}-\nabla f(x))\tr y $,
-where $G$ is the gradient estimate returned by the oracle. % (cf. \cref{thm:typered}).
+where $G$ is the gradient estimate returned by the oracle (cf. \cref{thm:typered}).
 Thus, if for some set $\Delta_{n}^{\mathrm{type-I}}$, $\Delta_{n}^{\mathrm{type-II}}$
 denote the appropriate minimax errors and $R=1$
 then $\Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(c_1,c_2)  $.
