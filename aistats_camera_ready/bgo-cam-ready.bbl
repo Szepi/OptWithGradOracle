@@ -22,6 +22,19 @@ Baes, M. (2009).
 \newblock Estimate sequence methods: Extensions and approximations.
 \newblock Technical report, IFOR Internal report, ETH Zurich, Switzerland.
 
+\bibitem[Bartlett et~al., 2008]{BaHaRa07}
+Bartlett, P., Hazan, E., and Rakhlin, A. (2008).
+\newblock Adaptive online gradient descent.
+\newblock In Platt, J., Koller, D., Singer, Y., and Roweis, S., editors, {\em
+  Advances in Neural Information Processing Systems 20}, pages 65--72. MIT
+  Press, Cambridge, MA.
+
+\bibitem[Beck and Teboulle, 2003]{Beck2003mirror}
+Beck, A. and Teboulle, M. (2003).
+\newblock Mirror descent and nonlinear projected subgradient methods for convex
+  optimization.
+\newblock {\em Operations Research Letters}, 31(3):167--175.
+
 \bibitem[Bhatnagar et~al., 2013]{bhatnagar-book}
 Bhatnagar, S., Prasad, H.~L., and Prashanth, L.~A. (2013).
 \newblock {\em Stochastic Recursive Algorithms for Optimization: Simultaneous
@@ -147,6 +160,11 @@ Mahdavi, M. (2014).
 \newblock {\em Exploiting Smoothness in Statistical Learning, Sequential
   Prediction, and Stochastic Optimization}.
 \newblock PhD thesis, Michigan State University.
+
+\bibitem[Nemirovski et~al., 2009]{NeJuLaSh09}
+Nemirovski, A., Juditsky, A., Lan, G., and Shapiro, A. (2009).
+\newblock Robust stochastic approximation approach to stochastic programming.
+\newblock {\em {SIAM} J. Optimization}, 4:1574---1609.
 
 \bibitem[Nesterov, 2004]{nesterov2004introductory}
 Nesterov, Y. (2004).

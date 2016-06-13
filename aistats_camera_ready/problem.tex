@@ -114,7 +114,10 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 %\end{align}
 %We call the resulting oracles type-IIb.
 %
-Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
+
+We call an oracle (type-I or II) has \emph{unbiased evaluation} if $\EE{Y}=x$ in the above definitions. Note that if the oracle has unbiased evaluation, an algorithm does not loose too much from suffering loss at $Y$ instead of the query point $x$ if the loss function is smooth, since in this case
+$\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}} \le L\delta^2/2$.
+Also, our definitions allow the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
 though most often the oracles constructed in practice
 will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a fixed stochastic mapping.%
 \footnote{For oracles with memory, in the definition the expectation should be replaced with

@@ -1,52 +1,12 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-In the proof, we use \cref{lem:ub} to deal with noisy and biased gradient, which is essentially Theorem~C.4 of \cite{MahdaviPhd:2014}, and also identical to Theorem~6.3 of \cite{Bu:Convex14}, who cites \cite{Dekel:minibatch12} as the source.
-The lemma and its proof can be found below.
 
-\begin{proof}[\cref{thm:ub}]
-By the discussion in \cref{sec:problem}, we have $\Delta^*_{\F,n}(c_1,c_2) \le R^*_{\F,n}(c_1,c_2)/n$ by Jensen's inequality, so it is enough to bound the regret for the online case.
-From the bias condition in \cref{def:oracle2}, we get
-\begin{align*}
- \frac{1}{n} \EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x \in \cK}\sum_{t=1}^n f_t(x) }
- \le \frac{1}{n}\EE{ \sum_{t=1}^n \tilde{f}_t(X_t) - \inf_{x \in \cK}\sum_{t=1}^n \tilde{f}_t(x) } +2C_1 \delta^p
- \,.
-\end{align*}
+In this section we prove \cref{thm:ub}. First we derive the bounds for the optimization settings and then for the regret. 
 
-Given $\overline{G}_t=\EE{G_t} = \nabla \tilde{f}(X_t)$, where $\tilde{f}\in \cF_{L,0}$ is convex and smooth,
-the result immediately follows by applying \cref{lem:ub} to $\tilde{f}$.
-Substituting
-%\todox{This may be confusing... since we are using type-II oracle, $\beta_t$ is actually 0.}
- $\beta_t = 0$, $\sigma^2_t = C_2 \delta^{-q}$, $a_t=a t^r$ for some $0<r<1$, respectively, we obtain
- \begin{align}
-\MoveEqLeft
-\frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} \nonumber \\
-&\le \frac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}+\frac{DL}{\alpha}  \right) %\nonumber
-+\frac{Da}{\alpha} n^{r-1}+\dfrac{C_2 \delta^{-q}}{2a(1-r)}n^{-r}+ \left(2+\dfrac{2}{n}\right)C_1\delta^p \,.
-\label{eq:ubToBeOpt}
- \end{align}
- Choosing $r = \frac{p+q}{2p+q}$, and $a$, $\delta$ as stated in \cref{thm:ub}, the last $3$ terms in \eqref{eq:ubToBeOpt} are optimized to
- \[
- K_1 C_1^{q/(2p+q)} C_2^{p/(2p+q)} n ^{-p/(2p+q)} \,,
- \]
- where
-% $K_1 = 2^{\dfrac{3q}{2(p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{\dfrac{p+q^2+2pq}{(p+q)(2p+q)}}+2^{\dfrac{3q}{2(2p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{2-\dfrac{1}{2p+q}}$.
- $(K_1/3)^{2p+q} \le 2^{2q-p}\left(2+q/p \right)^p \left(D/\alpha\right)^{p}$.
+\subsection{Stochastic optimization}
 
- When $\tilde{f}_t \in \cF_{L,\mu, \cR}$ is $L$-smooth and $\mu$-strongly convex, similarly, we obtain
- \begin{align*}
- \MoveEqLeft
-\frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} -\frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)}\\
-&\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 \delta^{-q}}{\alpha \mu n} \sum_{t=1}^{n-1}\dfrac{1}{t-\dfrac{2L}{\alpha \mu}}\\
-&\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 }{\alpha \mu}\delta^{-q} \dfrac{\log n+1+\alpha \mu/(\alpha \mu-2L)}{n}\\
-&\le K_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}\,.
- \end{align*}
-The last step optimizes the bound via letting
-%$\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n}$,
-$\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)}$,
-where
-%$K_2^{p+q}=\sqrt{2}^{2p+3q}D^{q/2}\alpha^{-p-q/2}\mu^{-p}$.
-$K_2^{p+q}=2^{q}\alpha^{-p}\mu^{-p}$.
-\end{proof}
+The proof for the stochastic optimization scenario is based on the following lemma,
+which is essentially Theorem~C.4 of \citet{MahdaviPhd:2014}, and also identical to Theorem~6.3 of \citet{Bu:Convex14}, who cites \citet{Dekel:minibatch12} as the source. For completeness, the proof of the lemma is given in \cref{sec:lemub-proof}.
 
 \begin{lemma}
 \label{lem:ub}
@@ -74,151 +34,119 @@ If ${{f}}$ is also $\mu$-strongly convex w.r.t.\  the $\alpha$-strongly convex f
 \end{align*}
 \end{lemma}
 
-
-%To simplify notation, in the following we call the loss function $f$, not $\tilde{f}$ as stated in \cref{lem:ub}. 
-Before the proof, we introduce a well-known bound on the instantaneous linearized "forward-peeking" regret of Mirror Descent.
-\begin{lemma}
-\label{lem:mdlinregret}
-For any $x \in \cK$ and any $t \ge 1$,
+Now we can easily prove the theorem.
+%By the discussion in \cref{sec:problem}, we have $\Delta^*_{\F,n}(c_1,c_2) \le R^*_{\F,n}(c_1,c_2)/n$ by Jensen's inequality, so it is enough to bound the regret for the online case.
+From the bias condition in \cref{def:oracle2}, we get
 \begin{align*}
+ \frac{1}{n} \EE{ \sum_{t=1}^n f(X_t) - \inf_{x \in \cK}\sum_{t=1}^n f(x) }
+ \le \frac{1}{n}\EE{ \sum_{t=1}^n \tilde{f}(X_t) - \inf_{x \in \cK}\sum_{t=1}^n \tilde{f}(x) } +2C_1 \delta^p
+ \,.
+\end{align*}
+
+Given $\overline{G}_t=\EE{G_t} = \nabla \tilde{f}(X_t)$, where $\tilde{f}\in \cF_{L,0}$ is convex and smooth,
+the result immediately follows by applying \cref{lem:ub} to $\tilde{f}$. Choosing $$\eta_t = \alpha/(a_t+L)$$ as in the lemma with 
+$a_t=a t^r$ for some $0<r<1$, and
+substituting
+ $\beta_t = 0$ (since we have a type-II oracle), $\sigma^2_t = C_2 \delta^{-q}$, respectively, we obtain
+ \begin{align}
 \MoveEqLeft
-\ip{G_t, X_{t+1}-x}
-\le \dfrac{1}{\eta_t} \left( \DR(x,X_t)-\DR(x,X_{t+1})-\DR(X_{t+1},X_t) \right)\,,
-\end{align*}
-where $X_{t+1}$ is selected as in \cref{alg}.
-\end{lemma}
-\begin{proof}
-The point $X_{t+1}$ is the minimizer of
-$\Psi_{t+1}(x)=\eta_t \ip{G_t,x}+\DR(x,X_t)$ over $\cK$. Since the gradient of $\Psi_{t+1}(x)$ is
-\[
-\nabla \Psi_{t+1}(x) = \eta_t G_t + \nabla\mathcal{R}(x)-\nabla\mathcal{R}(X_t),
-\]
-by the optimality condition, for any $x \in \cK$,
-\[
-\ip{\eta_t G_t + \nabla\mathcal{R}(x)-\nabla\mathcal{R}(X_t), x-X_{t+1}}\ge 0 \,,
-\]
-which is equivalent to the result by substituting the definition of the Bregman divergence $\DR$.
-\end{proof}
+\frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} \nonumber \\
+&\le \frac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}+\frac{DL}{\alpha}  \right) %\nonumber
++\frac{Da}{\alpha} n^{r-1}+\dfrac{C_2 \delta^{-q}}{2a(1-r)}n^{-r}+ \left(2+\dfrac{2}{n}\right)C_1\delta^p \,.
+\label{eq:ubToBeOpt}
+ \end{align}
+ Choosing $r = \frac{p+q}{2p+q}$,  
+ $\delta = \left( \tfrac{C_2}{4aC_1}\tfrac{2p+q}{p}\tfrac{n}{n+1}\right)^{\frac{1}{p+q}}n^{-\frac{1}{2p+q}}$  and
+ $a^{2p+q} =2^{q-p}\left( 2+\tfrac{q}{p} \right)^p\left(1+ \tfrac{1}{n} \right)^q \left( \tfrac{\alpha}{D} \right)^{p+q}C_1^q C_2^p $,
+the last $3$ terms in \eqref{eq:ubToBeOpt} are optimized to
+ \[
+ K_1 C_1^{q/(2p+q)} C_2^{p/(2p+q)} n ^{-p/(2p+q)} \,,
+ \]
+ where
+% $K_1 = 2^{\dfrac{3q}{2(p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{\dfrac{p+q^2+2pq}{(p+q)(2p+q)}}+2^{\dfrac{3q}{2(2p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{2-\dfrac{1}{2p+q}}$.
+ $(K_1/3)^{2p+q} \le 2^{2q-p}\left(2+q/p \right)^p \left(D/\alpha\right)^{p}$. This implies \eqref{eq:MDbound1}.
+% \begin{align*}
+ 
+When $\tilde{f}_t \in \cF_{L,\mu, \cR}$ is $L$-smooth and $\mu$-strongly convex, for
+$\eta_t = 2/(\mu t)$ and 
+%\[
+%\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
+%\]
+$
+\delta^{p+q} =  \tfrac{C_2\left( \log n+1+\tfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
+$
+we similarly obtain 
+ \begin{align*}
+ \MoveEqLeft
+\frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} -\frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)}\\
+&\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 \delta^{-q}}{\alpha \mu n} \sum_{t=1}^{n-1}\dfrac{1}{t-\dfrac{2L}{\alpha \mu}}\\
+&\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 }{\alpha \mu}\delta^{-q} \dfrac{\log n+1+\alpha \mu/(\alpha \mu-2L)}{n}\\
+&\le K_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}\,.
+ \end{align*}
+The last step optimizes the bound via the choice of $\delta$, and
+%$\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n}$,
+%$\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)}$,
+%where
+%$K_2^{p+q}=\sqrt{2}^{2p+3q}D^{q/2}\alpha^{-p-q/2}\mu^{-p}$.
+$K_2^{p+q}=2^{q}\alpha^{-p}\mu^{-p}$.
 
-\begin{proof}[\cref{lem:ub}]
-From the smoothness and convexity of $f$, and using the strong convexity of $\cR$, we get
-\begin{align}
-\lefteqn{f(X_{t+1}) - f(x)  } \nonumber \\
-& \le  f(X_t) + \ip{\nabla f(X_t), X_{t+1}-X_t} + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \big\{f(X_t) + \ip{\nabla f(X_t) , x- X_t} \big\}  \nonumber \\
-& = \ip{\nabla f(X_t), X_{t+1}-x} + \frac{L}{2}\norm{ X_{t+1} - X_t}^2 \nonumber \\
-& \le \ip{\nabla f(X_t), X_{t+1}-x} + \frac{L}{\alpha} D_{\cR}(X_{t+1},X_t)~. \label{eq:mdsmoothnoisy1}
-\end{align}
-Writing
-$\nabla f (X_t) = (\nabla f(X_t)-\overline G_t)  + \xi_t + G_t$ where $\xi_t = \overline G_t - G_t$ is the ``noise'', and using the Cauchy-Schwartz inequality
-and the strong convexity of $\cR$,
-we obtain
-\begin{align*}
-\ip{\nabla f(X_{t}),X_{t+1}-x}
- &= \ip{(\nabla f(X_t)-\overline G_t)  + \xi_t + G_t,X_{t+1}-x}  \nonumber \\
- & \le \norm{X_t-x}\norm{\nabla f-\overline G_t}_* + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x } \nonumber \\
-%&\le \beta_t \norm{X_{t+1}-x} + \\
-&\le \beta_t \sqrt{ \frac{2D}{\alpha} } + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x }~.
-\end{align*}
-After plugging this into~\eqref{eq:mdsmoothnoisy1},
-the plan is to take the conditional expectation of both sides w.r.t.\  $\cS_{t}$.
-As $X_t$ is $\cS_{t}$-measurable and $\EE{ \xi_t|\cS_{t}} = 0$ by the definition of $\xi_t$ and $\overline G_t$,
-we have
-\begin{align*}
-\MoveEqLeft
-\EE{\ip{\xi_t, X_{t+1}-x}|\cS_{t}} = \underbrace{\EE{\ip{\xi_t,X_{t}-x}|\cS_{t}}}_{=0} + \EE{\ip{\xi_t,X_{t+1}-X_t}|\cS_{t}} \,.
-\end{align*}
-The second term inside the expectation can be bounded by the Fenchel-Young inequality and the strong convexity of $\cR$ as
-\[
-\ip{\xi_t,X_{t+1}-X_t} \le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + a_t \norm{X_{t+1}-X_t}^2\right)\,
-\le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + \frac{2a_t}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t) \right)\,.
-\]
-Applying
-\cref{lem:mdlinregret}
-to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
-\begin{align*}
- \EE{f(X_{t+1}) - f(x) |\cS_{t} }
-\le & \quad
- \beta_t \sqrt{ \frac{2D}{\alpha} }+
-\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\cS_{t}}+
-\frac{1}{\eta_t} \left(D_{\mathcal{R}}(x,X_t)-D_{\mathcal{R}}(x,X_{t+1})\right) \\&+
-\underbrace{\left(\frac{a_t+L}{\alpha}-\frac{1}{\eta_t}\right) D_{\mathcal{R}}(X_{t+1},X_t)}_{=0}\numberthis \label{eq:ubProofWithNoise} \,.
-\end{align*}
-Finally, we sum up these inequalities for $t=1,\dots,n-1$.
-To bound the right-hand side of the result, we use
-\begin{align}
-\MoveEqLeft \sum_{t=1}^{n-1} \frac{1}{\eta_t} \left(\DR(x,X_t)-\DR(x,X_{t+1})\right)
- \nonumber \\
-&= \DR(x,X_1) \frac{1}{\eta_1} + \DR(x,X_2) \left(\frac{1}{\eta_2}-\frac{1}{\eta_1}\right)
-+ \ldots+\DR(x,X_{n-1}) \left(\frac{1}{\eta_{n-1}} -\frac{1}{\eta_{n-2}}\right)- \frac{1}{\eta_{n-1}} \DR(x,X_n) \nonumber \\
-& \le D \frac{1}{\eta_1} + D \sum_{t=2}^{n-1} \left(\frac1{\eta_{t}}-\frac1{\eta_{t-1}}\right) \nonumber \\
-& = \frac{D}{\eta_{n-1}}\,,  \label{eq:div-telescope}
-\end{align}
-where the inequality results from the fact that $\{\eta_t\}$ is non-increasing.
-Hence, by the tower rule, using $\sigma_t^2 = \EE{ \norm{\xi_t}_*^2}$,
-\begin{align*}
- \EE{ \sum_{t=1}^n f(X_t) - f(x) }
-& \le
-  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
-	   \frac{D}{\eta_{n-1}} +
-	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\\
-&=
-  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
-	   \frac{D(a_{n-1}+L)}{\alpha} +
-	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,.
-\end{align*}
 
-When $f$ is $L$-smooth and $\mu$-strongly convex,  we can rewrite \eqref{eq:mdsmoothnoisy1} as
-\begin{align*}
-\MoveEqLeft
-f(X_{t+1}) - f(x) \nonumber\\
- &\le f(X_t) + \ip{ \hat{G}_t, X_{t+1}-X_t } + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \left\{ f(X_t) + \ip{ \hat{G}_t, x-X_t}+\dfrac{\mu}{2}\DR(x, X_t) \right\} \nonumber \\
- &= \ip{\hat{G}_t, X_{t+1} - x } +  \frac{L}{2} \norm{X_{t+1}-X_t}^2-\dfrac{\mu}{2}\DR(x, X_t) \nonumber\\
- &\le \ip{\hat{G}_t,X_{t+1}-x} + \frac{L}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t)-\dfrac{\mu}{2}\DR(x, X_t)\,.
-\end{align*}
-Now, similarly to \eqref{eq:ubProofWithNoise}, we  obtain
-\begin{align*}
-\EE{f(X_{t+1}) - f(x) |\cS_{t} }
-& \le
- \beta_t \sqrt{ \frac{2D}{\alpha} }+
-\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\cS_{t}}\\
-&\qquad +\left(\dfrac{1}{\eta_t}-\dfrac{\mu}{2}  \right)\DR(x,X_t)-\dfrac{1}{\eta_t}\DR(x,X_{t+1})
-+\left( \dfrac{L+a_t}{\alpha}-\dfrac{1}{\eta_t} \right)\DR(X_{t+1},X_t) \,.
-\end{align*}
-Since $\dfrac{1}{\eta_t}=\dfrac{\mu t}{2}=\dfrac{L+a_t}{\alpha}$ by definition, summing up theses inequalities for $t=1,2,\ldots,n-1$, we get
-\begin{align*}
- \EE{ \sum_{t=1}^n f(X_t) - f(x) }
-& \le
-  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
-	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}-\dfrac{1}{\eta_{n-1}}\DR(x,X_{n})\\
-& \le
-  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
-	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,,
-\end{align*}
-which finishes the proof.
-\end{proof}
 
-\subsection{Online optimization based on \citet{saha2011improved}}
-Assume that $\tf$ in the $(c_1,c_2)$ type-II oracle is convex with gradients bounded by $M$. We also need that
-$\EE{\tf_t(Y_t)-\tf_t(X_t)} \le c_3(\delta) = N \delta^2$. This holds for the smooth case when $\EE{Y_t|\cS_t}=X_t$, since then
-$\EE{\tf_t(Y_t)-\tf_t(X_t)|\cS_t} \le \EE{\ip{\nabla \tf_t(X_t),Y_t-X_t}+\tfrac{L}{2}\|X_t-Y_t\|^2|\cS_t} \le L\delta^2/2$, where we used that $\EE{Y_t-X_t|\cS_t}=0$.
-Instead of Lemma~\ref{lem:mdlinregret}, the prox-lemma states
-\[
+\subsection{Online optimization}
+The proof in this section follows closely the derivation of \citet{saha2011improved}.
+Assume that the gradients of all $\tf \in \cF$ are bounded by $M$, that is $\norm{\nabla \tf(x)}_* \le M$ for all $x \in \cK$. 
+
+Let $\cS_t$ denote the $\sigma$-algebra of all random events up until and including the selection of $X_t$. Since the oracle has unbiased evaluation, that is,  $\EE{Y_t|\cS_t}=X_t$, we have
+\begin{equation}
+\EE{\tf_t(Y_t)-\tf_t(X_t)|\cS_t} \le \EE{\ip{\nabla \tf_t(X_t),Y_t-X_t}+\tfrac{L}{2}\|X_t-Y_t\|^2|\cS_t} \le L\delta^2/2~.
+\label{eq:YX}
+\end{equation}
+Instead of Lemma~\ref{lem:mdlinregret} used in the optimization proof, we will employ the prox-lemma \citep[see, e.g.,][]{Beck2003mirror, NeJuLaSh09}:
+\begin{equation}
+\label{eq:proxlemma}
 \ip{G_t,X_t-x} \le \frac{1}{\eta_t}(D_\cR(x,X_t)-D_\cR(x,X_{t+1})) + \eta_t \frac{\|G_t\|_*^2}{2\alpha}~.
-\]
-Using the linearization $\tf(X_t) - \tf(x) \le \ip{\nabla \tf_t,X_t-x} = \EE{\ip{ G_t,X_t-x}| \cS_t}$, summing up the bounds for all $t$, and applying \eqref{eq:div-telescope}, we get the standard mirror descent bounnd:
+\end{equation}
+Using the linearization $\tf(X_t) - \tf(x) \le \ip{\nabla \tf_t(X_t),X_t-x} = \EE{\ip{ G_t,X_t-x}| \cS_t}$, summing up the bounds for all $t$, and applying \eqref{eq:div-telescope}, we get the standard mirror descent bound for any $x \in \cK$
 \begin{align}
-\EE{\sum_{t=1}^n \tf_t(X_t)-\inf_{x \in \cK} \sum_{t=1}^n \tf_t(x)} 
-& \le \EE{\sum_{t=1}^n \ip{G_t,X_t-x}} \nonumber \\
-&\le \frac{D}{\eta_{n-1}} + \sum_{t=1}^n \eta_t \frac{\EE{\|G_t\|_*^2}}{2\alpha} \nonumber \\
-& \le \frac{D}{\eta_{n-1}}  + \sum_{t=1}^n \eta_t \frac{2M^2 + 2 c_2(\delta)^2}{2\alpha} 
+\EE{\sum_{t=1}^n \tf_t(X_t)- \sum_{t=1}^n \tf_t(x)} 
+& \le \EE{\sum_{t=1}^n \ip{G_t,X_t-x}} 
+\le \frac{D}{\eta_{n-1}} + \sum_{t=1}^n \eta_t \frac{\EE{\|G_t\|_*^2}}{2\alpha} 
 \label{eq:md-bound}
 \end{align}
-Moreover, 
+Combining the latter with the bound
+\[
+\EE{\norm{G_t}_*^2 | \cS_t} \le 2\EE{\norm{G_t - \nabla \tf_t(X_t)}_*^2 + \norm{\nabla \tf_t(X_t)}_*^2 \Big| \cS_t}
+\le 2(M^2 + C_2 \delta^{-q}),
+\]
+the bias condition of the oracle, and \eqref{eq:YX}, we obtain
 \begin{align*}
 \EE{\sum_{t=1}^n f_t(Y_t)} - \inf_{x \in \cK} \sum_{t=1}^n f_t(x)
-& \le \EE{\sum_{t=1}^n \tf_t(Y_t) }- \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x) + 2 n c_1(\delta) \\
-& \le \EE{\sum_{t=1}^n \tf_t(X_t)} - \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x) + 2 n c_1(\delta) + n c_3(\delta) \\
-& \le \frac{D}{\eta_{n-1}}  + \sum_{t=1}^n \eta_t \frac{2M^2 + 2 c_2(\delta)^2}{2\alpha} +  2 n c_1(\delta) + n c_3(\delta)~.
+& \le \EE{\sum_{t=1}^n \tf_t(Y_t) }- \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x) + 2 n C_1 \delta^{p} \\
+& \le \EE{\sum_{t=1}^n \tf_t(X_t)} - \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x) + 2 n C_1 \delta^{p} + \frac{n L \delta^2}{2} \\
+& \le \frac{D}{\eta_{n-1}}  + \sum_{t=1}^n \eta_t \frac{M^2 + C_2 \delta^{-q}}{\alpha} +  2 n C_1 \delta^{p} + \frac{n L \delta^2}{2}~.
 \end{align*}
-This should recover the bound of \citet{saha2011improved}.
+Setting the parameters 
+$\delta=(\frac{q}{2p})^{\frac{2}{2p+q}} (\frac{C_2 D}{\alpha B^2})^{\frac{1}{2p+q}} n^{-\frac{1}{2p+q}}$, 
+where $B=C_1$ if $p<2$ and $B=C_1+L/4$ if $p=2$, and 
+$\eta_t=D^{\frac{p+q}{2p+q}} (\frac{q}{2p})^{\frac{q}{2p+q}} (\frac{C_2}{\alpha})^{-\frac{p}{2p+q}} B^{-\frac{q}{2p+q}} n^{-\frac{p+q}{2p+q}}$ gives the desired bound for $\F_{L,0}$ with bounded gradients. When $p>2$, $p$ should be replaced with $2$ in the bound and $B=L/4$ (in this case the $\delta^2$ term dominates the one with $\delta^p$).
+%For $q=0$, $C_2$ has to be replaced with $C_2+M^2$.
+
+
+When the set of functions is also strongly convex, instead of the linearization we use strong convexity to get
+\[
+\tf(X_t) - \tf(x) \le \ip{\nabla \tf_t,X_t-x} - \frac{\mu}{2} D_\cR(x,X_t) = \EE{\ip{ G_t,X_t-x}| \cS_t} - \frac{\mu}{2} D_\cR(x,X_t) ~.
+\]
+Combining this with \eqref{eq:proxlemma} gives the well-known variant of \eqref{eq:md-bound} for strongly convex loss functions \citep{BaHaRa07} for the choice $\eta_t=2/(t\mu)$:
+\begin{align*}
+\EE{\sum_{t=1}^n \tf_t(X_t)- \sum_{t=1}^n \tf_t(x)} 
+& \le \sum_{t=1}^n  \frac{\EE{\|G_t\|_*^2}}{ t \alpha \mu} \le \frac{\max_t \EE{\|G_t\|_*^2}}{\alpha \mu} (1+\log n).
+\end{align*}
+Similarly to the non-strongly convex case, this implies
+\begin{align}
+\EE{\sum_{t=1}^n f_t(Y_t)} - \inf_{x \in \cK} \sum_{t=1}^n f_t(x) \le 
+\frac{M^2 + C_2 \delta^{-q}}{2 \alpha \mu} (1+\log n)+  2 n C_1 \delta^{p} + \frac{n L \delta^2}{2}~.
+\end{align}
+Setting $\delta=(\frac{C_2 q (1+\log n)}{4 \alpha \mu C_1 p n})^{\frac{1}{p+q}}$, we obtain the desired bound for $p<2$. For $p \ge 2$, $C_1$ should be replaced with $C_1+L/4$, while for $p>2$,  $C_1$ has to be replaced with $L/4$ and $p$ with $2$ (in this case the $\delta^2$ term dominates the one with $\delta^p$).
+
+
 
