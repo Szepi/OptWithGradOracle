@@ -22,6 +22,19 @@ Baes, M. (2009).
 \newblock Estimate sequence methods: Extensions and approximations.
 \newblock Technical report, IFOR Internal report, ETH Zurich, Switzerland.
 
+\bibitem[Bartlett et~al., 2008]{BaHaRa07}
+Bartlett, P., Hazan, E., and Rakhlin, A. (2008).
+\newblock Adaptive online gradient descent.
+\newblock In Platt, J., Koller, D., Singer, Y., and Roweis, S., editors, {\em
+  Advances in Neural Information Processing Systems 20}, pages 65--72. MIT
+  Press, Cambridge, MA.
+
+\bibitem[Beck and Teboulle, 2003]{Beck2003mirror}
+Beck, A. and Teboulle, M. (2003).
+\newblock Mirror descent and nonlinear projected subgradient methods for convex
+  optimization.
+\newblock {\em Operations Research Letters}, 31(3):167--175.
+
 \bibitem[Bhatnagar et~al., 2013]{bhatnagar-book}
 Bhatnagar, S., Prasad, H.~L., and Prashanth, L.~A. (2013).
 \newblock {\em Stochastic Recursive Algorithms for Optimization: Simultaneous
@@ -106,10 +119,12 @@ Honorio, J. (2012).
   sparse ising models.
 \newblock In {\em ICML}, pages 257--264, New York, NY, USA. Omnipress.
 
-\bibitem[Hu et~al., 2016]{HuPrGySz16long}
+\bibitem[Hu et~al., 2016]{HuPrGySz16}
 Hu, X., L.A., P., Gy\"orgy, A., and Szepesv\'ari, C. (2016).
 \newblock ({B}andit) convex optimization with biased noisy gradient oracles.
-\newblock arXiv.
+\newblock In {\em Proceedings of the Nineteenth International Conference on
+  Artificial Intelligence and Statistics, {AISTATS} 2016, Cadiz, Spain, May
+  9-11, 2016}, volume~41 of {\em JMLR: W \& CP}, page 819—828.
 
 \bibitem[Juditsky and Nemirovski, 2011]{JN11a}
 Juditsky, A. and Nemirovski, A. (2011).
@@ -146,6 +161,11 @@ Mahdavi, M. (2014).
   Prediction, and Stochastic Optimization}.
 \newblock PhD thesis, Michigan State University.
 
+\bibitem[Nemirovski et~al., 2009]{NeJuLaSh09}
+Nemirovski, A., Juditsky, A., Lan, G., and Shapiro, A. (2009).
+\newblock Robust stochastic approximation approach to stochastic programming.
+\newblock {\em {SIAM} J. Optimization}, 4:1574---1609.
+
 \bibitem[Nesterov, 2004]{nesterov2004introductory}
 Nesterov, Y. (2004).
 \newblock {\em Introductory lectures on convex optimization}, volume~87.
@@ -167,8 +187,6 @@ Saha, A. and Tewari, A. (2011).
 \newblock Improved regret guarantees for online smooth convex optimization with
   bandit feedback.
 \newblock In {\em AISTATS}, pages 636--642.
-
-\newpage
 
 \bibitem[Schmidt et~al., 2011]{SchRoBa11}
 Schmidt, M.~W., Roux, N.~L., and Bach, F.~R. (2011).

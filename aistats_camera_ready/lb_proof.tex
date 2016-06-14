@@ -1,6 +1,8 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+In this section we present the proof of \cref{thm:lb-convex}.
+
 \subsection{Proof of Theorem \ref{thm:lb-convex} for convex + smooth function class $\F_{L,0}(\K)$}
 \label{sec:appendix-lbconvex}
 We will use a novel technique that will allow us to  reduce the $d$-dimensional case to the $1$-dimensional case (see later).
@@ -396,7 +398,7 @@ By choosing $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2
 %\end{align}
 %The above conditions on $n$ can be inferred from (i) the requirement on  $\epsilon$ in \eqref{eq:deltastar}, (ii) assumption $\delta \le 1$ in Definition \ref{def:oracle1},  and (iii) the optimal choice of $\epsilon$ above.
 
-Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq} simplifies to 
+Now, when $p=1$ and $q=2$, the lower bound in \eqref{eq:lb-pq} simplifies to 
 \[
 \Delta_n^{*} \ge \dfrac{ 2}{3\sqrt{3}} C_1^{1/2}C_2^{1/4} n^{-1/4} \,.
 \]
@@ -412,35 +414,34 @@ On the other hand, for $p=q=2$, we obtain
 To prove the $d$-dimensional result, we introduce a new device which allows us to relate the minimax error of the $d$-dimensional problem to that of the $1$-dimensional problem.
 The main idea is to use separable $d$-dimensional functions and oracles and show that if there exists an algorithm with a small loss for a rich set of separable functions and oracles, then there exists good one dimensional algorithms for the one-dimensional components of the functions and oracles.
 
-This device works as follows: 
+This device works as follows: First we define one-dimensional functions.
 For $1\le i \le d$, let $\cK_i \subset \R$ be nonempty sets, 
-and for each $v\in V := \{\pm 1\}^d$, let $f_v^{(i)}: \cK_i \to \R$ 
-(later we will use $V_i=\{\pm 1\}$ and $f_v^{(i)}$ will be the functions constructed for the $1$-dimensional case with $\{-1,+1\}\subset \cK_i\subset \R$).
-Without the loss of generality, we assume that $\inf_{x\in \cK_i} f_v^{(i)}(x) = 0$, so that the optimization error of the algorithm producing $\hat{X}_n$  as the output is $f_v^{(i)}(\hat{X}_n)$.
-Further, let $\gamma_v^{(i)}$ be a gradient oracle that the algorithms can use when 
+and for each $v_i \in V := \{\pm 1\}$, let $f_v^{(i)}: \cK_i \to \R$.
+%(later we will use $V_i=\{\pm 1\}$ and $f_v^{(i)}$ will be the functions constructed for the $1$-dimensional case with $\{-1,+1\}\subset \cK_i\subset \R$). Further, let $\gamma_{v_i}^{(i)}$ be a gradient oracle that the algorithms can use when 
 the function to be optimized is $f_v^{(i)}$. 
 
-Let $\cK = \times_{i=1}^d \cK_i$ and for $v = (v_1,\dots,v_d) \in V:= \times_{i=1}^d V_i$ (with a slight abuse of notation), let $f_v: \cK \to \R$ be defined by
+Let $\cK = \times_{i=1}^d \cK_i$ and for $v = (v_1,\dots,v_d) \in V^d$, let $f_v: \cK \to \R$ be defined by
 \begin{align}
 f_v(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \qquad x\in \cK\,. \label{eq:sepfdef}
 \end{align}
-We also define a $\gamma_v$  $d$-dimensional oracle as follows: 
-The oracle  is obtained from ``composing'' the $d$ $1$-dimensional oracles, $(\gamma_{v_i}^{(i)})_{i}$.
-In particular, the $i$-th component of the response of $\gamma_v$ 
+Without the loss of generality, we assume that $\inf_{x_i \in \cK_i} f_{v_i}^{(i)}(x_i) = 0$, and hence $\inf_{x\in \times_{i=1}^d \cK_i} f_{v}(x) = 0$, so that the optimization error of the algorithm producing $\hat{X}_n \in\cK$  as the output is $f_v^{(i)}(\hat{X}_{n,i})$ and $f_v(\hat{X}_{n})$, respectively.
+We also define a $d$-dimensional \emph{separable} oracle $\gamma_v$  as follows: 
+The oracle  is obtained from ``composing'' the $d$ one-dimensional oracles, $(\gamma_{v_i}^{(i)})_{i}$.
+In particular, the $i$th component of the response of $\gamma_v$ 
 given the history of queries $(x_{t},\delta_{t},\dots,x_1,\delta_1)\in (\cK \times [0,1))^t$
 is defined as the response of $\gamma^{(i)}_{v_i}$ 
 given the history of queries $(x_{t,i},\delta_{t},\dots,x_{1,i},\delta_1)\in (\cK_i\times [0,1))^t$.
 This definition is so far unclear about the randomization of the oracles. 
 In fact, it turns out that the one-dimensional oracles can even use the same randomization (i.e.,
-their output can depend on the same single uniformly distributed random variable $U$), but they could also use separate randomization: Our argument will not depend on this.
+their output can depend on the same single uniformly distributed random variable $U$), but they could also use separate randomization: our argument will not depend on this.
 \newcommand{\sep}{\mathrm{sep}}
-If $\Gamma^{(i)}(f_{v_i}^{(i)},c_1,c_2)$ 
-denotes a non-empty set of $(c_1,c_2)$ type-I oracles for objective function $f^{(i)}_{v_i}:\cK_i \to \R$,
-then we shall denote by $\Gamma_\sep(f_v,c_1,c_2)$ the set of oracles for function $f_v$ 
-as defined in the previous paragraph.
-We also define $\cF_\sep = \{ f\,: \, f(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), x\in \cK, v_i\in V_i \}$.
+Let $\Gamma^{(i)}(f_{v_i}^{(i)},c_1,c_2)$ 
+denote a non-empty set of $(c_1,c_2)$ type-I oracles for objective function $f^{(i)}_{v_i}:\cK_i \to \R$,
+and let us denote by $\Gamma_\sep(f_v,c_1,c_2)$ the set of separable oracles for the function $f_v$ 
+defined above.
+We also define $\cF_\sep = \{ f\,: \, f(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), x\in \cK, v_i\in V_i \}$, the set of componentwise separable functions.
 Note that when $\norm{\cdot} = \norm{\cdot}_2$ is used in the definition of type-I oracles then
-$\Gamma_\sep(f_v,c_1/d^{1/2},c_2/d) \subset \Gamma(f_v,c_1,c_2)$.
+$\Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d) \subset \Gamma(f_v,c_1,c_2)$.
 
 Let an algorithm $\A$ interact with an oracle $\gamma$.
 We will denote the distribution of the output $\hat{X}_n$ of $\A$
@@ -451,7 +452,7 @@ Thus, the expected optimization error of $\A$ on a function $f$ with zero optima
 L^{\A}(f,\gamma) = \int f(x) F_{\A,\gamma}(d x)\,.
 \end{align*}
 Note that this definition applies both in the one and the $d$-dimensional cases.
-For $v\in V = \times_i V_i$, we introduce the abbreviation
+For $v\in V^d$, we introduce the abbreviation
 \begin{align*}
 L^{\A}(v) = L^{\A}(f_v,\gamma_v)\,.
 \end{align*}
@@ -464,17 +465,18 @@ so that
 \begin{align*}
 L^{\A}(v) = \sum_{i=1}^d \tL^{\A}_i(v)\,.
 \end{align*}
-Also, for $v\in V_i$ and a one-dimensional algorithm $\A$, we let
+Also, for $v_i \in V$ and a one-dimensional algorithm $\A$, we let
 \begin{align*}
-L^{\A}_i(v) = L^{\A}(f_{v}^{(i)}, \gamma_{v}^{(i)})\,.
+L^{\A}_i(v_i) = L^{\A}(f_{v_i}^{(i)}, \gamma_{v_i}^{(i)})\,.
 \end{align*}
-Note that while the domain of $\tL^{A}_i$ is $V = \times_i V_i$, the domain of $L^{\A}_i$ is $V_i$,
+Note that while the domain of $\tL^{A}_i$ is $V^d$, the domain of $L^{\A}_i$ is $V$,
 while both express an expected error measured against $f_{v_i}^{(i)}$.
 In fact,  $\tL^{A}_i$ depends on $v$ because the algorithm $\A$ uses the $d$-dimensional oracle $\gamma_v$, which depends on $v$ (and not only on $v_i$) and thus algorithm $\A$ could use information returned by $\gamma_{v_j}^{(j)}$, $j\ne i$. In a way our proof shows that using this information cannot help a $d$-dimensional algorithm on a separable problem, a claim that we find rather intuitive, and which we now formally state and prove.
 
 \begin{lemma}[``Cross-talk'' does not help in separable problems]
 \label{lemma:sep}
-Let $V= \times_{i=1}^d V_i$, $(f_v)_{v\in V}$, $(\gamma_v)_{v\in V}$ be separable, $\A$ any $d$-dimensional algorithm. Then there exist  $d$ one-dimensional algorithms, $\A_i^*$, $1\le i \le d$
+Let %$V= \times_{i=1}^d V_i$, 
+$(f_v)_{v\in V^d}, f_v \in \cF_\sep$, $(\gamma_v)_{v\in V^d}, \gamma_v \in \Gamma_\sep(f_v,c_1,c_2)$ be separable for some arbitrary functions $c_1,c_2$, and let $\A$ be any $d$-dimensional algorithm. Then there exist  $d$ one-dimensional algorithms, $\A_i^*$, $1\le i \le d$ (using only one-dimensional oracles),
 such that 
 \begin{align}
 \label{eq:onedimlb}
@@ -505,20 +507,19 @@ To define $\A_i^*$, consider the solution of the following max-min problem:
 \[
 \max_{v_i} \min_{v_{-i}} \tL^{\A}_i(v_i, v_{-i}))\,.
 \]
-Let the optimal solution of this problem be denoted by $(\hat{v}_i^*,v_{-i}^*)$, thus this max-min
-problem defines the values replacing the missing values $v_{-i}$.
-We also collect $(\hat{v}_i^*)_i$ into the vector $\hat{v}^*\in V$.
+Let the optimal solution of this problem be denoted by $(\hat{v}_i^*,v_{-i}^*)$; we will use $v_{-i}^*$ replacing the missing values $v_{-i}$ when
+we create a one-dimensional oracle from a $d$-dimensional.
+We also collect $(\hat{v}_i^*)_i$ into the vector $\hat{v}^*\in V^d$.
 
 Now, algorithm $\A_i^*$ is constructed as illustrated on \cref{fig:sepalgconstruction}.
 Fix $v_i\in V_i$. Then, algorithm $\A_i^*$ interacts with oracle $\gamma_{v_i}^{(v_i)}$ as follows:
 In each round $t$, algorithm $\A_i^*$ produces a pair $(X_t,\delta_t) \in \cK \times [0,1)$. 
 In particular, in the first round, $X_1,\delta_1$ is the output of $\A$ in the first round.
 In round $t+1$, given the pair $X_t,\delta_t$ produced in the previous round,
-the $i$th component of $X_t$ and $\delta_t$ are fed to oracle $\gamma_{v_i}^{(i)}$, 
+the $i$th component of $X_t$ and $\delta_t$ are fed to oracle $\gamma_{v_i}^{(i)}$ (the $i$th component of oracle $\gamma_v$), 
 whose output we name $G_{t,i}$. 
-The other components of $X_t$, $X_{t,-i}$, together with $\delta_t$ are fed to
-oracle $\gamma_{v^*_{-i}}^{(i)}$, \todoc{this is not formally defined, but I think this should be clear enough.}
-which produces a $d-1$-dimensional vector, which we call $G_{t,-i}$. 
+The other components of $X_t$, namely $X_{t,-i}$, together with $\delta_t$ are fed to
+oracle $\gamma_{v^*_{-i}}^{(-i)}$ which produces a $d-1$-dimensional vector of all but the $i$th component of $\gamma_{(v_i,v^*_{-i})}$, which we call $G_{t,-i}$. 
 The values $G_{t,i}$, $G_{t,-i}$ are put together to form the $d$-dimensional vector 
 $G_t = (G_{t,i},G_{t,-i})$, which is fed to algorithm $\A$.
 We then set $(X_{t+1},\delta_{t+1})$ to be equal to the output of $\A$. 
@@ -560,30 +561,34 @@ which was the claim to be proven.
 
 Now, let 
 \[
-\cF^{(i)} = \{f_{v_i} \,:\, v_i\in V_i\}, \qquad i=1,\dots,d
-\] and define
-\[
-\Delta_n^{(d)*} = \Delta_n( \cF_\sep, c_1, c_2 )\,.
-\]
+\cF^{(i)} = \{f_{v_i} \,:\, v_i\in V\}, \qquad i=1,\dots,d\,.
+\] 
+%and define
+%\[
+%\Delta_n^{(d)*} = \Delta^*_{\cF_\sep,n}(c_1, c_2 )\,.
+%\]
 The next result follows easily from the previous lemma:
 \begin{lemma}
 \label{lem:sep2}
 Let $\norm{\cdot} =\norm{\cdot}_2$ in the definition of the type-I oracles.
 %Let $\inf_{x\in \cK_i} f_{v_i}^{(i)}(x) = 0$. 
-Then, we have that \[\Delta_n^{(d)*} \ge \sum_{i=1}^d \Delta_n^*(\cF^{(i)},c_1/d^{1/2},c_2/d)\,.\]
+Then, we have that 
+\[
+\Delta^*_{\cF_\sep,n}(c_1, c_2 ) \ge \sum_{i=1}^d \Delta_{\cF^{(i)},n}^*(c_1/\sqrt{d},c_2/d)\,.
+\]
 \end{lemma}
 \begin{proof}
-By our earlier remark, $\Gamma_\sep(f_v,c_1/d^{1/2},c_2/d) \subset \Gamma(f,c_1,c_2)$. Hence,
+By our earlier remark, $\Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d) \subset \Gamma(f,c_1,c_2)$. Hence,
 \begin{align*}
-\Delta_n^{(d)*} 
+\Delta^*_{\cF_\sep,n}(c_1, c_2 ) 
 	& = \inf_{\cA} \sup_{v\in V} \sup_{\gamma \in \Gamma(f_v,c_1,c_2)} \Delta^{\cA}_n(f_v,\gamma) 
-	 \ge \inf_{\cA} \sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/d^{1/2},c_2/d)} \Delta^{\cA}_n(f_v,\gamma)\,.
+	 \ge \inf_{\cA} \sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d)} \Delta^{\cA}_n(f_v,\gamma)\,.
 	 \numberthis
 	 \label{eq:ddimtoonedim1}
 \end{align*}
-For each $i=1,\dots,d$, pick $\gamma_{v_i}^{(i)}\in \Gamma(f_{v_i},c_1/d^{1/2},c_2/d)$ such that 
-$\Delta_n^*(\cF^{(i)},c_1/d^{1/2},c_2/d) = \inf_{\cA} \sup_{v_i\in V_i} \Delta_n^{\cA}(f_{v_i},\gamma_{v_i}^{(i)})$.
-For $v \in V$, let $\gamma_v \in \Gamma_\sep(f_v,c_1/d^{1/2},c_2/d)$ be the oracle whose ``components'' are 
+For each $i=1,\dots,d$, pick $\gamma_{v_i}^{(i)}\in \Gamma(f_{v_i},c_1/\sqrt{d},c_2/d)$ such that 
+$\Delta_n^*(\cF^{(i)},c_1/\sqrt{d},c_2/d) = \inf_{\cA} \sup_{v_i\in V_i} \Delta_n^{\cA}(f_{v_i},\gamma_{v_i}^{(i)})$.
+For $v \in V$, let $\gamma_v \in \Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d)$ be the oracle whose ``components'' are 
 $\gamma_{v_i}^{(i)}$, $i=1,\dots,d$.
 Now, by \cref{lemma:sep},
 \begin{align*}
@@ -591,10 +596,10 @@ Now, by \cref{lemma:sep},
 \ge
 \sum_{i=1}^d \inf_{\cA} \sup_{v_i\in V_i} \Delta^{\cA}_n(f_{v_i}^{(i)},\gamma_{v_i}^{(i)})
 =
-\sum_{i=1}^d  \Delta_n^*(\cF^{(i)},c_1/d^{1/2},c_2/d)\,.
+\sum_{i=1}^d  \Delta_{\cF^{(i)},n}^*(c_1/\sqrt{d},c_2/d)\,.
 \end{align*}
 This, together with 
-$\sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/d^{1/2},c_2/d)} \Delta^{\cA}_n(f_v,\gamma)
+$\sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d)} \Delta^{\cA}_n(f_v,\gamma)
 \ge \sup_{v\in V} \Delta^{\cA}_n(f_v,\gamma_v)$
 and \eqref{eq:ddimtoonedim1} gives the desired result.
 \end{proof}
@@ -608,16 +613,16 @@ $\F_d = \F_{L,0}(\K)$, where recall that $L\ge 1/2$.
 %  f_v(x) :=& \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \,\,  \text{ where }
   f^{(i)}_{v_i}(x_i) := \epsilon\left( x_i-v_i\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x_i-v_i}{\epsilon}}  \right)\,.
 \end{align}
-i.e., $f^{(i)}_{v_i}$ is like in the one-dimensional lower bound proof (cf.~\eqref{eq:fvdef}).
+i.e., $f^{(i)}_{v_i}$ is like in the one-dimensional lower bound proof (cf. equation~\ref{eq:fvdef}).
 Note that $f_v \in \F_d$ since $f_v$ is separable, so its Hessian is diagonal and from our earlier calculation
 we know that
 $0\le \frac{\partial^2}{\partial x_i^2} f^{(i)}_{v_i}(x_i) \le 1/2$.
-Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_n^*\left(\F_d, C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$. 
+Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_{\F_d, n}^*\left(C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$. 
 Let $\F^{(i)} = \{ f^{(i)}_{-1},  f^{(i)}_{+1} \}$.
 As it was noted above, $f_v\in \F_d$ for any $v\in \{\pm 1\}^d$.
 Hence, by~\cref{lem:sep2}, 
 \begin{align*}
- \Delta_n^{(d)*} &\ge \sum_{i=1}^d \Delta_n^{*}\left(\F^{(i)},\frac{C_1}{\sqrt{d}}\, \delta^p, \frac{C_2}{d} \delta^{-q}\right)\,.
+ \Delta_n^{(d)*} &\ge \sum_{i=1}^d \Delta_{\F^{(i)},n}^{*}\left(\frac{C_1}{\sqrt{d}}\, \delta^p, \frac{C_2}{d} \delta^{-q}\right)\,.
                \numberthis \label{eq:dlb}
 \end{align*}
 
@@ -641,32 +646,27 @@ while the inequality \eqref{eq:dlb} follows from the fact that each infimum term
 % Using the one-dimensional minimax error $\Delta_n^{*}$, we obtain
 % \[\Delta_n^* \ge d \Delta_n^{*}.\]
 \paragraph{Derivation of rates:}\ \\
-Plugging the bound derived in \eqref{eq:lb-pq} for $1$-dimensional setting into the bound in \eqref{eq:dlb}, we obtain the following result for any $p, q >0$:
+Plugging the lower bound derived in \eqref{eq:lb-pq} for the one-dimensional setting into the bound in \eqref{eq:dlb}, we obtain a $\sqrt{d}$-times bigger lower bound for the $d$-dimensional case for any $p, q >0$:
 \begin{align}
-\Delta_n^{(d)*} \ge  \sqrt{d}\Delta_n^{*} .
+\Delta_n^{(d)*} \ge  \sqrt{d} \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}C_1^{\frac{q}{2p+q}} C_2^{\frac{p}{2p+q}}  n^{-\tfrac{p}{2p+q}} \,.
 \label{eq:lb-pq-d}
 \end{align}
-
 The above bound simplifies to the following for the case where $p=1$ and $q=2$:
 \begin{align*}
 % \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\
-\Delta_n^{(d)*}  \ge& \dfrac{ (4C_1^2C_2)^{1/4}}{3\sqrt{3}} d^{1/2}n^{-1/4}.
+\Delta_n^{(d)*}  \ge& \dfrac{ 2(C_1^2C_2)^{1/4}}{3\sqrt{3}} \sqrt{d}n^{-1/4}.
 \end{align*}
 
 On the other hand, for the case $p=q=2$, we obtain
 \begin{align*}
 % \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
-\Delta_n^{(d)*}  \ge& \frac{9}{10}\left(\frac{C_1 C_2}{100}\right)^{1/3} d^{1/2}n^{-1/3}.
+\Delta_n^{(d)*}  \ge& \frac{9}{10}\left(\frac{C_1 C_2}{25}\right)^{1/3} \sqrt{d}n^{-1/3}.
 \end{align*}
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: "bgo"
-%%% End: 
 
 \subsection{Proof of Theorem \ref{thm:lb-convex} for strongly convex + smooth function class $\F_{L,1}(\K)$.}
 \label{sec:appendix-lbscconvex}
 We follow the notational convention used earlier for convex functions in one dimension. 
-Let $\F = \F_{L,1}(\K)$, where $L\ge 1$ and $\K$  includes $\pm 1$.
+Let $\F = \F_{L,1}(\K)$, where $L\ge 1$ and $\K$  contains $\pm 1$.
 We consider functions $f_v$, for $v \in \{-1,+1\}$, defined as
 \begin{align}
   f_v(x) := \dfrac{1}{2} x^2 - v\epsilon x \,,\quad x \in \cK\,.
@@ -793,3 +793,10 @@ From~\eqref{eq:dlb} and~\eqref{eq:lb-pq-sc} we get
 %% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
 %\Delta_n^{(d)*}  \ge& \frac{9}{4}\left(\frac{C_1^2 C_2^4}{16}\right)^{1/3} n^{-2/3} d^{-2/3}.
 %\end{align*}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "bgo"
+%%% End: 

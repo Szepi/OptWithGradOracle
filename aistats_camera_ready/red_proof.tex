@@ -1,22 +1,23 @@
-%!TEX root =  bgo_camera_ready.tex
+%!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 % \subsubsection{Reductions and Proofs}
 % \label{sec:orrel}
 
 %\subsubsection*{Proof of Theorem \ref{thm:typered}}
 
+\section{Reduction of Oracles}
+\label{sec:orrel}
 
-As is mentioned in Section \ref{sec:problem}, a Type-I oracle is also a Type-II oracle. But it does not hold in the opposite direction.
-The following result formalizes the relationship between Type-I and II oracles.
+As is mentioned in Section~\ref{sec:problem}, a type-I oracle is also a type-II oracle. On the other hand, type-II oracles need to satisfy an alternative condition to become type-I oracles. The following result formalizes the relationship between our oracle definitions.
 \begin{theorem}\label{thm:typered}
 \cref{def:oracle1} is a sufficient condition of \cref{def:oracle2}, given a bounded $\cK$. That is, for any $(c_1,c_2)$ Type-I oracle $\gamma$, there exist some constant $R$ such that  $\gamma$ is a $(c'_1,c_2)$ Type-II oracle, with $c'_1(\delta)=Rc_1(\delta)$.
 
-Similarly, \cref{def:oracle2} is sufficient for \cref{def:oracle1} if the alternative condition 
+Furthermore, if $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ is replaced by 
 \begin{align}
 \label{eq:oracle2alt}
 \sup_{x\in \mathcal{K}}\norm{\nabla \tilde{f}- \nabla f}_* \le c_1(\delta)
 \end{align}
-holds.
+in \cref{def:oracle2}, then the resulting oracle is also a $(c_1,c_2)$ type-I oracle.
 \end{theorem}
 
 \begin{proof}
@@ -43,3 +44,133 @@ Therefore, $\gamma$ is also a $(c'_1,c_2)$ Type-II oracle.
 
 Next, given \eqref{eq:oracle2alt} and $\EE{G}=\nabla \tilde{f}(x)$ in \cref{def:oracle2}, we can immediately get the bias condition of \cref{def:oracle1}.
 \end{proof}
+
+
+
+
+\section{Proof of \cref{lem:ub}}
+\label{sec:lemub-proof}
+\label{sec:ublemma-proof}
+%To simplify notation, in the following we call the loss function $f$, not $\tilde{f}$ as stated in \cref{lem:ub}. 
+Before the proof, we introduce a well-known bound on the instantaneous linearized "forward-peeking" regret of Mirror Descent.
+\begin{lemma}
+\label{lem:mdlinregret}
+For any $x \in \cK$ and any $t \ge 1$,
+\begin{align*}
+\MoveEqLeft
+\ip{G_t, X_{t+1}-x}
+\le \dfrac{1}{\eta_t} \left( \DR(x,X_t)-\DR(x,X_{t+1})-\DR(X_{t+1},X_t) \right)\,,
+\end{align*}
+where $X_{t+1}$ is selected as in \cref{alg}.
+\end{lemma}
+\begin{proof}
+The point $X_{t+1}$ is the minimizer of
+$\Psi_{t+1}(x)=\eta_t \ip{G_t,x}+\DR(x,X_t)$ over $\cK$. Since the gradient of $\Psi_{t+1}(x)$ is
+\[
+\nabla \Psi_{t+1}(x) = \eta_t G_t + \nabla\mathcal{R}(x)-\nabla\mathcal{R}(X_t),
+\]
+by the optimality condition, for any $x \in \cK$,
+\[
+\ip{\eta_t G_t + \nabla\mathcal{R}(x)-\nabla\mathcal{R}(X_t), x-X_{t+1}}\ge 0 \,,
+\]
+which is equivalent to the result by substituting the definition of the Bregman divergence $\DR$.
+\end{proof}
+
+\section{Proof of \cref{lem:ub}}
+From the smoothness and convexity of $f$, and using the strong convexity of $\cR$, we get
+\begin{align}
+\lefteqn{f(X_{t+1}) - f(x)  } \nonumber \\
+& \le  f(X_t) + \ip{\nabla f(X_t), X_{t+1}-X_t} + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \big\{f(X_t) + \ip{\nabla f(X_t) , x- X_t} \big\}  \nonumber \\
+& = \ip{\nabla f(X_t), X_{t+1}-x} + \frac{L}{2}\norm{ X_{t+1} - X_t}^2 \nonumber \\
+& \le \ip{\nabla f(X_t), X_{t+1}-x} + \frac{L}{\alpha} D_{\cR}(X_{t+1},X_t)~. \label{eq:mdsmoothnoisy1}
+\end{align}
+Writing
+$\nabla f (X_t) = (\nabla f(X_t)-\overline G_t)  + \xi_t + G_t$ where $\xi_t = \overline G_t - G_t$ is the ``noise'', and using the Cauchy-Schwartz inequality
+and the strong convexity of $\cR$,
+we obtain
+\begin{align*}
+\ip{\nabla f(X_{t}),X_{t+1}-x}
+ &= \ip{(\nabla f(X_t)-\overline G_t)  + \xi_t + G_t,X_{t+1}-x}  \nonumber \\
+ & \le \norm{X_t-x}\norm{\nabla f-\overline G_t}_* + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x } \nonumber \\
+%&\le \beta_t \norm{X_{t+1}-x} + \\
+&\le \beta_t \sqrt{ \frac{2D}{\alpha} } + \ip{\xi_t,X_{t+1}-x} + \ip{ G_t, X_{t+1} - x }~.
+\end{align*}
+After plugging this into~\eqref{eq:mdsmoothnoisy1},
+the plan is to take the conditional expectation of both sides w.r.t.\  $\cS_{t}$.
+As $X_t$ is $\cS_{t}$-measurable and $\EE{ \xi_t|\cS_{t}} = 0$ by the definition of $\xi_t$ and $\overline G_t$,
+we have
+\begin{align*}
+\MoveEqLeft
+\EE{\ip{\xi_t, X_{t+1}-x}|\cS_{t}} = \underbrace{\EE{\ip{\xi_t,X_{t}-x}|\cS_{t}}}_{=0} + \EE{\ip{\xi_t,X_{t+1}-X_t}|\cS_{t}} \,.
+\end{align*}
+The second term inside the expectation can be bounded by the Fenchel-Young inequality and the strong convexity of $\cR$ as
+\[
+\ip{\xi_t,X_{t+1}-X_t} \le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + a_t \norm{X_{t+1}-X_t}^2\right)\,
+\le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + \frac{2a_t}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t) \right)\,.
+\]
+Applying
+\cref{lem:mdlinregret}
+to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
+\begin{align*}
+ \EE{f(X_{t+1}) - f(x) |\cS_{t} }
+\le & \quad
+ \beta_t \sqrt{ \frac{2D}{\alpha} }+
+\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\cS_{t}}+
+\frac{1}{\eta_t} \left(D_{\mathcal{R}}(x,X_t)-D_{\mathcal{R}}(x,X_{t+1})\right) \\&+
+\underbrace{\left(\frac{a_t+L}{\alpha}-\frac{1}{\eta_t}\right) D_{\mathcal{R}}(X_{t+1},X_t)}_{=0}\numberthis \label{eq:ubProofWithNoise} \,.
+\end{align*}
+Finally, we sum up these inequalities for $t=1,\dots,n-1$.
+To bound the right-hand side of the result, we use
+\begin{align}
+\MoveEqLeft \sum_{t=1}^{n-1} \frac{1}{\eta_t} \left(\DR(x,X_t)-\DR(x,X_{t+1})\right)
+ \nonumber \\
+&= \DR(x,X_1) \frac{1}{\eta_1} + \DR(x,X_2) \left(\frac{1}{\eta_2}-\frac{1}{\eta_1}\right)
++ \ldots+\DR(x,X_{n-1}) \left(\frac{1}{\eta_{n-1}} -\frac{1}{\eta_{n-2}}\right)- \frac{1}{\eta_{n-1}} \DR(x,X_n) \nonumber \\
+& \le D \frac{1}{\eta_1} + D \sum_{t=2}^{n-1} \left(\frac1{\eta_{t}}-\frac1{\eta_{t-1}}\right) \nonumber \\
+& = \frac{D}{\eta_{n-1}}\,,  \label{eq:div-telescope}
+\end{align}
+where the inequality results from the fact that $\{\eta_t\}$ is non-increasing.
+Hence, by the tower rule, using $\sigma_t^2 = \EE{ \norm{\xi_t}_*^2}$,
+\begin{align*}
+ \EE{ \sum_{t=1}^n f(X_t) - f(x) }
+& \le
+  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
+	   \frac{D}{\eta_{n-1}} +
+	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\\
+&=
+  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
+	   \frac{D(a_{n-1}+L)}{\alpha} +
+	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,.
+\end{align*}
+
+When $f$ is $L$-smooth and $\mu$-strongly convex,  we can rewrite \eqref{eq:mdsmoothnoisy1} as
+\begin{align*}
+\MoveEqLeft
+f(X_{t+1}) - f(x) \nonumber\\
+ &\le f(X_t) + \ip{ \hat{G}_t, X_{t+1}-X_t } + \frac{L}{2} \norm{X_{t+1}-X_t}^2 - \left\{ f(X_t) + \ip{ \hat{G}_t, x-X_t}+\dfrac{\mu}{2}\DR(x, X_t) \right\} \nonumber \\
+ &= \ip{\hat{G}_t, X_{t+1} - x } +  \frac{L}{2} \norm{X_{t+1}-X_t}^2-\dfrac{\mu}{2}\DR(x, X_t) \nonumber\\
+ &\le \ip{\hat{G}_t,X_{t+1}-x} + \frac{L}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t)-\dfrac{\mu}{2}\DR(x, X_t)\,.
+\end{align*}
+Now, similarly to \eqref{eq:ubProofWithNoise}, we  obtain
+\begin{align*}
+\EE{f(X_{t+1}) - f(x) |\cS_{t} }
+& \le
+ \beta_t \sqrt{ \frac{2D}{\alpha} }+
+\frac{1}{2a_t}  \EE{\norm{\xi_t}_*^2|\cS_{t}}\\
+&\qquad +\left(\dfrac{1}{\eta_t}-\dfrac{\mu}{2}  \right)\DR(x,X_t)-\dfrac{1}{\eta_t}\DR(x,X_{t+1})
++\left( \dfrac{L+a_t}{\alpha}-\dfrac{1}{\eta_t} \right)\DR(X_{t+1},X_t) \,.
+\end{align*}
+Since $\dfrac{1}{\eta_t}=\dfrac{\mu t}{2}=\dfrac{L+a_t}{\alpha}$ by definition, summing up theses inequalities for $t=1,2,\ldots,n-1$, we get
+\begin{align*}
+ \EE{ \sum_{t=1}^n f(X_t) - f(x) }
+& \le
+  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
+	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}-\dfrac{1}{\eta_{n-1}}\DR(x,X_{n})\\
+& \le
+  \EE{f(X_1)-f(x)} + \sqrt{\tfrac{2D}{\alpha}} \sum_{t=1}^{n-1} \beta_t +
+	  \sum_{t=1}^{n-1}\frac{\sigma_t^2}{2a_t}\,,
+\end{align*}
+which finishes the proof.
+
+
+

@@ -16,12 +16,13 @@ For $i\le j$ positive integers,
  $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x \in \K \,, y \in \K^\circ$.
 Similarly, $f$ is $\mu$-strongly convex w.r.t.\  a \emph{function} $\cR$
 	if $\tfrac{\mu}{2}\DR(x,y)\le\mathcal{D}_f(x,y)$ for all $x \in \K \,, y \in \K^\circ$, where $\cK^\circ\subseteq \dom(\mathcal{R})$ and $\mathcal{R}$ is differentiable over $\K^\circ$.
- A function $f$ is $L$-smooth w.r.t.\  $\| \cdot \|$ for some $L>0$ if
+ A function $f$ is $L$-smooth w.r.t.\  $\| \cdot \| $ for some $L>0$ if
  %$f(x) \le f(y) + \ip{\nabla f(y), y-x} +
 $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x \in \K \,, y \in \K^\circ$.
- This latter condition is equivalent to that $\nabla f$ is $L$-Lipschitz \citep[Theorem~2.1.5]{nesterov2004introductory}.
+ This latter condition is equivalent to that $\nabla f$ is $L$-Lipschitz, that is, 
+ $\norm{\nabla f(x) - \nabla f(y)}_* \le L \norm{x-y}$ \citep[Theorem~2.1.5]{nesterov2004introductory}.
 % \todoc{Add citation}
- We let $\F_{L,\mu, \cR}(\K)$ denote the class of functions that are $\mu$-strongly convex w.r.t. $\cR$ and $L$-smooth w.r.t. some norm $\norm{\cdot}$ on the set $\K$.
+ We let $\F_{L,\mu, \cR}(\K)$ denote the class of functions that are $\mu$-strongly convex w.r.t. $\cR$ and $L$-smooth w.r.t. some norm $\norm{\cdot}$ on the set $\K$ (typically, we will assume that $\cR$ is also strongly convex w.r.t. $\norm{\cdot}$).
 We also let $\F_{L,\mu}(\K)$ be $\F_{L,\mu,\cR}(\cK)$ with $\cR(\cdot) = \frac12 \norm{\cdot}_2^2$.
 Then, the set of convex and $L$-smooth functions is  $\F_{L,0}(\K)$.
  %Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t.\  $\cR$. \todoc{Are these $L$-smooth w.r.t. $\cR$? This is a bit confusing.}
@@ -30,10 +31,10 @@ Then, the set of convex and $L$-smooth functions is  $\F_{L,0}(\K)$.
 
 \begin{figure}
 \begin{center}
-\vspace{-0.1cm}
-\includegraphics[width=0.45\textwidth]{../figs/oracle}
+%\vspace{-0.1cm}
+\includegraphics[width=0.8\textwidth]{figs/oracle}
 \end{center}
-\vspace{-0.6cm}
+%\vspace{-0.6cm}
 \caption{The Interaction of the algorithms with the gradient estimation oracle and the environment. For more information, see the text. \vspace{-0.3cm}}
 \label{fig:oracle}
 \end{figure}
@@ -113,26 +114,31 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 %\end{align}
 %We call the resulting oracles type-IIb.
 %
-Note that our definition allows the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
+
+We call an oracle (type-I or II) has \emph{unbiased evaluation} if $\EE{Y}=x$ in the above definitions. Note that if the oracle has unbiased evaluation, an algorithm does not loose too much from suffering loss at $Y$ instead of the query point $x$ if the loss function is smooth, since in this case
+$\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}} \le L\delta^2/2$.
+Also, our definitions allow the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
 though most often the oracles constructed in practice
 will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a fixed stochastic mapping.%
 \footnote{For oracles with memory, in the definition the expectation should be replaced with
 an expectation that is conditioned on the past.}
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-Examples will be discussed in  \cref{sec:sbco}.
+Examples will be discussed in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., our methods work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
 We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
+
 
 
 Here, we will study the minimax regret in the online convex optimization setting, 
  while we study the minimax error in the stochastic convex optimization setting (sometimes, also called as the ``simple regret'').
 Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
-The \emph{minimax expected regret} for $(\cF,c_1,c_2)$ with type-I oracles is
+The \emph{wost case regret} of algorithm $\A$ interacting with $(c_1,c_2)$ type-I oracles for the function class $\F$ is
+
 \begin{align*}
 %\MoveEqLeft
-R_{\F,n}^*(c_1,c_2)
-&= \inf_{\cA} \sup_{f_{1:n}\in \cF^n}
+R_{\F,n}^\cA(c_1,c_2)
+&=  \sup_{f_{1:n}\in \cF^n}
 	\sup_{\substack{\gamma_t \in \Gamma_1(f_t,c_1,c_2)\\1\le t \le n
-	}} R_n^{\cA}\,, %(f_{1:n},\gamma_{1:n})
+	}} R_n^{\cA}(f_{1:n},\gamma_{1:n})
 %\label{eq:minimaxregdef}
 %\\
 %\MoveEqLeft
@@ -142,29 +148,37 @@ R_{\F,n}^*(c_1,c_2)
 %%%%%%& \qquad \qquad \qquad \qquad \qquad
 %-\inf_{x\in \cK} \sum_{t=1}^n f_t(x)\,,\\
 \end{align*}
+where $R_n^{\cA}(f_{1:n},\gamma_{1:n})$ denotes the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:n}$), and
+the \emph{minimax expected regret} for $(\cF,c_1,c_2)$ with type-I oracles is defined as
+\[
+R_{\F,n}^*(c_1,c_2) = \inf_{\cA} R_{\F,n}^\cA(c_1,c_2),
+\]
 where $\cA$ ranges through all algorithms that interact with the loss sequence  $f_{1:n}= (f_1,\dots,f_n)$
-through the oracles $\gamma_{1:n}$ (in round $t$, oracle $\gamma_t$ is used),
-and we use $R_n^{\cA}$ to denote the expected regret of $\cA$ (against $f_{1:n},\gamma_{1:n}$).
+through the oracles $\gamma_{1:n}$ (in round $t$, oracle $\gamma_t$ is used).
 The minimax regret for type-II oracles is defined analogously.
 % (in what follows we only define these quantities for type-I oracles, as the extension \todoc{Is extension the right word?}
 % to type-II oracles is immediate).
 
 
-In the stochastic BCO setting, the minimax error is defined through
+In the stochastic BCO setting, the \emph{worst case error} is defined through
 \begin{align}
 \label{eq:minimaxerrdef}
-\Delta_{\F,n}^*(c_1,c_2)
-= \inf_{\cA} \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \Delta_n^{\cA}(f,\gamma)\,, %(f,\gamma)\,,
+\Delta_{\F,n}^\cA(c_1,c_2)
+= \sup_{f \in \cF} \sup_{\gamma\in \Gamma_1(f,c_1,c_2)}  \Delta_n^{\cA}(f,\gamma)\,, %(f,\gamma)\,,
 % \EE{ f(\hat{X}_n) } - \inf_{x\in \cK}  f(x)\,,
 \end{align}
-where, again, $\cA$ ranges through all algorithms that interact with an oracle and
-$\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers
-after $n$ rounds of interaction with $f$ through (a single) $\gamma$ as described earlier.
+where $\Delta_n^{\cA}(f,\gamma)$ is the optimization error that $\cA$ suffers
+after $n$ rounds of interaction with $f$ through (a single) $\gamma$ as described earlier, and the \emph{minimax error}
+is defined as
+\[
+\Delta_{\F,n}^*(c_1,c_2) =  \inf_{\cA} \Delta_{\F,n}^\cA(c_1,c_2),
+\]
+where, again, $\cA$ ranges through all algorithms that interact with $f$ through an oracle.
 The minimax error for type-II oracles is defined analogously.
 
 When the set $\K$ is bounded and the function set $\F$ is invariant to linear shifts, every $(c_1,c_2)$ type-I oracle is also an $(R c_1,c_2)$ type-II oracle,
 where $R = \sup_{x\in \K} \norm{x}$: simply consider $\tilde{f}(y) =  f(y) + (\EE{G}-\nabla f(x))\tr y $,
-where $G$ is the gradient estimate returned by the oracle. % (cf. \cref{thm:typered}).
+where $G$ is the gradient estimate returned by the oracle (cf. \cref{thm:typered}).
 Thus, if for some set $\Delta_{n}^{\mathrm{type-I}}$, $\Delta_{n}^{\mathrm{type-II}}$
 denote the appropriate minimax errors and $R=1$
 then $\Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(c_1,c_2)  $.

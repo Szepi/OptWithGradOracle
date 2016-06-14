@@ -1,5 +1,5 @@
-\documentclass[twoside]{article}
-\usepackage[accepted]{aistats2016}
+\documentclass[twoside,11pt]{article}
+%\usepackage[accepted]{aistats2016}
 \input{commands}
 % Compilation note:
 % Don't forget to add --shell-escape (or -enable-write18 if you are using MikTeX) to the pdflatex commandline.
@@ -15,6 +15,12 @@
 % the first column of the first page.
 
 
+\title{(Bandit) Convex Optimization with Biased Noisy Gradient Oracles\thanks{An earlier version of this paper was published at AISTATS 2016 \citep{HuPrGySz16}.}}
+\author{Xiaowei  Hu$^1$,  Prashanth L.A.$^2$,  Andr\'as Gy\"orgy$^3$, and Csaba Szepesv\'ari$^1$}
+\date{$^1$ Department of Computing Science, University of Alberta \\
+$^2$ Institute for Systems Research, University of Maryland \\
+$^3$ Department of Electrical and Electronic Engineering, Imperial College London}
+
 \begin{document}
 
 % If your paper is accepted and the title of your paper is very long,
@@ -29,19 +35,21 @@
 % command to supply a shorter version of the authors names so that
 % they can be used as headings (for example, use only the surnames)
 %
-\runningauthor{Xiaowei Hu, Prashanth L.A., Andr\'as Gy\"orgy, and Csaba Szepesv\'ari}
 
-\twocolumn[
+%\runningauthor{Xiaowei Hu, Prashanth L.A., Andr\'as Gy\"orgy, and Csaba Szepesv\'ari}
+%
+%\twocolumn[
+%
+%\aistatstitle{(Bandit) Convex Optimization with Biased Noisy Gradient Oracles}
+%
+%
+%\aistatsauthor{Xiaowei  Hu$^1$ \And Prashanth L.A.$^2$ \And Andr\'as Gy\"orgy$^3$ \And Csaba Szepesv\'ari$^1$ \vspace{1mm}}
+%
+%\aistatsaddress{$^1$ Department of Computing Science, University of Alberta \\
+%$^2$ Institute for Systems Research, University of Maryland \\
+%$^3$ Department of Electrical and Electronic Engineering, Imperial College London} ]
 
-\aistatstitle{(Bandit) Convex Optimization with Biased Noisy Gradient Oracles}
-
-
-\aistatsauthor{Xiaowei  Hu$^1$ \And Prashanth L.A.$^2$ \And Andr\'as Gy\"orgy$^3$ \And Csaba Szepesv\'ari$^1$ \vspace{1mm}}
-
-\aistatsaddress{$^1$ Department of Computing Science, University of Alberta \\
-$^2$ Institute for Systems Research, University of Maryland \\
-$^3$ Department of Electrical and Electronic Engineering, Imperial College London} ]
-
+\maketitle
 
 \begin{abstract}
 \vspace{-0.2cm}
@@ -100,15 +108,38 @@ achieve the optimal square-root regret rate for online/stochastic bandit convex 
 \label{sec:related}
 \input{related}
 
+
 %\section{PROOFS}
 %\label{sec:proofs}
 %%\input{ub_proof}
 %\input{lb_proof_sketch}
 %%\input{red_proof}
 
+
+
+\section{Proof of the Lower Bounds}
+\label{sec:appendix-lb-proof}
+\input{lb_proof}
+
+\section{Proof of the Upper Bounds}
+\label{sec:appendix-md}
+\input{appendix-upperbds.tex}
+
+\section{Gradient Estimation Proofs}
+\label{sec:appendix-grad}
+\input{appendix-grad.tex}
+
+
 \section{Conclusions}
 \label{sec:conc}
 \input{conc}
+
+\appendix
+
+
+\input{red_proof}
+
+
 
 \subsubsection*{Acknowledgements}
 This work was supported by the Alberta Innovates Technology Futures through the Alberta Ingenuity Centre for Machine Learning and RLAI, NSERC, the National Science Foundation (NSF) under Grants CMMI-1434419, CNS-1446665, and CMMI-1362303, and by the Air Force Office of Scientific Research (AFOSR) under Grant FA9550-15-10050.
@@ -125,7 +156,7 @@ This work was supported by the Alberta Innovates Technology Futures through the 
 \clearpage\newpage
 \onecolumn
 \appendix
-\input{appendix}
+%\input{appendix}
 
 
 \end{document}
