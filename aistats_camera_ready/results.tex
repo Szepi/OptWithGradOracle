@@ -1,38 +1,11 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-\begin{table*}
-\small
-\centering
-\label{tab:mse-1}
- \begin{tabular}{|c|c|c|c|c|}
-% \begin{tabular}{||*5{>{\columncolor[gray]{.9}}c}||}
-\toprule
-% \rowcolor{gray!20}
-% \multicolumn{3}{|c|}{\multirow{2}{*}{\textbf{Lower bounds}}}\\[1.7em]
-% \midrule
-  \multirow{2}{*}{\textbf{Oracle type}} & \multicolumn{2}{c}{\multirow{2}{*}{\textbf{Convex + Smooth}}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Strongly Convex + Smooth}}} \\[1em]
- \midrule
-% \rowcolor{gray!20}
- & \textbf{Upper bound} & \textbf{Lower bound} & \textbf{Upper bound} & \textbf{Lower bound}\\
- \midrule
-\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{ n}\right)^{1/2}$} \\[0.5ex]
- ($p=1$, $q=2$) & & & &\\\midrule
-%%%%%%%%%%%%%%%%%%%
-\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 }{ n}\right)^{2/3}$}\\[1.4ex]
- ($p=2$, $q=2$) & & & &\\
-  %\midrule
- %\textbf{No bias or variance} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\left(\dfrac{d^2}{n}\right)^{1/2}$}  \\[0.5ex]
- %($C_1=0$, $C_2=0$) & & & &\\
-\bottomrule
-%%%%%%%%%%%%%%%%
-\end{tabular}
-\caption{Summary of upper and lower bounds on the minimax optimization error for different smooth function classes and  gradient oracles for the settings of \cref{thm:ub} and \cref{thm:lb-convex}. Note that when $\cR$ is the squared norm and $\K$ is the hypercube (as in the lower bounds), $D=\theta(d)$ in the upper bounds and also that $C_1$, $C_2$ may hide dimension-dependent quantities for the common gradient estimators, as will be discussed later.}
-\end{table*}
-
 
 In this section we provide our main results in forms of upper and lower bounds on the minimax error.
-First we give an upper bound by analyzing a mirror-descent algorithm given in \cref{alg}.
-In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex and the target function $f$ is smooth or  smooth and strongly convex. A standard analysis yields the following upper bounds:
+First we give an upper bound for the mirror-descent algorithm shown as \cref{alg}.
+In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex and the target function $f$ is smooth or  smooth and strongly convex.
+We give results for polynomial oracles, i.e., when $c_1$ and $c_2$ are polynomial functions (in particular, monomial functions)
+of their argument. The reason, as we will see is that the existing oracle constructions give rise to polynomial oracles for the function classes that we consider.
 % In the algorithm, we will assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\|\cdot\|$ on $\R^d$, that is $\tfrac{\alpha}{2} \|x-y\|^2 \le \DR(x,y)=f(x)-f(y)-\ip{\nabla f(y),x-y}$ for all $x,y \in \K$. Moreover, we will consider the cases when the target function $f$ is $L$-smooth w.r.t.\  the norm $\| \cdot \|$ for some $L>0$, that is, $f(x) \le f(y) + \ip{\nabla f(y), y-x} + \tfrac{L}{2} \|x-y\|^2$, and when $f$ is $\mu$-strongly convex w.r.t.\  $\cR$, that is,
 % $f(x) \ge f(y) + \ip{\nabla f(y),y-x} +\tfrac{\mu}{2} \DR(x,y)$ for all $x,y \in \K$.
 
@@ -79,14 +52,14 @@ In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alp
 
 \begin{theorem}[\textit{Upper bound}]
 \label{thm:ub}
-Consider the class $\F=\F_{L,0}$ of convex, $L$-smooth functions on the bounded, convex domain $\cK\ne \emptyset$, $\cK \subset \R^d$.
+Consider the class $\F=\F_{L,0}$ of convex, $L$-smooth functions on the bounded, convex domain $\cK\ne \emptyset$, $\cK \subset \R^d$. \todoc{Was this needed at the end..?}
 % let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
 Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.
-For any $(c_1,c_2)$ type-II oracle 
+For any memoryless uniform $(c_1,c_2)$ type-II oracle 
 with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
 the worst-case error (and hence the minimax error) of \cref{alg} run with an appropriate parameter setting
 %for the function class $\F=\F_{L,0}$ 
-can be bounded as
+can be bounded as \todoc{I would perhaps use $K_1$ and $K_2$ as in the lower bound, and give the log term in the second bound. The huge paranthesis are ugly.}
  \begin{align}
  \label{eq:MDbound1}
  \Delta_{\F_{L,0},n}^{MD}(c_1,c_2) 
@@ -106,14 +79,14 @@ we have
 \label{eq:MDbound2}
 \end{align}
 In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$.%
-\footnote{In the second bound, $\tilde{O}(f(n))$ denotes $O(\log(n) f(n))$.}
-If, in addition, the oracle is unbiased and all functions in $\F$ have bounded gradients,\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then the above bounds also hold for the normalized regret $\tfrac{1}{n} R_{\F}^{MD}(c_1,c_2)$ with $C_1+L/4$ in place of $C_1$ for $p=2$, and $C_1$ replaced with $L/4$ and $p$ with $2$ for $p \ge 2$.
+If the oracle is unbiased (but may be non-uniform and may have memory) and all functions in $\F$ have bounded gradients,\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then the above bounds also hold for the normalized regret $\tfrac{1}{n} R_{\F}^{MD}(c_1,c_2)$ with $C_1+L/4$ in place of $C_1$ for $p=2$, and $C_1$ replaced with $L/4$ and $p$ with $2$ for $p \ge 2$.
 \end{theorem}
 %\begin{proof}
 %See \cref{sec:appendix-md}.
 %\end{proof}
-
-The proof of this theorem follows standard analyses of the mirror descent algorithm, and is provided in \cref{sec:appendix-md}
+The proof of this theorem follows the steps of the standard analysis of the mirror descent algorithm
+ and is provided in \cref{sec:appendix-md}, mainly for completeness 
+ and because it is somewhat cumbersome to extract from the existing results what properties of the oracles they use.
 
 We next state lower bounds for both convex as well as strongly convex function classes. In particular, we observe that for convex and smooth functions the upper bound for the mirror descent scheme matches the lower bound, up to constants, whereas there is a gap for strongly convex+smooth functions.
 Filling the gap is left for future work.
@@ -126,21 +99,29 @@ $\cK\subset \R^d$ convex, closed, with  $[+1,-1]^d\subset \cK$.
 %Consider the space of functions $\F:= \{f_v \mid v  \in \{+1,-1\}^d\}$, with $\epsilon = d^{\frac{-(4p+q)}{(4p+2q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, where \\$K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$. 
 Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ type-I oracle 
  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$,
- the minimax error (and hence the regret) satisfies the following bounds:\\
-\textbf{$\bm{\F_{L,0}(\K)}$ (Convex and smooth) w.r.t. the Euclidean norm $\|\cdot\|_2$ with $L\ge \frac12$:}
+ the minimax error (and hence the regret) satisfies the following bounds:
+ \begin{itemize}
+ \item
+${\F_{L,0}(\K)}$ (Convex and smooth) w.r.t. the Euclidean norm $\|\cdot\|_2$ with $L\ge \frac12$
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?} 
 \[
  \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge K_1\sqrt{d}\left(\dfrac{C_1^{\frac{q}{p}}C_2}{n}\right)^{\frac{p}{2p+q}},
 \]
-where $K_1 = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}$.
 %where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
-
-\textbf{$\bm{\F_{L,1}(\K)}$ ($1$-strongly convex and smooth) with $L\ge 1$:}
+\item
+${\F_{L,1}(\K)}$ ($1$-strongly convex and smooth) with $L\ge 1$
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
-\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge K_2 \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q/2}}, 
+\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge K_2 \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q/2}}\,.
 \]
-where $K_2 = 2^{\frac{2p-q}{2p+q}} \frac{(2p+q)^3}{q^{\frac{2q}{2p+q}}(6p+q)^{\frac{6p+q}{2p+q}}} $.
+\end{itemize}
+Above,
+the constants $K_1$ and $K_2$ depend on $p$ and $q$ only.%
+\footnote{
+In particular,
+$K_1= \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}$
+and
+$K_2= 2^{\frac{2p-q}{2p+q}} \frac{(2p+q)^3}{q^{\frac{2q}{2p+q}}(6p+q)^{\frac{6p+q}{2p+q}}}$.}
 \end{theorem}
 %The condition connecting the problem parameters is that $n$ should be large enough so that\\
 %\begin{inparaenum}[\bfseries (i)]
@@ -165,9 +146,42 @@ $$\Delta_n^*(\mu \F, c_1,c_2) = \mu \Delta_n^*\left(\F, c_1/\mu,c_2/\mu^2\right)
  where $\mu F$ denotes the function class comprised of functions in $\F$, each scaled by $\mu>0$. In particular, this relation implies that the bound for $\mu$-strongly convex function class is only a constant factor away from the bound for $1$-strongly convex function class.
 \end{remark}
 
-Table \ref{tab:oracles} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems~\ref{thm:ub} and~\ref{thm:lb-convex}.
+Table \ref{tab:mse-1} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems~\ref{thm:ub} and~\ref{thm:lb-convex}.
 %While it appears that for the strongly convex case the error becomes smaller with a larger dimension, in most applications $C_1, C_2$ will hide dimension dependent constants, and the lower bound actually increases with the dimension increasing.
-Some specific examples will be discussed in the next section.
+%Some specific examples will be discussed in the next section.
+
+\begin{table*}
+\small
+\centering
+ \begin{tabular}{|c|c|c|c|c|}
+% \begin{tabular}{||*5{>{\columncolor[gray]{.9}}c}||}
+\toprule
+% \rowcolor{gray!20}
+% \multicolumn{3}{|c|}{\multirow{2}{*}{\textbf{Lower bounds}}}\\[1.7em]
+% \midrule
+  \multirow{2}{*}{\textbf{Oracle type}} & \multicolumn{2}{c}{\multirow{2}{*}{\textbf{Convex + Smooth}}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Strongly Convex + Smooth}}} \\[1em]
+ \midrule
+% \rowcolor{gray!20}
+ & \textbf{Upper bound} & \textbf{Lower bound} & \textbf{Upper bound} & \textbf{Lower bound}\\
+ \midrule
+\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{ n}\right)^{1/2}$} \\[0.5ex]
+ ($p=1$, $q=2$) & & & &\\\midrule
+%%%%%%%%%%%%%%%%%%%
+\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 }{ n}\right)^{2/3}$}\\[1.4ex]
+ ($p=2$, $q=2$) & & & &\\
+  %\midrule
+ %\textbf{No bias or variance} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\left(\dfrac{d^2}{n}\right)^{1/2}$}  \\[0.5ex]
+ %($C_1=0$, $C_2=0$) & & & &\\
+\bottomrule
+%%%%%%%%%%%%%%%%
+\end{tabular}
+\caption{Summary of upper and lower bounds on the minimax optimization error for different smooth function classes and  gradient oracles for the settings of \cref{thm:ub} and \cref{thm:lb-convex}. Note that when $\cR$ is the squared norm and $\K$ is the hypercube (as in the lower bounds), $D=\Theta(d)$ in the upper bounds and also that $C_1$, $C_2$ may hide dimension-dependent quantities for the common gradient estimators, as will be discussed later.
+\todoc[inline]{Next mystery: If $D= \Theta(d)$, the upper bound in the first row scales with $d^{1/4}$, while the lower bound scales with $d^{1/2}$??? Similar contradiction for the second row.}
+}
+\label{tab:mse-1}
+\end{table*}
+
+
 % \begin{theorem}[\textit{Lower bound: Strongly convex}]
 % \label{thm:lb-strongly-convex}
 % For any $v \in \{+\nu,-\nu\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where

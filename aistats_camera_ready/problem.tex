@@ -25,6 +25,10 @@ $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x \in \K \,, y \in \K^\circ$.
  We let $\F_{L,\mu, \cR}(\K)$ denote the class of functions that are $\mu$-strongly convex w.r.t. $\cR$ and $L$-smooth w.r.t. some norm $\norm{\cdot}$ on the set $\K$ (typically, we will assume that $\cR$ is also strongly convex w.r.t. $\norm{\cdot}$).
 We also let $\F_{L,\mu}(\K)$ be $\F_{L,\mu,\cR}(\cK)$ with $\cR(\cdot) = \frac12 \norm{\cdot}_2^2$.
 Then, the set of convex and $L$-smooth functions is  $\F_{L,0}(\K)$.
+Besides the standard big-Oh notation, we will also use $\tilde{O}(\cdot)$:
+For a positive valued function $f: \N \to \R_+$, $\tilde{O}(f)$ contains any $g:\N \to \R_+$ such that
+$g =O( \log^p(n) f(n) )$ for some $p>0$.
+(As usual, we abuse notation by writing $g= O(f)$ instead of $g\in O(f)$.)
  %Furthermore, let $\F_{L,\mu,\cR}(\K)$ denote the set of functions that are  $L$-smooth and $\mu$-strongly convex w.r.t.\  $\cR$. \todoc{Are these $L$-smooth w.r.t. $\cR$? This is a bit confusing.}
 % We let $\normal(0, I)$ denote the standard normal distribution in $d$-dimensions. 
 % \todoc{I am pretty sure $\normal(0, I)$ is not used in the main text, hence commenting it out. We will need to define it for the full version!!!}
@@ -76,7 +80,7 @@ Our type-I oracles are defined as follows:
 \label{def:oracle1}
 We say that $\gamma$ is a  $(c_1,c_2)$ type-I oracle for $\cF$, if for any function $f\in \cF$,
 $x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that
-$\norm{x-Y}\le \delta$ almost surely (a.s.),
+$\norm{x-Y}\le \delta$ almost surely (a.s.) and the following hold:
 \vspace{-0.2cm}
 \begin{enumerate}
 %\item $\norm{x-Y}\le \delta$ almost surely (a.s.);
@@ -92,7 +96,7 @@ The second type of oracles considered is as follows: \todoa{Here we could distin
 \begin{definition}[$(c_1,c_2)$ type-II  oracle]
 \label{def:oracle2}
 We say that $\gamma$ is a  $(c_1,c_2)$ type-II oracle for $\cF$, if for any function $f\in \cF$,
-$x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that $\norm{x-Y}\le \delta$ a.s.,
+$x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that $\norm{x-Y}\le \delta$ a.s. and the following hold:
 \vspace{-0.2cm}
 \begin{enumerate}
 %\item $\norm{x-Y}\le \delta$ a.s.;
@@ -103,8 +107,20 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 \end{enumerate}
 \vspace{-0.1cm}
 \end{definition}
-Thus, while a type-I oracle returns a biased, noisy gradient estimate for $f$, 
+We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
+
+Note that while a type-I oracle returns a biased, noisy gradient estimate for $f$, 
 a type-II oracle returns an unbiased, noisy gradient estimate for some function $\tilde{f}$ which is close to $f$.
+Note that $\tilde{f}$ is allowed to change with the inputs (not only by $f$, but also with $x$ and $\delta$) in the definition.
+In fact, the oracles (in both cases)  can have a memory of previous queries and depending on the memory
+can respond to the same inputs $(x,\delta,f)$ with a differently constructed pair.%
+\footnote{For oracles with memory, in the definition the expectation should be replaced with
+an expectation that is conditioned on the past.}
+The oracles that we use will nevertheless be memoryless.
+
+As noted above, even a memoryless type-II oracle can respond such that $\tilde{f}$ depends on $x$ or $\delta$.
+A type-II oracle is called a \emph{uniform} type-II oracle if $\tilde{f}$ only depends on $f$ (and possibly the history of previous queries), but not on $x$ and $\delta$.
+The type-II oracles that will be explicitly constructed will be all uniform.
 %An alternative to the bias condition for type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with%
 %\footnote{
 %This definition requires the function $f$ to be differentiable. When the functions in $f$ are not differentiable, it is possible
@@ -117,20 +133,15 @@ a type-II oracle returns an unbiased, noisy gradient estimate for some function 
 %We call the resulting oracles type-IIb.
 %
 
-We call an oracle (type-I or II)  \emph{unbiased} if $\EE{Y}=x$ in the above definitions. Note that if the oracle is unbiased, an algorithm does not loose too much from suffering loss at $Y$ instead of the query point $x$ if the loss function is smooth, since in this case
-$\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}} \le L\delta^2/2$.
-Also, our definitions allow the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
-though most often the oracles constructed in practice
-will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a fixed stochastic mapping.%
-\footnote{For oracles with memory, in the definition the expectation should be replaced with
-an expectation that is conditioned on the past.}
+We call an oracle (type-I or II)  \emph{unbiased} if $\EE{Y}=x$ in the above definitions. Note that if the oracle is unbiased and the loss function is smooth,
+ an algorithm does not loose too much from suffering loss at $Y$ instead of the query point $x$
+ since in this case $\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}} \le L\delta^2/2$.
+
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-Examples will be given in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
-We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
+Examples of specific oracle constructions will be given in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
 
 As the next result shows, Type-I and II oracles are closely related.
-In particular, a type-I oracle is also a type-II oracle. On the other hand, type-II oracles need to satisfy an alternative condition to become type-I oracles:
-
+In particular, a type-I oracle is also a type-II oracle (although not a uniform type-II oracle). On the other hand, type-II oracles need to satisfy an alternative condition to become type-I oracles as the closeness of $\tilde{f}$ and $f$ is insufficient to conclude anything about the distance of their gradients:
 \begin{proposition}\label{thm:typered}
 \cref{def:oracle1} is a sufficient condition of \cref{def:oracle2}, given a bounded $\cK$. 
 In particular, letting $R = \sup_{y \in \cK}\norm{y}$, 
@@ -148,12 +159,9 @@ The second part of the claim is immediate from the definitions, hence it remains
 Let $\gamma$ be  a $(c_1,c_2)$ type-I oracle. Fix $x$, $\delta,f$ and let the oracle's response be $G,Y$. 
 Define $\tilde{f}:\cK \to \mathbb{R}$ by
 \[\tilde{f}(y) =\EE{ f(y)+ \left( G-\nabla f(x) \right)^\top y},\]
-where the expectation is over the randomness of $G$. 
-We immediately see that \todoc{This is not true! $G$ changes with $x$...!?!?}
-\[
- \nabla \tilde{f}(x) = \EE{\nabla f(x)+ \left( G-\nabla f(x)\right)}
- =\EE{G}\,.
- \]
+where the expectation is over the randomness of $G$ (note that $\tilde{f}$ depends on $x$ and $\delta$).
+Then, $\nabla \tilde{f}(y) =  \nabla f(y)-\nabla f(x) + \EE{G}$
+and thus substituting $x$ for $y$ we get that $\nabla \tilde{f}(x) = \EE{G}$.
 Further, 
 using $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $,
 we have
@@ -162,7 +170,7 @@ we have
 =
  \Bignorm{ \EE{\left( G-\nabla f(x) \right)^\top y}}_{\infty}
  \le \largenorm{\EE{G}-\nabla f(x)}_* \, \norm{y}
- \le  Rc_1(\delta)\,.
+ \le  R\,c_1(\delta)\,.
 \end{align*}
 showing that  $\gamma$ is also an $(Rc_1,c_2)$ Type-II oracle.
 \end{proof}
@@ -170,12 +178,12 @@ showing that  $\gamma$ is also an $(Rc_1,c_2)$ Type-II oracle.
 
 
 While in the online convex optimization setting
-the performance of an algorithm is evaluated using the minimax \emph{regret} 
- in the stochastic convex optimization setting,
-the minimax \emph{error}
- (sometimes, also called as the ``simple regret'') serves as the basis of comparing algorithms.
+algorithms are compared based on their minimax \emph{regret} 
+ in the stochastic convex optimization setting, they are compared based on their
+ minimax \emph{error}
+ (sometimes, also called as the ``simple regret'').
 Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
-The \emph{wost case regret} of algorithm $\A$ interacting with $(c_1,c_2)$ type-I oracles for the function class $\F$ is
+The \emph{worst-case regret} of algorithm $\A$ interacting with $(c_1,c_2)$ type-I oracles for the function class $\F$ is
 
 \begin{align*}
 %\MoveEqLeft
@@ -221,13 +229,16 @@ where, again, $\cA$ ranges through all algorithms that interact with $f$ through
 The minimax error for type-II oracles is defined analogously.
 
 
-Consider now the case when the set $\K$ is bounded and for simplicity assume that $\sup_{y\in \K} \norm{y}=1$.
-Assume further that the function set $\F$ is invariant to linear shifts.
+Consider now the case when the set $\K$ and in particular assume that 
+$\K$ is included in the unit ball of $\norm{\cdot}$.
+Assume further that the function set $\F$ is invariant to linear shifts
+(that is for any $f\in \F$, $w\in \R^d$, $x\mapsto f(x) + \ip{x,w}$ is also in $\F$).
 Let
  $\Delta_{n}^{\mathrm{type-I}}$ and $\Delta_{n}^{\mathrm{type-II}}$ denote  the appropriate minimax errors for the two types of oracles.
 Then, by the construction in  \cref{thm:typered},
- $\Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(c_1,c_2)$.
- 
+\[
+\Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(c_1,c_2)\,.
+\]
 As a result, when proving lower bounds, we shall consider type-I, while when proving upper bounds we will consider type-II oracles.
 Also note that for either type of oracles, $\Delta_{\F,n}^*(c_1,c_2) \le R_{\F,n}^*(c_1,c_2)/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing as $\hat{X}_n$ the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
 Indeed, then $f(\hat{X}_n) \le \frac1n \sum_{t=1}^n f(X_t)$ by Jensen's inequality, hence the average regret of $\A$ will upper bound the error of choosing $\hat{X}_n$ at the end.

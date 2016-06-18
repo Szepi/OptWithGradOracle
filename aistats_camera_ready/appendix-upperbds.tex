@@ -6,9 +6,11 @@ In this section we prove \cref{thm:ub}. First we derive the bounds for the optim
 
 \subsection{Stochastic optimization}
 
-The proof for the stochastic optimization scenario is based on the following lemma,
-which is essentially Theorem~C.4 of \citet{MahdaviPhd:2014}, and also identical to Theorem~6.3 of \citet{Bu:Convex14}, who cites \citet{Dekel:minibatch12} as the source. For completeness, the proof of the lemma is given in \cref{sec:lemub-proof}.
-
+The proof for the stochastic optimization scenario is based on \cref{lem:ub} stated below.
+This is essentially Theorem~C.4 of \citet{MahdaviPhd:2014}, and also identical to Theorem~6.3 of \citet{Bu:Convex14}, who cites \citet{Dekel:minibatch12} as the source. For completeness, the proof of the lemma is given in \cref{sec:lemub-proof}.
+The lemma is somewhat more general than what we need (we will only need it for the case when $\beta_t=0$); 
+the general form is presented because its proof is not significantly different than the simpler form and it may find
+other applications in the future.
 \begin{lemma}
 \label{lem:ub}
 Let $({\cS}_t)_{t}$ be a filtration such that $X_t$ is ${{\cS}}_t$-measurable.
@@ -37,7 +39,7 @@ If ${{f}}$ is also $\mu$-strongly convex w.r.t.\  the $\alpha$-strongly convex f
 
 Now we can easily prove the theorem.
 %By the discussion in \cref{sec:problem}, we have $\Delta^*_{\F,n}(c_1,c_2) \le R^*_{\F,n}(c_1,c_2)/n$ by Jensen's inequality, so it is enough to bound the regret for the online case.
-From the bias condition in \cref{def:oracle2}, we get
+From the bias condition in \cref{def:oracle2} and using that the oracle is memoryless and uniform, we get
 \begin{align*}
  \frac{1}{n} \EE{ \sum_{t=1}^n f(X_t) - \inf_{x \in \cK}\sum_{t=1}^n f(x) }
  \le \frac{1}{n}\EE{ \sum_{t=1}^n \tilde{f}(X_t) - \inf_{x \in \cK}\sum_{t=1}^n \tilde{f}(x) } +2C_1 \delta^p
@@ -68,7 +70,7 @@ the last $3$ terms in \eqref{eq:ubToBeOpt} are optimized to
  $(K_1/3)^{2p+q} \le 2^{2q-p}\left(2+q/p \right)^p \left(D/\alpha\right)^{p}$. This implies \eqref{eq:MDbound1}.
 % \begin{align*}
  
-When $\tilde{f}_t \in \cF_{L,\mu, \cR}$ is $L$-smooth and $\mu$-strongly convex, for
+When $\tilde{f} \in \cF_{L,\mu, \cR}$ is $L$-smooth and $\mu$-strongly convex, for
 $\eta_t = 2/(\mu t)$ and 
 %\[
 %\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
@@ -95,7 +97,7 @@ $K_2^{p+q}=2^{q}\alpha^{-p}\mu^{-p}$.
 
 \subsection{Online optimization}
 The proof in this section follows closely the derivation of \citet{saha2011improved}.
-Assume that the gradients of all $\tf \in \cF$ are bounded by $M$, that is $\norm{\nabla \tf(x)}_* \le M$ for all $x \in \cK$. 
+Assume that the gradients of all $\tf_t \in \cF$ are bounded by $M$, that is $\norm{\nabla \tf_t(x)}_* \le M$ for all $x \in \cK$ (here, the subindex of $\tf_t$ signifies that the oracle is non-uniform).
 
 Let $\cS_t$ denote the $\sigma$-algebra of all random events up until and including the selection of $X_t$. Since the oracle is unbiased, that is,  $\EE{Y_t|\cS_t}=X_t$, we have
 \begin{equation}
