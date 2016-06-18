@@ -35,7 +35,7 @@ Then, the set of convex and $L$-smooth functions is  $\F_{L,0}(\K)$.
 \includegraphics[width=0.8\textwidth]{../figs/oracle}
 \end{center}
 %\vspace{-0.6cm}
-\caption{The Interaction of the algorithms with the gradient estimation oracle and the environment. For more information, see the text. \vspace{-0.3cm}}
+\caption{The interaction of the algorithms with the gradient estimation oracle and the environment. For more information, see the text. \vspace{-0.3cm}}
 \label{fig:oracle}
 \end{figure}
 
@@ -61,7 +61,7 @@ the $n$th round is over (in both settings, $n$ is given to the algorithms)
 and the algorithm's performance is quantified using the \emph{optimization error},
 $\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
 
-The main novelty of the model is that the information flow between the algorithm and the environment (holding $f$, or $f_{1:n}$) is mediated by a gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit in this framework.
+The main novelty of the model is that the information flow between the algorithm and the environment (holding $f$, or $f_{1:n}$) is mediated by a stochastic gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit in this framework.
 
 We will use two classes of oracles. In both cases, the oracles are specified by
 two functions $c_1,c_2:[0,\infty)\to [0,\infty)$, which will be assumed to be continuous,
@@ -97,12 +97,14 @@ $x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random el
 \begin{enumerate}
 %\item $\norm{x-Y}\le \delta$ a.s.;
 \item There exists $\tilde{f} \in \cF$ such that
-$\norm{\tilde{f}- f}_\infty \le c_1(\delta)$  and
+$\bignorm{\tilde{f}- f}_\infty \le c_1(\delta)$  and
 $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$ (variance).
 \end{enumerate}
 \vspace{-0.1cm}
 \end{definition}
+Thus, while a type-I oracle returns a biased, noisy gradient estimate for $f$, 
+a type-II oracle returns an unbiased, noisy gradient estimate for some function $\tilde{f}$ which is close to $f$.
 %An alternative to the bias condition for type-II oracles, which will also be considered later, is to replace the condition $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ with%
 %\footnote{
 %This definition requires the function $f$ to be differentiable. When the functions in $f$ are not differentiable, it is possible
@@ -115,7 +117,7 @@ $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 %We call the resulting oracles type-IIb.
 %
 
-We call an oracle (type-I or II) has \emph{unbiased evaluation} if $\EE{Y}=x$ in the above definitions. Note that if the oracle has unbiased evaluation, an algorithm does not loose too much from suffering loss at $Y$ instead of the query point $x$ if the loss function is smooth, since in this case
+We call an oracle (type-I or II)  \emph{unbiased} if $\EE{Y}=x$ in the above definitions. Note that if the oracle is unbiased, an algorithm does not loose too much from suffering loss at $Y$ instead of the query point $x$ if the loss function is smooth, since in this case
 $\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}} \le L\delta^2/2$.
 Also, our definitions allow the same oracle $\gamma$ to respond to the same inputs $(x,\delta,f)$ with a differently constructed pair (e.g., to have memory),
 though most often the oracles constructed in practice
@@ -123,13 +125,55 @@ will map the triples $(x,\delta,f)$ to a gradient estimate-point pair using a fi
 \footnote{For oracles with memory, in the definition the expectation should be replaced with
 an expectation that is conditioned on the past.}
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-Examples will be discussed in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., our methods work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
+Examples will be given in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
 We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
 
+As the next result shows, Type-I and II oracles are closely related.
+In particular, a type-I oracle is also a type-II oracle. On the other hand, type-II oracles need to satisfy an alternative condition to become type-I oracles:
+
+\begin{proposition}\label{thm:typered}
+\cref{def:oracle1} is a sufficient condition of \cref{def:oracle2}, given a bounded $\cK$. 
+In particular, letting $R = \sup_{y \in \cK}\norm{y}$, 
+for any $f,c_1,c_2$, $\Gamma_1(f,c_1,c_2) \subset \Gamma_2(f,Rc_1,c_2)$. 
+Furthermore, if $\bignorm{\tilde{f}-f}_\infty \le c_1(\delta)$ is replaced by 
+\begin{align}
+\label{eq:oracle2alt}
+\sup_{x\in \mathcal{K}}\bignorm{\nabla \tilde{f}- \nabla f}_* \le c_1(\delta)
+\end{align}
+in \cref{def:oracle2}, then any oracle satisfying this modified definition  is also a $(c_1,c_2)$ type-I oracle.
+\end{proposition}
+
+\begin{proof}
+The second part of the claim is immediate from the definitions, hence it remains to prove the first part.
+Let $\gamma$ be  a $(c_1,c_2)$ type-I oracle. Fix $x$, $\delta,f$ and let the oracle's response be $G,Y$. 
+Define $\tilde{f}:\cK \to \mathbb{R}$ by
+\[\tilde{f}(y) =\EE{ f(y)+ \left( G-\nabla f(x) \right)^\top y},\]
+where the expectation is over the randomness of $G$. 
+We immediately see that \todoc{This is not true! $G$ changes with $x$...!?!?}
+\[
+ \nabla \tilde{f}(x) = \EE{\nabla f(x)+ \left( G-\nabla f(x)\right)}
+ =\EE{G}\,.
+ \]
+Further, 
+using $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $,
+we have
+\begin{align*}
+\bignorm{\tilde{f}(y)-f(y)}_{\infty}
+=
+ \Bignorm{ \EE{\left( G-\nabla f(x) \right)^\top y}}_{\infty}
+ \le \largenorm{\EE{G}-\nabla f(x)}_* \, \norm{y}
+ \le  Rc_1(\delta)\,.
+\end{align*}
+showing that  $\gamma$ is also an $(Rc_1,c_2)$ Type-II oracle.
+\end{proof}
 
 
-Here, we will study the minimax regret in the online convex optimization setting, 
- while we study the minimax error in the stochastic convex optimization setting (sometimes, also called as the ``simple regret'').
+
+While in the online convex optimization setting
+the performance of an algorithm is evaluated using the minimax \emph{regret} 
+ in the stochastic convex optimization setting,
+the minimax \emph{error}
+ (sometimes, also called as the ``simple regret'') serves as the basis of comparing algorithms.
 Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
 The \emph{wost case regret} of algorithm $\A$ interacting with $(c_1,c_2)$ type-I oracles for the function class $\F$ is
 
@@ -176,12 +220,14 @@ is defined as
 where, again, $\cA$ ranges through all algorithms that interact with $f$ through an oracle.
 The minimax error for type-II oracles is defined analogously.
 
-When the set $\K$ is bounded and the function set $\F$ is invariant to linear shifts, every $(c_1,c_2)$ type-I oracle is also an $(R c_1,c_2)$ type-II oracle,
-where $R = \sup_{x\in \K} \norm{x}$: simply consider $\tilde{f}(y) =  f(y) + (\EE{G}-\nabla f(x))\tr y $,
-where $G$ is the gradient estimate returned by the oracle (cf. \cref{thm:typered}).
-Thus, if for some set $\Delta_{n}^{\mathrm{type-I}}$, $\Delta_{n}^{\mathrm{type-II}}$
-denote the appropriate minimax errors and $R=1$
-then $\Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(c_1,c_2)  $.
+
+Consider now the case when the set $\K$ is bounded and for simplicity assume that $\sup_{y\in \K} \norm{y}=1$.
+Assume further that the function set $\F$ is invariant to linear shifts.
+Let
+ $\Delta_{n}^{\mathrm{type-I}}$ and $\Delta_{n}^{\mathrm{type-II}}$ denote  the appropriate minimax errors for the two types of oracles.
+Then, by the construction in  \cref{thm:typered},
+ $\Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(c_1,c_2)$.
+ 
 As a result, when proving lower bounds, we shall consider type-I, while when proving upper bounds we will consider type-II oracles.
 Also note that for either type of oracles, $\Delta_{\F,n}^*(c_1,c_2) \le R_{\F,n}^*(c_1,c_2)/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing as $\hat{X}_n$ the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
 Indeed, then $f(\hat{X}_n) \le \frac1n \sum_{t=1}^n f(X_t)$ by Jensen's inequality, hence the average regret of $\A$ will upper bound the error of choosing $\hat{X}_n$ at the end.

@@ -50,8 +50,8 @@
 \tikzexternalize[prefix=tikz/]
 %%%%%%%%%%
 
-\usepackage[disable]{todonotes}
-%\usepackage{todonotes}
+%\usepackage[disable]{todonotes}
+\usepackage{todonotes}
 %%% Added by Prashanth: The tikz externalize business to speed up compilation is incompatible with todonotes, unless we add the following workaround that disables tikz-externalize in todo definition
 \makeatletter
 \renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
@@ -123,6 +123,11 @@
 \newcommand{\ip}[1]{\langle #1 \rangle}
 \newcommand{\norm}[1]{\left\|#1\right\|}
 \newcommand{\scnorm}[1]{\left\|#1\right\|}
+\newcommand{\fnorm}[1]{\|#1\|}
+\newcommand{\largenorm}[1]{\large\|#1\large\|}
+\newcommand{\Largenorm}[1]{\Large\|#1\Large\|}
+\newcommand{\bignorm}[1]{\big\|#1\big\|}
+\newcommand{\Bignorm}[1]{\Big\|#1\Big\|}
 \DeclareMathOperator{\fspan}{span}
 \DeclareMathOperator\erf{erf}
 \DeclareMathOperator{\argmin}{argmin}

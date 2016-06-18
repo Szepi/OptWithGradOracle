@@ -97,7 +97,7 @@ $K_2^{p+q}=2^{q}\alpha^{-p}\mu^{-p}$.
 The proof in this section follows closely the derivation of \citet{saha2011improved}.
 Assume that the gradients of all $\tf \in \cF$ are bounded by $M$, that is $\norm{\nabla \tf(x)}_* \le M$ for all $x \in \cK$. 
 
-Let $\cS_t$ denote the $\sigma$-algebra of all random events up until and including the selection of $X_t$. Since the oracle has unbiased evaluation, that is,  $\EE{Y_t|\cS_t}=X_t$, we have
+Let $\cS_t$ denote the $\sigma$-algebra of all random events up until and including the selection of $X_t$. Since the oracle is unbiased, that is,  $\EE{Y_t|\cS_t}=X_t$, we have
 \begin{equation}
 \EE{\tf_t(Y_t)-\tf_t(X_t)|\cS_t} \le \EE{\ip{\nabla \tf_t(X_t),Y_t-X_t}+\tfrac{L}{2}\|X_t-Y_t\|^2|\cS_t} \le L\delta^2/2~.
 \label{eq:YX}
