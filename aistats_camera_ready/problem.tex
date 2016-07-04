@@ -135,7 +135,7 @@ The type-II oracles that will be explicitly constructed will be all uniform.
 
 We call an oracle (type-I or II)  \emph{unbiased} if $\EE{Y}=x$ in the above definitions. Note that if the oracle is unbiased and the loss function is smooth,
  an algorithm does not loose too much from suffering loss at $Y$ instead of the query point $x$
- since in this case $\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}} \le L\delta^2/2$.
+ since in this case $\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}^2} \le L\delta^2/2$.
 
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
 Examples of specific oracle constructions will be given in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).

@@ -78,7 +78,7 @@ we have
 =  \tilde{O}\left( \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q}} \right)\,.
 \label{eq:MDbound2}
 \end{align}
-In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$.%
+In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$. %
 If the oracle is unbiased (but may be non-uniform and may have memory) and all functions in $\F$ have bounded gradients,\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then the above bounds also hold for the normalized regret $\tfrac{1}{n} R_{\F}^{MD}(c_1,c_2)$ with $C_1+L/4$ in place of $C_1$ for $p=2$, and $C_1$ replaced with $L/4$ and $p$ with $2$ for $p \ge 2$.
 \end{theorem}
 %\begin{proof}
@@ -105,14 +105,14 @@ Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ typ
 ${\F_{L,0}(\K)}$ (Convex and smooth) w.r.t. the Euclidean norm $\|\cdot\|_2$ with $L\ge \frac12$
 % Consider the class $\F_{L,0}$ of functions with domain $\cK$. \todoc{Probably the notation should be $\F_{L,0}(\cK)$?} 
 \[
- \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge K_1\sqrt{d}\left(\dfrac{C_1^{\frac{q}{p}}C_2}{n}\right)^{\frac{p}{2p+q}},
+ \Delta_{\F_{L,0},n}^{*}(c_1,c_2) \ge K_1\sqrt{d} \, C_1^{\frac{q}{2p+q}} C_2^{\frac{p}{2p+q}} n^{-\frac{p}{2p+q}}, % \left(\dfrac{C_1^{\frac{q}{p}}C_2}{n}\right)^{\frac{p}{2p+q}},
 \]
 %where $K_1 =\frac{4p+q}{\sqrt{C_2}(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 \item
 ${\F_{L,1}(\K)}$ ($1$-strongly convex and smooth) with $L\ge 1$
 % For the class $\F_{L,1}$ of functions with domain $\K$, the minimax error \eqref{eq:minimaxerrdef} satisfies
 \[
-\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge K_2 \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q/2}}\,.
+\Delta_{\F_{L,1}, n}^{*}(c_1,c_2) \ge K_2 \,  C_1^{\frac{2q}{2p+q}} C_2^{\frac{2p}{2p+q}} n^{-\frac{2p}{2p+q}}\,. % \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q/2}}\,.
 \]
 \end{itemize}
 Above,
@@ -143,7 +143,7 @@ $f_{v,\epsilon}(x)=\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-
 \begin{remark}(\textbf{\textit{Scaling}})
 For any function class $\F$, by the definition of the minimax error \eqref{eq:minimaxerrdef}, it is easy to see that
 $$\Delta_n^*(\mu \F, c_1,c_2) = \mu \Delta_n^*\left(\F, c_1/\mu,c_2/\mu^2\right),$$
- where $\mu F$ denotes the function class comprised of functions in $\F$, each scaled by $\mu>0$. In particular, this relation implies that the bound for $\mu$-strongly convex function class is only a constant factor away from the bound for $1$-strongly convex function class.
+ where $\mu \F$ denotes the function class comprised of functions in $\F$, each scaled by $\mu>0$. In particular, this relation implies that the bound for $\mu$-strongly convex function class is only a constant factor away from the bound for $1$-strongly convex function class.
 \end{remark}
 
 Table \ref{tab:mse-1} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems~\ref{thm:ub} and~\ref{thm:lb-convex}.

@@ -17,7 +17,7 @@ Let $({\cS}_t)_{t}$ be a filtration such that $X_t$ is ${{\cS}}_t$-measurable.
 Let $\overline G_t = \EE{G_t|{{\cS}}_t}$
 and assume that the nonnegative real-valued deterministic sequence $(\beta_t)_{1\le t\le n}$ is such that
 $\norm{\overline G_t - \nabla {f}(X_t)}_* \le \beta_t$ holds almost surely.
-Further, assume that $D=\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y)$ and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing
+Further, assume that $\mathcal{R}$ is $\alpha$-strongly convex with respect to $\norm{\cdot}$, $D=\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y) < \infty$,  and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing
 sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, the cumulative loss of \cref{alg} for a fixed convex and $L$-smooth  function $f$ can be bounded as
 \begin{align*}
 \EE{ \sum_{t=1}^n {f}(X_t) - {f}(x) }
@@ -28,7 +28,7 @@ sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, the cumulative loss of \cref{alg}
 \end{align*}
 where $\sigma_t^2 = \EE{ \norm{G_t-\overline G_t}_*^2}$ is the ``variance'' of $G_t$.
 
-If ${{f}}$ is also $\mu$-strongly convex w.r.t.\  the $\alpha$-strongly convex function $\mathcal{R}$ with $\alpha > 2L/\mu$, then letting $\eta_t = \dfrac{2}{\mu t}$, and $a_t = \alpha \mu t/2-L > 0$, the cumulative loss of  \cref{alg} can be bounded as
+If ${{f}}$ is also $\mu$-strongly convex with respect to $\mathcal{R}$ with $\mu > 2L/\alpha$, then letting $\eta_t = \dfrac{2}{\mu t}$ and $a_t = \alpha \mu t/2-L > 0$, the cumulative loss of  \cref{alg} can be bounded as
 \begin{align*}
  \EE{ \sum_{t=1}^n {f}(X_t) - {f}(x) }
 \le 	 \EE{{f}(X_1)-{f}(x)}+

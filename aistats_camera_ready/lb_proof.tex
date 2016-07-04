@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 In this section we present the proof of \cref{thm:lb-convex}.
 
-\subsection{Proof of Theorem \ref{thm:lb-convex} for convex + smooth function class $\F_{L,0}(\K)$}
+\subsection{Proof of Theorem~\ref{thm:lb-convex} for the class of smooth convex functions $\F_{L,0}(\K)$}
 \label{sec:appendix-lbconvex}
 We will use a novel technique that will allow us to  reduce the $d$-dimensional case to the $1$-dimensional case (see later).
 Thus, we start with the one-dimensional case.
@@ -412,14 +412,14 @@ On the other hand, for $p=q=2$, we obtain
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Generalization to $d$ dimensions:}
 To prove the $d$-dimensional result, we introduce a new device which allows us to relate the minimax error of the $d$-dimensional problem to that of the $1$-dimensional problem.
-The main idea is to use separable $d$-dimensional functions and oracles and show that if there exists an algorithm with a small loss for a rich set of separable functions and oracles, then there exists good one dimensional algorithms for the one-dimensional components of the functions and oracles.
+The main idea is to use separable $d$-dimensional functions and oracles and show that if there exists an algorithm with a small loss for a rich set of separable functions and oracles, then there exists good one-dimensional algorithms for the one-dimensional components of the functions and oracles.
 
 This device works as follows: First we define one-dimensional functions.
 For $1\le i \le d$, let $\cK_i \subset \R$ be nonempty sets, 
 and for each $v_i \in V := \{\pm 1\}$, let $f_v^{(i)}: \cK_i \to \R$.
 %(later we will use $V_i=\{\pm 1\}$ and $f_v^{(i)}$ will be the functions constructed for the $1$-dimensional case with $\{-1,+1\}\subset \cK_i\subset \R$). Further, let $\gamma_{v_i}^{(i)}$ be a gradient oracle that the algorithms can use when 
-the function to be optimized is $f_v^{(i)}$. 
-
+%the function to be optimized is $f_v^{(i)}$. 
+%
 Let $\cK = \times_{i=1}^d \cK_i$ and for $v = (v_1,\dots,v_d) \in V^d$, let $f_v: \cK \to \R$ be defined by
 \begin{align}
 f_v(x) = \sum_{i=1}^d f^{(i)}_{v_i}(x_i), \qquad x\in \cK\,. \label{eq:sepfdef}
