@@ -52,7 +52,7 @@ of their argument. The reason, as we will see is that the existing oracle constr
 
 \begin{theorem}[\textit{Upper bound}]
 \label{thm:ub}
-Consider the class $\F=\F_{L,0}$ of convex, $L$-smooth functions on the bounded, convex domain $\cK\ne \emptyset$, $\cK \subset \R^d$. \todoc{Was this needed at the end..?}
+Consider the class $\F=\F_{L,0}$ of convex, $L$-smooth functions whose domain includes the bounded, convex set $\cK\ne \emptyset$, $\cK \subset \R^d$. \todoc{Was this needed at the end..?}
 % let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
 Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.
 For any memoryless uniform $(c_1,c_2)$ type-II oracle 
@@ -78,7 +78,7 @@ we have
 =  \tilde{O}\left( \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q}} \right)\,.
 \label{eq:MDbound2}
 \end{align}
-In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$.%
+In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$.
 If the oracle is unbiased (but may be non-uniform and may have memory) and all functions in $\F$ have bounded gradients,\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then the above bounds also hold for the normalized regret $\tfrac{1}{n} R_{\F}^{MD}(c_1,c_2)$ with $C_1+L/4$ in place of $C_1$ for $p=2$, and $C_1$ replaced with $L/4$ and $p$ with $2$ for $p \ge 2$.
 \end{theorem}
 %\begin{proof}

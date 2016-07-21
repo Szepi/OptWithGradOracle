@@ -23,8 +23,9 @@ $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x \in \K \,, y \in \K^\circ$.
  $\norm{\nabla f(x) - \nabla f(y)}_* \le L \norm{x-y}$ \citep[Theorem~2.1.5]{nesterov2004introductory}.
 % \todoc{Add citation}
  We let $\F_{L,\mu, \cR}(\K)$ denote the class of functions that are $\mu$-strongly convex w.r.t. $\cR$ and $L$-smooth w.r.t. some norm $\norm{\cdot}$ on the set $\K$ (typically, we will assume that $\cR$ is also strongly convex w.r.t. $\norm{\cdot}$).
+ Note that $\F_{L,\mu,\cR}(\K)$ includes functions whose domain is larger than or equal to $\K$.
 We also let $\F_{L,\mu}(\K)$ be $\F_{L,\mu,\cR}(\cK)$ with $\cR(\cdot) = \frac12 \norm{\cdot}_2^2$.
-Then, the set of convex and $L$-smooth functions is  $\F_{L,0}(\K)$.
+Then, the set of convex and $L$-smooth functions with domain including $\K$ is  $\F_{L,0}(\K)$.
 Besides the standard big-Oh notation, we will also use $\tilde{O}(\cdot)$:
 For a positive valued function $f: \N \to \R_+$, $\tilde{O}(f)$ contains any $g:\N \to \R_+$ such that
 $g =O( \log^p(n) f(n) )$ for some $p>0$.
