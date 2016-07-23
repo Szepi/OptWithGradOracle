@@ -42,3 +42,9 @@ notes.txt
 arxiv/bgo-arxiv.pdf
 *.pdf
 *.tex~
+
+*.pygstyle
+
+*.auxlock
+
+*.plist
