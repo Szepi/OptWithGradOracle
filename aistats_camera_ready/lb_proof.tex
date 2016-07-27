@@ -87,7 +87,7 @@ and
 We claim that the oracle $\gamma_v$ based on these functions
  is indeed a $(c_1,c_2)$ type-I oracle, with $c_1(\delta)=C_1\delta^p$ and $c_2(\delta)=\frac{C_2}{\delta^q}$. The variance condition is trivial.
 To see that $c_1(\delta) = C_1\delta^p$ works, 
-notice that $\gamma_v(x,\delta) = -\gamma_{-v}(-x,\delta)$ and $f_v'(x) = -f_{-v}'(x)$. Thus,
+notice that $\gamma_v(x,\delta) = -\gamma_{-v}(-x,\delta)$ and $f_v'(x) = -f_{-v}'(-x)$. Thus,
 $|\overline{\gamma}_+(x,\delta)-f_+'(x)| = |\overline{\gamma}_-(-x,\delta)-f_-'(-x)|$, hence it suffices to consider $v=+1$.
 The bias condition trivially holds for $x<0$. For $x\ge 0$, using that $f'_+(x) \le f'_-(x)$, we get
 $f'_+(x) - \min(\epsilon,C_1\delta^p) \le \og_+(x,\delta) \le f'_+(x) + \min(\epsilon,C_1\delta^p)$, showing 
@@ -260,10 +260,10 @@ V=-1)$.
 From \eqref{eq:avg-bd}, we obtain
 \begin{align}
 \Delta_n^{*}  
-%\ge & \inf_{\A} \dfrac{\epsilon}{2}\,  \P(\hat X_n V < 0), \label{eq:strong-convex-bd}\\
-  \ge & \inf_{\A} \dfrac{\epsilon }{2} \, \left(\P_{+}(\hat X_n < 0) + \P_{-}(\hat X_n > 0)\right), \label{eq:Pplus}\\
-  \ge &\inf_{\A} \dfrac{\epsilon }{2} \,\left(1 - \tvnorm{\P_{+}- \P_{-}}\right), \label{eq:lecam}\\
-  \ge &\inf_{\A} \dfrac{\epsilon }{2}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker}
+%\ge & \inf_{\A} \dfrac{\epsilon}{4}\,  \P(\hat X_n V < 0), \label{eq:strong-convex-bd}\\
+  \ge & \inf_{\A} \dfrac{\epsilon }{4} \, \left(\P_{+}(\hat X_n < 0) + \P_{-}(\hat X_n > 0)\right), \label{eq:Pplus}\\
+  \ge &\inf_{\A} \dfrac{\epsilon }{4} \,\left(1 - \tvnorm{\P_{+}- \P_{-}}\right), \label{eq:lecam}\\
+  \ge &\inf_{\A} \dfrac{\epsilon }{4}  \,\left( 1 - \left(\frac12\dkl{P_{+}}{P_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker}
 \end{align}
 where 
  \eqref{eq:Pplus} uses the definitions of $\P_+$ and $\P_-$, $\tvnorm{\cdot}$ denotes the total variation distance,  
@@ -351,10 +351,10 @@ Note that the above bound holds uniformly over all algorithms $\A$.
 Substituting the above bound into \eqref{eq:pinsker}, we obtain 
 \begin{align}
 \Delta_n^{*}
-  \ge  \dfrac{\epsilon}{2} \left(1 - \sqrt{
+  \ge  \dfrac{\epsilon}{4} \left(1 - \sqrt{
     n}  \dfrac{ (\epsilon-C_1\delta_*^p)\delta_*^{q/2}}{\sqrt{C_2}}
   \right)
-  = \frac{\epsilon}{2}\left(1-\sqrt{n} K_1 \epsilon^{\frac{2p+q}{2p}}\right)\,,\label{eq:final-lower-bd}
+  = \frac{\epsilon}{4}\left(1-\sqrt{n} K_1 \epsilon^{\frac{2p+q}{2p}}\right)\,,\label{eq:final-lower-bd}
 \end{align}
 where $K_1= \frac{2p}{\sqrt{C_2}(2p+q)}\left(\frac{q}{C_1(2p+q)}\right)^{\frac{q}{2p}}$.
 %where we used again that $C_1 \delta_*^p\le \epsilon$.
@@ -389,7 +389,7 @@ where $K_1= \frac{2p}{\sqrt{C_2}(2p+q)}\left(\frac{q}{C_1(2p+q)}\right)^{\frac{q
  
 By choosing $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}}$, we see that 
 \begin{align}
-\Delta_n^* \ge \frac{2p+q}{2(4p+q)}\left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}} = \frac{\left(2p+q\right)^2}{2q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}C_1^{\frac{q}{2p+q}} C_2^{\frac{p}{2p+q}}  n^{-\tfrac{p}{2p+q}} \,.
+\Delta_n^* \ge \frac{2p+q}{4(4p+q)}\left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2p+q}} = \frac{\left(2p+q\right)^2}{4q^{\frac{q}{2p+q}}\left(4p+q\right)^{\frac{4p+q}{2p+q}}}C_1^{\frac{q}{2p+q}} C_2^{\frac{p}{2p+q}}  n^{-\tfrac{p}{2p+q}} \,.
 \label{eq:lb-pq}
 \end{align}
 %as long as $n \ge \frac{C_2 (2z+1)^{2+1/z}}{C_1^2 (4z+1)^2}$.
@@ -401,11 +401,11 @@ By choosing $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2
 
 Now, when $p=1$ and $q=2$, the lower bound in \eqref{eq:lb-pq} simplifies to 
 \[
-\Delta_n^{*} \ge \dfrac{ 2}{3\sqrt{3}} C_1^{1/2}C_2^{1/4} n^{-1/4} \,.
+\Delta_n^{*} \ge \dfrac{ 1}{3\sqrt{3}} C_1^{1/2}C_2^{1/4} n^{-1/4} \,.
 \]
 On the other hand, for $p=q=2$, we obtain 
 \[
-\Delta_n^{*} \ge  \frac{9}{10}\left(\frac{1}{25}\right)^{1/3}C_1^{1/3}C_2^{1/3} n^{-1/3}\,.
+\Delta_n^{*} \ge  \frac{9}{20}\left(\frac{1}{25}\right)^{1/3}C_1^{1/3}C_2^{1/3} n^{-1/3}\,.
 \]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
