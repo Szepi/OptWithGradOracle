@@ -185,15 +185,15 @@ Table \ref{tab:mse-1} presents the upper and lower bounds for two specific choic
 % \rowcolor{gray!20}
 % \multicolumn{3}{|c|}{\multirow{2}{*}{\textbf{Lower bounds}}}\\[1.7em]
 % \midrule
-  \multirow{2}{*}{\textbf{Oracle type}} & \multicolumn{2}{c}{\multirow{2}{*}{\textbf{Convex + Smooth}}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Strongly Convex + Smooth}}} \\[1em]
+  \multirow{2}{*}{\textbf{Type-I Oracle}} & \multicolumn{2}{c}{\multirow{2}{*}{\textbf{Convex + Smooth}}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Strongly Convex + Smooth}}} \\[1em]
  \midrule
 % \rowcolor{gray!20}
  & \textbf{Upper bound} & \textbf{Lower bound} & \textbf{Upper bound} & \textbf{Lower bound}\\
  \midrule
-\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{ n}\right)^{1/2}$} \\[0.5ex]
+\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D^2}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{ n}\right)^{1/2}$} \\[0.5ex]
  ($p=1$, $q=2$) & & & &\\\midrule
 %%%%%%%%%%%%%%%%%%%
-\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 }{ n}\right)^{2/3}$}\\[1.4ex]
+\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{D^3}}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2\sqrt{D}}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 }{ n}\right)^{2/3}$}\\[1.4ex]
  ($p=2$, $q=2$) & & & &\\
   %\midrule
  %\textbf{No bias or variance} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\left(\dfrac{d^2}{n}\right)^{1/2}$}  \\[0.5ex]

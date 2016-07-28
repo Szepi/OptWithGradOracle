@@ -91,26 +91,35 @@ the last $3$ terms in \eqref{eq:ubToBeOpt} are optimized to
  
 When $\tilde{f} \in \cF_{L,\mu, \cR}$ is $L$-smooth and $\mu$-strongly convex, for
 $\eta_t = 2/(\mu t)$ and 
-%\[
-%\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n} \,,
-%\]
+$
+\delta^{p+q} =  \tfrac{C_2\left( \log n+1+\tfrac{\alpha \mu}{\alpha \mu -2L}\right)}{\sqrt{2D\alpha} \mu C_1 n} \,,
+$
+we similarly obtain, for type-I oracle, 
+ \begin{align*}
+ \MoveEqLeft
+\frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} -\frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)}\\
+&\le \sqrt{\dfrac{2D}{\alpha}} C_1\delta^p+\dfrac{C_2 \delta^{-q}}{\alpha \mu n} \sum_{t=1}^{n-1}\dfrac{1}{t-\dfrac{2L}{\alpha \mu}}\\
+&\le \sqrt{\dfrac{2D}{\alpha}}C_1\delta^p+\dfrac{C_2 }{\alpha \mu}\delta^{-q} \dfrac{\log n+1+\alpha \mu/(\alpha \mu-2L)}{n}\\
+&\le 2^{\frac{q}{2(p+q)}}\alpha^{-\frac{2p+q}{2(p+q)}}\mu^{-\frac{p}{p+q}} D^{\frac{q}{2(p+q)}}C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}\,.
+ \end{align*}
+
+For type-II oracle, choosing
 $
 \delta^{p+q} =  \tfrac{C_2\left( \log n+1+\tfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)} \,,
 $
-we similarly obtain 
+we get
  \begin{align*}
  \MoveEqLeft
 \frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} -\frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)}\\
 &\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 \delta^{-q}}{\alpha \mu n} \sum_{t=1}^{n-1}\dfrac{1}{t-\dfrac{2L}{\alpha \mu}}\\
 &\le (2+\dfrac{2}{n})C_1\delta^p+\dfrac{C_2 }{\alpha \mu}\delta^{-q} \dfrac{\log n+1+\alpha \mu/(\alpha \mu-2L)}{n}\\
-&\le K_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}\,.
+&\le 2^{\frac{q}{p+q}}\alpha^{-\frac{p}{p+q}}\mu^{-\frac{p}{p+q}} K_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}\,.
  \end{align*}
-The last step optimizes the bound via the choice of $\delta$, and
+The last step optimizes the bound via the choice of $\delta$.
 %$\delta^{p+q} =  \sqrt{\dfrac{\alpha}{2D}}\dfrac{C_2 \log n}{\alpha \mu C_1 n}$,
 %$\delta^{p+q} =  \dfrac{C_2\left( \log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}\right)}{2\alpha \mu C_1 (n+1)}$,
 %where
 %$K_2^{p+q}=\sqrt{2}^{2p+3q}D^{q/2}\alpha^{-p-q/2}\mu^{-p}$.
-$K_2^{p+q}=2^{q}\alpha^{-p}\mu^{-p}$.
 
 
 
