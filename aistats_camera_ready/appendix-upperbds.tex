@@ -39,7 +39,27 @@ If ${{f}}$ is also $\mu$-strongly convex with respect to $\mathcal{R}$ with $\mu
 
 Now we can easily prove the theorem.
 %By the discussion in \cref{sec:problem}, we have $\Delta^*_{\F,n}(c_1,c_2) \le R^*_{\F,n}(c_1,c_2)/n$ by Jensen's inequality, so it is enough to bound the regret for the online case.
-From the bias condition in \cref{def:oracle2} and using that the oracle is memoryless and uniform, we get
+For type-I oracle, the result immediately follows by substituting $\beta_t = C_1\delta^p$, $\sigma^2_t = C_2 \delta^{-q}$. Choosing $$\eta_t = \alpha/(a_t+L)$$ as in the lemma with 
+$a_t=a t^r$ for some $0<r<1$, we get
+\begin{align}
+\MoveEqLeft
+\frac{1}{n} \EE{ \sum_{t=1}^n f( X_t) - \inf_{x \in \cK} \sum_{t=1}^n f(x)} \nonumber \\
+&\le \frac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}+\frac{DL}{\alpha}  \right) +\sqrt{\dfrac{2D}{\alpha}} C_1\delta^p
++\frac{Da}{\alpha} n^{r-1}+\dfrac{C_2 \delta^{-q}}{2a(1-r)}n^{-r} \,.
+\label{eq:ubToBeOptTypeI}
+ \end{align}
+  Choosing $r = \frac{p+q}{2p+q}$,  
+ $a =2^{\frac{q}{2(2p+q)}} \left(\frac{2p+q}{2p}\right)^{\frac{p}{2p+q}} D^{-\frac{1}{2}} C_1^{\frac{q}{2p+q}} C_2^{\frac{p}{2p+q}} $
+ and
+ $\delta = \alpha^{\frac{1}{2(p+q)}}2^{-\frac{1}{2p+q}}\left(\frac{2p+q}{2p}\right)^{\frac{1}{2p+q}} C_1^{-\frac{2}{2p+q}} C_2^{\frac{1}{2p+q}}n^{-\frac{1}{2p+q}}$,
+the last $3$ terms in \eqref{eq:ubToBeOptTypeI} are optimized to
+ \[
+ K_1 D^{1/2} C_1^{q/(2p+q)} C_2^{p/(2p+q)} n ^{-p/(2p+q)} \,,
+ \]
+ where
+ $K_1 \le 2^{\frac{q}{2(2p+q)}} \left( \alpha^{-1}+2\alpha^{-\frac{q}{2(p+q)}} \right) \left( \frac{2p+q}{2p} \right)^{\frac{p}{2p+q}}$. This implies \eqref{eq:MDbound1TypeI}.
+
+For type-II oracle, from the bias condition in \cref{def:oracle2} and using that the oracle is memoryless and uniform, we get
 \begin{align*}
  \frac{1}{n} \EE{ \sum_{t=1}^n f(X_t) - \inf_{x \in \cK}\sum_{t=1}^n f(x) }
  \le \frac{1}{n}\EE{ \sum_{t=1}^n \tilde{f}(X_t) - \inf_{x \in \cK}\sum_{t=1}^n \tilde{f}(x) } +2C_1 \delta^p
@@ -47,9 +67,8 @@ From the bias condition in \cref{def:oracle2} and using that the oracle is memor
 \end{align*}
 
 Given $\overline{G}_t=\EE{G_t} = \nabla \tilde{f}(X_t)$, where $\tilde{f}\in \cF_{L,0}$ is convex and smooth,
-the result immediately follows by applying \cref{lem:ub} to $\tilde{f}$. Choosing $$\eta_t = \alpha/(a_t+L)$$ as in the lemma with 
-$a_t=a t^r$ for some $0<r<1$, and
-substituting
+the result immediately follows by applying \cref{lem:ub} to $\tilde{f}$.
+Substituting
  $\beta_t = 0$ (since we have a type-II oracle), $\sigma^2_t = C_2 \delta^{-q}$, respectively, we obtain
  \begin{align}
 \MoveEqLeft
@@ -63,11 +82,11 @@ substituting
  $a^{2p+q} =2^{q-p}\left( 2+\tfrac{q}{p} \right)^p\left(1+ \tfrac{1}{n} \right)^q \left( \tfrac{\alpha}{D} \right)^{p+q}C_1^q C_2^p $,
 the last $3$ terms in \eqref{eq:ubToBeOpt} are optimized to
  \[
- K_1 C_1^{q/(2p+q)} C_2^{p/(2p+q)} n ^{-p/(2p+q)} \,,
+ K'_1 D^{p/(2p+q)} C_1^{q/(2p+q)} C_2^{p/(2p+q)} n ^{-p/(2p+q)} \,,
  \]
  where
 % $K_1 = 2^{\dfrac{3q}{2(p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{\dfrac{p+q^2+2pq}{(p+q)(2p+q)}}+2^{\dfrac{3q}{2(2p+q)}} \left( \sqrt{\dfrac{D}{\alpha}} \right)^{2-\dfrac{1}{2p+q}}$.
- $(K_1/3)^{2p+q} \le 2^{2q-p}\left(2+q/p \right)^p \left(D/\alpha\right)^{p}$. This implies \eqref{eq:MDbound1}.
+ $(K'_1/3)^{2p+q} \le 2^{2q-p}\left(2+q/p \right)^p \left(1/\alpha\right)^{p}$. This implies \eqref{eq:MDbound1}.
 % \begin{align*}
  
 When $\tilde{f} \in \cF_{L,\mu, \cR}$ is $L$-smooth and $\mu$-strongly convex, for

@@ -55,16 +55,25 @@ of their argument. The reason, as we will see is that the existing oracle constr
 Consider the class $\F=\F_{L,0}$ of convex, $L$-smooth functions whose domain includes the bounded, convex set $\cK\ne \emptyset$, $\cK \subset \R^d$. \todoc{Was this needed at the end..?}
 % let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
 Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.
-For any memoryless uniform $(c_1,c_2)$ type-II oracle 
+For any $(c_1,c_2)$ type-I or any memoryless uniform $(c_1,c_2)$ type-II oracle 
 with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
 the worst-case error (and hence the minimax error) of \cref{alg} run with an appropriate parameter setting
 %for the function class $\F=\F_{L,0}$ 
 can be bounded as \todoc{I would perhaps use $K_1$ and $K_2$ as in the lower bound, and give the log term in the second bound. The huge paranthesis are ugly.}
  \begin{align}
- \label{eq:MDbound1}
- \Delta_{\F_{L,0},n}^{MD}(c_1,c_2) 
+ \label{eq:MDbound1TypeI}
+ \Delta_{\F_{L,0},n}^{MD, \mathrm{type-I}}(c_1,c_2) 
  %\frac{R_{\F_{L,0},n}^*(c_1,c_2)}{n}
- &= O\left(\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{n}\right)^{\frac{p}{2p+q}}\right),
+ %&= O\left(\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{n}\right)^{\frac{p}{2p+q}}\right),
+ &\leq  K_1 D^{ \frac{1}{2}} C_1^{\frac{q}{2p+q} } C_2^{\frac{p}{2p+q}} n ^{-\frac{p}{2p+q}} + \frac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}+\frac{DL}{\alpha}  \right),
+%\vspace{-0.3cm}
+ \end{align}
+ \begin{align}
+ \label{eq:MDbound1}
+ \Delta_{\F_{L,0},n}^{MD, \mathrm{type-II}}(c_1,c_2) 
+ %\frac{R_{\F_{L,0},n}^*(c_1,c_2)}{n}
+ %&= O\left(\left(\dfrac{DC_1^{\frac{q}{p}}C_2}{n}\right)^{\frac{p}{2p+q}}\right),
+ &\leq  K'_1 D^{ \frac{p}{2p+q}} C_1^{\frac{q}{2p+q} } C_2^{\frac{p}{2p+q}} n ^{-\frac{p}{2p+q}} + \frac{1}{n}\left(\EE{f(X_1)-\inf_{x \in \cK}f(x)}+\frac{DL}{\alpha}  \right),
 %\vspace{-0.3cm}
  \end{align}
  where $D=\sup_{x,y\in \cK} \DR(x,y)$.
@@ -75,10 +84,20 @@ we have
 \Delta_{\F_{L,\mu,\cR},n}^{MD}(c_1,c_2) 
 %} \\
 & %\le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} 
-=  \tilde{O}\left( \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q}} \right)\,.
+%=  \tilde{O}\left( \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q}} \right)
+\leq  K_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}  + \frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)} 
+\,.
 \label{eq:MDbound2}
 \end{align}
-In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$. 
+%In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$. 
+Above,
+the constants $K_1$, $K'_1$ and $K_2$ depend on $p, q, \alpha, \mu$.%
+\footnote{
+In particular,
+$K_1 = 2^{\frac{q}{2(2p+q)}} \left( \alpha^{-1}+2\alpha^{-\frac{q}{2(p+q)}} \right) \left( \frac{2p+q}{2p} \right)^{\frac{p}{2p+q}}$,
+$K'_1 = 3\cdot2^{\frac{2q-p}{2p+q} }\left(2+q/p \right)^{\frac{p}{2p+q}} \left(1/\alpha\right)^{\frac{p}{2p+q}}$
+and
+$K_2=2^{\frac{q}{p+q}}\alpha^{-\frac{p}{p+q}}\mu^{-\frac{p}{p+q}}$.}
 If the oracle is unbiased (but may be non-uniform and may have memory) and all functions in $\F$ have bounded gradients,\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then the above bounds also hold for the normalized regret $\tfrac{1}{n} R_{\F}^{MD}(c_1,c_2)$ with $C_1+L/4$ in place of $C_1$ for $p=2$, and $C_1$ replaced with $L/4$ and $p$ with $2$ for $p \ge 2$.
 \end{theorem}
 %\begin{proof}
