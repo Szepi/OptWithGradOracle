@@ -80,24 +80,31 @@ can be bounded as \todoc{I would perhaps use $K_1$ and $K_2$ as in the lower bou
  For the class $\F=\F_{L,\mu,\cR}$ of $\mu$-strongly convex (w.r.t.\  $\cR$) and $L$-smooth functions, with $\alpha >2L/\mu$, 
 we have
 \begin{align}
+\Delta_{\F_{L,\mu,\cR},n}^{MD, \mathrm{type-I}}(c_1,c_2) 
+\leq  K_2D^{\frac{q}{2(p+q)}}C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\frac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}  + \frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)} 
+\,.
+\label{eq:MDbound2TypeI}
+\end{align}
+\begin{align}
 %\lefteqn{
-\Delta_{\F_{L,\mu,\cR},n}^{MD}(c_1,c_2) 
+\Delta_{\F_{L,\mu,\cR},n}^{MD, \mathrm{type-II}}(c_1,c_2) 
 %} \\
 & %\le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} 
 %=  \tilde{O}\left( \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q}} \right)
-\leq  K_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\dfrac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}  + \frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)} 
+\leq  K'_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\frac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}  + \frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)} 
 \,.
 \label{eq:MDbound2}
 \end{align}
 %In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$. 
 Above,
-the constants $K_1$, $K'_1$ and $K_2$ depend on $p, q, \alpha, \mu$.%
+the constants $K_1$, $K'_1$, $K_2$ and $K'_2$ depend on $p, q, \alpha, \mu$.%
 \footnote{
 In particular,
 $K_1 = 2^{\frac{q}{2(2p+q)}} \left( \alpha^{-1}+2\alpha^{-\frac{q}{2(p+q)}} \right) \left( \frac{2p+q}{2p} \right)^{\frac{p}{2p+q}}$,
-$K'_1 = 3\cdot2^{\frac{2q-p}{2p+q} }\left(2+q/p \right)^{\frac{p}{2p+q}} \left(1/\alpha\right)^{\frac{p}{2p+q}}$
+$K'_1 = 3\cdot2^{\frac{2q-p}{2p+q} }\left(2+q/p \right)^{\frac{p}{2p+q}} \left(1/\alpha\right)^{\frac{p}{2p+q}}$,
+$K_2=2^{\frac{q}{2(p+q)}}\alpha^{-\frac{2p+q}{2(p+q)}}\mu^{-\frac{p}{p+q}}$
 and
-$K_2=2^{\frac{q}{p+q}}\alpha^{-\frac{p}{p+q}}\mu^{-\frac{p}{p+q}}$.}
+$K'_2=2^{\frac{q}{p+q}}\alpha^{-\frac{p}{p+q}}\mu^{-\frac{p}{p+q}}$.}
 If the oracle is unbiased (but may be non-uniform and may have memory) and all functions in $\F$ have bounded gradients,\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then the above bounds also hold for the normalized regret $\tfrac{1}{n} R_{\F}^{MD}(c_1,c_2)$ with $C_1+L/4$ in place of $C_1$ for $p=2$, and $C_1$ replaced with $L/4$ and $p$ with $2$ for $p \ge 2$.
 \end{theorem}
 %\begin{proof}
