@@ -91,9 +91,10 @@ $\norm{x-Y}\le \delta$ almost surely (a.s.) and the following hold:
 \vspace{-0.1cm}
 \end{definition}
 The upper bound on $\delta$ is arbitrary: by changing the norm, any other value can also be accommodated. Also, the upper bound only matters when $\K$ is bounded and the functions in $\cF$ are defined only in a small vicinity of $\K$.
-\todoc[inline]{For precision, we should take conditional expectations given the past in the above definitions.}
+%\todoc[inline]{For precision, we should take conditional expectations given the past in the above definitions.}
 
-The second type of oracles considered is as follows: \todoa{Here we could distinguish between the class of $f$ and $\tf$: we basically do not need to assume anything about $f$ as long as $\tf$ belongs to a nice enough family.}
+The second type of oracles considered is as follows: 
+%\todoa{Here we could distinguish between the class of $f$ and $\tf$: we basically do not need to assume anything about $f$ as long as $\tf$ belongs to a nice enough family.}
 \begin{definition}[$(c_1,c_2)$ type-II  oracle]
 \label{def:oracle2}
 We say that $\gamma$ is a  $(c_1,c_2)$ type-II oracle for $\cF$, if for any function $f\in \cF$,
@@ -241,7 +242,8 @@ Then, by the construction in  \cref{thm:typered},
 \Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(Rc_1,c_2)\,.
 \end{align}
 %As a result, when proving lower bounds, we shall consider type-I, while when proving upper bounds we will consider type-II oracles.
-Note that $R$ may depend on the dimension $d$, e.g., for $\mathcal{K} = \left[ -1,1 \right]^d$, $R = \sqrt{d}$ when using the Euclidean norm. To clarify the different $c_1$ used by type-I and II oracles, we will present the upper and lower bounds separately for the two oracles, although the type-I upper bound can actually be derived from type-II (and the type-II lower bound can be derived from type-I). \todox{I mentioned the different $c_1$  here.}
+Note that $R$ may depend on the dimension $d$, e.g., for $\mathcal{K} = \left[ -1,1 \right]^d$, $R = \sqrt{d}$ when using the Euclidean norm. To clarify the different $c_1$ used by type-I and II oracles, we will present the upper and lower bounds separately for the two oracles, although the type-I upper bound can actually be derived from type-II (and the type-II lower bound can be derived from type-I). 
+%\todox{I mentioned the different $c_1$  here.}
 Also note that for either type of oracles, $\Delta_{\F,n}^*(c_1,c_2) \le R_{\F,n}^*(c_1,c_2)/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing as $\hat{X}_n$ the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
 Indeed, then $f(\hat{X}_n) \le \frac1n \sum_{t=1}^n f(X_t)$ by Jensen's inequality, hence the average regret of $\A$ will upper bound the error of choosing $\hat{X}_n$ at the end.
 A consequence of this relation is that a lower bound for $\Delta_{\F,n}^*(c_1,c_2) $ will also be a lower bound for $R^*_{\F,n}(c_1,c_2)/n$ and an upper bound on $R^*_{\F,n}(c_1,c_2)$ leads to an upper bound on $\Delta_{\F,n}^*(c_1,c_2)$. This explains why we allowed taking supremum over time-varying oracles in the definition of the regret and why we used a static oracle for the optimization error: to maximize the strength of the bounds we obtain.

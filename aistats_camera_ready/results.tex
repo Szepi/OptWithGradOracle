@@ -52,14 +52,16 @@ of their argument. The reason, as we will see is that the existing oracle constr
 
 \begin{theorem}[\textit{Upper bound}]
 \label{thm:ub}
-Consider the class $\F=\F_{L,0}$ of convex, $L$-smooth functions whose domain includes the bounded, convex set $\cK\ne \emptyset$, $\cK \subset \R^d$. \todoc{Was this needed at the end..?}
+Consider the class $\F=\F_{L,0}$ of convex, $L$-smooth functions whose domain includes the bounded, convex set $\cK\ne \emptyset$, $\cK \subset \R^d$. 
+%\todoc{Was this needed at the end..?}
 % let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
 Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.
 For any $(c_1,c_2)$ type-I or any memoryless uniform $(c_1,c_2)$ type-II oracle 
 with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
 the worst-case error (and hence the minimax error) of \cref{alg} run with an appropriate parameter setting
 %for the function class $\F=\F_{L,0}$ 
-can be bounded as \todoc{I would perhaps use $K_1$ and $K_2$ as in the lower bound, and give the log term in the second bound. The huge paranthesis are ugly.}
+can be bounded as 
+%\todoc{I would perhaps use $K_1$ and $K_2$ as in the lower bound, and give the log term in the second bound. The huge paranthesis are ugly.}
  \begin{align}
  \label{eq:MDbound1TypeI}
  \Delta_{\F_{L,0},n}^{MD, \mathrm{type-I}}(c_1,c_2) 
