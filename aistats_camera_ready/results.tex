@@ -4,8 +4,8 @@
 In this section we provide our main results in forms of upper and lower bounds on the minimax error.
 First we give an upper bound for the mirror-descent algorithm shown as \cref{alg}.
 In the algorithm, we assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex and the target function $f$ is smooth or  smooth and strongly convex.
-We give results for polynomial oracles, i.e., when $c_1$ and $c_2$ are polynomial functions (in particular, monomial functions)
-of their argument. The reason, as we will see is that the existing oracle constructions give rise to polynomial oracles for the function classes that we consider.
+We give results for polynomial oracles, that is, when $c_1$ and $c_2$ are polynomial functions (in particular, monomial functions)
+of their argument. The reason, as we will see, is that existing oracle constructions give rise to polynomial oracles for the function classes that we consider.
 % In the algorithm, we will assume that the regularizer function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\|\cdot\|$ on $\R^d$, that is $\tfrac{\alpha}{2} \|x-y\|^2 \le \DR(x,y)=f(x)-f(y)-\ip{\nabla f(y),x-y}$ for all $x,y \in \K$. Moreover, we will consider the cases when the target function $f$ is $L$-smooth w.r.t.\  the norm $\| \cdot \|$ for some $L>0$, that is, $f(x) \le f(y) + \ip{\nabla f(y), y-x} + \tfrac{L}{2} \|x-y\|^2$, and when $f$ is $\mu$-strongly convex w.r.t.\  $\cR$, that is,
 % $f(x) \ge f(y) + \ip{\nabla f(y),y-x} +\tfrac{\mu}{2} \DR(x,y)$ for all $x,y \in \K$.
 
@@ -55,7 +55,7 @@ of their argument. The reason, as we will see is that the existing oracle constr
 Consider the class $\F=\F_{L,0}$ of convex, $L$-smooth functions whose domain includes the bounded, convex set $\cK\ne \emptyset$, $\cK \subset \R^d$. 
 %\todoc{Was this needed at the end..?}
 % let $\cF$ be a class of convex functions on $\cK$ such that $f \in \cF$ is $L$-smooth for some $L>0$.
-Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex w.r.t.\  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.
+Assume that the regularization function $\mathcal{R}$ is $\alpha$-strongly convex with respect to (w.r.t.)  some norm $\norm{\cdot}$, and $\cK^\circ\subseteq \dom(\mathcal{R})$.
 For any $(c_1,c_2)$ type-I or any memoryless uniform $(c_1,c_2)$ type-II oracle 
 with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$, 
 the worst-case error (and hence the minimax error) of \cref{alg} run with an appropriate parameter setting
@@ -103,7 +103,7 @@ the constants $K_1$, $K'_1$, $K_2$ and $K'_2$ depend on $p, q, \alpha, \mu$.%
 \footnote{
 In particular,
 $K_1 = 2^{\frac{q}{2(2p+q)}} \left( \alpha^{-1}+2\alpha^{-\frac{q}{2(p+q)}} \right) \left( \frac{2p+q}{2p} \right)^{\frac{p}{2p+q}}$,
-$K'_1 = 3\cdot2^{\frac{2q-p}{2p+q} }\left(2+q/p \right)^{\frac{p}{2p+q}} \left(1/\alpha\right)^{\frac{p}{2p+q}}$,
+$K'_1 = 3 \left(2+\frac{2}{n}\right)^{\frac{q}{2p+q} } \alpha^{-\frac{p}{2p+q}}\left(\frac{2p+q}{2p} \right)^{\frac{p}{2p+q}}$,
 $K_2=2^{\frac{q}{2(p+q)}}\alpha^{-\frac{2p+q}{2(p+q)}}\mu^{-\frac{p}{p+q}}$
 and
 $K'_2=2^{\frac{q}{p+q}}\alpha^{-\frac{p}{p+q}}\mu^{-\frac{p}{p+q}}$.}

@@ -119,18 +119,8 @@ to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
 \frac{1}{\eta_t} \left(D_{\mathcal{R}}(x,X_t)-D_{\mathcal{R}}(x,X_{t+1})\right) \\&+
 \underbrace{\left(\frac{a_t+L}{\alpha}-\frac{1}{\eta_t}\right) D_{\mathcal{R}}(X_{t+1},X_t)}_{=0}\numberthis \label{eq:ubProofWithNoise} \,.
 \end{align*}
-Finally, we sum up these inequalities for $t=1,\dots,n-1$.
-To bound the right-hand side of the result, we use
-\begin{align}
-\MoveEqLeft \sum_{t=1}^{n-1} \frac{1}{\eta_t} \left(\DR(x,X_t)-\DR(x,X_{t+1})\right)
- \nonumber \\
-&= \DR(x,X_1) \frac{1}{\eta_1} + \DR(x,X_2) \left(\frac{1}{\eta_2}-\frac{1}{\eta_1}\right)
-+ \ldots+\DR(x,X_{n-1}) \left(\frac{1}{\eta_{n-1}} -\frac{1}{\eta_{n-2}}\right)- \frac{1}{\eta_{n-1}} \DR(x,X_n) \nonumber \\
-& \le D \frac{1}{\eta_1} + D \sum_{t=2}^{n-1} \left(\frac1{\eta_{t}}-\frac1{\eta_{t-1}}\right) \nonumber \\
-& = \frac{D}{\eta_{n-1}}\,,  \label{eq:div-telescope}
-\end{align}
-where the inequality results from the fact that $\{\eta_t\}$ is non-increasing.
-Hence, by the tower rule, using $\sigma_t^2 = \EE{ \norm{\xi_t}_*^2}$,
+Finally, we sum up these inequalities for $t=1,\dots,n-1$. Since the divergence terms telescope, recall \eqref{eq:div-telescope},
+by the tower rule and using $\sigma_t^2 = \EE{ \norm{\xi_t}_*^2}$, we obtain
 \begin{align*}
  \EE{ \sum_{t=1}^n f(X_t) - f(x) }
 & \le
