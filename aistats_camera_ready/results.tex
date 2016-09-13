@@ -107,7 +107,18 @@ $K'_1 = 3 \left(2+\frac{2}{n}\right)^{\frac{q}{2p+q} } \alpha^{-\frac{p}{2p+q}}\
 $K_2=2^{\frac{q}{2(p+q)}}\alpha^{-\frac{2p+q}{2(p+q)}}\mu^{-\frac{p}{p+q}}$
 and
 $K'_2=2^{\frac{q}{p+q}}\alpha^{-\frac{p}{p+q}}\mu^{-\frac{p}{p+q}}$.}
-If the oracle is unbiased (but may be non-uniform and may have memory) and all functions in $\F$ have bounded gradients,\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then the above bounds also hold for the normalized regret $\tfrac{1}{n} R_{\F}^{MD}(c_1,c_2)$ with $C_1+L/4$ in place of $C_1$ for $p=2$, and $C_1$ replaced with $L/4$ and $p$ with $2$ for $p \ge 2$.
+
+If the oracle is unbiased (but may be non-uniform and may have memory) and either
+(i) the oracle is of type-I and $R=\sup_{x\in\cK} \|x\|$; or (ii) the oracle is of type-II and all functions in $\F$ have bounded gradients\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then, for $\F \subset \F_{L,0}$, the regret of \cref{alg} run with an appropriate parameter setting can be bounded as
+\[
+\frac{1}{n} R_{\F}^{MD}(c_1,c_2) = O\left( D^{\frac{\hp}{2\hp+q}} \hC_1^{\frac{q}{2\hp+q}} C_2^{\frac{\hp}{2\hp+q}}  n^{-\frac{\hp}{2\hp+q}} \right)
+\]
+where $\hp=\min\{p,2\}$, $\hC_1=C_1 \indic{p \le 2} + (L/4) \indic{p \ge 2}$ for type-II oracles and $\hC_1=R C_1 \indic{p \le 2} + (L/4) \indic{p \ge 2}$ for type-I oracles.\footnote{Here, $\indic{E}$ denotes the indicator function of event $E$. Note that $\hp$ is the dominating exponent from $\delta^p$ and $\delta^2$, associated with the error coming from the bias of the oracle and the error coming from the mismatch of $Y_t$ and $X_t$, respectively, and $\hC_1$ is the coefficient associated with the dominating term. The coefficient associated with the main term of the bound is
+$2^{1+\frac{q/2}{2\hp+q}}(2\hp+q) (2\hp \alpha)^{-\frac{\hp}{2\hp+q}} q^{-\frac{q}{2\hp+q}}$.} In the strongly convex case, that is, when $\F \subset \F_{L,\mu}$, an appropriate parameter setting of \cref{alg} yields a regret bound\footnote{
+The coefficient associated with the main term of the bound is $(\hp+q)\hp^{-\frac{\hp}{\hp+q}} q^{-\frac{q}{\hp+q}} (\alpha \mu)^{-\frac{\hp}{\hp+q}}$.}
+\[
+\frac{1}{n} R_{\F}^{MD}(c_1,c_2) = O\left(\hC_1^{\frac{q}{\hp+q}} C_2^{\frac{\hp}{\hp+q}} n^{-\frac{\hp}{\hp+q}} (1+\log n)^{\frac{\hp}{\hp+q}} \right).
+\]
 \end{theorem}
 %\begin{proof}
 %See \cref{sec:appendix-md}.

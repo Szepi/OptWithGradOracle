@@ -133,71 +133,101 @@ where the bound is optimized in the last step via the choice of $\delta$.
 
 
 \subsection{Online optimization}
-The proof in this section follows closely the derivation of \citet{saha2011improved}.
-Assume that the gradients of all $\tf_t \in \cF$ are bounded by $M$, that is $\norm{\nabla \tf_t(x)}_* \le M$ for all $x \in \cK$ (here, the subindex of $\tf_t$ signifies that the oracle is non-uniform).
+The proof in this section follows closely the derivation of \citet{saha2011improved}. First we consider the case of type-II oracles.
 
 Let $\cS_t$ denote the $\sigma$-algebra of all random events up until and including the selection of $X_t$. Since the oracle is unbiased, that is,  $\EE{Y_t|\cS_t}=X_t$, we have
 \begin{equation}
 \EE{\tf_t(Y_t)-\tf_t(X_t)|\cS_t} \le \EE{\ip{\nabla \tf_t(X_t),Y_t-X_t}+\tfrac{L}{2}\|X_t-Y_t\|^2|\cS_t} \le L\delta^2/2~.
 \label{eq:YX}
 \end{equation}
-Instead of Lemma~\ref{lem:mdlinregret} used in the optimization proof, we will employ the prox-lemma \citep[see, e.g.,][]{Beck2003mirror, NeJuLaSh09}:
+This inequality, the definition of type-II oracles, and the convexity of $\tf_t$ implies, for any $x \in \cK$,
+\begin{align}
+\EE{\sum_{t=1}^n f_t(Y_t)} - \sum_{t=1}^n f_t(x) 
+& \le \EE{\sum_{t=1}^n \tf_t(Y_t) -  \sum_{t=1}^n \tf_t(x)} + 2 n C_1 \delta^{p} \nonumber \\
+& \le \EE{\sum_{t=1}^n \tf_t(X_t) -  \sum_{t=1}^n \tf_t(x)} + 2 n C_1 \delta^{p} + \frac{n L \delta^2}{2} \nonumber \\
+& \le \EE{\sum_{t=1}^n \ip{\nabla \tf_t(X_t), X_t-x }} + 2 n C_1 \delta^{p} + \frac{n L \delta^2}{2} \label{eq:t2-lin} \\
+& = \EE{\sum_{t=1}^n \ip{G_t, X_t-x }} + 2 n C_1 \delta^{p} + \frac{n L \delta^2}{2}~.
+\label{eq:t2-grad}
+\end{align}
+Instead of Lemma~\ref{lem:mdlinregret} used in the optimization proof, we apply the prox-lemma \citep[see, e.g.,][]{Beck2003mirror, NeJuLaSh09}:
 \begin{equation}
 \label{eq:proxlemma}
-\ip{G_t,X_t-x} \le \frac{1}{\eta_t}(D_\cR(x,X_t)-D_\cR(x,X_{t+1})) + \eta_t \frac{\|G_t\|_*^2}{2\alpha}~.
+\ip{G_t,X_t-x} \le \frac{1}{\eta_t}\big(D_\cR(x,X_t)-D_\cR(x,X_{t+1})\big) + \eta_t \frac{\|G_t\|_*^2}{2\alpha}~.
 \end{equation}
 Summing up the above bound for all $t$, the divergence terms telescope, since
 \begin{align}
-\MoveEqLeft \sum_{t=1}^{n-1} \frac{1}{\eta_t} \left(\DR(x,X_t)-\DR(x,X_{t+1})\right)
+\lefteqn{\sum_{t=1}^{n-1} \frac{1}{\eta_t} \left(\DR(x,X_t)-\DR(x,X_{t+1})\right)}
  \nonumber \\
 &= \DR(x,X_1) \frac{1}{\eta_1} + \DR(x,X_2) \left(\frac{1}{\eta_2}-\frac{1}{\eta_1}\right)
 + \ldots+\DR(x,X_{n-1}) \left(\frac{1}{\eta_{n-1}} -\frac{1}{\eta_{n-2}}\right)- \frac{1}{\eta_{n-1}} \DR(x,X_n) \nonumber \\
-& \le D \frac{1}{\eta_1} + D \sum_{t=2}^{n-1} \left(\frac1{\eta_{t}}-\frac1{\eta_{t-1}}\right) \nonumber \\
+& \le \frac{D}{\eta_1} + D \sum_{t=2}^{n-1} \left(\frac1{\eta_{t}}-\frac1{\eta_{t-1}}\right) \nonumber \\
 & = \frac{D}{\eta_{n-1}}\,,  \label{eq:div-telescope}
 \end{align}
 where the inequality results from the fact that $\{\eta_t\}$ is non-increasing.
-Hence, using the linearization $\tf(X_t) - \tf(x) \le \ip{\nabla \tf_t(X_t),X_t-x} = \EE{\ip{ G_t,X_t-x}| \cS_t}$, 
-we get the standard mirror descent bound for any $x \in \cK$
-\begin{align}
-\EE{\sum_{t=1}^n \tf_t(X_t)- \sum_{t=1}^n \tf_t(x)} 
-& \le \EE{\sum_{t=1}^n \ip{G_t,X_t-x}} 
-\le \frac{D}{\eta_{n-1}} + \sum_{t=1}^n \eta_t \frac{\EE{\|G_t\|_*^2}}{2\alpha} 
-\label{eq:md-bound}
-\end{align}
-Combining the latter with the bound
-\[
+
+To bound the last term in \eqref{eq:proxlemma}, we use the assumption $\|\nabla \tf(x)\|_* \le M$ for all $x \in \cK$ to obtain
+\begin{equation}
+\label{eq:t2-g2}
 \EE{\norm{G_t}_*^2 | \cS_t} \le 2\EE{\norm{G_t - \nabla \tf_t(X_t)}_*^2 + \norm{\nabla \tf_t(X_t)}_*^2 \Big| \cS_t}
 \le 2(M^2 + C_2 \delta^{-q}),
-\]
-the bias condition of the oracle, and \eqref{eq:YX}, we obtain
-\begin{align*}
-\EE{\sum_{t=1}^n f_t(Y_t)} - \inf_{x \in \cK} \sum_{t=1}^n f_t(x)
-& \le \EE{\sum_{t=1}^n \tf_t(Y_t) - \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x)} + 2 n C_1 \delta^{p} \\
-& \le \EE{\sum_{t=1}^n \tf_t(X_t) - \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x)} + 2 n C_1 \delta^{p} + \frac{n L \delta^2}{2} \\
+\end{equation}
+Combining the latter with \eqref{eq:t2-grad}, \eqref{eq:proxlemma}, and \eqref{eq:div-telescope}, we obtain, for any $x \in \cK$,
+\begin{align}
+\EE{\sum_{t=1}^n f_t(Y_t)} - \sum_{t=1}^n f_t(x) 
 & \le \frac{D}{\eta_{n-1}}  + \sum_{t=1}^n \eta_t \frac{M^2 + C_2 \delta^{-q}}{\alpha} +  2 n C_1 \delta^{p} + \frac{n L \delta^2}{2}~.
-\end{align*}
+\label{eq:t2-full}
+\end{align}
 Setting the parameters 
-$\delta=(\frac{q}{2p})^{\frac{2}{2p+q}} (\frac{C_2 D}{\alpha B^2})^{\frac{1}{2p+q}} n^{-\frac{1}{2p+q}}$, 
-where $B=C_1$ if $p<2$ and $B=C_1+L/4$ if $p=2$, and 
-$\eta_t=D^{\frac{p+q}{2p+q}} (\frac{q}{2p})^{\frac{q}{2p+q}} (\frac{C_2}{\alpha})^{-\frac{p}{2p+q}} B^{-\frac{q}{2p+q}} n^{-\frac{p+q}{2p+q}}$ gives the desired bound for $\F_{L,0}$ with bounded gradients. When $p>2$, $p$ should be replaced with $2$ in the bound and $B=L/4$ (in this case the $\delta^2$ term dominates the one with $\delta^p$).
-%For $q=0$, $C_2$ has to be replaced with $C_2+M^2$.
+$\delta=(\frac{q}{2p'})^{\frac{2}{2\hp+q}} (\frac{C_2 D}{\alpha \hC_1^2})^{\frac{1}{2\hp+q}} n^{-\frac{1}{2\hp+q}}$, 
+where $\hp=\min\{p,2\}$, $\hC_1=C_1 \indic{p \le 2} + (L/4) \indic{p \ge 2}$ (i.e., $\hp$ is the dominating exponent from $\delta^p$ and $\delta^2$, and $\hC_1$ is the coefficient of the dominating term), $\eta_t=D^{\frac{\hp+q}{2\hp+q}} (\frac{q}{2\hp})^{\frac{q}{2\hp+q}} (\frac{C_2}{\alpha})^{-\frac{\hp}{2\hp+q}} \hC_1^{-\frac{q}{2\hp+q}} n^{-\frac{\hp+q}{2\hp+q}}$ gives, when $f_t \in \F_{L,0}$ for all $t$, 
+\begin{equation}
+\frac{1}{n}\left(\EE{\sum_{t=1}^n f_t(Y_t)} - \inf_{x \in \cK} \sum_{t=1}^n f_t(x) \right) = O\left( \hC_1^{\frac{q}{2\hp+q}} (C_2 D)^{\frac{\hp}{2\hp+q}} n^{-\frac{\hp}{2\hp+q}} \right)
+\label{eq:t2-bound}
+\end{equation}
+where the coefficient of the main term equals $K=2^{1+\frac{q/2}{2\hp+q}}(2\hp+q) (2\hp \alpha)^{-\frac{\hp}{2\hp+q}} q^{-\frac{q}{2\hp+q}}$.
 
-
-When the set of functions is also strongly convex, instead of the linearization we use strong convexity to get
+When the set of functions is also strongly convex, in \eqref{eq:t2-lin} we can use strong convexity instead of linearization:
 \[
 \tf(X_t) - \tf(x) \le \ip{\nabla \tf_t,X_t-x} - \frac{\mu}{2} D_\cR(x,X_t) = \EE{\ip{ G_t,X_t-x}| \cS_t} - \frac{\mu}{2} D_\cR(x,X_t) ~.
 \]
-Combining this with \eqref{eq:proxlemma} gives the well-known variant of \eqref{eq:md-bound} for strongly convex loss functions \citep{BaHaRa07} for the choice $\eta_t=2/(t\mu)$:
+Combining this with \eqref{eq:proxlemma} and \eqref{eq:t2-g2} gives the well-known variant of \eqref{eq:t2-full} for strongly convex loss functions \citep{BaHaRa07} for the choice $\eta_t=2/(t\mu)$:
 \begin{align*}
-\EE{\sum_{t=1}^n \tf_t(X_t)- \sum_{t=1}^n \tf_t(x)} 
-& \le \sum_{t=1}^n  \frac{\EE{\|G_t\|_*^2}}{ t \alpha \mu} \le \frac{\max_t \EE{\|G_t\|_*^2}}{\alpha \mu} (1+\log n).
+\EE{\sum_{t=1}^n f_t(Y_t)}- \sum_{t=1}^n f_t(x) 
+& \le \sum_{t=1}^n  \frac{\EE{\|G_t\|_*^2}}{ t \alpha \mu} + 2 n C_1 \delta^{p} + \frac{n L \delta^2}{2} \\
+&\le \frac{\max_t \EE{\|G_t\|_*^2}}{\alpha \mu} (1+\log n) + 2 n C_1 \delta^{p} + \frac{n L \delta^2}{2} \\
+&\le \frac{2(M^2 + C_2 \delta^{-q})}{\alpha \mu} (1+\log n)+  2 n C_1 \delta^{p} + \frac{n L \delta^2}{2}~.
 \end{align*}
-Similarly to the non-strongly convex case, this implies
+Setting $\delta=(\frac{C_2 q (1+\log n)}{\alpha \mu \hC_1 \hp n})^{\frac{1}{\hp+q}}$, we obtain 
+\begin{equation}
+\label{eq:t2-sc}
+\frac{1}{n}\left(\EE{\sum_{t=1}^n \tf_t(Y_t)} - \inf_{x \in \cK} \sum_{t=1}^n \tf_t(x)\right) 
+= O\left(\hC_1^{\frac{q}{\hp+q}} C_2^{\frac{\hp}{\hp+q}} n^{-\frac{\hp}{\hp+q}} (1+\log n)^{\frac{\hp}{\hp+q}} \right),
+\end{equation}
+where the coefficient of the leading term is $K'=(\hp+q)\hp^{-\frac{\hp}{\hp+q}} q^{-\frac{q}{\hp+q}} (\alpha \mu)^{-\frac{\hp}{\hp+q}}$.
+
+For a type-I oracle, we need a slightly different derivation. Using the oracle's definition, similarly to \eqref{eq:t2-grad}, we get for evry $x \in \cK$,
 \begin{align}
-\EE{\sum_{t=1}^n f_t(Y_t)} - \inf_{x \in \cK} \sum_{t=1}^n f_t(x) \le 
-\frac{M^2 + C_2 \delta^{-q}}{2 \alpha \mu} (1+\log n)+  2 n C_1 \delta^{p} + \frac{n L \delta^2}{2}~.
+\EE{\sum_{t=1}^n f_t(Y_t)} - \sum_{t=1}^n f_t(x) 
+& \le \EE{\sum_{t=1}^n f_t(X_t) -  \sum_{t=1}^n f_t(x)} + \frac{n L \delta^2}{2} \nonumber \\
+& \le \EE{\sum_{t=1}^n \ip{\nabla f_t(X_t), X_t-x }} + \frac{n L \delta^2}{2} \nonumber \\
+& = \EE{\sum_{t=1}^n \ip{G_t, X_t-x } + \ip{\nabla f_t(X_t)-G_t,X_t-x}} + \frac{n L \delta^2}{2}  \nonumber \\
+& \le \EE{\sum_{t=1}^n \ip{G_t, X_t-x }} + C_1 \delta^p \sum_{t=1}^n \EE{\|X_1-x\|} +  \frac{n L \delta^2}{2} \nonumber \\
+& \le \EE{\sum_{t=1}^n \ip{G_t, X_t-x }}  + 2 n R C_1 \delta^p +  \frac{n L \delta^2}{2},
+\label{eq:t1-grad}
 \end{align}
-Setting $\delta=(\frac{C_2 q (1+\log n)}{4 \alpha \mu C_1 p n})^{\frac{1}{p+q}}$, we obtain the desired bound for $p<2$. For $p \ge 2$, $C_1$ should be replaced with $C_1+L/4$, while for $p>2$,  $C_1$ has to be replaced with $L/4$ and $p$ with $2$ (in this case the term with $\delta^2$ dominates the one with $\delta^p$).
+where the second to last inequality holds by the Cauchy-Schwarz inequality, and in the last step we used our assumption that $\sup_{x \in \cK} \|x\| \le R$. We now proceed similarly to the type-II case, applying the prox-lemma \eqref{eq:proxlemma}, but bound the second moment of $G_t$ differently:
+\begin{equation}
+\label{eq:t1-g2}
+\EE{\norm{G_t}_*^2 | \cS_t} \le 2\EE{\norm{G_t - \EE{G_t | \cS_t}}_*^2} + 2 \norm{\EE{G_t|\cS_t}-\nabla f_t(X_t)}_*^2 
+\le 2(C_1^2 \delta^{2p}+ C_2 \delta^{-q}),
+\end{equation}
+Combining  this with \eqref{eq:proxlemma}, \eqref{eq:div-telescope}, and \eqref{eq:t1-grad} yields
+\begin{align*}
+\EE{\sum_{t=1}^n f_t(Y_t)} - \sum_{t=1}^n f_t(x) 
+& \le \frac{D}{\eta_{n-1}}+   \frac{C_1^2 \delta^{2p}+ C_2 \delta^{-q}}{\alpha} \sum_{t=1}^n \eta_t + 2 n R C_1 \delta^p +  \frac{n L \delta^2}{2} ~.
+\end{align*}
+Now, the main terms in the above inequality are identical to those of \eqref{eq:t2-full} except that instead of $C_1$ we have $RC_1$ here. Thus, optimizing the parameters of the algorithm for this case, \eqref{eq:t2-full} holds for non-strongly convex loss functions with $\hC_1=R C_1 \indic{p \le 2} + (L/4) \indic{p \ge 2}$. Similarly, \eqref{eq:t2-sc} holds with the latter choice of $\hC_1$ for $\mu$-strongly convex loss functions and type-I oracles.
+
 
 
 
