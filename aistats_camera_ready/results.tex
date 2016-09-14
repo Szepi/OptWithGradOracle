@@ -109,11 +109,11 @@ and
 $K'_2=2^{\frac{q}{p+q}}\alpha^{-\frac{p}{p+q}}\mu^{-\frac{p}{p+q}}$.}
 
 If the oracle is unbiased (but may be non-uniform and may have memory) and either
-(i) the oracle is of type-I and $R=\sup_{x\in\cK} \|x\|$; or (ii) the oracle is of type-II and all functions in $\F$ have bounded gradients\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then, for $\F \subset \F_{L,0}$, the regret of \cref{alg} run with an appropriate parameter setting can be bounded as
+(i) the oracle is of type-I or (ii) the oracle is of type-II and all functions in $\F$ have bounded gradients\footnote{This follows from the smoothness if, for example, the functions in $f$  are bounded.} then, for $\F \subset \F_{L,0}$, the regret of \cref{alg} run with an appropriate parameter setting can be bounded as
 \[
 \frac{1}{n} R_{\F}^{MD}(c_1,c_2) = O\left( D^{\frac{\hp}{2\hp+q}} \hC_1^{\frac{q}{2\hp+q}} C_2^{\frac{\hp}{2\hp+q}}  n^{-\frac{\hp}{2\hp+q}} \right)
 \]
-where $\hp=\min\{p,2\}$, $\hC_1=C_1 \indic{p \le 2} + (L/4) \indic{p \ge 2}$ for type-II oracles and $\hC_1=R C_1 \indic{p \le 2} + (L/4) \indic{p \ge 2}$ for type-I oracles.\footnote{Here, $\indic{E}$ denotes the indicator function of event $E$. Note that $\hp$ is the dominating exponent from $\delta^p$ and $\delta^2$, associated with the error coming from the bias of the oracle and the error coming from the mismatch of $Y_t$ and $X_t$, respectively, and $\hC_1$ is the coefficient associated with the dominating term. The coefficient associated with the main term of the bound is
+where $\hp=\min\{p,2\}$, $\hC_1=C_1 \indic{p \le 2} + (L/4) \indic{p \ge 2}$ for type-II oracles and $\hC_1=R C_1 \indic{p \le 2} + (L/4) \indic{p \ge 2}$ for type-I oracles where $R = \sup_{x\in\cK} \|x\|$.\footnote{The coefficient associated with the dominating term of the bound is
 $2^{1+\frac{q/2}{2\hp+q}}(2\hp+q) (2\hp \alpha)^{-\frac{\hp}{2\hp+q}} q^{-\frac{q}{2\hp+q}}$.} In the strongly convex case, that is, when $\F \subset \F_{L,\mu}$, an appropriate parameter setting of \cref{alg} yields a regret bound\footnote{
 The coefficient associated with the main term of the bound is $(\hp+q)\hp^{-\frac{\hp}{\hp+q}} q^{-\frac{q}{\hp+q}} (\alpha \mu)^{-\frac{\hp}{\hp+q}}$.}
 \[
@@ -125,8 +125,9 @@ The coefficient associated with the main term of the bound is $(\hp+q)\hp^{-\fra
 %\end{proof}
 The proof of this theorem follows the steps of the standard analysis of the mirror descent algorithm
  and is provided in \cref{sec:appendix-md}, mainly for completeness 
- and because it is somewhat cumbersome to extract from the existing results what properties of the oracles they use.\todoa{Comment on the relation of $R$ and $D$ for type-I oracles to show that the regret bound is essentially the same as the optimization bound.}
-
+ and because it is somewhat cumbersome to extract from the existing results what properties of the oracles they use.
+ Comparing the bounds on the optimization error and the regret for the non-strongly convex case, note that $\hp$ plays the same role as $p$ and $\hC_1$ as $C_1$. The reason for the difference is that the extra loss introduced by using $Y_t$ instead of $X_t$ in the regret minimization case brings in an extra $L \delta^2/2$ term (as discussed at the introduction of unbiased oracles), and this term dominates the $C_1 \delta^p$ bias term when $p>2$, and increases its coefficient for $p=2$; $\hp$ and $\hC_1$ are obtained as the exponent and the coefficient of the dominating term from these two. On another note, the dependence on $D$ for type-I oracles seems different for the optimization and the regret minimization cases. However, by the strong convexity of $\cR$, $R \le \sqrt{2 D/\alpha}$ (when $\cR$ is also $L'$-smooth, $R \ge \sqrt{2 D/L'}$, so $R$ is of the same order as $\sqrt{D}$); applying this inequality gives the same dependence on $D$ for both types of oracles (for $p\ge 2$, the main term scales with a smaller power of $D$ for regret minimization due to the approximation issues discussed beforehand).
+ 
 We next state lower bounds for both convex as well as strongly convex function classes. In particular, we observe that for convex and smooth functions the upper bound for the mirror descent scheme matches the lower bound, up to constants, whereas there is a gap for strongly convex+smooth functions.
 Filling the gap is left for future work.
 \begin{theorem}[\textit{Lower bound}]
