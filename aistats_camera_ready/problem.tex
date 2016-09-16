@@ -57,13 +57,12 @@ To control the bias and the variance, the algorithm can choose a \emph{tolerance
 A smaller $\delta_t$ results in a smaller ``bias'' (for the precise meaning of bias, we will consider two definitions below), while typically with a smaller $\delta_t$, the ``variance'' of the gradient estimate increases.
 Notice that in the online BCO setting, the algorithm suffers the loss $f_t(Y_t)$ in round $t$, where $Y_t\in \cK$\footnote{For simplicity, in some cases we allow $f$ to be defined outside of $\K$ and allow $Y_t$ to be in a small vicinity of $\K$.} is guaranteed to be in the $\delta_t$-vicinity of $X_t$.
 %While this point is not relevant in the optimization setting, in the online learning setting,
-The goal in the online BCO setting is to keep the expected \emph{regret},
-	$R_n =\EE{ \sum_{t=1}^n f_t(Y_t)} - \inf_{x\in \cK} \sum_{t=1}^n f_t(x)$,
-small.
+The goal in the online BCO setting is to minimize the expected \emph{regret}, defined as follows:
+	$$R_n =\EE{ \sum_{t=1}^n f_t(Y_t)} - \inf_{x\in \cK} \sum_{t=1}^n f_t(x).$$
 In the stochastic BCO setting, the algorithm is also required to select a point $\hat{X}_n\in \cK$ once
 the $n$th round is over (in both settings, $n$ is given to the algorithms)
-and the algorithm's performance is quantified using the \emph{optimization error},
-$\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x) $.
+and the algorithm's performance is quantified using the \emph{optimization error}, defined as
+$$\Delta_n = \EE{f(\hat{X}_n)} - \inf_{x\in \cK} f(x).$$
 
 The main novelty of the model is that the information flow between the algorithm and the environment (holding $f$, or $f_{1:n}$) is mediated by a stochastic gradient estimation oracle. As we shall see, numerous existing approaches to online learning and optimization based on noisy pointwise information fit in this framework.
 
@@ -79,7 +78,7 @@ Our type-I oracles are defined as follows:
 \begin{definition}[$(c_1,c_2)$ type-I  oracle]
 \label{def:oracle1}
 We say that $\gamma$ is a  $(c_1,c_2)$ type-I oracle for $\cF$, if for any function $f\in \cF$,
-$x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that
+$x\in \cK,0<\delta\le 1$, $\gamma$ returns random elements  $G\in \R^d$ and  $Y\in \cK$ such that
 $\norm{x-Y}\le \delta$ almost surely (a.s.) and the following hold:
 \vspace{-0.2cm}
 \begin{enumerate}
@@ -179,12 +178,12 @@ showing that  $\gamma$ is also an $(Rc_1,c_2)$ Type-II oracle, since $\tilde{f}\
 
 
 
-While in the online convex optimization setting
-algorithms are compared based on their minimax \emph{regret} 
- in the stochastic convex optimization setting, they are compared based on their
+In the online convex optimization setting,
+algorithms are compared based on their minimax \emph{regret}, 
+whereas in the stochastic convex optimization setting, the algorithms are compared based on their
  minimax \emph{error}
  (sometimes, also called as the ``simple regret'').
-Both are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
+Both regret notions are defined with respect to a class of loss functions $\cF$, and the bias/variance control functions $c_1,c_2$.
 The \emph{worst-case regret} of algorithm $\A$ interacting with $(c_1,c_2)$ type-I oracles for the function class $\F$ is
 defined as
 \begin{align*}

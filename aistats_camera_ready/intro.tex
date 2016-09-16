@@ -22,7 +22,7 @@ essentially use gradient estimates and first-order methods
 %Furthermore, previous practical attempts to bandit convex optimization are all centered around constructing gradient estimates that fit our model.
 %((some issues with whether you can cancel the noise; we assume you cannot))A
 
-In this paper, we consider the optimization accuracy in both the stochastic and online bandit convex optimization (BCO) setting.
+In this paper, we consider the optimization accuracy in both stochastic and online bandit convex optimization (BCO) settings.
 %In the stochastic BCO setting, an algorithm repeatedly queries the oracle at different points in order to find a near minimizer of the objective function. Here, performance is measured in terms of the excess cost of the last point compared to  that of the minimizer,
 %also known as the optimization error. In the online setting, each query points incurs a cost and performance is measured
 %in terms of the total excess cost of these points, or the regret
@@ -48,8 +48,7 @@ our lower bounds even invalidate the claimed (weaker) upper bound of \citet{DeEl
 
 %The rest of the paper is organized as follows: The problem is introduced in \cref{sec:problem}. Our upper and lower bounds on the minimax error are presented in \cref{sec:results}. Sections \ref{sec:sbco}--\ref{sec:obco} describe applications to stochastic and online BCO , respectively. Related general gradient oracle models are discussed in detail in \cref{sec:related}, while proofs are given in \cref{sec:proofs}.
 
-The organization of the paper is  as follows: We introduce the oracle model in Section~\ref{sec:problem}, upper and lower bounds are provided in Section~\ref{sec:results}, with applications to online and stochastic BCO in Sections~\ref{sec:sbco} and~\ref{sec:obco}. 
-The proofs of are presented throughout Sections~\ref{sec:appendix-lb-proof} to~\ref{sec:appendix-grad}, while conclusions are drawn in Section~\ref{sec:conc}.
+The rest of the paper is organized  as follows: We introduce the oracle model in Section~\ref{sec:problem}, provide the upper and lower bounds in Section~\ref{sec:results} and describe applications to online and stochastic BCO in Sections~\ref{sec:sbco} and~\ref{sec:obco}, respectively. In Section \ref{sec:related}, we discuss related work and present the proofs in Sections \ref{sec:appendix-md}--\ref{sec:appendix-grad}. Finally, we provide concluding remarks in Section~\ref{sec:conc}.
 
 %All proofs can be found in the extended version of the paper \citep{HuPrGySz16long}.
 
