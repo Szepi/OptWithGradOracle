@@ -128,7 +128,7 @@ The proof of this theorem follows the steps of the standard analysis of the mirr
  and because it is somewhat cumbersome to extract from the existing results what properties of the oracles they use.
  Comparing the bounds on the optimization error and the regret for the non-strongly convex case, note that $\hp$ plays the same role as $p$ and $\hC_1$ as $C_1$. The reason for the difference is that the extra loss introduced by using $Y_t$ instead of $X_t$ in the regret minimization case brings in an extra $L \delta^2/2$ term (as discussed at the introduction of unbiased oracles), and this term dominates the $C_1 \delta^p$ bias term when $p>2$, and increases its coefficient for $p=2$; $\hp$ and $\hC_1$ are obtained as the exponent and the coefficient of the dominating term from these two. On another note, the dependence on $D$ for type-I oracles seems different for the optimization and the regret minimization cases. However, by the strong convexity of $\cR$, $R \le \sqrt{2 D/\alpha}$ (when $\cR$ is also $L'$-smooth, $R \ge \sqrt{2 D/L'}$, so $R$ is of the same order as $\sqrt{D}$); applying this inequality gives the same dependence on $D$ for both types of oracles (for $p\ge 2$, the main term scales with a smaller power of $D$ for regret minimization due to the approximation issues discussed beforehand).
  
-We next state lower bounds for both convex as well as strongly convex function classes. In particular, we observe that for convex and smooth functions the upper bound for the mirror descent scheme matches the lower bound, up to constants, whereas there is a gap for strongly convex+smooth functions.
+We next state lower bounds for both convex as well as strongly convex function classes. In particular, we observe that for convex and smooth functions the upper bound for the mirror descent scheme matches the lower bound, up to constants, whereas there is a gap for strongly convex and smooth functions.
 Filling the gap is left for future work.
 \begin{theorem}[\textit{Lower bound}]
 \label{thm:lb-convex}
@@ -180,11 +180,15 @@ $K_4= 2^{\frac{2p-q}{2p+q}} \frac{(2p+q)^3}{q^{\frac{2q}{2p+q}}(6p+q)^{\frac{6p+
 %%\begin{proof}
 %% See Section \ref{sec:appendix-lb-proof}.
 %%\end{proof}
-
-By continuity, the above claim can be extended to cover the case of $q=0$ (constant variance). 
-For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ (no bias) leads to an $\Omega(d/\sqrt{n})$ lower bound. The proof of the lower bound, presented in \cref{sec:appendix-lb-proof}, is obtained in the usual way by providing a family of functions and a type-I oracle such that any algorithm suffers at least the stated error on one of the functions. In particular, for $\F_{L,0}$ with $L\ge 1/2$ we use
+The proof of the above theorem is given in Section \ref{sec:appendix-lb-proof}. The proof involves using standard information-theoretic tools to first establish the result in one dimension and then a separability argument (see Lemma \ref{lemma:sep}) is employed to extend the result to $d$-dimensions. 
+For the proof in one dimension, we provide a family of functions and a type-I oracle such that any algorithm suffers at least the stated error on one of the functions. In particular, for $\F_{L,0}$ with $L\ge 1/2$ we use
 $f_{v,\epsilon}(x)=\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)$ with $v=\pm 1$, $\epsilon>0$, and $x \in \cK \subset \R$ for appropriate $\epsilon$. Note that for \emph{any} $\epsilon>0$, $f_{v,\epsilon}\in \F_{1/2,0}\setminus \cup_{0<\lambda<1/2} \F_{\lambda,0}$.
+To the best of our knowledge, the separability argument that we employ to relate the minimax error in $d$-dimensions to that in one dimension, is novel. 
 
+\begin{remark}
+By continuity, the result in Theorem \ref{thm:lb-convex} can be extended to cover the case of $q=0$ (constant variance). 
+For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ (no bias) leads to an $\Omega(d/\sqrt{n})$ lower bound. 
+\end{remark}
 
 \begin{remark}(\textbf{\textit{Scaling}})
 For any function class $\F$, by the definition of the minimax error \eqref{eq:minimaxerrdef}, it is easy to see that
