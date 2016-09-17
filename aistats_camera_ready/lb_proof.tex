@@ -1,15 +1,15 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-In this section we present the proof of \cref{thm:lb-convex}. 
-Note that we will only prove lower bounds with the type-I oracle. According to \cref{thm:typered}, lower bounds for type-II can be directly attained by replacing $C_1$ of type-I with $C_1/\sqrt{d}$, given $[+1,-1]^d\subset \cK $.
+In this section we present the proof of Theorem \ref{thm:lb-convex}. 
+Note that we will only prove lower bounds with the type-I oracle. According to Theorem \ref{thm:typered}, lower bounds for type-II can be directly attained by replacing $C_1$ of type-I with $C_1/\sqrt{d}$, given $[+1,-1]^d\subset \cK $.
 
 \subsection{Proof of Theorem~\ref{thm:lb-convex} for the class of smooth convex functions $\F_{L,0}(\K)$}
 \label{sec:appendix-lbconvex}
-We will use a novel technique that will allow us to  reduce the $d$-dimensional case to the $1$-dimensional case (see later).
+We will use a novel technique that will allow us to  reduce the $d$-dimensional case to the one-dimensional case (see later).
 Thus, we start with the one-dimensional case.
 
-\paragraph{Proof in one dimension:} 
+\begin{proof} 
 We first prove the theorem for $\F = \F_{L,0}(\K) \cap\{ f:\R \to\R\,:\, \dom(f)=\cK\}$, where 
 by the assumptions of the theorem, $L\ge 1/2$, $\K$ is convex and $[-1,1]\subset \K$, thereby proving a slightly
 stronger result than stated.
@@ -41,7 +41,7 @@ f_v(x) :=  \epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsi
 \,\, x \in \cK\,.
 \end{align}
 %In what follows, we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
-These functions, with the choice $\epsilon=0.1$, are shown in \cref{fig:lbfvdiff}. 
+These functions, with the choice $\epsilon=0.1$, are shown in Figure \ref{fig:lbfvdiff}. 
 The idea underlying these functions is that they approximate $\epsilon|x-v|$, but with a prescribed smoothness.
 The first and second derivatives of $f_v$ are
 \begin{align*}
@@ -54,11 +54,11 @@ f''_v(x) = \dfrac{2e^{-\frac{x-v}{\epsilon}} }{\left(  1+e^{-\frac{x-v}{\epsilon
 From the above calculation, it is easy to see that $0 \le f''(x) \le 1/2$; thus $f_v$ is $\frac{1}{2}$-smooth, and so $f_v\in \F$.
 
 For $f_v, v\in\{-1,+1\}$, the gradient oracle we consider is defined as $\gamma_v(x,\delta)=\og_v(x,\delta)+\xi_\delta$ with $\xi_\delta \sim \normal(0,\frac{C_2}{\delta^q})$ selected independently for every query, where $\og_v$ is a biased estimate of the gradient $f'_v$. 
-The derivatives of $f_+$ and $f_-$ are shown in \cref{fig:lbfvdiff}; we define the ''bias'' in $\og_v$ to move the gradients closer to each other:
+The derivatives of $f_+$ and $f_-$ are shown in Figure \ref{fig:lbfvdiff}; we define the ''bias'' in $\og_v$ to move the gradients closer to each other:
 The idea is to shift $f_+'$ and $f_-'$ towards each other, with the shift depending on the allowed bias $c_1(\delta) = C_1\delta^p$.
 In particular, since $f_+'\le f_-'$, $f_+'$ is shifted up, while $f_-'$ is shifted down. 
 However, the shifted up version of $f_+'$ is clipped for positive $x$ so that it never goes above the 
-shifted down version of $f_-'$, cf. \cref{fig:fprime}.
+shifted down version of $f_-'$, cf. Figure \ref{fig:fprime}.
  By moving the curves towards each other, algorithms which rely on the obtained oracles
 will have an increasingly harder time (depending on the size of the shift) to distinguish whether the function optimized is $f_+$ or $f_-$. Since
 \begin{align*}
@@ -99,7 +99,8 @@ Thus, $\gamma_v$ is indeed an oracle with the required properties.
  \begin{figure}
    \centering
 	\begin{tabular}{cc}
-	  \begin{subfigure}[b]{0.5\textwidth}
+	  \subfigure[Plot of $f_+$ and $f_-$ with $\epsilon=0.1$]{
+\label{fig:lbfvdiff}
  \centering
    \scalebox{0.8}{\begin{tikzpicture}
    \begin{axis}[width=9cm,height=5cm,
@@ -124,11 +125,14 @@ Thus, $\gamma_v$ is indeed an oracle with the required properties.
               {0.1*(x+1) + 2*0.01*ln(1+exp(-10*(x+1)))} node [pos=0.1,pin={45:$f_-$}] {} node [pos=0.615,pin={5:\makecell{\scriptsize$\min\limits_{x<0} f_+(x)$}}] {}; 
    \end{axis}
    \end{tikzpicture}}
-	\caption{Plot of $f_+$ and $f_-$ with $\epsilon=0.1$}
-\label{fig:lbfvdiff}
-	  \end{subfigure}
+	%\caption{}
+	  }
 	&
-	  \begin{subfigure}[b]{0.5\textwidth}
+\subfigure[Plot of $f'_+$ and $f'_-$ with $\epsilon=0.1$. 
+	The dashed lines show
+	$\overline{\gamma}_v(\cdot,\delta)$ for $C_1\delta^p=\epsilon$, 
+	$v\in \{\pm 1\}$.]{
+		\label{fig:fprime}
  \centering
    \scalebox{0.8}{\begin{tikzpicture}
    \begin{axis}[width=9cm,height=5cm,
@@ -174,12 +178,7 @@ Thus, $\gamma_v$ is indeed an oracle with the required properties.
 							%\node at (axis cs:1,0.5) {P3};
    \end{axis}
    \end{tikzpicture}}
-	\caption{Plot of $f'_+$ and $f'_-$ with $\epsilon=0.1$. 
-	The dashed lines show
-	$\overline{\gamma}_v(\cdot,\delta)$ for $C_1\delta^p=\epsilon$, 
-	$v\in \{\pm 1\}$.}
-	\label{fig:fprime}
-\end{subfigure}
+}
 	\end{tabular}
 \end{figure}
 
@@ -239,10 +238,10 @@ where
 	$m$ is the counting measure on $\{\pm 1\}$ and 
 	$p_{\A,\gamma}$ is the density function defined by
 \begin{align*}
-p_{\A,\gamma}(g_{1:n}, v) 
-&= \frac{1}{2} \bigg( p_{\A,\gamma}(g_n \mid g_{1:n-1})
+&p_{\A,\gamma}(g_{1:n}, v) 
+= \frac{1}{2} \bigg( p_{\A,\gamma}(g_n \mid g_{1:n-1})
 		\cdot \ldots \cdot p_{\A,\gamma }(g_{n-1} \mid g_{1:n-2}) \cdot \ldots \cdot p_{\A,\gamma}(g_1) \bigg) \\
-&=  \frac{1}{2} \bigg( p_{\N}\big(g_n - 
+&\!=\!  \frac{1}{2} \bigg( p_{\N}\big(g_n - 
 				\overline{\gamma}(x_n^{\A}(g_{1:n-1}),\delta_n^{\A}(g_{1:n-1})),c_2(\delta_n^{\A}(g_{1:n-1}))\big) \cdot
 %  &\times p_{\normal(0,\sigma^2)}(g_{n-1} - \gamma(\A_n(g_{1:n-2}))) \times \ldots \\
 									 \ldots \cdot  p_{\N}\big(g_1 - \overline{\gamma}(x_1^{\A},\delta_1^{\A}),c_2(\delta_1^{\A})\big) \bigg),
@@ -294,7 +293,7 @@ we have
 \end{align*}
 as the KL-divergence between normal distributions $\normal(\mu_1,\sigma^2)$ and $\normal(\mu_2,\sigma^2)$ is equal to $\dfrac{(\mu_1 - \mu_2)^2}{2 \sigma^2}$.
 
-It remains to upper bound the numerator. For $(x,\delta)\in \R\times (0,1]$, first note that $\gamma_+(x,\delta)\le \gamma_-(x,\delta)$. Hence,
+It remains to upper bound the numerator. For $(x,\delta)\in \R\times (0,1]$, first note that \\$\gamma_+(x,\delta)\le \gamma_-(x,\delta)$. Hence,
 \begin{align*}
 |\gamma_+(x,\delta)-\gamma_-(x,\delta)|
 & =  \gamma_-(x,\delta) - \gamma_+(x,\delta) \\
@@ -408,7 +407,7 @@ On the other hand, for $p=q=2$, we obtain
 \[
 \Delta_n^{*} \ge  \frac{9}{20}\left(\frac{1}{25}\right)^{1/3}C_1^{1/3}C_2^{1/3} n^{-1/3}\,.
 \]
-
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -478,7 +477,7 @@ In fact,  $\tL^{A}_i$ depends on $v$ because the algorithm $\A$ uses the $d$-dim
 \begin{lemma}[``Cross-talk'' does not help in separable problems]
 \label{lemma:sep}
 Let %$V= \times_{i=1}^d V_i$, 
-$(f_v)_{v\in V^d}, f_v \in \cF_\sep$, $(\gamma_v)_{v\in V^d}, \gamma_v \in \Gamma_\sep(f_v,c_1,c_2)$ be separable for some arbitrary functions $c_1,c_2$, and let $\A$ be any $d$-dimensional algorithm. Then there exist  $d$ one-dimensional algorithms, $\A_i^*$, $1\le i \le d$ (using only one-dimensional oracles),
+$(f_v)_{v\in V^d}, f_v \in \cF_\sep$, \\$(\gamma_v)_{v\in V^d}, \gamma_v \in \Gamma_\sep(f_v,c_1,c_2)$ be separable for some arbitrary functions $c_1,c_2$, and let $\A$ be any $d$-dimensional algorithm. Then there exist  $d$ one-dimensional algorithms, $\A_i^*$, $1\le i \le d$ (using only one-dimensional oracles),
 such that 
 \begin{align}
 \label{eq:onedimlb}
@@ -493,7 +492,7 @@ such that
 \begin{center}
 	\includegraphics[width=0.5\textwidth]{../figs/ddimto1dim_reduction} % drawn with the IPE app
 \end{center}
-\caption{The construction of algorithm $\A_i^*$ used in the proof of \cref{lemma:sep}.}
+\caption{The construction of algorithm $\A_i^*$ used in the proof of Lemma \ref{lemma:sep}.}
 \label{fig:sepalgconstruction}
 \end{figure}
 \begin{proof}
@@ -513,7 +512,7 @@ Let the optimal solution of this problem be denoted by $(\hat{v}_i^*,v_{-i}^*)$;
 we create a one-dimensional oracle from a $d$-dimensional.
 We also collect $(\hat{v}_i^*)_i$ into the vector $\hat{v}^*\in V^d$.
 
-Now, algorithm $\A_i^*$ is constructed as illustrated on \cref{fig:sepalgconstruction}.
+Now, algorithm $\A_i^*$ is constructed as illustrated on Figure \ref{fig:sepalgconstruction}.
 Fix $v_i\in V_i$. Then, algorithm $\A_i^*$ interacts with oracle $\gamma_{v_i}^{(v_i)}$ as follows:
 In each round $t$, algorithm $\A_i^*$ produces a pair $(X_t,\delta_t) \in \cK \times [0,1)$. 
 In particular, in the first round, $X_1,\delta_1$ is the output of $\A$ in the first round.
@@ -589,10 +588,10 @@ By our earlier remark, $\Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d) \subset \Gamma(f,c_1
 	 \label{eq:ddimtoonedim1}
 \end{align*}
 For each $i=1,\dots,d$, pick $\gamma_{v_i}^{(i)}\in \Gamma(f_{v_i},c_1/\sqrt{d},c_2/d)$ such that 
-$\Delta_n^*(\cF^{(i)},c_1/\sqrt{d},c_2/d) = \inf_{\cA} \sup_{v_i\in V_i} \Delta_n^{\cA}(f_{v_i},\gamma_{v_i}^{(i)})$.
+$$\Delta_n^*(\cF^{(i)},c_1/\sqrt{d},c_2/d) = \inf_{\cA} \sup_{v_i\in V_i} \Delta_n^{\cA}(f_{v_i},\gamma_{v_i}^{(i)}).$$
 For $v \in V$, let $\gamma_v \in \Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d)$ be the oracle whose ``components'' are 
 $\gamma_{v_i}^{(i)}$, $i=1,\dots,d$.
-Now, by \cref{lemma:sep},
+Now, by Lemma \ref{lemma:sep},
 \begin{align*}
 \sup_{v\in V} \Delta^{\cA}_n(f_v,\gamma_v)
 \ge
@@ -606,7 +605,8 @@ $\sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d)} \Delta^{\cA
 and \eqref{eq:ddimtoonedim1} gives the desired result.
 \end{proof}
 
-\paragraph{Main proof:}
+\begin{proof}(Theorem \ref{thm:lb-convex})
+%\paragraph{Main proof:}
 Let $\cK \subset \R^d$, such that $\times_i \cK_i \subset \cK$, $\{\pm 1 \} \subset \cK_i \subset \R$,
 $\F_d = \F_{L,0}(\K)$, where recall that $L\ge 1/2$.
  For any $1\le i \le d$, $x_i \in \cK_i$, 
@@ -622,12 +622,11 @@ $0\le \frac{\partial^2}{\partial x_i^2} f^{(i)}_{v_i}(x_i) \le 1/2$.
 Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_{\F_d, n}^*\left(C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$. 
 Let $\F^{(i)} = \{ f^{(i)}_{-1},  f^{(i)}_{+1} \}$.
 As it was noted above, $f_v\in \F_d$ for any $v\in \{\pm 1\}^d$.
-Hence, by~\cref{lem:sep2}, 
+Hence, by~Lemma \ref{lem:sep2}, 
 \begin{align*}
  \Delta_n^{(d)*} &\ge \sum_{i=1}^d \Delta_{\F^{(i)},n}^{*}\left(\frac{C_1}{\sqrt{d}}\, \delta^p, \frac{C_2}{d} \delta^{-q}\right)\,.
                \numberthis \label{eq:dlb}
 \end{align*}
-
 % Fix an $i$ and consider the loss $L_i(v)$.
 % We now argue that, since $f_v$ is separable, any algorithm $\A$ that uses information in dimensions other than $i$ in the gradient samples of the oracle, can be replaced by $d$ algorithms $\A_1^*$, $\dots$, $\A_d^*$ such that $\A_i^*$ is only using information for dimension $i$ and is only predicting the $i$th coordinate at the end, and the sum of losses they incur is utmost that of $\A$ in the worst-case.
 \if0
@@ -664,9 +663,11 @@ On the other hand, for the case $p=q=2$, we obtain
 % \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\dfrac{3}{8}\left(\frac{C_1 C_2^2}{16 d^{\frac{5}{2}}}\right)^{1/3} n^{-1/3} \text{ and hence,} \\
 \Delta_n^{(d)*}  \ge& \frac{9}{10}\left(\frac{C_1 C_2}{25}\right)^{1/3} \sqrt{d}n^{-1/3}.
 \end{align*}
+\end{proof}
 
-\subsection{Proof of Theorem \ref{thm:lb-convex} for strongly convex + smooth function class $\F_{L,1}(\K)$.}
+\subsection{Proof of Theorem \ref{thm:lb-convex} for strongly convex and smooth function class $\F_{L,1}(\K)$.}
 \label{sec:appendix-lbscconvex}
+\begin{proof}
 We follow the notational convention used earlier for convex functions in one dimension. 
 Let $\F = \F_{L,1}(\K)$, where $L\ge 1$ and $\K$  contains $\pm 1$.
 We consider functions $f_v$, for $v \in \{-1,+1\}$, defined as
@@ -783,7 +784,7 @@ From~\eqref{eq:dlb} and~\eqref{eq:lb-pq-sc} we get
 %\nu = d^{\frac{-(4p+q)}{(2p+q)}}\left(\dfrac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}.
 \label{eq:lb-pq-d}
 \end{align}
-
+\end{proof}
 %Case $p=1$ and $q=2$:
 %\begin{align*}
 %% \Delta_n^{*}\left(\F_1,\frac{C_1\delta^p}{\sqrt d}, \frac{C_2}{d\delta^q}\right) \ge &\frac{1}{2}\sqrt{\frac{C_1 C_2}{2 d^{\frac{3}{2}}}} n^{-1/4} \text{ and hence,} \\

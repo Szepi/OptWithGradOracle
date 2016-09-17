@@ -2,7 +2,7 @@
 % please do not delete or change the first line (needed by Csaba's editor)
 The main application of the biased noisy gradient oracle based convex optimization of the previous section
 is bandit convex optimization. We introduce here briefly the stochastic version of the problem, while online BCO will be considered in Section~\ref{sec:obco}. Readers familiar with these problems and the associated
-gradient estimation techniques, may skip this description to jump directly to \cref{thm:aaa},
+gradient estimation techniques, may skip this description to jump directly to Theorem \ref{thm:aaa},
 and come back here only if clarifications are needed.
 
 \if0
@@ -55,11 +55,12 @@ In the following, we provide a few examples for oracles that construct gradient 
 \paragraph{One-point feedback}
 Given $x\in \cK$, $0<\delta\le 1$, common gradient estimates that are
 based on a single query to the function evaluation oracle (the so-called
-``one-point feedback'') take the form \vspace{-0.2cm}
+``one-point feedback'') take the form 
+%\vspace{-0.2cm}
 \begin{equation}
   \label{eq:one-point}
 G = \frac{Z}{\delta}V, \textrm{ where } Z = f(x+\delta U) + \xi\,,
-\vspace{-0.2cm}
+%\vspace{-0.2cm}
 \end{equation}
 where $(U,V,\xi)\in \R^d\times \R^d\times \R$ are jointly distributed random variables,
 $\xi$ is the function evaluation noise whose distribution may depend on $x+\delta U$ but $\E[\xi|V]=0$, and $G$ is the estimate of $\nabla f(x)$ ($f:\cK\to \R$). 
@@ -80,12 +81,12 @@ The next proposition, whose proof is based on ideas from \citet{spall1992multiva
  shows that the above one-point gradient estimator leads to a type-I (and, hence, also type-II) oracle.
 \begin{proposition}
 \label{prop:grad-onepoint}
-Let \cref{ass:gradbasic} hold and let $\gamma$ be the one-point feedback oracle defined in \eqref{eq:one-point}.
+Let Assumption \ref{ass:gradbasic} hold and let $\gamma$ be the one-point feedback oracle defined in \eqref{eq:one-point}.
 Assume further that
   $U$ is symmetrically distributed,
   $V = h(U)$, where $h:\R^d \to \R^d$ is an odd function,
   $\EE{V}=0$, and $\E[V U\tr] = I$.
-Then, in the uncontrolled noise case, $\gamma$ is a $(c_1(\delta),c_2(\delta))$ type-I oracle given in \cref{tab:oracles}, where 
+Then, in the uncontrolled noise case, $\gamma$ is a $(c_1(\delta),c_2(\delta))$ type-I oracle given in Table \ref{tab:oracles}, where 
 $C_2=4 \EE{\norm{V}_*^2}\left( \essup \E[\xi^2|V]+\sup_{x\in\D} f^2(x)\right)$, and $C_1 =
 \frac{L}{2} \E[ \dnorm{V} \norm{U}^2]$ when $f \in \F_{L,0}$ and  
 $C_1 = \tfrac{B_3}{6} \EE{ \norm{V}_* \norm{U}^3 }$ for  $f \in \C^3$ where $B_3 = \sup_{x\in D} \norm{ \nabla^3 f(x) }_T$ where $\norm{\cdot}_T$ denotes the implied norm for rank-3 tensors.%
@@ -102,14 +103,14 @@ to obtain type-II oracles. Following the analysis in \citet{flaxman2005online}, 
 following result, which improves the bias of the previous result from $O(\delta)$ to $O(\delta^2)$ in the smooth+convex case:
 %This uses the same estimates as above, but with a different analysis, yielding improved oracles for the smooth and convex case: 
 \begin{proposition}
-\label{prop:flaxman} Let \cref{ass:gradbasic} hold and let $\gamma$ be the one-point feedback oracle defined in \eqref{eq:one-point}.
+\label{prop:flaxman} Let Assumption \ref{ass:gradbasic} hold and let $\gamma$ be the one-point feedback oracle defined in \eqref{eq:one-point}.
 Define
 %\begin{align*}
 $
 V = n_W(U)\dfrac{\lvert \partial W\rvert}{\lvert W \rvert}\,,
 $
 %\end{align*}
-where $W \subset \R^n$ is a convex body with boundary $\partial W$, $U$ is uniformly distributed on $\partial W$, $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the appropriate volume. Let $C_2>0$ be defined as in \cref{prop:grad-onepoint}.
+where $W \subset \R^n$ is a convex body with boundary $\partial W$, $U$ is uniformly distributed on $\partial W$, $n_W(U)$ denotes the normal vector of $\partial W$ at $U$, and $\lvert \cdot \rvert$ denotes the appropriate volume. Let $C_2>0$ be defined as in Proposition \ref{prop:grad-onepoint}.
 Then, if $f$ is $L_0$-Lipschitz, $\gamma$ is a memoryless, uniform type-II oracle with $c_1(\delta)=C_1 \delta$, $c_2(\delta) = C_2/\delta^2$ where
 $C_1=L_0 \sup_{w \in W}\|w\|$. 
 Further, assuming $W$ is symmetric w.r.t. the origin, if $f$ is $L$-smooth, then $\gamma$ is a type-I (and type-II oracle) with $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2/\delta^2$ where $C_1=(L/|W|)\int_W\|w\|^2 dw$, and, if in addition $f$ is also convex (i.e., $f\in \F_{L,0}$) then $\gamma$ is a type-I oracle with $c_1(\delta)=C_1 \delta^2/2$ and $c_2(\delta)=C_2/\delta^2$.
@@ -143,13 +144,14 @@ where $Z^{\pm} = f(X^{\pm}) + \xi^{\pm}$, $X^{\pm} = x \pm \delta U$, $U,V\in \R
 from some fixed distribution characterizing the oracle (depending on $F$), and $\xi^{\pm}$ being the noise of the returned feedback $Z^{\pm}$ at points $X^{\pm}$.
 For the following proposition we consider $4=2\times 2$ cases.
 First, the function is either assumed to be $L$-smooth and convex (i.e., the derivative of $f$ is $L$-Lipschitz w.r.t. $\norm{\cdot}_*$), or it is assumed to be three times continuously differentiable ($f\in C^3$).
-The other two options are either the controlled noise  setting of \eqref{eq:controlled}, or, in the uncontrolled case, we make the alternate assumptions \vspace{-0.2cm}
-\begin{eqnarray}
-\E[\xi^+-\xi^- |\, U,V] &=& 0 \text{~~ and ~~}\nonumber\\
-\E [ (\xi^{+} - \xi^-)^{2} |\, V] &\le& \sigma_\xi^2 <\infty\,.
+The other two options are either the controlled noise  setting of \eqref{eq:controlled}, or, in the uncontrolled case, we make the alternate assumptions 
+%\vspace{-0.2cm}
+\begin{align}
+\E[\xi^+-\xi^- |\, U,V] &= 0 \text{~~ and ~~}\nonumber\\
+\E [ (\xi^{+} - \xi^-)^{2} |\, V] &\le \sigma_\xi^2 <\infty\,.
 \label{eq:noiseass}
-\end{eqnarray}
-\vspace{-0.8cm}
+\end{align}
+%\vspace{-0.8cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
@@ -175,7 +177,7 @@ $\bm{\downarrow}$ &&\\\midrule
 The constants $C_1, C'_1, C_2$ are defined in Propositions~\ref{prop:grad-onepoint}--\ref{prop:grad-spsa}.
 }
 \label{tab:oracles}
-\vspace{-0.2cm}
+%\vspace{-0.2cm}
 \end{table}
 %\footnotetext{
 %For the first row:  
@@ -189,13 +191,13 @@ The constants $C_1, C'_1, C_2$ are defined in Propositions~\ref{prop:grad-onepoi
 %with $B_3 = \sup_{x\in \K} \norm{\nabla^3 f(x)}$, where $\norm{\cdot}$ is the implied norm for rank-3 tensors.
 %}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The following proposition, whose proof is based on \citep[Lemma~1]{spall1992multivariate} and \citep[Lemma~1]{duchi2015optimal}, provides conditions under which the bias-variance parameters $(c_1,c_2)$ can be bounded as shown in \cref{tab:oracles}:
+The following proposition, whose proof is based on \citep[Lemma~1]{spall1992multivariate} and \citep[Lemma~1]{duchi2015optimal}, provides conditions under which the bias-variance parameters $(c_1,c_2)$ can be bounded as shown in Table \ref{tab:oracles}:
 \begin{proposition}
 \label{prop:grad-spsa}
-Let \cref{ass:gradbasic} hold and let $\gamma$  be a two-point feedback oracle defined by \eqref{eq:twosp}.
+Let Assumption \ref{ass:gradbasic} hold and let $\gamma$  be a two-point feedback oracle defined by \eqref{eq:twosp}.
 Suppose furthermore that $\E[V U\tr] = I$.
 Then $\gamma$ is a type-I oracle with the pair $(c_1(\delta),c_2(\delta))$ 
-given by \cref{tab:oracles}. For uncontrolled noise and for controlled noise with $f\in\C^3$, $C_1$ is as in \cref{prop:grad-onepoint} and $C_2$ is $4 C_2$ from \cref{prop:grad-onepoint}. For the controlled noise case with $f \in \F_{L,0}$,
+given by Table \ref{tab:oracles}. For uncontrolled noise and for controlled noise with $f\in\C^3$, $C_1$ is as in Proposition \ref{prop:grad-onepoint} and $C_2$ is $4 C_2$ from Proposition \ref{prop:grad-onepoint}. For the controlled noise case with $f \in \F_{L,0}$,
 $C_1 = \frac{\overline{L}_{\Psi}}{2} \E[ \dnorm{V} \norm{U}^2]$  
 and
 $C_2 =  2 B_1^2  + \frac{ \overline{L}_{\Psi}^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$, with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$.
@@ -297,11 +299,11 @@ Let $\cF$ denote the set of these functions.
 for the functions $\cF$ with uncontrolled noise is lower bounded by $\Omega(n^{-1/2})$. \todoc{We should sort out dimension dependences later.}
 They also give an algorithm which uses two-point gradient estimates which matches this lower bound for the case of \emph{controlled noise}.
 For controlled noise, the constructions in the previous section give that for two-point estimators $c_1(\delta) = C_1 \delta^p$ and $c_2(\delta) = C_2\delta^{-q}$ with $p=1$ and $q=0$. Plugging this into
-\cref{thm:ub} we get the rate $O(n^{-1/2})$ (which is unsurprising
+Theorem \ref{thm:ub} we get the rate $O(n^{-1/2})$ (which is unsurprising
 given that the algorithms and the upper bound proof techniques are essentially the same as that of \citet{duchi2015optimal}).
 However, when the noise is uncontrolled, the best that we get is $p=2$ and $q=2$.
-From \cref{thm:lb-convex} we get that with such oracles, no algorithm can get better rate than $\Omega(n^{-1/3})$, while from
-\cref{thm:ub} we get that these rates are matched by mirror descent.
+From Theorem \ref{thm:lb-convex} we get that with such oracles, no algorithm can get better rate than $\Omega(n^{-1/3})$, while from
+Theorem \ref{thm:ub} we get that these rates are matched by mirror descent.
 We can summarize these findings as follows:
 %\todoc{Can we show that no better oracles exist?}
 \begin{theorem}\label{thm:aaab}

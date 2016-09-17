@@ -74,19 +74,19 @@ Typical choices for $c_1,c_2$ are $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C
 Our type-I oracles are defined as follows:
 %The relationship between these oracles will be studied in \cref{sec:orrel}.
 %\todoc{$Y$ should be removed completely, and added only when online learning is considered.}
-\vspace{-0.2cm}
+%\vspace{-0.2cm}
 \begin{definition}[$(c_1,c_2)$ type-I  oracle]
 \label{def:oracle1}
 We say that $\gamma$ is a  $(c_1,c_2)$ type-I oracle for $\cF$, if for any function $f\in \cF$,
 $x\in \cK,0<\delta\le 1$, $\gamma$ returns random elements  $G\in \R^d$ and  $Y\in \cK$ such that
 $\norm{x-Y}\le \delta$ almost surely (a.s.) and the following hold:
-\vspace{-0.2cm}
+%\vspace{-0.2cm}
 \begin{enumerate}
 %\item $\norm{x-Y}\le \delta$ almost surely (a.s.);
 \item $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $ (bias); and
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$ (variance).
 \end{enumerate}
-\vspace{-0.1cm}
+%\vspace{-0.1cm}
 \end{definition}
 The upper bound on $\delta$ is arbitrary: by changing the norm, any other value can also be accommodated. Also, the upper bound only matters when $\K$ is bounded and the functions in $\cF$ are defined only in a small vicinity of $\K$.
 %\todoc[inline]{For precision, we should take conditional expectations given the past in the above definitions.}
@@ -97,7 +97,7 @@ The second type of oracles considered is as follows:
 \label{def:oracle2}
 We say that $\gamma$ is a  $(c_1,c_2)$ type-II oracle for $\cF$, if for any function $f\in \cF$,
 $x\in \cK,0<\delta\le 1$, $\gamma$ returns $G\in \R^d$ and  $Y\in \cK$ random elements such that $\norm{x-Y}\le \delta$ a.s. and the following hold:
-\vspace{-0.2cm}
+%\vspace{-0.2cm}
 \begin{enumerate}
 %\item $\norm{x-Y}\le \delta$ a.s.;
 \item There exists $\tilde{f} \in \cF$ such that
@@ -105,7 +105,7 @@ $\bignorm{\tilde{f}- f}_\infty \le c_1(\delta)$  and
 $\EE{G}  = \nabla \tilde{f}(x)$ (bias); and
 \item $\EE{\norm{ G -  \EE{G} }_*^2} \le c_2(\delta)$ (variance).
 \end{enumerate}
-\vspace{-0.1cm}
+%\vspace{-0.1cm}
 \end{definition}
 We will denote the set of type-I (type-II) oracles satisfying the $(c_1,c_2)$-requirements given a function $f\in \cF$ by $\Gamma_1(f,c_1,c_2)$ (resp., $\Gamma_2(f,c_1,c_2)$).
 
@@ -135,15 +135,16 @@ The type-II oracles that will be explicitly constructed will be all uniform.
 
 We call an oracle (type-I or II)  \emph{unbiased} if $\EE{Y}=x$ in the above definitions. Note that if the oracle is unbiased and the loss function is smooth,
  an algorithm does not loose too much from suffering loss at $Y$ instead of the query point $x$
- since in this case $\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}^2} \le L\delta^2/2$.
+ since in this case, we have 
+$$\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}^2} \le L\delta^2/2.$$
 
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-Examples of specific oracle constructions will be given in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
+Examples of specific oracle constructions will be given in  Section \ref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
 
 As the next result shows, type-I and II oracles are closely related.
 In particular, a type-I oracle is also a type-II oracle (although not a uniform type-II oracle). On the other hand, type-II oracles need to satisfy an alternative condition to become type-I oracles as the closeness of $\tilde{f}$ and $f$ is insufficient to conclude anything about the distance of their gradients:
 \begin{proposition}\label{thm:typered}
-\cref{def:oracle1} is a sufficient condition for \cref{def:oracle2}, given a bounded $\cK$. 
+Definition \ref{def:oracle1} is a sufficient condition for Definition \ref{def:oracle2}, given a bounded $\cK$. 
 In particular, letting $R = \sup_{y \in \cK}\norm{y}$, 
 for any $f,c_1,c_2$ such that $f+\ip{c,\cdot} \in \F$ for any $\norm{c}_* \le c_1(1)$, it holds that $\Gamma_1(f,c_1,c_2) \subset \Gamma_2(f,Rc_1,c_2)$. 
 Furthermore, if $\bignorm{\tilde{f}-f}_\infty \le c_1(\delta)$ is replaced by 
@@ -152,11 +153,12 @@ Furthermore, if $\bignorm{\tilde{f}-f}_\infty \le c_1(\delta)$ is replaced by
 %\sup_{x\in \cK}
 \bignorm{\nabla \tilde{f}- \nabla f}_* \le c_1(\delta)
 \end{align}
-in \cref{def:oracle2} (for all $x\in\cK$ and $0<\delta \le 1$), then any oracle satisfying this modified definition  is also a $(c_1,c_2)$ type-I oracle.
+in Definition \ref{def:oracle2} (for all $x\in\cK$ and $0<\delta \le 1$), then any oracle satisfying this modified definition  is also a $(c_1,c_2)$ type-I oracle.
 \end{proposition}
 
 \begin{proof}
-The second part of the claim is immediate from the definitions, hence it remains to prove the first part.
+We prove only the first part of the claim, as the second part follows by Definitions \ref{def:oracle1}--\ref{def:oracle2} and condition \eqref{eq:oracle2alt}.
+ %is immediate from the definitions, hence it remains to prove the first part.
 Let $\gamma$ be  a $(c_1,c_2)$ type-I oracle. Fix $x$, $\delta,f$ and let the oracle's response be $G,Y$. 
 Define $\tilde{f}:\cK \to \mathbb{R}$ by
 \[\tilde{f}(y) =\EE{ f(y)+ \ip{G-\nabla f(x) , y}},\]
@@ -173,10 +175,8 @@ we have, for any $y \in \cK$,
  \le \largenorm{\EE{G}-\nabla f(x)}_* \, \norm{y}
  \le  R\,c_1(\delta)\,.
 \end{align*}
-showing that  $\gamma$ is also an $(Rc_1,c_2)$ Type-II oracle, since $\tilde{f}\in\F$ by the conditions of the proposition.
+From the above, it follows that $\gamma$ is also an $(Rc_1,c_2)$ Type-II oracle, since $\tilde{f}\in\F$ by the conditions of the proposition. 
 \end{proof}
-
-
 
 In the online convex optimization setting,
 algorithms are compared based on their minimax \emph{regret}, 
@@ -236,7 +236,7 @@ Assume further that the function set $\F$ is invariant to linear shifts
 (that is for any $f\in \F$, $w\in \R^d$, $x\mapsto f(x) + \ip{x,w}$ is also in $\F$).
 Let
  $\Delta_{n}^{\mathrm{type-I}}$ and $\Delta_{n}^{\mathrm{type-II}}$ denote  the appropriate minimax errors for the two types of oracles.
-Then, by the construction in  \cref{thm:typered},
+Then, by the construction in  Theorem \ref{thm:typered},
 \begin{align}
 \Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(Rc_1,c_2)\,.
 \end{align}

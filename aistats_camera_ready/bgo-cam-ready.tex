@@ -1,58 +1,52 @@
-\documentclass[twoside,11pt]{article}
+\documentclass[twoside, 11pt]{article}
 %\usepackage[accepted]{aistats2016}
 \input{commands}
 % Compilation note:
 % Don't forget to add --shell-escape (or -enable-write18 if you are using MikTeX) to the pdflatex commandline.
 % see http://www.howtotex.com/tips-tricks/faster-latex-part-ii-external-tikz-library/
 
-% If your paper is accepted, change the options for the package
-% aistats2016 as follows:
-%
-%\usepackage[accepted]{aistats2016}
-%
-% This option will print headings for the title of your paper and
-% headings for the authors names, plus a copyright note at the end of
-% the first column of the first page.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ShortHeadings{(Bandit) Convex Optimization with Biased Noisy Gradient Oracles}{}
 
 \title{(Bandit) Convex Optimization with Biased Noisy Gradient Oracles\thanks{An earlier version of this paper was published in AISTATS 2016 \citep{HuPrGySz16}.}}
-\author{Xiaowei  Hu$^1$,  Prashanth L.A.$^2$,  Andr\'as Gy\"orgy$^3$, and Csaba Szepesv\'ari$^1$}
-\date{$^1$ Department of Computing Science, University of Alberta \\
-$^2$ Institute for Systems Research, University of Maryland \\
-$^3$ Department of Electrical and Electronic Engineering, Imperial College London}
+\author{\name Xiaowei  Hu \email xhu3@ualberta.ca \\
+  \addr Department of Computing Science,\\
+  University of Alberta,\\
+	Edmonton T6G 2E8, Canada
+  \AND
+  \name Prashanth L.A. \email prashla@isr.umd.edu\\
+  \addr Institute for Systems Research, \\
+  University of Maryland, \\
+	College Park, MD 20742, US
+  \AND
+  \name Andr\'as Gy\"orgy \email  a.gyorgy@imperial.ac.uk\\
+  \addr Department of Electrical and Electronic Engineering,\\
+	Imperial College London,\\
+  South Kensington Campus, London SW7 2BT, UK 
+  \AND
+  \name Csaba Szepesv\'ari \email szepesva@cs.ualberta.ca \\
+  \addr Department of Computing Science,\\
+  University of Alberta,\\
+	Edmonton T6G 2E8, Canada
+}
+
+ \editor{}
 
 \begin{document}
 
-% If your paper is accepted and the title of your paper is very long,
-% the style will print as headings an error message. Use the following
-% command to supply a shorter title of your paper so that it can be
-% used as headings.
-%
-%\runningtitle{I use this title instead because the last one was very long}
-
-% If your paper is accepted and the number of authors is large, the
-% style will print as headings an error message. Use the following
-% command to supply a shorter version of the authors names so that
-% they can be used as headings (for example, use only the surnames)
-%
-
-%\runningauthor{Xiaowei Hu, Prashanth L.A., Andr\'as Gy\"orgy, and Csaba Szepesv\'ari}
-%
-%\twocolumn[
-%
-%\aistatstitle{(Bandit) Convex Optimization with Biased Noisy Gradient Oracles}
-%
-%
-%\aistatsauthor{Xiaowei  Hu$^1$ \And Prashanth L.A.$^2$ \And Andr\'as Gy\"orgy$^3$ \And Csaba Szepesv\'ari$^1$ \vspace{1mm}}
-%
-%\aistatsaddress{$^1$ Department of Computing Science, University of Alberta \\
-%$^2$ Institute for Systems Research, University of Maryland \\
-%$^3$ Department of Electrical and Electronic Engineering, Imperial College London} ]
-
 \maketitle
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
 \begin{abstract}
-\vspace{-0.2cm}
 Algorithms for bandit convex optimization and online learning often 
 rely on constructing noisy gradient estimates, which are then used
  in appropriately adjusted first-order algorithms, replacing
@@ -82,7 +76,7 @@ achieve the optimal square-root regret rate for online/stochastic bandit convex 
 % when the function cannot be queried outside the domain.
 \end{abstract}
 
-\vspace{-0.3cm}
+%\vspace{-0.3cm}
 
 \section{Introduction}
 \label{sec:intro}
@@ -144,17 +138,10 @@ This work was supported by the Alberta Innovates Technology Futures through the 
 
 %\clearpage\newpage
 %\begin{small}
-\bibliographystyle{apalike}
+%\bibliographystyle{apalike}
 \bibliography{main}
 %\end{small}
 
 %\end{document}
-
-%\subsubsection*{References}
-\clearpage\newpage
-\onecolumn
-\appendix
-%\input{appendix}
-
 
 \end{document}

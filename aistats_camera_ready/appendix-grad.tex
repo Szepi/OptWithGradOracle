@@ -1,6 +1,6 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-In this section we present the proofs corresponding to the oracles introduced in \cref{sec:sbco}.
+In this section we present the proofs corresponding to the oracles introduced in Section \ref{sec:sbco}.
 
 \subsection{Proof of Proposition \ref{prop:grad-onepoint}}
 
@@ -82,7 +82,7 @@ we bound $\E\left\| G - \E G\right\|_*^2$ as follows:
 + \left( \dfrac{f(x+\delta U) }{\delta} \right)^2 \right)\right) \nonumber \\
 &=  4\E\left( \left\| V \right\|_*^2 \left(\dfrac{\xi}{\delta}\right)^2\right)
 + 4 \E \left(\left\| V \right\|_*^2 \right)\left( \dfrac{f(x+\delta U) }{\delta} \right)^2  \label{eq:h31} \\
-& \le  \frac{C_2}{\delta^2}\,, \nonumber \label{eq:h41}
+& \le  \frac{C_2}{\delta^2}\,, \nonumber 
 \end{align}
 where $C_2 = 4 \EE{\norm{V}_*^2}\left( \sigma_\xi^2+B_0^2\right)$, where
 $\sigma_\xi^2 = \essup \EE{\xi^2|V}$ and $B_0 = \sup_{x\in \D} f(x)$.
@@ -161,7 +161,7 @@ Suppose $W \subset \R^n$ is an open set with the boundary $\partial W$. At each 
 \end{lemma}
 
 \begin{proof}
-Given that $\EE{\norm{V}_*^2}$ and $\EE{\xi^2}$ are bounded, the variance of $G$ remains the same as stated in \cref{prop:grad-onepoint}.
+Given that $\EE{\norm{V}_*^2}$ and $\EE{\xi^2}$ are bounded, the variance of $G$ remains the same as stated in Proposition \ref{prop:grad-onepoint}.
 
 As to the bias, let $\tilde{f}$ be a smoothed version of $f$, i.e., $\forall x \in \cK$,
 \begin{align*}
@@ -174,7 +174,7 @@ Since $U$ is uniformly distributed over $\partial W$,  the expectation of $G$ ca
 \EE{G} =\dfrac{\lvert \partial W\rvert}{\lvert W \rvert} \int_{\partial W} \dfrac{1}{\delta} f(x+\delta U)n_W(U)\dfrac{\,d U}{\lvert \partial W\rvert}
 =  \int_W \nabla f(x+\delta U)\dfrac{\,d U}{\lvert W\rvert}\,,
 \end{align*}
-where the second equality follows from \cref{lem:gradientCalculus}, by replacing the gradient of $\hat{f}(u) =\dfrac{1}{\delta} f(x+\delta u) $ with $\nabla f(x+\delta u)$.
+where the second equality follows from Lemma \ref{lem:gradientCalculus}, by replacing the gradient of $\hat{f}(u) =\dfrac{1}{\delta} f(x+\delta u) $ with $\nabla f(x+\delta u)$.
 Then, the order of the gradient and the integral can be exchanged, because $\int_W f(x+\delta U)\,d U$ exists. Consequently, we obtain $\EE{G} = \nabla \tilde{f}(x)$.
 
 Moreover, $\tilde{f}$ and $f$ are actually close. In particular, for any $x \in \cK$,

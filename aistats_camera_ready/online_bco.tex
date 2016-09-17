@@ -17,12 +17,12 @@ No algorithm that relies on
  $(\delta^2,\delta^{-2})$ type-I oracles
  can achieve better regret than $\Omega(n^{2/3})$.
 \end{theorem}
-\vspace{-0.2cm}
-With a noisy gradient oracle of \cref{prop:flaxman}, Theorem~\ref{thm:aaa} implies that this regret rate is achievable, essentially recovering, and in some sense proving optimality of the result of \citet{saha2011improved}:
+%\vspace{-0.2cm}
+With a noisy gradient oracle of Proposition \ref{prop:flaxman}, Theorem~\ref{thm:aaa} implies that this regret rate is achievable, essentially recovering, and in some sense proving optimality of the result of \citet{saha2011improved}:
 \begin{theorem}
-For zeroth order noisy optimization with smooth convex functions, the gradient estimator of \cref{prop:flaxman} together with mirror descent (see Algorithm \ref{alg}) achieve $\O(n^{2/3})$ regret.
+For zeroth order noisy optimization with smooth convex functions, the gradient estimator of Proposition \ref{prop:flaxman} together with mirror descent (see Algorithm \ref{alg}) achieve $\O(n^{2/3})$ regret.
 \end{theorem}
-\vspace{-0.2cm}
+%\vspace{-0.2cm}
 This optimality result shows that with the usual analysis of the current gradient estimation techniques, no gradient method can achieve the optimal regret $O(n^{1/2})$ for online bandit convex optimization, established by \citet{BubeckDKP15,BuEl15}. Note that this shows a contradiction to the recent result of \citet{DeElKo15}, who claimed to achieve $\tilde{O}(n^{5/8})$ regret with the same $(\delta^2,\delta^{-2})$ type-II gradient oracle as \citet{saha2011improved}, but their proof only used the $(\delta^2,\delta^{-2})$ tradeoff in the bias and variance properties of the oracle.\todoa{Actually, all these proofs use Type-IIb oracles....}
 
 
