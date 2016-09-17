@@ -2,12 +2,12 @@
 % please do not delete or change the first line (needed by Csaba's editor)
 %In the proof, we use \cref{lem:ub} to deal with noisy and biased gradient, which is essentially Theorem~C.4 of \cite{MahdaviPhd:2014}, and also identical to Theorem~6.3 of \cite{Bu:Convex14}, who cites \citet{Dekel:minibatch12} as the source. The lemma and its proof can be found below.
 
-In this section we prove Theorem \ref{thm:ub}. First we derive the bounds for the optimization settings and then for the regret. 
+In this section we prove Theorem~\ref{thm:ub}. First we derive the bounds for the optimization settings and then for the regret. 
 
 \subsection{Stochastic optimization}
 
-The proof for the stochastic optimization scenario is based on Lemma \ref{lem:ub} stated below.
-This is essentially Theorem~C.4 of \citet{MahdaviPhd:2014}, and also identical to Theorem~6.3 of \citet{Bu:Convex14}, who cites \citet{Dekel:minibatch12} as the source. For completeness, the proof of the lemma is given in Section \ref{sec:lemub-proof}.
+The proof for the stochastic optimization scenario is based on Lemma~\ref{lem:ub} stated below.
+This is essentially Theorem~C.4 of \citet{MahdaviPhd:2014}, and also identical to Theorem~6.3 of \citet{Bu:Convex14}, who cites \citet{Dekel:minibatch12} as the source. For completeness, the proof of the lemma is given in Section~\ref{sec:lemub-proof}.
 %The lemma is somewhat more general than what we need (we will only need it for the case when $\beta_t=0$); 
 %the general form is presented because its proof is not significantly different than the simpler form and it may find
 %other applications in the future.
@@ -18,7 +18,7 @@ Let $\overline G_t = \EE{G_t|{{\cS}}_t}$
 and assume that the nonnegative real-valued deterministic sequence $(\beta_t)_{1\le t\le n}$ is such that
 $\norm{\overline G_t - \nabla {f}(X_t)}_* \le \beta_t$ holds almost surely.
 Further, assume that $\mathcal{R}$ is $\alpha$-strongly convex with respect to $\norm{\cdot}$, $D=\sup_{x,y\in \cK} D_{\mathcal{R}}(x,y) < \infty$,  and let $\eta_t = \frac{\alpha}{a_t+L}$ for some increasing
-sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, the cumulative loss of Algorithm \ref{alg} for a fixed convex and $L$-smooth  function $f$ can be bounded as
+sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, the cumulative loss of Algorithm~\ref{alg} for a fixed convex and $L$-smooth  function $f$ can be bounded as
 \begin{align*}
 \EE{ \sum_{t=1}^n {f}(X_t) - {f}(x) }
 \le 	 \EE{{f}(X_1)-{f}(x)}+
@@ -28,7 +28,7 @@ sequence $(a_t)_{t=1}^{n-1}$ of numbers. Then, the cumulative loss of Algorithm 
 \end{align*}
 where $\sigma_t^2 = \EE{ \norm{G_t-\overline G_t}_*^2}$ is the ``variance'' of $G_t$.
 
-If ${{f}}$ is also $\mu$-strongly convex with respect to $\mathcal{R}$ with $\mu > 2L/\alpha$, then letting $\eta_t = \dfrac{2}{\mu t}$ and $a_t = \alpha \mu t/2-L > 0$, the cumulative loss of  Algorithm \ref{alg} can be bounded as
+If ${{f}}$ is also $\mu$-strongly convex with respect to $\mathcal{R}$ with $\mu > 2L/\alpha$, then letting $\eta_t = \dfrac{2}{\mu t}$ and $a_t = \alpha \mu t/2-L > 0$, the cumulative loss of  Algorithm~\ref{alg} can be bounded as
 \begin{align*}
  \EE{ \sum_{t=1}^n {f}(X_t) - {f}(x) }
 \le 	 \EE{{f}(X_1)-{f}(x)}+
@@ -61,7 +61,7 @@ the last $3$ terms in \eqref{eq:ubToBeOptTypeI} are optimized to
  with
  $K_1 = 2^{\frac{q}{2(2p+q)}} \left( \alpha^{-1}+2\alpha^{-\frac{q}{2(p+q)}} \right) \left( \frac{2p+q}{2p} \right)^{\frac{p}{2p+q}}$. This implies \eqref{eq:MDbound1TypeI}.
 
-For type-II oracles, from the bias condition in Definition \ref{def:oracle2} and using that the oracle is memoryless and uniform, we get
+For type-II oracles, from the bias condition in Definition~\ref{def:oracle2} and using that the oracle is memoryless and uniform, we get
 \begin{align*}
  \frac{1}{n} \EE{ \sum_{t=1}^n f(X_t) - \inf_{x \in \cK}\sum_{t=1}^n f(x) }
  \le \frac{1}{n}\EE{ \sum_{t=1}^n \tilde{f}(X_t) - \inf_{x \in \cK}\sum_{t=1}^n \tilde{f}(x) } +2C_1 \delta^p
@@ -69,7 +69,7 @@ For type-II oracles, from the bias condition in Definition \ref{def:oracle2} and
 \end{align*}
 
 Given $\overline{G}_t=\EE{G_t} = \nabla \tilde{f}(X_t)$, where $\tilde{f}\in \cF_{L,0}$ is convex and smooth,
-the result immediately follows by applying Lemma \ref{lem:ub} to $\tilde{f}$.
+the result immediately follows by applying Lemma~\ref{lem:ub} to $\tilde{f}$.
 Substituting
  $\beta_t = 0$ (since we have a type-II oracle), $\sigma^2_t = C_2 \delta^{-q}$, respectively, and using the bias condition again, we obtain
  \begin{align}

@@ -3,25 +3,25 @@
 % \subsubsection{Reductions and Proofs}
 % \label{sec:orrel}
 
-%\subsubsection*{Proof of Theorem \ref{thm:typered}}
+%\subsubsection*{Proof of Theorem~\ref{thm:typered}}
 \if0
 \section{Reduction of Oracles}
 \label{sec:orrel}
 
 As is mentioned in Section~\ref{sec:problem}, a type-I oracle is also a type-II oracle. On the other hand, type-II oracles need to satisfy an alternative condition to become type-I oracles. The following result formalizes the relationship between our oracle definitions.
 \begin{theorem}\label{thm:typered}
-Definition \ref{def:oracle1} is a sufficient condition of Definition \ref{def:oracle2}, given a bounded $\cK$. That is, for any $(c_1,c_2)$ Type-I oracle $\gamma$, there exist some constant $R$ such that  $\gamma$ is a $(c'_1,c_2)$ Type-II oracle, with $c'_1(\delta)=Rc_1(\delta)$.
+Definition~\ref{def:oracle1} is a sufficient condition of Definition~\ref{def:oracle2}, given a bounded $\cK$. That is, for any $(c_1,c_2)$ Type-I oracle $\gamma$, there exist some constant $R$ such that  $\gamma$ is a $(c'_1,c_2)$ Type-II oracle, with $c'_1(\delta)=Rc_1(\delta)$.
 
 Furthermore, if $\norm{\tilde{f}-f}_\infty \le c_1(\delta)$ is replaced by 
 \begin{align}
 \label{eq:oracle2alt}
 \sup_{x\in \mathcal{K}}\norm{\nabla \tilde{f}- \nabla f}_* \le c_1(\delta)
 \end{align}
-in Definition \ref{def:oracle2}, then the resulting oracle is also a $(c_1,c_2)$ type-I oracle.
+in Definition~\ref{def:oracle2}, then the resulting oracle is also a $(c_1,c_2)$ type-I oracle.
 \end{theorem}
 
 \begin{proof}
-Given $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $ in Definition \ref{def:oracle1}, we can always construct a function $\tilde{f}:\cK \to \mathbb{R}$,
+Given $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $ in Definition~\ref{def:oracle1}, we can always construct a function $\tilde{f}:\cK \to \mathbb{R}$,
 \[
 \tilde{f}(y) =\EE{ f(y)+ \left( G-\nabla f(x) \right)^\top y} \,,
 \]
@@ -42,13 +42,13 @@ Also notice that
 \]
 Therefore, $\gamma$ is also a $(c'_1,c_2)$ Type-II oracle.
 
-Next, given \eqref{eq:oracle2alt} and $\EE{G}=\nabla \tilde{f}(x)$ in Definition \ref{def:oracle2}, we can immediately get the bias condition of Definition \ref{def:oracle1}.
+Next, given \eqref{eq:oracle2alt} and $\EE{G}=\nabla \tilde{f}(x)$ in Definition~\ref{def:oracle2}, we can immediately get the bias condition of Definition~\ref{def:oracle1}.
 \end{proof}
 
 
 \fi
 
-\section{Proof of Lemma \ref{lem:ub}}
+\section{Proof of Lemma~\ref{lem:ub}}
 \label{sec:lemub-proof}
 \label{sec:ublemma-proof}
 %To simplify notation, in the following we call the loss function $f$, not $\tilde{f}$ as stated in \cref{lem:ub}. 
@@ -61,7 +61,7 @@ For any $x \in \cK$ and any $t \ge 1$,
 \ip{G_t, X_{t+1}-x}
 \le \dfrac{1}{\eta_t} \left( \DR(x,X_t)-\DR(x,X_{t+1})-\DR(X_{t+1},X_t) \right)\,,
 \end{align*}
-where $X_{t+1}$ is selected as in Algorithm \ref{alg}.
+where $X_{t+1}$ is selected as in Algorithm~\ref{alg}.
 \end{lemma}
 \begin{proof}
 The point $X_{t+1}$ is the minimizer of
@@ -76,7 +76,7 @@ by the optimality condition, for any $x \in \cK$,
 which is equivalent to the result by substituting the definition of the Bregman divergence $\DR$.
 \end{proof}
 
-With this, we can turn to the proof of Lemma \ref{lem:ub}.
+With this, we can turn to the proof of Lemma~\ref{lem:ub}.
 
 \begin{proof}
 From the smoothness and convexity of $f$, and using the strong convexity of $\cR$, we get
@@ -111,7 +111,7 @@ The second term inside the expectation can be bounded by the Fenchel-Young inequ
 \le \frac12 \left(\frac{\norm{\xi_t}_*^2}{a_t} + \frac{2a_t}{\alpha} D_{\mathcal{R}}(X_{t+1},X_t) \right)\,.
 \]
 Applying
-Lemma \ref{lem:mdlinregret}
+Lemma~\ref{lem:mdlinregret}
 to bound $\ip{ G_t, X_{t+1} - x }$, and putting everything together gives
 \begin{align*}
  \EE{f(X_{t+1}) - f(x) |\cS_{t} }

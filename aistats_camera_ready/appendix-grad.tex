@@ -1,8 +1,8 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-In this section we present the proofs corresponding to the oracles introduced in Section \ref{sec:sbco}.
+In this section we present the proofs corresponding to the oracles introduced in Section~\ref{sec:sbco}.
 
-\subsection{Proof of Proposition \ref{prop:grad-onepoint}}
+\subsection{Proof of Proposition~\ref{prop:grad-onepoint}}
 
 
 
@@ -117,7 +117,7 @@ Therefore, for $f$ convex and $L$-smooth, $\gamma$ defined by \eqref{eq:one-poin
 % \begin{align*}
 % f(x + \delta U) = f(x) \pm \delta U\tr \nabla f(x) + \frac{\delta^2}{2} U\tr \nabla^2 f(x) U +  \frac{\delta^3}{6} \nabla^3 f(\tilde x^{+})(U \otimes U \otimes U),
 % \end{align*}
-% where $\otimes$ and $\tilde x^+$ are as in the proof of Proposition \ref{prop:grad-spsa}.
+% where $\otimes$ and $\tilde x^+$ are as in the proof of Proposition~\ref{prop:grad-spsa}.
 % Using suitable Taylor's series expansions, we have %the following for any $i=1,\ldots,d$:
 % \begin{align}
 % &\E\left[V\left(\dfrac{f(x+\delta U)}{\delta}\right) \right] \nonumber\\
@@ -150,7 +150,7 @@ Therefore, for $f$ convex and $L$-smooth, $\gamma$ defined by \eqref{eq:one-poin
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Proof of Proposition \ref{prop:flaxman}}
+\subsection{Proof of Proposition~\ref{prop:flaxman}}
 Before the proof, we introduce a fundamental theorem of vector calculus, which is commonly known as the Gauss-Ostrogradsky theorem or the divergence theorem . A special case of the theorem for real-valued functions in $\R^n$ can be stated as follows.
 \begin{lemma}
 \label{lem:gradientCalculus}
@@ -161,7 +161,7 @@ Suppose $W \subset \R^n$ is an open set with the boundary $\partial W$. At each 
 \end{lemma}
 
 \begin{proof}
-Given that $\EE{\norm{V}_*^2}$ and $\EE{\xi^2}$ are bounded, the variance of $G$ remains the same as stated in Proposition \ref{prop:grad-onepoint}.
+Given that $\EE{\norm{V}_*^2}$ and $\EE{\xi^2}$ are bounded, the variance of $G$ remains the same as stated in Proposition~\ref{prop:grad-onepoint}.
 
 As to the bias, let $\tilde{f}$ be a smoothed version of $f$, i.e., $\forall x \in \cK$,
 \begin{align*}
@@ -174,7 +174,7 @@ Since $U$ is uniformly distributed over $\partial W$,  the expectation of $G$ ca
 \EE{G} =\dfrac{\lvert \partial W\rvert}{\lvert W \rvert} \int_{\partial W} \dfrac{1}{\delta} f(x+\delta U)n_W(U)\dfrac{\,d U}{\lvert \partial W\rvert}
 =  \int_W \nabla f(x+\delta U)\dfrac{\,d U}{\lvert W\rvert}\,,
 \end{align*}
-where the second equality follows from Lemma \ref{lem:gradientCalculus}, by replacing the gradient of $\hat{f}(u) =\dfrac{1}{\delta} f(x+\delta u) $ with $\nabla f(x+\delta u)$.
+where the second equality follows from Lemma~\ref{lem:gradientCalculus}, by replacing the gradient of $\hat{f}(u) =\dfrac{1}{\delta} f(x+\delta u) $ with $\nabla f(x+\delta u)$.
 Then, the order of the gradient and the integral can be exchanged, because $\int_W f(x+\delta U)\,d U$ exists. Consequently, we obtain $\EE{G} = \nabla \tilde{f}(x)$.
 
 Moreover, $\tilde{f}$ and $f$ are actually close. In particular, for any $x \in \cK$,
@@ -221,7 +221,7 @@ with the same value of $C'_1$ as before. So $\gamma$ is also a  type-I oracle wi
 % Under this situation, using Taylor expansion again, the $f(x)$ and $f''(x)$ terms in \eqref{eq:spsaTaylorExp} can be canceled and one can conclude that $G$ is only an order $O(\delta^2)$ term away from $f'(x)$. Note that the second-order term in one-point SPSA is zero-mean, while in the two-point SPSA it is zero.
 % As a result, we only need $\Delta_{\cdot i}$ to be zero-mean instead of symmetry.
 
-\subsection{Proof of Proposition \ref{prop:grad-spsa}}
+\subsection{Proof of Proposition~\ref{prop:grad-spsa}}
 %\begin{proof}\ \\
 \textbf{Case 1 ($f \in \C^3$):}\ \\
 We use the proof technique of \cite{spall1992multivariate}
@@ -246,7 +246,7 @@ f(x \pm \delta U) =
   + \frac{\delta^2}{2}\, U\tr \nabla^2 f(x) U
   \pm  \frac{\delta^3}{2} \, R^{\pm}(x,\delta,U) \,(U, U, U),
 \end{align*}
-where, as in the proof of Proposition \ref{prop:grad-onepoint}, $R^{\pm}(x,\delta,U)$ is defined as follows:
+where, as in the proof of Proposition~\ref{prop:grad-onepoint}, $R^{\pm}(x,\delta,U)$ is defined as follows:
 \begin{align}
  R^{\pm}(x,\delta,U)= \int_0^1  \nabla^3 f(  x \pm s \, \delta U ) (1-s)^2 ds. \label{eq:taylor-r-1p}
 \end{align}
@@ -277,7 +277,7 @@ we get that
 \end{align*}
 where $C_1 = \frac{B_3 \EE{ \norm{V}_* \norm{U}^3 }}{6}$.
 
-Using arguments similar to that in the proof of Proposition \ref{prop:grad-onepoint}, the variance of $G$ is bounded as follows:
+Using arguments similar to that in the proof of Proposition~\ref{prop:grad-onepoint}, the variance of $G$ is bounded as follows:
 \begin{align}
 \MoveEqLeft \E\left\| G - \E G\right\|_*^2
  \le 4 \E \left\|G\right\|_*^2 \nonumber \\
@@ -294,7 +294,7 @@ The equality in \eqref{eq:h3} follows from $\EE{ \xi^+-\xi^- \,|\, U,V } = 0$.
 Therefore, for $f \in \C^3$, $\gamma$ defined by \eqref{eq:twosp} is a $(C_1\delta^2, C_2/\delta^2)$ type-I oracle.
 
 \paragraph{Case 2 (Controlled noise and $F$ is convex and $L_{\psi}$-smooth):}\ \\
-%\subsubsection*{Proof of Proposition \ref{prop:grad-spsa} for convex and smooth $f$}
+%\subsubsection*{Proof of Proposition~\ref{prop:grad-spsa} for convex and smooth $f$}
 The proof follows by parallel arguments to that used in the proof of Lemma 1 in \cite{duchi2015optimal} and we give it here for the sake of completeness.
 
 For any convex function $f$ with an $L$-Lipschitz gradient, for any $\delta>0$ it holds that
@@ -344,7 +344,7 @@ We now bound $\EE{ \norm{G}_*^2}$ as follows:
 and the claim for the variance follows by setting $C_2 =  2 B_1^2  + \frac{ \overline{L}_{\Psi}^2}{2}\E\left[ \dnorm{V}^2 \norm{U}^4 \right]$ with $B_1 = \sup_{x\in \K} \scnorm{\nabla f(x)}_*$.
 
 Therefore, for the case of controlled noise with a convex and $L_{\psi}$-smooth $F$, we have that $\gamma$ defined by \eqref{eq:twosp} is a $(C_1\delta, C_2)$ type-I oracle.  
-%For the case of uncontrolled noise, the claim for the variance follows in the same manner as that in the proof of Proposition \ref{prop:grad-spsa} and we obtain a $(C_1\delta, C_2/\delta^2)$ type-I oracle.
+%For the case of uncontrolled noise, the claim for the variance follows in the same manner as that in the proof of Proposition~\ref{prop:grad-spsa} and we obtain a $(C_1\delta, C_2/\delta^2)$ type-I oracle.
 %\end{proof}
 
 

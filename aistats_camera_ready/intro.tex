@@ -7,7 +7,7 @@ We consider the following optimization problem over a set $\K \subset \R^d$:
 We operate in the \textit{stochastic bandit convex optimization} (BCO) setting, i.e., $f$ is a smooth convex function and an algorithm observes only noisy point evaluations of $f$. The goal is to find a near minimizer $\hat X_n \in \K$ of the objective $f$, after observing $n$ evaluations of $f$ at different points.
 We also consider the \textit{online BCO} setting, where the environment chooses a sequence of smooth convex loss functions $f_1,\dots,f_n$ and the aim is to minimize the regret, which roughly translates to ensuring
  that the sum of the function values at the points chosen by the algorithm is not too far from the optimal value 
- (see Section \ref{sec:problem} for a detailed description).
+ (see Section~\ref{sec:problem} for a detailed description).
 
 Convex optimization is widely studied under different models concerning what can be observed about the objective function. 
 These models range from accessing the full gradient to only observing samples from the objective function (cf. \citealp{nesterov2004introductory,DeGliNe14,HaLe14:SOC,PoTsy90,flaxman2005online,AbHaRa08,AgDeXi10,Ne11:TR,AgFoHsuKaRa13:SIAM,katkul,kushcla,spall1992multivariate,spall1997one,Dip03:AoS,bhatnagar-book,duchi2015optimal}). 
@@ -40,7 +40,7 @@ We study the achievable rates for stochastic and online BCO settings under our b
 %in terms of the total excess cost of these points, or the regret
 %On the other hand, in an online BCO setting, the aim is to minimize the regret, which roughly translates to ensuring
  %that the sum of the function values at the points returned by the oracle is not too far from the optimal value 
-% (see Section \ref{sec:sbco} for a detailed description).
+% (see Section~\ref{sec:sbco} for a detailed description).
 In particular, we provide both upper and lower bounds on the minimax optimization error for stochastic BCO (and regret for online BCO) for several oracle models, which correspond to different ways of quantifying the bias-variance tradeoff of the gradient estimate. From the results, we observe that the upper and lower bounds match for the case of smooth, convex functions, while there exists a gap for smooth, strongly convex functions. 
 We do not claim to invent methods for proving upper bounds, as the methods we use have been known previously for special cases  (see the references above),
 but our main contribution lies in abstracting away the properties of gradient estimation procedures, 
@@ -59,9 +59,9 @@ of the gradient estimators than used in prior works. In particular,
 our lower bounds even invalidate the claimed (weaker) upper bound of \citet{DeElKo15}.
 %Hence, an interesting corollary to our results is that algorithms which are purely based on gradient estimation will not be able to achieve the minimax regret in online bandit convex optimization using the current proof techniques.
 
-%The rest of the paper is organized as follows: The problem is introduced in \cref{sec:problem}. Our upper and lower bounds on the minimax error are presented in \cref{sec:results}. Sections \ref{sec:sbco}--\ref{sec:obco} describe applications to stochastic and online BCO , respectively. Related general gradient oracle models are discussed in detail in \cref{sec:related}, while proofs are given in \cref{sec:proofs}.
+%The rest of the paper is organized as follows: The problem is introduced in \cref{sec:problem}. Our upper and lower bounds on the minimax error are presented in \cref{sec:results}. Sections~\ref{sec:sbco}--\ref{sec:obco} describe applications to stochastic and online BCO , respectively. Related general gradient oracle models are discussed in detail in \cref{sec:related}, while proofs are given in \cref{sec:proofs}.
 
-The rest of the paper is organized  as follows: We introduce the biased gradient oracle model in Section~\ref{sec:problem}, provide the upper and lower bounds in Section~\ref{sec:results} and describe applications to online and stochastic BCO in Sections~\ref{sec:sbco} and~\ref{sec:obco}, respectively. In Section \ref{sec:related}, we discuss related work and present the proofs in Sections \ref{sec:appendix-md}--\ref{sec:appendix-grad}. Finally, we provide concluding remarks in Section~\ref{sec:conc}.
+The rest of the paper is organized  as follows: We introduce the biased gradient oracle model in Section~\ref{sec:problem}, provide the upper and lower bounds in Section~\ref{sec:results} and describe applications to online and stochastic BCO in Sections~\ref{sec:sbco} and~\ref{sec:obco}, respectively. In Section~\ref{sec:related}, we discuss related work and present the proofs in Sections~\ref{sec:appendix-md}--\ref{sec:appendix-grad}. Finally, we provide concluding remarks in Section~\ref{sec:conc}.
 
 %All proofs can be found in the extended version of the paper \citep{HuPrGySz16long}.
 

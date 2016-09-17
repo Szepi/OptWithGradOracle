@@ -115,7 +115,7 @@ Let $\xi^+, \xi^-$ be  random and are either \\
 Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta)$ and $c_2(\delta)$ given by \cref{tab:oracles}.
 \end{proposition}
 \begin{proof}
-See Appendix \ref{sec:appendix-grad}.
+See Appendix~\ref{sec:appendix-grad}.
 \end{proof}
 
 \paragraph{Popular choices for $V$ and $U$:}\ \\
@@ -174,12 +174,12 @@ this will go elsewhere.
  
 For function class \textbf{1},  let $U$ be drawn from the surface of a unit ball centered at origin w.r.t. some norm $\norm{\cdot}$, $V=dU$, then $\gamma$ is a $(C_1\delta^2, C_2/\delta^2)$ Type-II oracle.
  
- For function class \textbf{2}, in addition to the conditions in Proposition \ref{prop:grad-spsa}, we further assume $V$ is symmetrically distributed, then $\gamma$ is also a $(C_1\delta^2, C_2/\delta^2)$ Type-I oracle.
+ For function class \textbf{2}, in addition to the conditions in Proposition~\ref{prop:grad-spsa}, we further assume $V$ is symmetrically distributed, then $\gamma$ is also a $(C_1\delta^2, C_2/\delta^2)$ Type-I oracle.
  
 \end{proposition}
-As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants by using appropriate choices for $V$ and $U$ See Appendix \ref{sec:appendix-grad} for a formal proof.
+As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants by using appropriate choices for $V$ and $U$ See Appendix~\ref{sec:appendix-grad} for a formal proof.
 \fi
-% If the function $f$ is assumed to be convex and smooth, then gradient estimates similar to \eqref{eq:twosp} can be constructed and this does not require higher order smoothness conditions as in Proposition \ref{prop:grad-spsa}. 
+% If the function $f$ is assumed to be convex and smooth, then gradient estimates similar to \eqref{eq:twosp} can be constructed and this does not require higher order smoothness conditions as in Proposition~\ref{prop:grad-spsa}. 
 % \begin{proposition}
 % \label{prop:grad-convex}
 % Consider a function $f:\D \to \R$, with $\K \subset \D \subset \R^d$,  
@@ -190,11 +190,11 @@ As in the case of two-point feedback, one can recover SPSA, RDSA and SF variants
 % G =  V \left(\dfrac{f(x+\delta U) + \xi^+ - (f(x-\delta U) + \xi^-)}{2\delta}\right),
 %  \label{eq:twosp}
 % \end{align}
-% where $\xi^+, \xi^-$, $V$, $U$ are as in Proposition \ref{prop:grad-spsa}. 
+% where $\xi^+, \xi^-$, $V$, $U$ are as in Proposition~\ref{prop:grad-spsa}. 
 % Then, we have that $\gamma$ is a type-I oracle with $c_1(\delta) = C_1 \delta$ and $c_2(\delta) = C_2 d/\delta^2$.
 % \end{proposition}
 % \begin{proof}
-% See Appendix \ref{sec:appendix-grad}.
+% See Appendix~\ref{sec:appendix-grad}.
 % \end{proof}
 
 
@@ -266,7 +266,7 @@ However, a careful reading of his paper shows that this is actually never used i
 works with no change with $p=2$, giving the lower bound $\Omega(n^{-1/3})$.}
 From this follows the next result (which perhaps appeared first in an asymptotic form in the paper by \citet{PoTsy90}):
 \begin{theorem}
-For zeroth order noisy optimization with smooth convex functions, the gradient estimators together with mirror descent (see Algorithm \ref{alg}) achieves the optimal rate. \todoc{Is this a new result?}
+For zeroth order noisy optimization with smooth convex functions, the gradient estimators together with mirror descent (see Algorithm~\ref{alg}) achieves the optimal rate. \todoc{Is this a new result?}
 \end{theorem}
 This optimality also implies that there is little hope to design gradient estimators with fundamentally better bias-variance tradeoff for this setting. Hence, by our earlier remark connecting regret and optimization error, we conclude that
  \textbf{
@@ -315,7 +315,7 @@ regret $O(n^{1/2})$} for online bandit convex optimization, established by \cite
 % \end{align*}
 % \end{proposition}
 % \begin{proof}
-%  See Appendix \ref{sec:appendix-grad}.
+%  See Appendix~\ref{sec:appendix-grad}.
 % \end{proof}
 % 
 % From the foregoing, it is easy to see that, for $3$-times continuously differentiable functions, one-point and two-point SPSA are $(c_1,c_2)$ Type-I oracles with $c_1 = C_1 \delta^2$, $c_2 = C_2 \delta^{-2}$ for some constant $C_1$, $C_2$.

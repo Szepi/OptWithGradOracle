@@ -1,8 +1,8 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-In this section we present the proof of Theorem \ref{thm:lb-convex}. 
-Note that we will only prove lower bounds with the type-I oracle. According to Theorem \ref{thm:typered}, lower bounds for type-II can be directly attained by replacing $C_1$ of type-I with $C_1/\sqrt{d}$, given $[+1,-1]^d\subset \cK $.
+In this section we present the proof of Theorem~\ref{thm:lb-convex}. 
+Note that we will only prove lower bounds with the type-I oracle. According to Theorem~\ref{thm:typered}, lower bounds for type-II can be directly attained by replacing $C_1$ of type-I with $C_1/\sqrt{d}$, given $[+1,-1]^d\subset \cK $.
 
 \subsection{Proof of Theorem~\ref{thm:lb-convex} for the class of smooth convex functions $\F_{L,0}(\K)$}
 \label{sec:appendix-lbconvex}
@@ -41,7 +41,7 @@ f_v(x) :=  \epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsi
 \,\, x \in \cK\,.
 \end{align}
 %In what follows, we will slightly abuse notation by using $f_+$ ($f_-$) in place of $f_{+1}$ (resp., $f_{-1}$).
-These functions, with the choice $\epsilon=0.1$, are shown in Figure \ref{fig:lbfvdiff}. 
+These functions, with the choice $\epsilon=0.1$, are shown in Figure~\ref{fig:lbfvdiff}. 
 The idea underlying these functions is that they approximate $\epsilon|x-v|$, but with a prescribed smoothness.
 The first and second derivatives of $f_v$ are
 \begin{align*}
@@ -54,11 +54,11 @@ f''_v(x) = \dfrac{2e^{-\frac{x-v}{\epsilon}} }{\left(  1+e^{-\frac{x-v}{\epsilon
 From the above calculation, it is easy to see that $0 \le f''(x) \le 1/2$; thus $f_v$ is $\frac{1}{2}$-smooth, and so $f_v\in \F$.
 
 For $f_v, v\in\{-1,+1\}$, the gradient oracle we consider is defined as $\gamma_v(x,\delta)=\og_v(x,\delta)+\xi_\delta$ with $\xi_\delta \sim \normal(0,\frac{C_2}{\delta^q})$ selected independently for every query, where $\og_v$ is a biased estimate of the gradient $f'_v$. 
-The derivatives of $f_+$ and $f_-$ are shown in Figure \ref{fig:lbfvdiff}; we define the ''bias'' in $\og_v$ to move the gradients closer to each other:
+The derivatives of $f_+$ and $f_-$ are shown in Figure~\ref{fig:lbfvdiff}; we define the ''bias'' in $\og_v$ to move the gradients closer to each other:
 The idea is to shift $f_+'$ and $f_-'$ towards each other, with the shift depending on the allowed bias $c_1(\delta) = C_1\delta^p$.
 In particular, since $f_+'\le f_-'$, $f_+'$ is shifted up, while $f_-'$ is shifted down. 
 However, the shifted up version of $f_+'$ is clipped for positive $x$ so that it never goes above the 
-shifted down version of $f_-'$, cf. Figure \ref{fig:fprime}.
+shifted down version of $f_-'$, cf. Figure~\ref{fig:fprime}.
  By moving the curves towards each other, algorithms which rely on the obtained oracles
 will have an increasingly harder time (depending on the size of the shift) to distinguish whether the function optimized is $f_+$ or $f_-$. Since
 \begin{align*}
@@ -193,8 +193,8 @@ M_v :=&\,\, \min_{x:xv \le 0} f_v(x) - f_v(v)
 =   f_v(0) - f_v(v)  
 =  \epsilon\left(-v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}\right). \nonumber %\label{eq:lbfvdiff2}
 \end{align*}
-%Above, the equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. As illustrated in Figure \ref{fig:lbfvdiff}, $\min_{x:xv<0} f_v(x)$ is achieved at $x=0$ due to monotonicity of $f_v$. A similar argument works for $v=-1$ as well. 
-%This can also be seen from the plot of $f_+$ to the left of $+1$ and of $f_-$ to the right of $-1$ in Figure \ref{fig:lbfvdiff}. 
+%Above, the equality in \eqref{eq:lbfvdiff} can be inferred as follows: Suppose $v=+1$. As illustrated in Figure~\ref{fig:lbfvdiff}, $\min_{x:xv<0} f_v(x)$ is achieved at $x=0$ due to monotonicity of $f_v$. A similar argument works for $v=-1$ as well. 
+%This can also be seen from the plot of $f_+$ to the left of $+1$ and of $f_-$ to the right of $-1$ in Figure~\ref{fig:lbfvdiff}. 
 Let $h(v) = -v + 2\epsilon\ln\dfrac{1+e^{\frac{v}{\epsilon}}}{2}$.
 Simple algebra shows that $h$ is an even function, that is, $h(v) = h(-v)$. Indeed,
 \begin{align*}
@@ -397,7 +397,7 @@ By choosing $\epsilon = \left(\frac{2p}{\sqrt{n} K_1(4p+q)} \right)^{\frac{2p}{2
 %\begin{align}
 %\frac{1}{\sqrt{d}}\left(\frac{1}{\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}\le \min\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\right).
 %\end{align}
-%The above conditions on $n$ can be inferred from (i) the requirement on  $\epsilon$ in \eqref{eq:deltastar}, (ii) assumption $\delta \le 1$ in Definition \ref{def:oracle1},  and (iii) the optimal choice of $\epsilon$ above.
+%The above conditions on $n$ can be inferred from (i) the requirement on  $\epsilon$ in \eqref{eq:deltastar}, (ii) assumption $\delta \le 1$ in Definition~\ref{def:oracle1},  and (iii) the optimal choice of $\epsilon$ above.
 
 Now, when $p=1$ and $q=2$, the lower bound in \eqref{eq:lb-pq} simplifies to 
 \[
@@ -492,7 +492,7 @@ such that
 \begin{center}
 	\includegraphics[width=0.5\textwidth]{../figs/ddimto1dim_reduction} % drawn with the IPE app
 \end{center}
-\caption{The construction of algorithm $\A_i^*$ used in the proof of Lemma \ref{lemma:sep}.}
+\caption{The construction of algorithm $\A_i^*$ used in the proof of Lemma~\ref{lemma:sep}.}
 \label{fig:sepalgconstruction}
 \end{figure}
 \begin{proof}
@@ -512,7 +512,7 @@ Let the optimal solution of this problem be denoted by $(\hat{v}_i^*,v_{-i}^*)$;
 we create a one-dimensional oracle from a $d$-dimensional.
 We also collect $(\hat{v}_i^*)_i$ into the vector $\hat{v}^*\in V^d$.
 
-Now, algorithm $\A_i^*$ is constructed as illustrated on Figure \ref{fig:sepalgconstruction}.
+Now, algorithm $\A_i^*$ is constructed as illustrated on Figure~\ref{fig:sepalgconstruction}.
 Fix $v_i\in V_i$. Then, algorithm $\A_i^*$ interacts with oracle $\gamma_{v_i}^{(v_i)}$ as follows:
 In each round $t$, algorithm $\A_i^*$ produces a pair $(X_t,\delta_t) \in \cK \times [0,1)$. 
 In particular, in the first round, $X_1,\delta_1$ is the output of $\A$ in the first round.
@@ -591,7 +591,7 @@ For each $i=1,\dots,d$, pick $\gamma_{v_i}^{(i)}\in \Gamma(f_{v_i},c_1/\sqrt{d},
 $$\Delta_n^*(\cF^{(i)},c_1/\sqrt{d},c_2/d) = \inf_{\cA} \sup_{v_i\in V_i} \Delta_n^{\cA}(f_{v_i},\gamma_{v_i}^{(i)}).$$
 For $v \in V$, let $\gamma_v \in \Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d)$ be the oracle whose ``components'' are 
 $\gamma_{v_i}^{(i)}$, $i=1,\dots,d$.
-Now, by Lemma \ref{lemma:sep},
+Now, by Lemma~\ref{lemma:sep},
 \begin{align*}
 \sup_{v\in V} \Delta^{\cA}_n(f_v,\gamma_v)
 \ge
@@ -605,7 +605,7 @@ $\sup_{v\in V} \sup_{\gamma \in \Gamma_\sep(f_v,c_1/\sqrt{d},c_2/d)} \Delta^{\cA
 and \eqref{eq:ddimtoonedim1} gives the desired result.
 \end{proof}
 
-\begin{proof}(Theorem \ref{thm:lb-convex})
+\begin{proof}(Theorem~\ref{thm:lb-convex})
 %\paragraph{Main proof:}
 Let $\cK \subset \R^d$, such that $\times_i \cK_i \subset \cK$, $\{\pm 1 \} \subset \cK_i \subset \R$,
 $\F_d = \F_{L,0}(\K)$, where recall that $L\ge 1/2$.
@@ -622,7 +622,7 @@ $0\le \frac{\partial^2}{\partial x_i^2} f^{(i)}_{v_i}(x_i) \le 1/2$.
 Let $\Delta_n^{(d)*}$ denote the minimax error $\Delta_{\F_d, n}^*\left(C_1\delta^p,\frac{C_2}{\delta^q}\right)$ for the $d$-dimensional family of functions $\F_d$. 
 Let $\F^{(i)} = \{ f^{(i)}_{-1},  f^{(i)}_{+1} \}$.
 As it was noted above, $f_v\in \F_d$ for any $v\in \{\pm 1\}^d$.
-Hence, by~Lemma \ref{lem:sep2}, 
+Hence, by Lemma~\ref{lem:sep2}, 
 \begin{align*}
  \Delta_n^{(d)*} &\ge \sum_{i=1}^d \Delta_{\F^{(i)},n}^{*}\left(\frac{C_1}{\sqrt{d}}\, \delta^p, \frac{C_2}{d} \delta^{-q}\right)\,.
                \numberthis \label{eq:dlb}
@@ -665,7 +665,7 @@ On the other hand, for the case $p=q=2$, we obtain
 \end{align*}
 \end{proof}
 
-\subsection{Proof of Theorem \ref{thm:lb-convex} for strongly convex and smooth function class $\F_{L,1}(\K)$.}
+\subsection{Proof of Theorem~\ref{thm:lb-convex} for strongly convex and smooth function class $\F_{L,1}(\K)$.}
 \label{sec:appendix-lbscconvex}
 \begin{proof}
 We follow the notational convention used earlier for convex functions in one dimension. 
@@ -755,7 +755,7 @@ Plugging in $\epsilon = \left(\dfrac{4p}{(6p+q)\sqrt{n} K_1} \right)^{\frac{2p}{
 \end{align}
 %The above bound holds for $n$ such that 
 %$$\!d^{\frac{-(4p+q)}{(2p+q)}}\!\!\left(\frac{1}{2\sqrt{n} K_1} \right)^{\!\!\frac{p}{p+\frac{q}{2}}} \!\!\!\le \!\!\min\!\left( \frac{C_1 (2p+q)}{q}, \frac{2z+1}{C_1^{2z-1}(z+1)^z}\!\right).$$
-%As in the proof of the lower bound for $\F_{L,0}(\K)$, the first condition on $n$ above is due to the assumption that $\delta \le 1$ in Definition \ref{def:oracle1}, while the second condition is due to the constraint on $\nu$ in \eqref{eq:deltastar-sc}.
+%As in the proof of the lower bound for $\F_{L,0}(\K)$, the first condition on $n$ above is due to the assumption that $\delta \le 1$ in Definition~\ref{def:oracle1}, while the second condition is due to the constraint on $\nu$ in \eqref{eq:deltastar-sc}.
 
 Now, when $q=2$ and $p=1$, the lower bound in \eqref{eq:lb-pq-sc} simplifies to
 \[
