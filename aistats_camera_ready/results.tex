@@ -79,26 +79,27 @@ can be bounded as
 %\vspace{-0.3cm}
  \end{align}
  where $D=\sup_{x,y\in \cK} \DR(x,y)$.
- For the class $\F=\F_{L,\mu,\cR}$ of $\mu$-strongly convex (w.r.t.\  $\cR$) and $L$-smooth functions, with $\alpha >2L/\mu$, 
+
+For the class $\F=\F_{L,\mu,\cR}$ of $\mu$-strongly convex (w.r.t.\  $\cR$) and $L$-smooth functions, with \\$\alpha >2L/\mu$, 
 we have
 \begin{align}
 \Delta_{\F_{L,\mu,\cR},n}^{MD, \mathrm{type-I}}(c_1,c_2) 
-\leq  K_2D^{\frac{q}{2(p+q)}}C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\frac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}  + \frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)} 
+&\leq  K_2D^{\frac{q}{2(p+q)}}C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\frac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}} \nonumber\\
+&\qquad + \frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)} 
 \,.
-\label{eq:MDbound2TypeI}
-\end{align}
-\begin{align}
+\label{eq:MDbound2TypeI}\\
 %\lefteqn{
 \Delta_{\F_{L,\mu,\cR},n}^{MD, \mathrm{type-II}}(c_1,c_2) 
 %} \\
 & %\le  \frac{R_{\F_{L,\mu,\cR},n}^*(c_1,c_2)}{n} 
 %=  \tilde{O}\left( \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q}} \right)
-\leq  K'_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\frac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}}  + \frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)} 
+\leq  K'_2C_1^{\frac{q}{p+q}}C_2^{\frac{p}{p+q}} \left( \frac{\log n+1+\frac{\alpha \mu}{\alpha \mu -2L}}{n} \right)^{\frac{p}{p+q}} \nonumber\\
+&\qquad + \frac{1}{n}\EE{f(X_1)-\inf_{x \in \cK}f(x)} 
 \,.
 \label{eq:MDbound2}
 \end{align}
 %In the bounds $O(\cdot)$ hides a constant that is a function of $p$, $q$, $\alpha$, $L$ and $\mu$. 
-Above,
+In the above,
 the constants $K_1$, $K'_1$, $K_2$ and $K'_2$ depend on $p, q, \alpha, \mu$.%
 \footnote{
 In particular,
@@ -161,7 +162,7 @@ ${\F_{L,1}(\K)}$ ($1$-strongly convex and smooth) with $L\ge 1$
 \Delta_{\F_{L,1}, n}^{*, \mathrm{type-II}}(c_1,c_2) \ge K_4 \,  D^{-\frac{q}{2p+q}}C_1^{\frac{2q}{2p+q}} C_2^{\frac{2p}{2p+q}} n^{-\frac{2p}{2p+q}}\,. % \left(\dfrac{C_1^{\frac{q}{p}} C_2}{n} \right)^{\frac{p}{p+q/2}}\,.
 \]
 \end{itemize}
-Above,
+In the above,
 the constants $K_1$ and $K_2$ depend on $p$ and $q$ only.%
 \footnote{
 In particular,
@@ -178,15 +179,15 @@ $K_4= 2^{\frac{2p-q}{2p+q}} \frac{(2p+q)^3}{q^{\frac{2q}{2p+q}}(6p+q)^{\frac{6p+
 %\end{inparaenum}
 %% where $K_1 = \frac{p}{C_2(p+\tfrac{q}{2})} \left(\frac{q}{2C_1(p+\tfrac{q}{2})}\right)^{\frac{q}{2p}}$.
 %%\begin{proof}
-%% See Section \ref{sec:appendix-lb-proof}.
+%% See \cref{sec:appendix-lb-proof}.
 %%\end{proof}
-The proof of the above theorem is given in Section \ref{sec:appendix-lb-proof}. The proof involves using standard information-theoretic tools to first establish the result in one dimension and then a separability argument (see Lemma \ref{lemma:sep}) is employed to extend the result to $d$-dimensions. 
+The proof of the above theorem is given in \cref{sec:appendix-lb-proof}. The proof involves using standard information-theoretic tools to first establish the result in one dimension and then a separability argument (see \cref{lemma:sep}) is employed to extend the result to $d$-dimensions. 
 For the proof in one dimension, we provide a family of functions and a type-I oracle such that any algorithm suffers at least the stated error on one of the functions. In particular, for $\F_{L,0}$ with $L\ge 1/2$ we use
 $f_{v,\epsilon}(x)=\epsilon\left( x-v\right)+2\epsilon^2 \ln\left(1+e^{-\frac{x-v}{\epsilon}}  \right)$ with $v=\pm 1$, $\epsilon>0$, and $x \in \cK \subset \R$ for appropriate $\epsilon$. Note that for \emph{any} $\epsilon>0$, $f_{v,\epsilon}\in \F_{1/2,0}\setminus \cup_{0<\lambda<1/2} \F_{\lambda,0}$.
 To the best of our knowledge, the separability argument that we employ to relate the minimax error in $d$-dimensions to that in one dimension, is novel. 
 
 \begin{remark}
-By continuity, the result in Theorem \ref{thm:lb-convex} can be extended to cover the case of $q=0$ (constant variance). 
+By continuity, the result in \cref{thm:lb-convex} can be extended to cover the case of $q=0$ (constant variance). 
 For the special case of $p=0$ and $C_1>0$, which implies a constant bias, it is possible to derive an $\Omega(1)$ lower bound by tweaking the proof. On the other hand, the case of $p=0$ and $C_1=0$ (no bias) leads to an $\Omega(d/\sqrt{n})$ lower bound. 
 \end{remark}
 
@@ -196,7 +197,7 @@ $$\Delta_n^*(\mu \F, c_1,c_2) = \mu \Delta_n^*\left(\F, c_1/\mu,c_2/\mu^2\right)
  where $\mu \F$ denotes the function class comprised of functions in $\F$, each scaled by $\mu>0$. In particular, this relation implies that the bound for $\mu$-strongly convex function class is only a constant factor away from the bound for $1$-strongly convex function class.
 \end{remark}
 
-Table \ref{tab:mse-1} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems~\ref{thm:ub} and~\ref{thm:lb-convex}.
+\cref{tab:mse-1} presents the upper and lower bounds for two specific choices of $p$ and $q$ (relevant in applications, as we shall see later). These bounds can be inferred from the results in Theorems~\ref{thm:ub} and~\ref{thm:lb-convex}.
 %While it appears that for the strongly convex case the error becomes smaller with a larger dimension, in most applications $C_1, C_2$ will hide dimension dependent constants, and the lower bound actually increases with the dimension increasing.
 %Some specific examples will be discussed in the next section.
 
@@ -236,7 +237,7 @@ Table \ref{tab:mse-1} presents the upper and lower bounds for two specific choic
 % \label{thm:lb-strongly-convex}
 % For any $v \in \{+\nu,-\nu\}^d$ and $x \in \cK\subset \R^d$, define $f_v := \sum_{i=1}^d f^{(i)}_{v_i}(x_i)$, where
 % $f^{(i)}_{v_i}(x_i) := \dfrac{1}{2} x^2 - v x$, for $i=1,\ldots,d$.
-% Consider the space of functions $\F:= \{f_v \mid v  \in \{+\nu,-\nu\}^d\}$, with $\nu = d^{\frac{-(4p+q)}{(2p+q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, where $K_1$ is as defined in Theorem \ref{thm:lb-convex}.
+% Consider the space of functions $\F:= \{f_v \mid v  \in \{+\nu,-\nu\}^d\}$, with $\nu = d^{\frac{-(4p+q)}{(2p+q)}}\left(\frac{1}{2\sqrt{n} K_1} \right)^{\frac{p}{p+\frac{q}{2}}}$, where $K_1$ is as defined in \cref{thm:lb-convex}.
 % Then, for any algorithm that observes $n$ random elements from a $(c_1,c_2)$ type-I oracle
 %  with $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q>0$,
 %  the minimax error \eqref{eq:minimaxerrdef} satisfies
@@ -245,7 +246,7 @@ Table \ref{tab:mse-1} presents the upper and lower bounds for two specific choic
 % \]
 % \end{theorem}
 % \begin{proof}
-%  See Appendix \ref{sec:appendix-lbscconvex}.
+%  See \cref{sec:appendix-lbscconvex}.
 % \end{proof}
 
 

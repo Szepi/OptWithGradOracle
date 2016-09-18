@@ -139,12 +139,12 @@ We call an oracle (type-I or II)  \emph{unbiased} if $\EE{Y}=x$ in the above def
 $$\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}^2} \le L\delta^2/2.$$
 
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-Examples of specific oracle constructions will be given in  Section \ref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
+Examples of specific oracle constructions will be given in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
 
 As the next result shows, type-I and II oracles are closely related.
 In particular, a type-I oracle is also a type-II oracle (although not a uniform type-II oracle). On the other hand, type-II oracles need to satisfy an alternative condition to become type-I oracles as the closeness of $\tilde{f}$ and $f$ is insufficient to conclude anything about the distance of their gradients:
 \begin{proposition}\label{thm:typered}
-Definition \ref{def:oracle1} is a sufficient condition for Definition \ref{def:oracle2}, given a bounded $\cK$. 
+\cref{def:oracle1} is a sufficient condition for \cref{def:oracle2}, given a bounded $\cK$. 
 In particular, letting $R = \sup_{y \in \cK}\norm{y}$, 
 for any $f,c_1,c_2$ such that $f+\ip{c,\cdot} \in \F$ for any $\norm{c}_* \le c_1(1)$, it holds that $\Gamma_1(f,c_1,c_2) \subset \Gamma_2(f,Rc_1,c_2)$. 
 Furthermore, if $\bignorm{\tilde{f}-f}_\infty \le c_1(\delta)$ is replaced by 
@@ -153,7 +153,7 @@ Furthermore, if $\bignorm{\tilde{f}-f}_\infty \le c_1(\delta)$ is replaced by
 %\sup_{x\in \cK}
 \bignorm{\nabla \tilde{f}- \nabla f}_* \le c_1(\delta)
 \end{align}
-in Definition \ref{def:oracle2} (for all $x\in\cK$ and $0<\delta \le 1$), then any oracle satisfying this modified definition  is also a $(c_1,c_2)$ type-I oracle.
+in \cref{def:oracle2} (for all $x\in\cK$ and $0<\delta \le 1$), then any oracle satisfying this modified definition  is also a $(c_1,c_2)$ type-I oracle.
 \end{proposition}
 
 \begin{proof}
@@ -236,7 +236,7 @@ Assume further that the function set $\F$ is invariant to linear shifts
 (that is for any $f\in \F$, $w\in \R^d$, $x\mapsto f(x) + \ip{x,w}$ is also in $\F$).
 Let
  $\Delta_{n}^{\mathrm{type-I}}$ and $\Delta_{n}^{\mathrm{type-II}}$ denote  the appropriate minimax errors for the two types of oracles.
-Then, by the construction in  Theorem \ref{thm:typered},
+Then, by the construction in  \cref{thm:typered},
 \begin{align}
 \Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(Rc_1,c_2)\,.
 \end{align}
