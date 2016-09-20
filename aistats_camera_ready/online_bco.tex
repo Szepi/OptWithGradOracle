@@ -12,7 +12,7 @@ This also rules out the controlled noise case.
 Thus, for the online BCO setting, one should consider type-I (and II) oracles with $c_1(\delta) = C_1 \delta^p$ and $c_2(\delta) = C_2\delta^{-q}$ with $p=q=2$.
 For these type of oracles, the results from \cref{thm:lb-convex} give the following result: 
 \begin{theorem}\label{thm:aaa}
-Let $\cF_{L,0}$ be the space of convex, $L$-smooth functions over a convex non-empty domain $\K$.
+Let $\cF_{L,0}$ be the space of convex, $L$-smooth functions over a convex body $\K$.
 No algorithm that relies on 
  $(\delta^2,\delta^{-2})$ type-I oracles
  can achieve better regret than $\Omega(n^{2/3})$.
@@ -23,7 +23,7 @@ With a noisy gradient oracle of \cref{prop:flaxman}, \cref{thm:aaa} implies that
 For zeroth order noisy optimization with smooth convex functions, the gradient estimator of \cref{prop:flaxman} together with mirror descent (see \cref{alg}) achieve $\O(n^{2/3})$ regret.
 \end{theorem}
 %\vspace{-0.2cm}
-This optimality result shows that with the usual analysis of the current gradient estimation techniques, no gradient method can achieve the optimal regret $O(n^{1/2})$ for online bandit convex optimization, established by \citet{BubeckDKP15,BuEl15}. Note that this shows a contradiction to the recent result of \citet{DeElKo15}, who claimed to achieve $\tilde{O}(n^{5/8})$ regret with the same $(\delta^2,\delta^{-2})$ type-II gradient oracle as \citet{saha2011improved}, but their proof only used the $(\delta^2,\delta^{-2})$ tradeoff in the bias and variance properties of the oracle.\todoa{Actually, all these proofs use Type-IIb oracles....}
+This ``optimality result'' shows that with the usual analysis of the current gradient estimation techniques, no gradient method can achieve the optimal regret $O(n^{1/2})$ for online bandit convex optimization, established by \citet{BubeckDKP15,BuEl15}. Note that \cref{thm:aaa} contradicts the recent result of \citet{DeElKo15}, who claimed to achieve $\tilde{O}(n^{5/8})$ regret with the same $(\delta^2,\delta^{-2})$ type-II gradient oracle as \citet{saha2011improved}, but their proof only used the $(\delta^2,\delta^{-2})$ tradeoff in the bias and variance properties of the oracle.\todoa{Actually, all these proofs use Type-IIb oracles....}
 
 
 

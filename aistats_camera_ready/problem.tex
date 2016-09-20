@@ -6,11 +6,9 @@ For $i\le j$ positive integers,
  we use the notation $a_{i:j}$ to denote
  the sequence $(a_i,a_{i+1}, \dots, a_{j})$.
  We let $\| \cdot \|$ denote some norm on $\R^d$, whose dual is denoted by $\dnorm{\cdot}$. 
- Let $\K \subset \R^d$ be a non-empty closed convex  set. 
- Given the function $f:\K \to \R$ which is differentiable\todoa{I have removed the comment about generalization to subgradients. If the function is not differentiable, how could it be smooth?}%
-%\footnote{Here we assume the differentiablity for simplicity of definition, actually it is easy to generalize to non-differentiable functions by using sub-gradient.} 
-  in $\K^\circ$,%
-  \footnote{For $A\subset \mathbb{R}^d$, $A^\circ$ denotes the interior of $A$.}\todoa{Shouldn't it be relative interior?}
+ Let $\K \subset \R^d$ be a convex body, i.e., a nonempty closed convex  set with a non-empty interior.
+ Given the function $f:\K \to \R$ which is differentiable in $\K^\circ$,%
+  \footnote{For $A\subset \mathbb{R}^d$, $A^\circ$ denotes the interior of $A$.}\todoa{Shouldn't it be relative interior?}\todoc{Playing it safe; differentiability becomes an issue otherwise, i.e., needs care.}
  $f$ is said to be $\mu$-strongly convex w.r.t.\  $\| \cdot \|$  ($\mu\ge 0$) if
  $\tfrac{\mu}{2} \|x-y\|^2 \le \mathcal{D}_f(x,y)\doteq f(x)-f(y)-\ip{\nabla f(y),x-y}$, for all $x \in \K \,, y \in \K^\circ$.
 Similarly, $f$ is $\mu$-strongly convex w.r.t.\  a \emph{function} $\cR$
@@ -25,7 +23,7 @@ $D_f(x,y) \le \tfrac{L}{2} \|x-y\|^2$, for all $x \in \K \,, y \in \K^\circ$.
  Note that $\F_{L,\mu,\cR}(\K)$ includes functions whose domain is larger than or equal to $\K$.
 We also let $\F_{L,\mu}(\K)$ be $\F_{L,\mu,\cR}(\cK)$ with $\cR(\cdot) = \frac12 \norm{\cdot}_2^2$.
 Then, the set of convex and $L$-smooth functions with domain including $\K$ is  $\F_{L,0}(\K)$.
-Besides the standard big-Oh\todoa{$O(\cdot)$ instead?} notation, we will also use $\tilde{O}(\cdot)$:
+Besides the standard big-$O(\cdot)$ notation, we will also use $\tilde{O}(\cdot)$:
 For a positive valued function $f: \mathbb{N} \to \R_+$, $\tilde{O}(f)$ contains any $g:\N \to \R_+$ such that
 $g =O( \log^p(n) f(n) )$ for some $p>0$.
 (As usual, we abuse notation by writing $g= O(f)$ instead of $g\in O(f)$.)
@@ -45,7 +43,7 @@ Finally, we will denote the indicator function of an event $E$ by $\indic{E}$, t
 
 In this paper, we consider convex optimization in a novel setting, both for stochastic as well as online BCO.
 %More specifically, we consider both an online learning setting and an optimization setting.
-In the online BCO setting, the environment chooses a sequence of loss functions $f_1,\dots,f_n$ belonging to a set $\cF$ of convex functions over a common, non-empty convex closed domain $\cK\subset \R^d$.
+In the online BCO setting, the environment chooses a sequence of loss functions $f_1,\dots,f_n$ belonging to a set $\cF$ of convex functions over a common domain $\cK\subset \R^d$ which is assumed to be a convex body.
 In the stochastic BCO setting, a single fixed loss function $f\in \cF$ is chosen.
 An algorithm chooses a sequence of points $X_1,\dots,X_n\in \cK$ in a serial fashion.
 The novelty of our setting is that the algorithm, upon selecting point $X_t$, receives
@@ -134,12 +132,12 @@ The type-II oracles that will be explicitly constructed will be all uniform.
 %
 
 We call an oracle (type-I or II)  \emph{unbiased} if $\EE{Y}=x$ in the above definitions. Note that if the oracle is unbiased and the loss function is smooth,
- an algorithm does not loose too much from suffering loss at $Y$ instead of the query point $x$
- since in this case, we have 
+ an algorithm does not loose ``too much'' from suffering loss at $Y$ instead of the query point $x$
+ since in this case we have 
 $$\EE{f(Y)}-f(x) \le \EE{\ip{\nabla f(x), Y-x}+\tfrac{L}{2}\norm{Y-x}^2} \le L\delta^2/2.$$
 
 % \todoc{In fact, I am not sure which definition we should use. So things might change here.}
-Examples of specific oracle constructions will be given in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to, the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
+Examples of specific oracle constructions (based on previous works of others) will be given in  \cref{sec:sbco}. We also note that for type-II oracles we only need properties of the function class which the surrogate function $\tilde{f}$ belongs to; the assumption $f \in \F$ is only included to simplify the definition (e.g., some oracles work for non-convex functions $f$ for which a suitable convex surrogate and the associated oracle exists).
 
 As the next result shows, type-I and II oracles are closely related.
 In particular, a type-I oracle is also a type-II oracle (although not a uniform type-II oracle). On the other hand, type-II oracles need to satisfy an alternative condition to become type-I oracles as the closeness of $\tilde{f}$ and $f$ is insufficient to conclude anything about the distance of their gradients:
@@ -213,7 +211,7 @@ The minimax regret for type-II oracles is defined analogously.
 % to type-II oracles is immediate).
 
 
-In the stochastic BCO setting, the \emph{worst case error} is defined through
+In the stochastic BCO setting, the \emph{worst-case error} is defined through
 \begin{align}
 \label{eq:minimaxerrdef}
 \Delta_{\F,n}^\cA(c_1,c_2)
@@ -241,7 +239,7 @@ Then, by the construction in  \cref{thm:typered},
 \Delta_{\F,n}^{\mathrm{type-I}}(c_1,c_2) \le \Delta_{\F,n}^{\mathrm{type-II}}(Rc_1,c_2)\,.
 \end{align}
 %As a result, when proving lower bounds, we shall consider type-I, while when proving upper bounds we will consider type-II oracles.
-Note that $R$ may depend on the dimension $d$, e.g., for $\mathcal{K} = \left[ -1,1 \right]^d$, $R = \sqrt{d}$ when using the Euclidean norm. To clarify the different $c_1$ used by type-I and II oracles, we will present the upper and lower bounds separately for the two oracle tyopes, although the type-I upper bound can actually be derived from type-II (and the type-II lower bound can be derived from type-I). \todoa{There are some issues with assuming closedness under linear shifts. Less is enough, however, see how I changed the proposition, but it only gives guarantees for non-uniform type-II oracles...}
+Note that $R$ may depend on the dimension $d$, e.g., for $\mathcal{K} = \left[ -1,1 \right]^d$, $R = \sqrt{d}$ when using the Euclidean norm. To clarify the different $c_1$ used by type-I and II oracles, we will present the upper and lower bounds separately for the two oracle types, although the type-I upper bound can actually be derived from type-II (and the type-II lower bound can be derived from type-I). \todoa{There are some issues with assuming closedness under linear shifts. Less is enough, however, see how I changed the proposition, but it only gives guarantees for non-uniform type-II oracles...}
 %\todox{I mentioned the different $c_1$  here.}
 Also note that for either type of oracles, $\Delta_{\F,n}^*(c_1,c_2) \le R_{\F,n}^*(c_1,c_2)/n$. This follows by the well known construction that turns an online convex optimization method $\A$ for regret minimization into an optimization method by running the method and at the end choosing $\hat{X}_n$ as the average of the points $X_1,\dots,X_n$ queried by $\A$ during the $n$ rounds.
 Indeed, then $f(\hat{X}_n) \le \frac1n \sum_{t=1}^n f(X_t)$ by Jensen's inequality, hence the average regret of $\A$ will upper bound the error of choosing $\hat{X}_n$ at the end.

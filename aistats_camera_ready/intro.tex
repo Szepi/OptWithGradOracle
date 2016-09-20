@@ -1,28 +1,27 @@
 %!TEX root =  bgo-cam-ready.tex
 % please do not delete or change the first line (needed by Csaba's editor)
-We consider the following optimization problem over a set $\K \subset \R^d$:
+We consider convex optimization over a nonempty, closed convex set $\K \subset \R^d$:
 \begin{align}
 \mbox{Find } x^* = \arg\min_{x \in \K} f(x). \label{eq:pb}
 \end{align}
-We operate in the \textit{stochastic bandit convex optimization} (BCO) setting, i.e., $f$ is a smooth convex function and an algorithm observes only noisy point evaluations of $f$. The goal is to find a near minimizer $\hat X_n \in \K$ of the objective $f$, after observing $n$ evaluations of $f$ at different points.
+Specifically, we operate in the \textit{stochastic bandit convex optimization} (BCO) setting where $f$ is a smooth convex function and an algorithm observes only noisy point evaluations of $f$. The goal is to find a near minimizer $\hat X_n \in \K$ of the objective $f$, after observing $n$ evaluations of $f$ at different points, chosen by the algorithm in a sequential fashion.
 We also consider the \textit{online BCO} setting, where the environment chooses a sequence of smooth convex loss functions $f_1,\dots,f_n$ and the aim is to minimize the regret, which roughly translates to ensuring
- that the sum of the function values at the points chosen by the algorithm is not too far from the optimal value 
- (see \cref{sec:problem} for a detailed description).
+ that the sum of the function values at the points chosen by the algorithm is not too far from the optimal value of $f = f_1+\dots+f_n$  (see \cref{sec:problem} for a detailed description).
 
 Convex optimization is widely studied under different models concerning what can be observed about the objective function. 
-These models range from accessing the full gradient to only observing samples from the objective function (cf. \citealp{nesterov2004introductory,DeGliNe14,HaLe14:SOC,PoTsy90,flaxman2005online,AbHaRa08,AgDeXi10,Ne11:TR,AgFoHsuKaRa13:SIAM,katkul,kushcla,spall1992multivariate,spall1997one,Dip03:AoS,bhatnagar-book,duchi2015optimal}). 
+These models range from accessing the full gradient to only observing noisy samples from the objective function (cf. \citealp{nesterov2004introductory,DeGliNe14,HaLe14:SOC,PoTsy90,flaxman2005online,AbHaRa08,AgDeXi10,Ne11:TR,AgFoHsuKaRa13:SIAM,katkul,kushcla,spall1992multivariate,spall1997one,Dip03:AoS,bhatnagar-book,duchi2015optimal}). 
 
 In this paper, 
-we present and analyze a novel framework with biased gradient oracles that applies to both stochastic and online BCO settings. 
+we present and analyze a novel framework that applies to both stochastic and online BCO settings. 
 In our framework, an optimization algorithm can query an oracle repeatedly to get a noisy and biased version of the gradient of $f$ (or a subgradient for non-differentiable functions), where the algorithm querying the oracle also sets a parameter that controls the tradeoff between the bias and the variance of the gradient estimate.
-This oracle model subsumes majority of the previous works in the literature that are based on first-order methods for stochastic as well as BCO settings.
+This oracle model subsumes the majority of the previous works in the literature that are based on first-order methods for stochastic as well as BCO settings.
 
 % the bias-variance tradeoff
 %as well as a response point in the vicinity of the query point, which, in the online setting, serves as the point where the cost is incurred. In addition to providing the query point where the gradient is to be estimated, the algorithm using the oracle also provides a parameter that controls the distance between the response and the query points, as well as the bias and variance of the returned gradient estimate. 
 
 Gradient oracles have been considered in the literature before: Several previous works assume that the accuracy requirements hold with probability one \citep{dAsp08,Baes09,DeGliNe14} or consider adversarial noise \citep{SchRoBa11}. Gradient oracles with stochastic noise, which is central to our development, were also considered \citep{JN11a,Hon12,DvoGa15}; however, these papers assume that the bias and the variance are controlled separately, and consider the performance of special algorithms (in some cases in special setups).
 
-The main feature of our model is that we allow stochastic noise, control of the bias and the variance, and we also consider lower bounds on the achievable error rates. Our gradient oracle model applies to several gradient estimation techniques extensively used in the literature, mostly for the case when the gradient is estimated only based on noisy observations of the objective function \citep{katkul,kushcla,spall1992multivariate,spall1997one,Dip03:AoS,bhatnagar-book,duchi2015optimal}. A particularly interesting application of our model is the widely studied bandit convex optimization problem,
+The main feature of our model is that we allow stochastic noise, control of the bias and the variance. Our gradient oracle model applies to several gradient estimation techniques extensively used in the literature, mostly for the case when the gradient is estimated only based on noisy observations of the objective function \citep{katkul,kushcla,spall1992multivariate,spall1997one,Dip03:AoS,bhatnagar-book,duchi2015optimal}. A particularly interesting application of our model is the widely studied bandit convex optimization problem,
 mentioned above,
 where most previous algorithms 
 essentially use gradient estimates and first-order methods 
@@ -48,6 +47,7 @@ thereby unifying previous analysis, providing a concise summary and an explanati
 More importantly, our framework also allows to prove lower bounds for any algorithm that relies on gradient
 estimation oracles of the type our framework captures
 (earlier work of \citealp{Chen88:LB-AoS} considered a related lower bound on the convergence of the iterate instead of the function value).
+Of special interest may be a general method that we introduce and which allows us to reduce the problem of proving lower bounds of specific $d$-dimensional settings to their one-dimensional counterpart, thus allowing one to focus on the one-dimensional setting when proving lower bounds.
 
 Note that our oracle model does not capture the full strength of the gradient estimates used in previous work, but it fully describes the properties of the estimates that \emph{so far have been used in their analysis}.
 As a consequence, our lower bounds show that the known minimax regret of $\sqrt{T}$ \citep{BubeckDKP15,BuEl15,shamir2012complexity}
