@@ -1,4 +1,3 @@
-%\documentclass[handout,12pt]{beamer}
 \documentclass[12pt]{beamer}
 
 
@@ -828,16 +827,20 @@ For any algorithm $\mathrm{A}$ that observes $n$ random elements from a $(c_1, c
 \end{theorem}}
 
 \uncover<+->{
-Compare with 
-\begin{align*}
-\Delta_n(\F_{L,0},\mathrm{MD},c_1,c_2 ) &
-= O( n^{- \frac{p}{2p+q} } )\\
-% \le K_1\left(\dfrac{D {C_1^{\frac{q}{p}} C_2}}{ n}\right)^{\frac{p}{2p+q}},\\
-\Delta_n(\F_{L,1},\mathrm{MD},c_1,c_2 ) &
-= O( n^{- \frac{p}{p+q} } )  = O(n^{-\frac{2p}{2p+\alert{2}q}})\,.
-%\le K_2\left(\dfrac{C_1^{\frac{q}{p}} C_2}{ n}\right)^{\frac{p}{p+q}},
-\end{align*}
-(The lower bound for $\F_{L,0}$ is tight, for $\F_{L,1}$ it is weak.)
+Compare with $O( n^{- \frac{p}{2p+q} } )$ and $O(n^{-\frac{2p}{2p+\alert{2}q}})$
+%\begin{align*}
+%\Delta_n(\F_{L,0},\mathrm{MD},c_1,c_2 ) &
+%= O( n^{- \frac{p}{2p+q} } )\\
+%% \le K_1\left(\dfrac{D {C_1^{\frac{q}{p}} C_2}}{ n}\right)^{\frac{p}{2p+q}},\\
+%\Delta_n(\F_{L,1},\mathrm{MD},c_1,c_2 ) &
+%= O( n^{- \frac{p}{p+q} } )  = O(n^{-\frac{2p}{2p+\alert{2}q}})\,.
+%%\le K_2\left(\dfrac{C_1^{\frac{q}{p}} C_2}{ n}\right)^{\frac{p}{p+q}},
+%\end{align*}
+%\vspace*{-2cm}
+\bi
+\item The lower bound for $\F_{L,0}$ is tight, for $\F_{L,1}$ it is weak.
+\item Rule out the improvement of ``gradient'' methods in \citep{DeKo15:BSCO} and \citep{yang2016optimistic}.
+\ei
 }
 
 }
