@@ -48,3 +48,11 @@ arxiv/bgo-arxiv.pdf
 *.auxlock
 
 *.plist
+
+.DS_Store
+
+*.toc
+
+*.pdfsync
+
+*.nav
