@@ -385,7 +385,7 @@ Lower bound: $\alert{\sqrt{d^2/n}}$  \citep{shamir2012complexity}.
 \frame{
 	\frametitle{Can We Do Better?}
 	\bi
-	\item Ellipsoid method: suffer from the dimension $d$.
+	\item Ellipsoid method: actual scaling with the dimension $d$ is extremely poor
 	\bigskip
 	\bigskip
 	\item ``Gradient'' method: 
@@ -555,8 +555,8 @@ Lower bound: $\alert{\sqrt{d^2/n}}$  \citep{shamir2012complexity}.
 	\uncover<+->{
 	so
 	\begin{align*}
-	\norm{\EE{ \tilde{G} }_2 - \nabla f(x) }_2 &= O( \alert{\sqrt{d} \delta^2} )\,,\qquad \text{ \alert{reamin the same}}\\
-	\EE{ \norm{\tilde{G} }_2^2 } & = O( d^2(1 + 1/\alert{\delta^{2}} ) )\,.  \qquad \text{ \alert{increase by d}}
+	\norm{\EE{ \tilde{G} }_2 - \nabla f(x) }_2 &= O( \alert{\sqrt{d} \delta^2} )\,,\qquad \text{ \alert{remains the same}}\\
+	\EE{ \norm{\tilde{G} }_2^2 } & = O( d^2(1 + 1/\alert{\delta^{2}} ) )\,.  \qquad \text{ \alert{increase by $\times d$}}
 	\end{align*}}
 
 }
@@ -573,7 +573,7 @@ Lower bound: $\alert{\sqrt{d^2/n}}$  \citep{shamir2012complexity}.
 		\ei
 	\bigskip
 	\bigskip
-	\item For $d$-dimension: $\nabla f(x) = \dfrac{df}{dx_1}(x), \cdots,  \dfrac{df}{dx_d}(x)$
+	\item For $d$-dimensions: $\nabla f(x) = \dfrac{df}{dx_1}(x), \cdots,  \dfrac{df}{dx_d}(x)$
 	\bigskip
 	\bigskip
 	\item Vector calculus: Gauss-Ostrogradsky theorem or the divergence theorem
@@ -763,7 +763,7 @@ First holds iff $q=0$. Second holds iff $p\ge q$.\\
 }
 
 \frame{
-	\frametitle{Recover State-of-the-art Results}
+	\frametitle{Recoverinf State-of-the-art Results}
 \uncover<+->{
 Recall:\vspace*{-0.2in}
 \begin{align*}
@@ -839,7 +839,7 @@ Compare with $O( n^{- \frac{p}{2p+q} } )$ and $O(n^{-\frac{2p}{2p+\alert{2}q}})$
 %\vspace*{-2cm}
 \bi
 \item The lower bound for $\F_{L,0}$ is tight, for $\F_{L,1}$ it is weak.
-\item Rule out the improvement of ``gradient'' methods in \citep{DeKo15:BSCO} and \citep{yang2016optimistic}.
+\item The result rules out the improvement of ``gradient'' methods as in \citep{DeKo15:BSCO} and \citep{yang2016optimistic}.
 \ei
 }
 
