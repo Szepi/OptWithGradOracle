@@ -145,20 +145,20 @@
 	\bi
 	\item \alert{Optimization:} a single fixed objective function $f: \cK \to \R$, where $\cK \subset \R^d$
 		\bi
-		\item Round $t$: query at $X_t \subset \cK$
+		\item Round $t$: query at $X_t \subset \cK$, receive $f(X_t)+$noise
 		\item The algorithm outputs $\hat{X}_n$ after $n$ rounds
 		\item Optimization error: $\Delta_n = \EE{f(\hat{X}_n) }- \inf_{x\in \cK} f(x)$
 		\ei
 	\item \alert{Online learning:} a sequence of functions $f_1, \cdots, f_n$ chosen by the environment
 		\bi
-		\item Round $t$: query at $Y_t$ in a small vicinity of $\cK$
+		\item Round $t$: query at $Y_t \subset \cK'$, which includes $\cK$ and a small vicinity of the boundary.
 		\item The algorithm suffers the loss $f_t(Y_t)$
-		\item expected regret: $R_n = \EE{\sum_{t=1}^n f_t(Y_t) }- \inf_{x\in \cK} \sum_{t=1}^n f_t(x)$
+		\item Regret: $R_n = \EE{\sum_{t=1}^n f_t(Y_t) }- \inf_{x\in \cK} \sum_{t=1}^n f_t(x)$
 		\ei
 	\ei
 	\begin{block}<+->{Main Question}
 	\bc
-		How fast can/will/should the optimization error or learning regret
+		How fast can/will/should the optimization error or regret\\
 		 decrease with $n$?
 	\ec		 
 	\end{block}
@@ -180,7 +180,7 @@
 			\item
 				$f(x) = \EE{ F(x,\xi) }$ --- $\xi$: simulation noise
 			\item $F(x,\xi)$ is the output of a simulation;
-			\item \citep{spall2005introduction} Introduction to stochastic search and optimization 
+			\item \citet{spall2005introduction}: Introduction to stochastic search and optimization 
 			\ei
 		\ei
 	\ei
@@ -193,7 +193,7 @@
 		\item Graphical model inference
 			\bi
 			\item Objective functions defined in a variational way
-			\item \citep{wainwright2008graphical} Graphical models, exponential families, and variational inference
+			\item \citet{wainwright2008graphical}: Graphical models, exponential families, and variational inference
 			\ei
 		\ei
 	\ei
@@ -209,11 +209,10 @@
 	\ec
 	\col[0.55\textwidth]
 	\bi
-	\item Distribute memory between jobs
-	\item Maximize success: $\max_{x\in \cK} f(x)$
+	\item Allocate memory between jobs
+	\item Maximize success $\max_{x\in \cK} f(x)$ expressed as a concave objective function
 	\item Linear constraints: $\cK = \cset{ x\in [0,1)^d}{\sum_i x_i = 1}$
-	\item Concave objective $f$: 
-	Find the best configuration quickly.
+	\item Find the best configuration quickly.
 	\ei
 	\ecol
 	\bigskip
@@ -225,13 +224,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-	\frametitle{Subclasses of Problems: Curviness}
+	\frametitle{Sub-classes of Problems: Curvature}
 	\bcol[c]
 	\col
 	\bc
 	\uncover<+->{
 	\begin{minipage}[t]{0.9\textwidth}
-		\alert{Curviness} of functions:\\
+		\alert{Curvature} of functions:\\
 		$\cK \subset \R^d$ \\
 		convex, closed, non-empty.\\
 	    Bregman divergence:
@@ -268,7 +267,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-	\frametitle{Subclasses of Problems: Noise}
+	\frametitle{Sub-classes of Problems: Noise}
 	\alert{Noisy} bandit feedback:
 	Recall $f(X) = \EE{ F(X,\xi) }$.
 
@@ -291,11 +290,8 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\section{The State-of-the-Art for Noisy Bandit Convex Optimization}
+\section{The State of the Art for Noisy Bandit Convex Optimization}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}{Outline}
 \tableofcontents[currentsection]
 \end{frame}
@@ -310,10 +306,10 @@
             \node[fill=red!20,anchor=base] (t1)
             {Optimal rate: $\Delta_n = \tilde{O}(\sqrt{1/n})$.};}	
 	\end{align*}	
-	\item But it is \textbf{non-constructive}!   \citep{BubeckDKP15}
+	\item But it is \textbf{non-constructive}.   \citep{BubeckDKP15}
 	\item Two approaches to this problem:
 		\bi
-		\item \alert{``Gradient'' Method}: try to construct gradient information with noisy bandit feedback
+		\item \alert{``Gradient''-based Method}: try to construct gradient estimates with noisy bandit feedback
 		\item \alert{Ellipsoid Method}: avoid gradient estimation and rather use  geometric principles
 		\ei
 	\ei
@@ -327,11 +323,11 @@
 	\col[0.1\textwidth]
 	\col[0.9\textwidth]
 
-	\uncover<+->{``Gradient'' method}
+	\uncover<+->{``Gradient''-based method}
 	\bigskip
 	\bigskip
 	
-	\uncover<+->{$\Delta_n \le C \sqrt{d^2/n}$.}
+	\uncover<+->{$\Delta_n \le C \sqrt{d^2/n}$ for optimization.}
 
 	\bigskip
 	\bigskip
@@ -362,7 +358,7 @@
 
 \bigskip
  
-\uncover<+->{``Gradient'' methods: {(\footnotesize \citet{NeYu83}, Section 9.3)}}
+\uncover<+->{``Gradient''-based methods: {(\footnotesize \citet{NeYu83}, Section 9.3)}}
 \bi
 \item
 	\textbf{Convex}: -- $\qquad (d^2/n)^{1/4}$\\
@@ -388,15 +384,86 @@ Lower bound: $\alert{\sqrt{d^2/n}}$  \citep{shamir2012complexity}.
 	\item Ellipsoid method: actual scaling with the dimension $d$ is extremely poor
 	\bigskip
 	\bigskip
-	\item ``Gradient'' method: 
+	\item ``Gradient''-based method: 
 		\bi
 		\item Better gradient estimates?
 		\bigskip
-		\item {\color{darkgreen}\textbf{A ``clever'' gradient method?}} Make better use of gradient estimates?
+		\item {\color{darkgreen}\textbf{A ``clever'' gradient-based method?}} Make better use of gradient estimates?
 		\ei
 	\bigskip
 	\bigskip
 	\item $\cdots$
+	\ei
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Oracle Model: Biased, Noisy Gradient Oracles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+	\frametitle{Gradient Oracle Models}
+	
+	\bc
+	\includegraphics[width=\textwidth]{figs/oracle}
+
+	\ec	
+	\bi
+	\item The oracle receives the loss function $f$ from the environment
+	\item The algorithm selects the query point $X \subset \cK$, and a \alert{\emph{tolerance parameter}} $\delta > 0$
+	\item The oracle gives a \alert{noisy} and potentially \alert{biased} estimate $G \subset \mathbb{R}^d$ of the gradient (or sub-gradient) of $f$
+	\item In online setting, the oracle also gives a point $Y$ in the vicinity of $X$, incurring the loss $f(Y)$
+	\ei
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+	\frametitle{Bias-Variance Trade-off}
+	\bc
+	\includegraphics[width=\textwidth]{figs/oracle}
+	\ec	
+	Assumptions about the gradient estimate $G$:	
+	\bigskip
+	\begin{enumerate}
+\item Bias: $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $; and
+\item Variance: $\EE{\norm{ G -\EE{G} }_*^2} \le c_2(\delta)$.
+\end{enumerate}
+
+
+\bc
+	\uncover<+->{
+$(c_1, c_2)$, $(p,q)$ Polynomial Oracle:\\
+ $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q\ge 0$.}
+	\bigskip
+\if0
+	\uncover<+->{
+Controlled noise: $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2$.}
+
+	\uncover<+->{
+Uncontrolled noise:  $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2 \delta^{-2}$.}
+\fi
+\ec
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+	\frametitle{What Can Oracle Models Do? }
+	\bi
+	\item Extracting the bias-variance trade-off from gradient estimation techniques
+	\bigskip
+	\item Reproducing state-of-the-art results in a unified framework: ``gradient'' approaches essentially using gradient estimates and first-order methods
+	\bigskip
+	\item  Providing \textbf{lower bounds} on the minimax optimization error (or regret)
+		\bi
+		\item For smooth, convex functions: $\Delta^*_n = \Theta(n^{-\frac{p}{2p+q}})$
+		\item When $p=q=2$, CANNOT surpass the sub-optimal rate $\Theta(n^{-1/3})$
+		\ei
 	\ei
 }
 
@@ -453,7 +520,8 @@ Lower bound: $\alert{\sqrt{d^2/n}}$  \citep{shamir2012complexity}.
 }
 
 	\uncover<+->{ 
-	Assumption: $\EE{ \xi^{\pm} } = 0$, $\EE{ (\xi^{\pm})^2 } \le \sigma^2 <+\infty$.}
+	Assumption: $\EE{ \xi^{\pm} } = 0$, $\EE{ (\xi^{\pm})^2 } \le \sigma^2 <+\infty$.\\
+	For controlled noise, $\xi^+ = \xi^-$.}
 		
 	\uncover<+->{ Note: $\tilde{g}_i = g_i + \dfrac{\xi_i^+ - \xi_i^-}{2\delta}$, $\EE{ \tilde{g}_i } = g_i$.}
 	
@@ -464,11 +532,11 @@ Lower bound: $\alert{\sqrt{d^2/n}}$  \citep{shamir2012complexity}.
             {$\norm{ \EE{\tilde{g}} - \nabla f(x) }_2=\norm{ g - \nabla f(x) }_2 = O(\sqrt{d} \alert{\delta^2} )\,.$ };}	
 						\end{align*}}		
 	
-	\uncover<+->{ \alert{Second moment}: $\EE{\tilde{g}_i^2} = g_i^2 + \frac{2\sigma^2}{4 \delta^2} $}
+	\uncover<+->{ \alert{Variance}: $\EE{\tilde{g}_i^2} = g_i^2 + \frac{2\sigma^2}{4 \delta^2} $, $\EE{ \norm{\tilde{g}-\EE{\tilde{g}}}_2^2 } = \EE{ \norm{\tilde{g}}_2^2 } - \norm{g}_2^2$  }
 	
 	\bi
-	\item \emph{Controlled:} $	\EE{ \norm{\tilde{g}}_2^2 } = \norm{g}_2^2\,.$
-	\item \emph{Uncontrolled:} $	\EE{ \norm{\tilde{g}}_2^2 } = \norm{g}_2^2 + O\left( \frac{d}{\alert{\delta^2}} \right)\,.$
+	\item \emph{Controlled:} $	\EE{ \norm{\tilde{g}-\EE{\tilde{g}}}_2^2 } = 0\,.$
+	\item \emph{Uncontrolled:} $	\EE{ \norm{\tilde{g}-\EE{\tilde{g}}}_2^2 } =O\left( \frac{d}{\alert{\delta^2}} \right)\,.$
 	\ei
 \end{small}	
 }
@@ -573,7 +641,7 @@ Lower bound: $\alert{\sqrt{d^2/n}}$  \citep{shamir2012complexity}.
 		\ei
 	\bigskip
 	\bigskip
-	\item For $d$-dimensions: $\nabla f(x) = \dfrac{df}{dx_1}(x), \cdots,  \dfrac{df}{dx_d}(x)$
+	\item For $d$-dimensions: $\nabla f(x) = \left( \dfrac{df}{dx_1}(x), \cdots,  \dfrac{df}{dx_d}(x) \right)^\top$
 	\bigskip
 	\bigskip
 	\item Vector calculus: Gauss-Ostrogradsky theorem or the divergence theorem
@@ -635,57 +703,39 @@ Lower bound: $\alert{\sqrt{d^2/n}}$  \citep{shamir2012complexity}.
 	\bc
 	\textbf{Does it matter which of these we select? Not really:}\\
 	when $ f\in \cC^3$,\\ 
-	Bias: $O(\delta^2)$, second moment: $O(1)$ or $O(\delta^{-2})$.
+	Bias: $O(\delta^2)$, variance: $O(1)$ or $O(\delta^{-2})$.
 	\ec
 	}
 
 }
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Oracle Model: Biased, Noisy Gradient Oracles}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Outline}
-\tableofcontents[currentsection]
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-	\frametitle{Gradient Estimation Oracles}
+	\frametitle{Summary}
+	Recall assumptions of the gradient oracle:\\
+	 Bias: $\norm{ \EE{G}  - \nabla f(x)  }_* \le C_1 \delta^p $;\\
+	 Variance: $\EE{\norm{ G -\EE{G} }_*^2} \le C_2 \delta^{-q}$.
 	
-	\bc
-	\includegraphics[width=\textwidth]{figs/oracle0}
-
-	\ec	
-	
-
-\begin{enumerate}[<+->]
-\item Bias: $\norm{ \EE{G}  - \nabla f(x)  }_* \le c_1(\delta) $; and
-\item Second moment: $\EE{\norm{ G  }_*^2} \le c_2(\delta)$.
-\end{enumerate}
-
-
-\bc
-	\uncover<+->{
-Polynomial oracle: $c_1(\delta) = C_1 \delta^p$, $c_2(\delta) = C_2 \delta^{-q}$, $p,q\ge 0$.}
-	\bigskip
-
-	\uncover<+->{
-Controlled noise: $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2$.}
-
-	\uncover<+->{
-Uncontrolled noise:  $c_1(\delta) = C_1\delta^2$, $c_2(\delta) = C_2 \delta^{-2}$.}
-
-%%%GYA: mention what matters is p/q
-
-\ec
-
-
+	\bi
+	\item Controlled noise (or noise-free observations):
+	\bigskip		
+		\bi
+		\item Bias:	 $\qquad \quad O(\delta^2)$	
+		\item Variance: $\quad O(1)$
+		\item $p=2$, $q=0$
+		\ei
+	\bigskip		
+	\item Uncontrolled noise:
+		\bi
+	\bigskip		
+		\item Bias: $\qquad \quad O(\delta^2)$	
+		\item Variance: $\quad O(\delta^{\alert{-2}})$
+		\item $p=2$, $q=2$
+		\ei
+	\ei
 
 }
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -763,7 +813,7 @@ First holds iff $q=0$. Second holds iff $p\ge q$.\\
 }
 
 \frame{
-	\frametitle{Recoverinf State-of-the-art Results}
+	\frametitle{Recovering State-of-the-art Results}
 \uncover<+->{
 Recall:\vspace*{-0.2in}
 \begin{align*}
@@ -856,7 +906,7 @@ Compare with $O( n^{- \frac{p}{2p+q} } )$ and $O(n^{-\frac{2p}{2p+\alert{2}q}})$
 	\ec
 	\col[0.55\textwidth]
 	\bi
-	\item	Construct two loss functions: noisy gradient estimates are \alert{so close} that they can \textbf{NOT} be distinguished.
+	\item	Construct two loss functions: noisy gradient estimates are \alert{so close} that they \textbf{CANNOT} be distinguished.
 
  \item Choose $\epsilon \left| x-v \right|$, where $v \in \{-1,+1\}$.
 
