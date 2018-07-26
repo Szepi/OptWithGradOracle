@@ -1,4 +1,4 @@
-%!TEX root =  bgo-cam-ready.tex
+%!TEX root =  bgo-jmlr.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 In the \emph{online BCO} setting a learner sequentially chooses the points $X_1,\dots,X_n\in \cK$ while observing the losses $f_1(X_1),\dots,f_n(X_n)$. More specifically, in round $t$, having observed $f_1(X_1),\dots,f_{t-1}(X_{t-1})$ of the previous rounds, the learner chooses $X_t\in \cK$, after which it observes $f_t(X_t)$. The learner's goal is to minimize its expected regret $\EE{ \sum_{t=1}^n f_t(X_t) - \inf_{x\in \cK} \sum_{t=1}^n f_t(x) }$. 
 This problem is also called online convex optimization with one-point feedback.
@@ -23,7 +23,10 @@ With a noisy gradient oracle of \cref{prop:flaxman}, \cref{thm:aaa} implies that
 For zeroth order noisy optimization with smooth convex functions, the gradient estimator of \cref{prop:flaxman} together with mirror descent (see \cref{alg}) achieve $\O(n^{2/3})$ regret.
 \end{theorem}
 %\vspace{-0.2cm}
-This ``optimality result'' shows that with the usual analysis of the current gradient estimation techniques, no gradient method can achieve the optimal regret $O(n^{1/2})$ for online bandit convex optimization, established by \citet{BubeckDKP15,BuEl15}. Note that \cref{thm:aaa} contradicts the recent result of \citet{DeElKo15}, who claimed to achieve $\tilde{O}(n^{5/8})$ regret with the same $(\delta^2,\delta^{-2})$ type-II gradient oracle as \citet{saha2011improved}, but their proof only used the $(\delta^2,\delta^{-2})$ tradeoff in the bias and variance properties of the oracle.\todoa{Actually, all these proofs use Type-IIb oracles....}
+This ``optimality result'' shows that with the usual analysis of the current gradient estimation techniques, no gradient method can achieve the optimal regret $O(n^{1/2})$ for online bandit convex optimization, established by \citet{BubeckDKP15,BuEl15}. Note that \cref{thm:aaa} contradicts the recent results of \citet{DeElKo15,YaMo16}, who claimed to achieve $\tilde{O}(n^{5/8})$ and, resp., $\tilde{O}(n^{8/13})$ regret with the same $(\delta^2,\delta^{-2})$ type-II gradient oracle as \citet{saha2011improved}, but their proof only used the $(\delta^2,\delta^{-2})$ tradeoff in the bias and variance properties of the oracle.\todoa{Actually, all these proofs use Type-IIb oracles....}
+A thorough inspection of their proofs reveals that Lemma~11 of \citet{DeElKo15} and Lemma~6 of \citet{YaMo16} is incorrect.%
+\footnote{Using the notation of \citet{DeElKo15}, in Lemma~11 they used the equation $\E[\hat{g}_{t-i}^T(x_{t-i} - x_t)] = \E[\nabla \hat{f}_{t-i} (x_{t-i})^T(x_{t-i} - x_t)]$, where $\hat{g}_{t-i}$ is the estimated gradient at time $t-i$, $x_t$ is the prediction of their algorithm at time $t$, and $\hat{f}_t$ is an approximate loss function at time t. Since since $x_t$ depends on the randomness at time $t-i$, although $\E[\hat{g}_{t-i}] = \nabla \hat{f}_{t-i} (x_{t-i})$, the previous equality does not hold. A similar mistake also appears in Lemma~6 of \citet{YaMo16} (the error is in the last displayed equation in the proof of the lemma).}
+Our attempts to correct their proofs lead to $O(n^{2/3})$ regret, in agreement with our lower bound presented in \cref{thm:aaa}.
 
 
 
@@ -31,5 +34,5 @@ This ``optimality result'' shows that with the usual analysis of the current gra
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "bgo"
+%%% TeX-master: " bgo-jmlr"
 %%% End:
