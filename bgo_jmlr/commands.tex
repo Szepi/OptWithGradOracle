@@ -1,4 +1,4 @@
-%!TEX root =  bgo-cam-ready.tex
+%!TEX root =  bgo-jmlr.tex
 % please do not delete or change the first line (needed by Csaba's editor)
 
 %%%%%%%%%%%%%%%%%%%% Added for arxiv report %%%%%%%%%%%%%%%%%%%%%
@@ -31,10 +31,6 @@
     urlcolor=cyan           % color of external links
 }
 \usepackage{ntheorem}
-% N.B. CLEVEREF MUST BE LOADED; AFTER HYPERREF
-\usepackage[capitalize]{cleveref}
-\newtheorem{ass}{Assumption}
-\crefname{ass}{Assumption}{Assumptions}
 
 \usepackage{jmlr2e}% use Times
 %\usepackage[T1]{fontenc}
@@ -68,6 +64,13 @@
 \usepackage{paralist}
 \usepackage{xspace}
 \usepackage{sidecap}
+
+% N.B. CLEVEREF MUST BE LOADED; AFTER HYPERREF
+% AND AMSMATH
+\usepackage[capitalize]{cleveref}
+\newtheorem{ass}{Assumption}
+\crefname{ass}{Assumption}{Assumptions}
+
 
 \usepackage{subfigure}
 %\usepackage[bf]{caption}
