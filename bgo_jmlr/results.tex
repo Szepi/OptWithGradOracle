@@ -206,24 +206,25 @@ $$\Delta_n^*(\mu \F, c_1,c_2) = \mu \Delta_n^*\left(\F, c_1/\mu,c_2/\mu^2\right)
 \centering
  \begin{tabular}{|c|c|c|c|c|}
 % \begin{tabular}{||*5{>{\columncolor[gray]{.9}}c}||}
-\toprule
+\hline
 % \rowcolor{gray!20}
 % \multicolumn{3}{|c|}{\multirow{2}{*}{\textbf{Lower bounds}}}\\[1.7em]
 % \midrule
-  \multirow{2}{*}{\textbf{Type-I Oracle}} & \multicolumn{2}{c}{\multirow{2}{*}{\textbf{Convex + Smooth}}} & \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Strongly Convex + Smooth}}} \\[1em]
- \midrule
+  \multirow{2}{*}{\textbf{Type-I Oracle}} & \multicolumn{2}{c}{\textbf{Convex + Smooth}} & \multicolumn{2}{|c|}{\textbf{Strongly Convex + Smooth}} \\[1em]
+ \cline{2-5}
 % \rowcolor{gray!20}
  & \textbf{Upper bound} & \textbf{Lower bound} & \textbf{Upper bound} & \textbf{Lower bound}\\
- \midrule
-\textbf{ $\delta$-bias, $\delta^{-2}$-variance} & \multirow{2}{*}{$\left(\dfrac{C_1^{2}C_2 D^2}{n}\right)^{1/4}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$}& \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2 D}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1^2 C_2}{ n}\right)^{1/2}$} \\[0.5ex]
- ($p=1$, $q=2$) & & & &\\\midrule
+ \hline
+\makecell{\\[-1.8em] \textbf{ $\delta$-bias, $\delta^{-2}$-variance} \\ ($p=1$, $q=2$) \\[0.2em]}& $\left(\dfrac{C_1^{2}C_2 D^2}{n}\right)^{1/4}$ & $\left(\dfrac{C_1^2 C_2 d^2}{n}\right)^{1/4}$ & $\left(\dfrac{C_1^2 C_2 D}{n}\right)^{1/3}$  & $\left(\dfrac{C_1^2 C_2}{ n}\right)^{1/2}$ \\
+ %($p=1$, $q=2$) & & & &\\[2em]
+ \hline
 %%%%%%%%%%%%%%%%%%%
-\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{D^3}}{n}\right)^{1/3}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$} & \multirow{2}{*}{$\left(\dfrac{C_1 C_2\sqrt{D}}{n}\right)^{1/2}$}  & \multirow{2}{*}{$\left(\dfrac{C_1 C_2 }{ n}\right)^{2/3}$}\\[1.4ex]
- ($p=2$, $q=2$) & & & &\\
+\makecell{\\[-0.6em]\textbf{$\delta^2$-bias, $\delta^{-2}$-variance } \\[0.2em]  ($p=2$, $q=2$) \\[0.4em]}& $\left(\dfrac{C_1 C_2 \sqrt{D^3}}{n}\right)^{1/3}$  & $\left(\dfrac{C_1 C_2 \sqrt{d^3}}{n}\right)^{1/3}$ & $\left(\dfrac{C_1 C_2\sqrt{D}}{n}\right)^{1/2}$  & $\left(\dfrac{C_1 C_2 }{ n}\right)^{2/3}$\\
+ %($p=2$, $q=2$) & & & &\\[100em]
   %\midrule
  %\textbf{No bias or variance} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$} & \multirow{2}{*}{$\dfrac{d}{\sqrt{n}}$}  & \multirow{2}{*}{$\left(\dfrac{d^2}{n}\right)^{1/2}$}  \\[0.5ex]
  %($C_1=0$, $C_2=0$) & & & &\\
-\bottomrule
+\hline
 %%%%%%%%%%%%%%%%
 \end{tabular}
 \caption{Summary of upper and lower bounds on the minimax optimization error for different smooth function classes and  gradient oracles for the settings of \cref{thm:ub} and \cref{thm:lb-convex}. Note that when $\cR$ is the squared norm and $\K$ is the hypercube (as in the lower bounds), $D=\Theta(d)$ in the upper bounds and also that $C_1$, $C_2$ may hide dimension-dependent quantities for the common gradient estimators, as will be discussed later.
