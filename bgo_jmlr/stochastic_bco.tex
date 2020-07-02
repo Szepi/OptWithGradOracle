@@ -158,20 +158,20 @@ The other two options are either the controlled noise  setting of \eqref{eq:cont
 \small
 \centering
 \begin{tabular}{|c|c|c|}
-\toprule
+\hline
 \textbf{Noise }$\bm{ \rightarrow}$ & \textbf{Controlled } & \textbf{Uncontrolled } \\
 \textbf{Function } &(see~\eqref{eq:controlled})&(see~\eqref{eq:noiseass})\\
-$\bm{\downarrow}$ &&\\\midrule
-\multirow{3}{*}{\textbf{Convex + Smooth}} 
-	& \multirow{3}{*}{$(C_1 \delta, C_2)$} 
-	& %\multirow{2}{*}
-		{Props~\ref{prop:grad-onepoint},\ref{prop:grad-spsa}: $(C_1\delta, \frac{C_2}{\delta^2}) $}\\
-&& \\
- &&{\cref{prop:flaxman}: $(C'_1\delta^2, \frac{C_2}{\delta^2}) $}\\\midrule
-\multirow{2}{*}{$\bm{f \in \C^3}$} 
+$\bm{\downarrow}$ &&\\\hline
+\textbf{Convex + Smooth}
+	& $(C_1 \delta, C_2)$
+	& \makecell{ \\[-0.8em] Propositions~\ref{prop:grad-onepoint},\ref{prop:grad-spsa}: $(C_1\delta, \frac{C_2}{\delta^2})$\\[0.2em] \cref{prop:flaxman}: $(C'_1\delta^2, \frac{C_2}{\delta^2})$ \\[0.2em]}
+\\
+ %&&{\cref{prop:flaxman}: $(C'_1\delta^2, \frac{C_2}{\delta^2}) $}\\
+ \hline
+ \multirow{2}{*}{$\bm{f \in \C^3}$} 
 	& \multirow{2}{*}{$(C_1 \delta^2, \frac{C_2}{\delta^2})$} 
-	& \multirow{2}{*}{Props~\ref{prop:grad-onepoint},\ref{prop:grad-spsa}: $(C_1 \delta^2, \frac{C_2}{\delta^2})$} \\
- &&\\\bottomrule
+	& \multirow{2}{*}{Propositions~\ref{prop:grad-onepoint},\ref{prop:grad-spsa}: $(C_1 \delta^2, \frac{C_2}{\delta^2})$} \\
+ &&\\\hline
 \end{tabular}
 \caption{Gradient oracles for different function classes and noise categories. %Each table entry specifies the pair $(c_1(\delta), c_2(\delta))$, with 
 The constants $C_1, C'_1, C_2$ are defined in Propositions~\ref{prop:grad-onepoint}--\ref{prop:grad-spsa}.
